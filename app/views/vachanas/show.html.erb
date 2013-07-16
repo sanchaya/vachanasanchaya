@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @vachana.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @vachana.description %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @vachana.author %>
+</p>
+
+
+<%= link_to 'Edit', edit_vachana_path(@vachana) %> |
+<%= link_to 'Back', vachanas_path %>

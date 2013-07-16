@@ -1,0 +1,2 @@
+module VachanasHelper
+end
