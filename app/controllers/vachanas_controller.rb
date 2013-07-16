@@ -2,8 +2,11 @@ class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
   def index
-    @vachanas = Vachana.all
-
+    debugger
+    if params[:vachana]
+      @pada = params[:vachana]
+      @vachanas = Vachana.search_vachana_pada(@pada)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @vachanas }
