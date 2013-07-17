@@ -1,12 +1,13 @@
 <%= form_tag vachanas_path, method: :get do %>
-<%= text_field_tag :vachana %>
+<%= text_field_tag :vachana, params[:vachana] %>
 <%= submit_tag "Search" %>
 <% end %>
 
 <% if @vachanas %>
 <% @vachanas.each do |vachana| %>
-<%= vachana.name %>
-<%= vachana.description %>
+<%= link_to vachana.first.name, vachana.first %>
+<%= vachana.first.description %> 
+(<%= vachana.second %> )<br />
 <% end %>
 <% end %>
 
