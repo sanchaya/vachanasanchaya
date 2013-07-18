@@ -4,12 +4,12 @@
 <% end %>
 
 <% if @vachanas and !@vachanas.blank? %>
-Total Counts = <%= @total_counts %> <br />
+Total number of times used = <%= @total_counts %> <br />
 
 <% @vachanas.each do |vachana| %>
 <%= link_to vachana.first.name, vachana.first %>
-<%= vachana.first.description %> 
-(<%= vachana.second %> )<br />
+<p class="heighlight"> <%= vachana.first.description %> (<%= vachana.second %> ) </p>
+<br />
 <% end %>
 <% end %>
 
