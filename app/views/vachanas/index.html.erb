@@ -3,7 +3,9 @@
 <%= submit_tag "Search" %>
 <% end %>
 
-<% if @vachanas %>
+<% if @vachanas and !@vachanas.blank? %>
+Total Counts = <%= @total_counts %> <br />
+
 <% @vachanas.each do |vachana| %>
 <%= link_to vachana.first.name, vachana.first %>
 <%= vachana.first.description %> 
@@ -11,3 +13,14 @@
 <% end %>
 <% end %>
 
+<script type='text/javascript'>
+
+jQuery(function(){
+		var options = {
+			exact:"partial",
+			keys: "<%= params[:vachana] %>"
+		}
+		jQuery(document).SearchHighlight(options);
+	});
+
+</script>

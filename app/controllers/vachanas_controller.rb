@@ -5,6 +5,8 @@ class VachanasController < ApplicationController
     if params[:vachana]
       @pada = params[:vachana]
       @vachanas = Vachana.search_vachana_pada(@pada)
+      counts = @vachanas.values
+      @total_counts = counts.inject{|sum,x| sum + x }
     end
     respond_to do |format|
       format.html # index.html.erb
