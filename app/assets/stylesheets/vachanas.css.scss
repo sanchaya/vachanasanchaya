@@ -5,9 +5,26 @@
 
 
 p span.hilite1 {
-background:yellow;
+background:#3A87AD;
 font-family: arial;
     font-size: 15px;
     font-weight: bold;
+     color: white;
     }
 
+.vacha_lists{
+ height: 500px;
+    overflow-y: auto;
+    width: 600px;
+    }
+
+    .word_lists{
+height: 500px;
+    overflow-y: auto;
+
+    }
+
+    .vachana_search_form{
+
+        text-align: center;
+    }

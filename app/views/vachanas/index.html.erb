@@ -1,27 +1,38 @@
+
 <div class="vachana_search_form">
-<%= form_tag vachanas_path, method: :get do %>
-<%= text_field_tag :vachana, params[:vachana] %>
-<%= submit_tag "Search" %>
+<%= form_tag vachanas_path,method: :get do %>
+<%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
+<%= submit_tag "Search", :class => 'btn btn-primary' %>
 <% end %>
 </div>
+
+
+<div class="span3">
+
 
 <div class="word_lists">
+	<table class="table table-striped">
+		<tbody>
 <% @word_lists.each do |word| %>
-<%=link_to word.name, vachanas_path(vachana: word.name) %> <br />
+<tr> 
+<td> <%= link_to word.name, vachanas_path(vachana: word.name) %> </td>
+</tr>
 <% end %>
+</tbody>
+</table>
 </div>
-
+    </div>
+    <div class="span6">
 <% if @vachanas and !@vachanas.blank? %>
-Total number of times used = <%= @total_counts %> <br />
+Total count = <span class="badge badge-info"><%= @total_counts %></span>  
 <div class="vacha_lists">
 <% @vachanas.each do |vachana| %>
-<%= link_to vachana.first.author, vachana.first %>
-<p class="heighlight"> <%= vachana.first.description %> (<%= vachana.second %> ) </p>
-<br />
+<%= link_to vachana.first.author, vachana.first,class: "btn btn-mini " %>
+<p class="heighlight text-left"> <%= vachana.first.description %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
 <% end %>
 </div>
 <% end %>
-
+</div>
 
 
 <script type='text/javascript'>

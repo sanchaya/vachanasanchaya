@@ -7,8 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
 
+	<div class="navbar">
+  <div class="navbar-inner">
+    <%= link_to "Vachana", root_path, class: "brand" %>
+   
+  </div>
+</div>
+<div class="container">
 <%= yield %>
+</div>
 
 </body>
 </html>
