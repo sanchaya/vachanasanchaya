@@ -14,3 +14,7 @@
 /log/*.log
 /tmp
 config/database.yml
+capfile
+config/deploy.rb
+
+

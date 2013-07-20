@@ -1,0 +1,5 @@
+<% @word_lists.each do |word| %>
+<%= word.name %>
+<% end %>
+
+<%= link_to "Home", root_path %> | <%= link_to "new word", new_word_list_path %>

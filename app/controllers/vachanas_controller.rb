@@ -2,6 +2,7 @@ class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
   def index
+    @word_lists = WordList.all
     if params[:vachana]
       @pada = params[:vachana]
       @vachanas = Vachana.search_vachana_pada(@pada)

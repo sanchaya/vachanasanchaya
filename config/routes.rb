@@ -1,5 +1,6 @@
 KannadaVachana::Application.routes.draw do
   resources :vachanas
+  resources :word_lists
 root :to => "vachanas#index"
 
   # The priority is based upon order of creation:

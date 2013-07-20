@@ -1,17 +1,28 @@
+<div class="vachana_search_form">
 <%= form_tag vachanas_path, method: :get do %>
 <%= text_field_tag :vachana, params[:vachana] %>
 <%= submit_tag "Search" %>
 <% end %>
+</div>
+
+<div class="word_lists">
+<% @word_lists.each do |word| %>
+<%=link_to word.name, vachanas_path(vachana: word.name) %> <br />
+<% end %>
+</div>
 
 <% if @vachanas and !@vachanas.blank? %>
 Total number of times used = <%= @total_counts %> <br />
-
+<div class="vacha_lists">
 <% @vachanas.each do |vachana| %>
-<%= link_to vachana.first.name, vachana.first %>
+<%= link_to vachana.first.author, vachana.first %>
 <p class="heighlight"> <%= vachana.first.description %> (<%= vachana.second %> ) </p>
 <br />
 <% end %>
+</div>
 <% end %>
+
+
 
 <script type='text/javascript'>
 
