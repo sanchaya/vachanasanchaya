@@ -1,20 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @vachana.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @vachana.description %>
-</p>
-
-<p>
-  <b>Author:</b>
-  <%= @vachana.author %>
-</p>
 
 
-<%= link_to 'Edit', edit_vachana_path(@vachana) %> |
-<%= link_to 'Back', vachanas_path %>
+
+
+
+<h1><%= @vachana.author %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+   
+      <tr>
+        <td><%= @vachana.description %></td>
+        
+        
+      </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> |
+<%= link_to 'Back', :back, :class => 'btn btn-primary' %>

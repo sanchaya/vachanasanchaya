@@ -1,6 +1,6 @@
 
 <div class="vachana_search_form">
-<%= form_tag vachanas_path,method: :get do %>
+<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
 <%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
 <%= submit_tag "Search", :class => 'btn btn-primary' %>
 <% end %>
@@ -45,4 +45,15 @@ jQuery(function(){
 		jQuery(document).SearchHighlight(options);
 	});
 
+
+
+function validateSearchForm()
+{
+var x=document.forms["search_vachana"]["vachana"].value;
+if (x==null || x=="")
+  {
+  alert("Please enter any word to search");
+  return false;
+  }
+}
 </script>
