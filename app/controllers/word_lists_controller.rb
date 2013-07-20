@@ -6,14 +6,24 @@ class WordListsController < ApplicationController
 
 	def new
 		@word_list = WordList.new
+		respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @word_list }
+    end
 	end
+
 	def create
 		@word_list = WordList.new(params[:word_list])
-		if @word_list.save 
-			flash[:notice] = "sucess"
-			redirect_to word_lists_path
-		else
-			render "new"
+
+		respond_to do |format|
+      if @word_list.save
+        format.html { redirect_to word_lists_path, notice: 'Word was successfully created.' }
+        format.json { render json: @word_list, status: :created, location: @word_list }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @word_list.errors, status: :unprocessable_entity }
+      end
+
 		end
 	end
 end
