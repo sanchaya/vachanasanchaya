@@ -2,7 +2,8 @@ class Vachana < ActiveRecord::Base
   attr_accessible :author, :description, :name
 
   def self.search_vachana_pada(pada)
-  vachanas=	where("description like ?", "%#{pada}%" )
+  # vachanas=	where("description like ?", "%#{pada}%" )
+  vachanas= where("description RLIKE ?","[[:<:]]#{pada}[[:>:]]" )
   @results = {}
   vachanas.each do |vachana|
   	words = vachana.description.split

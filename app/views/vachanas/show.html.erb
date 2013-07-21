@@ -15,7 +15,7 @@
   <tbody>
    
       <tr>
-        <td><%= @vachana.description %></td>
+        <td><%= raw @vachana.description.gsub(/\n/, '<br />') %></td> <!-- or we can use simple_format() rails helper -->
         
         
       </tr>
