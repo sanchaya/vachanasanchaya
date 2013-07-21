@@ -1,9 +1,18 @@
 
 <div class="vachana_search_form">
+<% if @total_counts %>
+<div class=" total_count"> <p class="btn">  Total count = <span class="badge badge-info"><%= @total_counts %></span> </p>  </div>
+<% end %>
+
+	<div class="search_box">
 <%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
 <%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
+Exact:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "like_search" ? false : true %>
+Like:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "like_search" ? true : false %>
 <%= submit_tag "Search", :class => 'btn btn-primary' %>
 <% end %>
+</div>
+
 </div>
 
 
@@ -15,7 +24,7 @@
 		<tbody>
 <% @word_lists.each do |word| %>
 <tr> 
-<td> <%= link_to word.name, vachanas_path(vachana: word.name) %> </td>
+<td> <%= link_to word.name, vachanas_path(vachana: word.name), class: 'btn btn-link' %> </td>
 </tr>
 <% end %>
 </tbody>
@@ -24,11 +33,11 @@
     </div>
     <div class="span6">
 <% if @vachanas and !@vachanas.blank? %>
-Total count = <span class="badge badge-info"><%= @total_counts %></span>  
+
 <div class="vacha_lists">
 <% @vachanas.each do |vachana| %>
 <%= link_to vachana.first.author, vachana.first,class: "btn btn-mini " %>
-<p class="heighlight text-left"> <%= vachana.first.description %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
+<p class="heighlight text-left"> <%= raw vachana.first.description.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
 <% end %>
 </div>
 <% end %>

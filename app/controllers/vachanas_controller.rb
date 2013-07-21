@@ -5,7 +5,8 @@ class VachanasController < ApplicationController
     @word_lists = WordList.all
     if params[:vachana]
       @pada = params[:vachana]
-      @vachanas = Vachana.search_vachana_pada(@pada)
+      @search_type = params[:search_type]
+      @vachanas = Vachana.search_vachana_pada(@pada,@search_type)
       counts = @vachanas.values
       @total_counts = counts.inject{|sum,x| sum + x }
       flash[:notice] = "Got #{@total_counts ? @total_counts: "0"} #{'result'.pluralize(@total_counts)} for #{@pada}"

@@ -16,6 +16,7 @@ font-family: arial;
  height: 500px;
     overflow-y: auto;
     width: 600px;
+    margin-left: 40px;
     }
 
     .word_lists{
@@ -27,4 +28,10 @@ height: 500px;
     .vachana_search_form{
 
         text-align: center;
+    }
+
+    .total_count{
+
+     margin-left: 30px;
+    position: absolute;
     }
