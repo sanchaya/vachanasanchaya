@@ -16,5 +16,7 @@
 config/database.yml
 capfile
 config/deploy.rb
+db/vachana_db.sqlite
+
 
 
