@@ -7,9 +7,9 @@ class VachanasController < ApplicationController
       @pada = params[:vachana]
       @search_type = params[:search_type]
       @vachanas = Vachana.search_vachana_pada(@pada,@search_type)
-      counts = @vachanas.values
-      @total_counts = counts.inject{|sum,x| sum + x }
-      flash[:notice] = "Got #{@total_counts ? @total_counts: "0"} #{'result'.pluralize(@total_counts)} for #{@pada}"
+      @counts = @vachanas.values
+      @total_counts = @counts.inject{|sum,x| sum + x }
+      # flash[:notice] = "Got #{@total_counts ? @total_counts: "0"} #{'result'.pluralize(@total_counts)} for #{@pada}"
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +20,7 @@ class VachanasController < ApplicationController
   # GET /vachanas/1
   # GET /vachanas/1.json
   def show
-    @vachana = Vachana.find(params[:id])
+    @vachana = Vachana.find_by_vachana_id(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
