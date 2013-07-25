@@ -1,20 +1,25 @@
 
 <div class="vachana_search_form">
 <% if @total_counts %>
-<div class=" total_count"> <p class="btn">  Total count = <span class="badge badge-info"><%= @total_counts %></span> </p>  </div>
+<div class=" total_count"> <p class="btn"> 
+	ಒಟ್ಟು <span class="badge badge-info"> <%= @total_counts %> </span> 
+	 ಕಡೆಗಳಲ್ಲಿ,ಮತ್ತು
+	<span class="badge badge-info"> <%= @vachanas.count %> </span> 
+	 ವಚನಗಳಲ್ಲಿ ಈ ಪದವು ಕಂಡುಬಂದಿದೆ
+
+</p>  </div>
 <% end %>
 
 	<div class="search_box">
 <%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
 <%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
-Exact:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "like_search" ? false : true %>
-Like:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "like_search" ? true : false %>
-<%= submit_tag "Search", :class => 'btn btn-primary' %>
+ಇದರಂತೆ:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
+ಇದನ್ನು:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
+<%= submit_tag "ಹುಡುಕು", :class => 'btn btn-primary' %>
 <% end %>
 </div>
 
 </div>
-
 
 <div class="span3">
 
@@ -36,8 +41,8 @@ Like:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "
 
 <div class="vacha_lists">
 <% @vachanas.each do |vachana| %>
-<%= link_to vachana.first.author, vachana.first,class: "btn btn-mini " %>
-<p class="heighlight text-left"> <%= raw vachana.first.description.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
+<%= link_to "#{vachana.first.id} (#{vachana.first.author})", vachana.first,class: "btn btn-mini " %>
+<p class="heighlight text-left"> <%= raw vachana.first.vachana.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
 <% end %>
 </div>
 <% end %>
