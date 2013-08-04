@@ -1,7 +1,8 @@
 class Vachana < ActiveRecord::Base
   attr_accessible :author, :vachana, :name
 
-  def self.search_vachana_pada(pada,type)
+
+  def self.search_vachana_pada(pada,type,author)
   # vachanas=	where("vachana like ?", "%#{pada}%" )
   if type && type == "like_search"
   vachanas= where("vachana like ?", "%#{pada}%" )
@@ -9,6 +10,9 @@ else
   # vachanas= where("vachana RLIKE ?","[[:<:]]#{pada}[[:>:]]" ) # exact search works with mysql
   vachanas= where("vachana like ?", "%#{pada} %" )
 end
+unless author.blank?
+  vachanas = vachanas.where("author like ?", "%#{author}%" )
+  end
   @results = {}
   vachanas.each do |vachana|
   	words = vachana.vachana.split
@@ -20,6 +24,12 @@ end
   end
   return @results
   end
+
+
+  def self.vachanakaara
+    Vachana.select("DISTINCT author")
+  end
+
 
 
 end

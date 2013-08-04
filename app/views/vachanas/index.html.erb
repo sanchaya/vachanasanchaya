@@ -15,6 +15,7 @@
 <%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
 ಇದರಂತೆ:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
 ಇದನ್ನು:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
+<%= select_tag "vachanakaara", options_from_collection_for_select(@vachanakaras, "author", "author"), prompt: "ಎಲ್ಲಾ" %>
 <%= submit_tag "ಹುಡುಕು", :class => 'btn btn-primary' %>
 <% end %>
 </div>
@@ -29,7 +30,7 @@
 		<tbody>
 <% @word_lists.each do |word| %>
 <tr> 
-<td> <%= link_to word.name, vachanas_path(vachana: word.name), class: 'btn btn-link' %> </td>
+<td> <%= link_to word.name, vachanas_path(vachana: word.name, vachanakaara: ""), class: 'btn btn-link' %> </td>
 </tr>
 <% end %>
 </tbody>
