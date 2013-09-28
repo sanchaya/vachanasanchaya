@@ -1,74 +1,60 @@
 
 <div class="vachana_search_form">
-<% if @total_counts %>
-<div class=" total_count"> <p class="btn"> 
-	ಒಟ್ಟು <span class="badge badge-info"> <%= @total_counts %> </span> 
-	 ಕಡೆಗಳಲ್ಲಿ,ಮತ್ತು
-	<span class="badge badge-info"> <%= @vachanas.count %> </span> 
-	 ವಚನಗಳಲ್ಲಿ ಈ ಪದವು ಕಂಡುಬಂದಿದೆ
+	<% if @total_counts %>
+	<div class=" total_count"> <p class="btn"> 
+		ಒಟ್ಟು <span class="badge badge-info"> <%= @total_counts %> </span> 
+		ಕಡೆಗಳಲ್ಲಿ,ಮತ್ತು
+		<span class="badge badge-info"> <%= @vachanas.count %> </span> 
+		ವಚನಗಳಲ್ಲಿ ಈ ಪದವು ಕಂಡುಬಂದಿದೆ
 
-</p>  </div>
-<% end %>
+	</p>  </div>
+	<% end %>
 
 	<div class="search_box">
-<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
-<%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
-ಇದರಂತೆ:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
-ಇದನ್ನು:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
-<%= select_tag "vachanakaara", options_from_collection_for_select(@vachanakaras, "author", "author"), prompt: "ಎಲ್ಲಾ" %>
-<%= submit_tag "ಹುಡುಕು", :class => 'btn btn-primary' %>
-<% end %>
-</div>
+		<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
+		<%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
+		ಇದರಂತೆ:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
+		ಇದನ್ನು:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
+		<%= select_tag "vachanakaara", options_from_collection_for_select(@vachanakaras, "id", "name",params[:vachanakaara]), prompt: "ಎಲ್ಲಾ" %>
+		<%= submit_tag "ಹುಡುಕು", :class => 'btn btn-primary' %>
+		<% end %>
+	</div>
 
 </div>
 
-<div class="span3">
+<div class= "span3"> </div>
+<div class="span6">
+	<% if @vachanas and !@vachanas.blank? %>
 
-
-<div class="word_lists">
-	<table class="table table-striped">
-		<tbody>
-<% @word_lists.each do |word| %>
-<tr> 
-<td> <%= link_to word.name, vachanas_path(vachana: word.name, vachanakaara: ""), class: 'btn btn-link' %> </td>
-</tr>
-<% end %>
-</tbody>
-</table>
-</div>
-    </div>
-    <div class="span6">
-<% if @vachanas and !@vachanas.blank? %>
-
-<div class="vacha_lists">
-<% @vachanas.each do |vachana| %>
-<%= link_to "#{vachana.first.id} (#{vachana.first.author})", vachana.first,class: "btn btn-mini " %>
-<p class="heighlight text-left"> <%= raw vachana.first.vachana.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
-<% end %>
-</div>
-<% end %>
+	<div class="vacha_lists">
+		<% @vachanas.each do |vachana| %>
+		<%= link_to "#{vachana.first.id} (#{vachana.first.vachanakaara.name})", vachana.first,class: "btn btn-mini " %>
+		<p class="heighlight text-left"> <%= raw vachana.first.vachana.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
+		<% end %>
+	</div>
+	<% end %>
 </div>
 
 
 <script type='text/javascript'>
 
 jQuery(function(){
-		var options = {
-			exact:"partial",
-			keys: "<%= params[:vachana] %>"
-		}
-		jQuery(document).SearchHighlight(options);
-	});
+	var options = {
+		exact:"partial",
+		keys: "<%= params[:vachana] %>"
+	}
+	jQuery(document).SearchHighlight(options);
+});
 
 
 
 function validateSearchForm()
 {
-var x=document.forms["search_vachana"]["vachana"].value;
-if (x==null || x=="")
-  {
-  alert("Please enter any word to search");
-  return false;
-  }
+	var x=document.forms["search_vachana"]["vachana"].value;
+	if (x==null || x=="")
+	{
+		alert("Please enter any word to search");
+		return false;
+	}
 }
 </script>

@@ -16,12 +16,12 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :vachana %><br />
+    <%= f.text_area :vachana %>
   </div>
   <div class="field">
-    <%= f.label :author %><br />
-    <%= f.text_field :author %>
+    <%= f.label :vachanakaara %><br />
+    <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.all, "id", "name")  %>
   </div>
   <div class="actions">
     <%= f.submit %>

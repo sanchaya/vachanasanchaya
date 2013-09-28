@@ -1,5 +1,6 @@
 class Vachana < ActiveRecord::Base
-  attr_accessible :author, :vachana, :name
+  attr_accessible :author, :vachana, :name, :vachanakaara_id
+  belongs_to :vachanakaara
 
 
   def self.search_vachana_pada(pada,type,author)
@@ -11,7 +12,7 @@ else
   vachanas= where("vachana like ?", "%#{pada} %" )
 end
 unless author.blank?
-  vachanas = vachanas.where("author like ?", "%#{author}%" )
+  vachanas = vachanas.where("vachanakaara_id = ?", "#{author}" )
   end
   @results = {}
   vachanas.each do |vachana|
@@ -26,9 +27,7 @@ unless author.blank?
   end
 
 
-  def self.vachanakaara
-    Vachana.select("DISTINCT author")
-  end
+ 
 
 
 
