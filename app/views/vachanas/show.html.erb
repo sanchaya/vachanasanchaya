@@ -3,22 +3,22 @@
 
 
 
-<h1><%= @vachana.author %></h1>
+<h1><%= @vachana.vachanakaara.name %></h1>
 <table class="table table-striped">
   <thead>
     <tr>
-      
+
       <th></th>
       
     </tr>
   </thead>
   <tbody>
-   
-      <tr>
-        <td><%= raw @vachana.vachana.gsub(/\n/, '<br />') %></td> <!-- or we can use simple_format() rails helper -->
-        
-        
-      </tr>
+
+    <tr>
+      <td><%= raw @vachana.vachana.gsub(/\n/, '<br />') %></td> <!-- or we can use simple_format() rails helper -->
+
+
+    </tr>
   </tbody>
 </table>
 

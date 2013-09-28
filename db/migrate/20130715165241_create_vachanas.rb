@@ -1,12 +1,12 @@
 class CreateVachanas < ActiveRecord::Migration
-  # def change
-  #   create_table :vachanas do |t|
-  #     t.string :vachanaid
-  #     t.string :author
-  #     t.text :vachana
-  #     t.integer :authorid
+  def change
+    create_table :vachanas do |t|
+      t.integer :vachanaid
+      t.string :name
+      t.text :vachana
+      t.integer :vachanakaara_id
 
-  #     t.timestamps
-  #   end
-  # end
+      t.timestamps
+    end
+  end
 end

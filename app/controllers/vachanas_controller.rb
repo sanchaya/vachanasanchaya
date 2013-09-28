@@ -3,11 +3,11 @@ class VachanasController < ApplicationController
   # GET /vachanas.json
   def index
     @word_lists = WordList.all
-    @vachanakaras =  Vachana.vachanakaara
+    @vachanakaras =  Vachanakaara.all
     if params[:vachana]
       @pada = params[:vachana]
       @search_type = params[:search_type]
-      @vachanakaara = params[:vachanakaara].squish
+      @vachanakaara = params[:vachanakaara]
       @vachanas = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
       @counts = @vachanas.values
       @total_counts = @counts.inject{|sum,x| sum + x }
@@ -22,7 +22,7 @@ class VachanasController < ApplicationController
   # GET /vachanas/1
   # GET /vachanas/1.json
   def show
-    @vachana = Vachana.find_by_vachana_id(params[:id])
+    @vachana = Vachana.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
