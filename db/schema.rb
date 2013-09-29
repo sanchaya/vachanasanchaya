@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130928184353) do
+ActiveRecord::Schema.define(:version => 20130929175053) do
 
   create_table "vachanakaaras", :force => true do |t|
     t.string   "name"
@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(:version => 20130928184353) do
 
   create_table "word_lists", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "exact_search_count", :default => 0
+    t.integer  "like_search_count",  :default => 0
   end
 
 end
