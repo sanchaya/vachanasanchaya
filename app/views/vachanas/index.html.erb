@@ -12,7 +12,7 @@
 
 	<div class="search_box">
 		<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
-		<%= text_field_tag :vachana, params[:vachana],class: "search-query", placeholder: "Search" %>
+		<%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "ಹುಡುಕು",  autocomplete: "off", :'data-provide'=> "typeahead" %>
 		ಇದರಂತೆ:<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
 		ಇದನ್ನು:<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
 		<%= select_tag "vachanakaara", options_from_collection_for_select(@vachanakaras, "id", "name",params[:vachanakaara]), prompt: "ಎಲ್ಲಾ" %>
@@ -24,14 +24,19 @@
 
 <div class= "span3"> </div>
 <div class="span6">
-	<% if @vachanas and !@vachanas.blank? %>
-
+	<% if @vachanas %>
+	<% if @vachanas.blank?  %>
+	ಈ ಪದವು ಯಾವುದೇ ವಚನಗಳಲ್ಲಿ ದೊರಕಿಲ್ಲ
+	
+	<% else %>
 	<div class="vacha_lists">
 		<% @vachanas.each do |vachana| %>
 		<%= link_to "#{vachana.first.id} (#{vachana.first.vachanakaara.name})", vachana.first,class: "btn btn-mini " %>
 		<p class="heighlight text-left"> <%= raw vachana.first.vachana.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= vachana.second %>   </span>  </p>
 		<% end %>
 	</div>
+	<% end %>
+
 	<% end %>
 </div>
 
@@ -48,13 +53,7 @@ jQuery(function(){
 
 
 
-function validateSearchForm()
-{
-	var x=document.forms["search_vachana"]["vachana"].value;
-	if (x==null || x=="")
-	{
-		alert("Please enter any word to search");
-		return false;
-	}
-}
+var words = <%= raw WordList.pluck("name") %>;   
+$('#search-word').typeahead({source: words})  
+
 </script>

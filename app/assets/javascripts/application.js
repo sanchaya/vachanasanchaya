@@ -15,3 +15,13 @@
 //= require twitter/bootstrap
 //= require SearchHighlight
 //= require_tree .
+
+function validateSearchForm()
+{
+	var x=document.forms["search_vachana"]["vachana"].value;
+	if (x==null || x=="")
+	{
+		alert("ದಯವಿಟ್ಟು ನಿಮಗೆ ಬೇಕಾದ ಪದವನ್ನು ಇಲ್ಲಿ ಬೆರಳಚ್ಚು ಮಾಡಿ");
+		return false;
+	}
+}
