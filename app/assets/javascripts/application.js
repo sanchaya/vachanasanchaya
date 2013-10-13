@@ -23,7 +23,7 @@
 
 
 $( document ).ready( function () {
-	$( 'input, textarea, [contenteditable]' ).ime();
+	$( '#search-word' ).ime();
 } );
 
 
