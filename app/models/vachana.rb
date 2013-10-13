@@ -5,6 +5,9 @@ class Vachana < ActiveRecord::Base
 
   def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )
+    @vachanakaaras_word_count =  []
+    @vachanakaaras_name =  []
+    @vachanakaaras_total_count =  []
     if type && type == "like_search"
       vachanas= where("vachana like ?", "%#{pada}%" )
     else
@@ -25,7 +28,15 @@ class Vachana < ActiveRecord::Base
       end
       @results[vachana] = count
     end
-    return @results
+    unless vachanas.blank?
+      vachanakaaras = vachanas.select("distinct(vachanakaara_id)")
+      vachanakaaras.each do |vachana|
+        @vachanakaaras_word_count << vachanas.where("vachanakaara_id = #{vachana.vachanakaara_id}").count
+       @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
+        @vachanakaaras_name << vachana.vachanakaara.name
+      end
+    end
+    return @results, @vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count
   end
 
 

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require highcharts
+//= require exporting
 //= require rangy-core
 //= require jquery.ime
 //= require jquery.ime.selector
