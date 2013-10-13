@@ -1,4 +1,3 @@
-
 <div class="vachana_search_form">
 	<% if @total_counts %>
 	<div class=" total_count"> <p class="btn"> 
@@ -22,7 +21,7 @@
 
 </div>
 <div class= "span3"> </div>
-<div class="span6">
+<div class="span5">
 	<% if @vachanas %>
 	<% if @vachanas.blank?  %>
 	<%= t :no_vachana_found %>
@@ -39,6 +38,11 @@
 	<% end %>
 </div>
 
+<div class= "span3">
+	<% unless @vachanas.blank? %>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<% end %>
+ </div>
 
 <script type='text/javascript'>
 
@@ -54,5 +58,57 @@ jQuery(function(){
 
 var words = <%= raw WordList.pluck("name") %>;   
 $('#search-word').typeahead({source: words})  
+
+
+// high charts for graph 
+<% unless @vachanas.blank? %>
+$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '<%= t :vachana%>'
+            },
+            subtitle: {
+                text: ' '
+            },
+            xAxis: {
+                categories:  <%= raw @vachanakaaras_name %>
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '<%= t :vachanagalu %>'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '<%= "#{t :total} #{t :vachana}"   %>',
+                data: <%= raw @vachanakaaras_total_count %>
+    
+            }, {
+                name: '<%= "#{t :padaviruva} #{t :vachana}" %>',
+                data: <%= raw  @vachanakaaras_word_count %>
+    
+            }
+                    ]
+        });
+    });
+    
+<% end %>
 
 </script>
