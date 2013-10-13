@@ -13,8 +13,20 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require rangy-core
+//= require jquery.ime
+//= require jquery.ime.selector
+//= require jquery.ime.preferences
+//= require jquery.ime.inputmethods
 //= require SearchHighlight
 //= require_tree .
+
+
+$( document ).ready( function () {
+	$( 'input, textarea, [contenteditable]' ).ime();
+} );
+
+
 
 function validateSearchForm()
 {
