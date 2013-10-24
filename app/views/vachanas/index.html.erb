@@ -2,9 +2,11 @@
 	<% if @total_counts %>
 	<div class=" total_count"> <p class="btn"> 
 		<%= t :total %> <span class="badge badge-info"> <%= @total_counts %> </span> 
-		<%= "#{t :in_place} , #{t :and}" %>
+		<%= "#{t :in_place} , " %>
+<span class="badge badge-info"> <%= @vachanakaaras.count %> </span> 
+<%= "#{t :vachanakaararu} ," %> 
 		<span class="badge badge-info"> <%= @vachanas.count %> </span> 
-		<%= t :found_word_in_vachanas %>
+		<%= "#{t :this_word_used_in_vachanas}" %>
 
 	</p>  </div>
 	<% end %>
@@ -40,7 +42,9 @@
 
 <div class= "span3">
 	<% unless @vachanas.blank? %>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div class="graph-space" >
+<div id="container" style="width: 310px; height: <%= @vachanakaaras.count * 40 %>px; margin: 0 auto"></div>
+</div>
 <% end %>
  </div>
 
@@ -62,53 +66,114 @@ $('#search-word').typeahead({source: words})
 
 // high charts for graph 
 <% unless @vachanas.blank? %>
+// $(function () {
+//         $('#container').highcharts({
+//             chart: {
+//                 type: 'column'
+//             },
+//             title: {
+//                 text: '<%= t :vachana%>'
+//             },
+//             subtitle: {
+//                 text: ' '
+//             },
+//             xAxis: {
+//                 categories:  <%= raw @vachanakaaras_name %>
+//             },
+//             yAxis: {
+//                 min: 0,
+//                 title: {
+//                     text: '<%= t :vachanagalu %>'
+//                 }
+//             },
+//             tooltip: {
+//                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//                     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+//                 footerFormat: '</table>',
+//                 shared: true,
+//                 useHTML: true
+//             },
+//             plotOptions: {
+//                 column: {
+//                     pointPadding: 0.2,
+//                     borderWidth: 0
+//                 }
+//             },
+//             series: [{
+//                 name: '<%= "#{t :total} #{t :vachana}"   %>',
+//                 data: <%= raw @vachanakaaras_total_count %>
+    
+//             }, {
+//                 name: '<%= "#{t :padaviruva} #{t :vachana}" %>',
+//                 data: <%= raw  @vachanakaaras_word_count %>
+    
+//             }
+//                     ]
+//         });
+//     });
+    
+
+
 $(function () {
         $('#container').highcharts({
             chart: {
-                type: 'column'
+                type: 'bar'
             },
             title: {
-                text: '<%= t :vachana%>'
+                text: '<%= t :vachanakaararu %>'
             },
             subtitle: {
-                text: ' '
+                text: ''
             },
             xAxis: {
-                categories:  <%= raw @vachanakaaras_name %>
+                categories: <%= raw @vachanakaaras_name %>,
+                title: {
+                    text: null
+                }
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: '<%= t :vachanagalu %>'
+                    text: '<%= "#{t :padaviruva} #{t :vachanagalu}" %>',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
+                valueSuffix: ' <%="#{t :vachana}" %>'
             },
             plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
                 }
             },
+            // legend: {
+            //     layout: 'vertical',
+            //     align: 'right',
+            //     verticalAlign: 'top',
+            //     x: -40,
+            //     y: 100,
+            //     floating: true,
+            //     borderWidth: 1,
+            //     backgroundColor: '#FFFFFF',
+            //     shadow: true
+            // },
+            credits: {
+                enabled: false
+            },
             series: [{
-                name: '<%= "#{t :total} #{t :vachana}"   %>',
-                data: <%= raw @vachanakaaras_total_count %>
-    
-            }, {
-                name: '<%= "#{t :padaviruva} #{t :vachana}" %>',
+                name: '<%="#{t :total}" %>',
                 data: <%= raw  @vachanakaaras_word_count %>
-    
-            }
-                    ]
+            }]
         });
     });
     
+
 <% end %>
 
 </script>
