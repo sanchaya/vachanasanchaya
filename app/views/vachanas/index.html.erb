@@ -43,7 +43,7 @@
 <div class= "span3">
 	<% unless @vachanas.blank? %>
     <div class="graph-space" >
-<div id="container" style="width: 310px; height: <%= @vachanakaaras.count * 40 %>px; margin: 0 auto"></div>
+<div id="container" style="width: 310px; height: <%=get_height_for_graph %>px; margin: 0 auto"></div>
 </div>
 <% end %>
  </div>
