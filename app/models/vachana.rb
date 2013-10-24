@@ -29,14 +29,14 @@ class Vachana < ActiveRecord::Base
       @results[vachana] = count
     end
     unless vachanas.blank?
-      vachanakaaras = vachanas.select("distinct(vachanakaara_id)")
-      vachanakaaras.each do |vachana|
+      @vachanakaaras = vachanas.select("distinct(vachanakaara_id)")
+      @vachanakaaras.each do |vachana|
         @vachanakaaras_word_count << vachanas.where("vachanakaara_id = #{vachana.vachanakaara_id}").count
        @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
         @vachanakaaras_name << vachana.vachanakaara.name
       end
     end
-    return @results, @vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count
+    return @results, @vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count, @vachanakaaras
   end
 
 
