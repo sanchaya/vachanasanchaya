@@ -15,7 +15,7 @@ class VachanasController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @vachanas }
+      format.js
     end
   end
 
