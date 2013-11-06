@@ -1,5 +1,8 @@
 KannadaVachana::Application.routes.draw do
+  get "vachanakaaras/index"
+
   resources :vachanas
+  resources :vachanakaaras
   resources :word_lists
 root :to => "vachanas#index"
 
