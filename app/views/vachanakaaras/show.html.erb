@@ -1,0 +1,6 @@
+<div class="vacha_lists">
+		<% @vachanas.each do |vachana| %>
+		<%= link_to vachana.id,vachana, class: "btn btn-mini " %>
+		<p class="heighlight text-left"> <%= raw vachana.vachana.gsub(/\n/, '<br />') %>  </p>
+		<% end %>
+	</div>
