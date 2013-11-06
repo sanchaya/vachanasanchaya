@@ -26,9 +26,15 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano'
 
+group :development do
 # To use debugger
 gem 'debugger'
+gem 'rack-mini-profiler'
+
+end
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
+
+
