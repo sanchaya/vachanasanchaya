@@ -1,6 +1,7 @@
 class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
+  before_filter :authenticate_user! , except: [:index, :show]
   def index
     @word_lists = WordList.all
     @vachanakaras =  Vachanakaara.all

@@ -1,4 +1,6 @@
 KannadaVachana::Application.routes.draw do
+  devise_for :users
+
   get "vachanakaaras/index"
 
   resources :vachanas
