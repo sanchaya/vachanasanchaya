@@ -54,3 +54,18 @@ font-size: 17px;
  .btn-primary:visited{
     color: #FFFFFF;
 }
+
+
+.highcharts-axis-labels .tspan
+ {
+ display:none;
+ }
+ .test
+ {
+  display:none;
+ }
+
+ .highcharts-axis-labels text tspan
+ {
+cursor:pointer;
+}

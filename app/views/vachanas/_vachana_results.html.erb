@@ -155,4 +155,18 @@ $(function () {
 
 <% end %>
 
+
+$('.highcharts-axis-labels text tspan').click(function(){
+  
+  //console.log($(this).parent('text').find('tspan').first().text());
+  
+ var  linkk = $(this).siblings('tspan').text();
+var id = parseInt(linkk);
+window.location.href = "/vachanakaaras/" + id;
+
+  //$('body').on('click','.highcharts-axis-labels',function(){
+  
+  })
+
+
 </script>

@@ -26,6 +26,9 @@
 
 $( document ).ready( function () {
 	$( '#search-word' ).ime();
+
+
+
 } );
 
 

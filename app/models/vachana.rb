@@ -33,7 +33,8 @@ class Vachana < ActiveRecord::Base
       @vachanakaaras.each do |vachana|
         @vachanakaaras_word_count << vachanas.where("vachanakaara_id = #{vachana.vachanakaara_id}").count
        @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
-        @vachanakaaras_name << vachana.vachanakaara.name
+        @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachana.vachanakaara.id}" + '</span>' + "#{vachana.vachanakaara.name}" + '</span>'
+
       end
     end
     return @results, @vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count, @vachanakaaras
