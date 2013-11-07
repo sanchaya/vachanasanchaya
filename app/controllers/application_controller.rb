@@ -6,4 +6,14 @@ class ApplicationController < ActionController::Base
     I18n.locale = 'kn'
   end
 
+  def authenticate_user_role!
+    if current_user && current_user.is_admin?
+      true
+    else
+      flash[:error] = "Sorry you dont have permission"
+      redirect_to root_path
+    end
+  end
+
+ 
 end
