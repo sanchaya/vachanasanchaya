@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       true
     else
       flash[:error] = "Sorry you dont have permission"
-      redirect_to root_path
+      redirect_to current_user ? root_path : new_user_session_path
     end
   end
 
