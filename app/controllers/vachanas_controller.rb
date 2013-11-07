@@ -1,7 +1,10 @@
 class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
+  #check if logged_in user is Admin
   before_filter :authenticate_user_role! , except: [:index, :show]
+
+
   def index
     @word_lists = WordList.all
     @vachanakaras =  Vachanakaara.all

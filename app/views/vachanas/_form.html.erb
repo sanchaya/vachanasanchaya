@@ -1,29 +1,34 @@
 <%= form_for(@vachana) do |f| %>
-  <% if @vachana.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vachana.errors.count, "error") %> prohibited this vachana from being saved:</h2>
+<% if @vachana.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@vachana.errors.count, "error") %> prohibited this vachana from being saved:</h2>
 
-      <ul>
-      <% @vachana.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <ul>
+    <% @vachana.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :vachanakaara %><br />
+  <% if @vachana.persisted? %>
+  <%= @vachana.vachanakaara.name %>
+  <% else %>
+  <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.all, "id", "name")  %>
   <% end %>
+</div>
+<div class="field">
+  <%= f.label :vachana %><br />
+  <%= f.text_area :vachana %>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :vachana %><br />
-    <%= f.text_area :vachana %>
-  </div>
-  <div class="field">
-    <%= f.label :vachanakaara %><br />
-    <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.all, "id", "name")  %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="actions">
+  <%= f.submit 'Submit', class: "btn-primary" %>
+</div>
 <% end %>
