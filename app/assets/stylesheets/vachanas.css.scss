@@ -7,37 +7,50 @@
 p span.hilite1 {
 background:#3A87AD;
 font-family: arial;
-    font-size: 15px;
-    font-weight: bold;
-     color: white;
-    }
+font-size: 15px;
+font-weight: bold;
+color: white;
+}
 
 .vacha_lists{
- height: 500px;
-    overflow-y: auto;
-    // width: 600px;
-    margin-left: 40px;
-    }
-
-    .word_lists{
 height: 500px;
-    overflow-y: auto;
+overflow-y: auto;
+// width: 600px;
+margin-left: 40px;
+}
 
-    }
+.word_lists{
+height: 500px;
+overflow-y: auto;
 
-    .vachana_search_form{
+}
 
-        text-align: center;
-    }
+.vachana_search_form{
 
-    .total_count{
+text-align: center;
+}
 
-     margin-bottom: 10px;
-    }
+.total_count{
+
+margin-bottom: 10px;
+}
 
 .graph-space{
-    height: 500px;
-    overflow-y: auto;
-    width: 350px;
+height: 500px;
+overflow-y: auto;
+width: 350px;
 
+}
+
+.back-button-show {
+margin: 0 0 9px 40px;
+}
+
+.vachanakaara-list a:hover{
+background-color: wheat;
+color: #006DCC;
+font-size: 17px;
+}
+ .btn-primary:visited{
+    color: #FFFFFF;
 }
