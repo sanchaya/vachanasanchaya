@@ -3,7 +3,7 @@
 	<%= render "vachana_count" %>
 
 	<div class="search_box">
-		<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get, remote: true do %>
+		<%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
 		<%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off", :'data-provide'=> "typeahead" %>
 		<%=t :like %> :<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
 		<%= t :exact %> :<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
