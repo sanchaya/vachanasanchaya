@@ -156,17 +156,20 @@ $(function () {
 <% end %>
 
 
+  $(document).ready(function(){
+
 $('.highcharts-axis-labels text tspan').click(function(){
   
   //console.log($(this).parent('text').find('tspan').first().text());
   
  var  linkk = $(this).siblings('tspan').text();
 var id = parseInt(linkk);
-window.location.href = "/vachanakaaras/" + id;
+var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
+window.location.href = "/vachanas/?" + params ;
 
   //$('body').on('click','.highcharts-axis-labels',function(){
   
   })
-
+  })
 
 </script>
