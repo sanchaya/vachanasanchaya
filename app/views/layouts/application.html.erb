@@ -19,6 +19,7 @@
 	<div class="navbar">
   <div class="navbar-inner">
     <%= link_to "#{t :vachana}", root_path, class: "brand" %>
+    <%= link_to "#{t :vachanakaararu}", vachanakaaras_path, class: "brand" %>
    <% if current_user %>
   <%= link_to "sign_out", destroy_user_session_path, method: :delete , class: "brand" %>
   <% end %>
