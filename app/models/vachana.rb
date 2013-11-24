@@ -1,5 +1,5 @@
 class Vachana < ActiveRecord::Base
-  attr_accessible :author, :vachana, :name, :vachanakaara_id  
+  attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
   belongs_to :vachanakaara
 
 
