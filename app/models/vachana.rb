@@ -1,6 +1,7 @@
 class Vachana < ActiveRecord::Base
   attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
   belongs_to :vachanakaara
+  has_many :key_words
 
 
   def self.search_vachana_pada(pada,type,author)
@@ -62,5 +63,12 @@ class Vachana < ActiveRecord::Base
 end
 
 
+def self.vachanakaara_ids
+  includes(:vachanakara).map(&:vachanakaara_id)
+end
+
+def self.vachanakaaras
+  Vachanakaara.where(id: vachanakaara_ids)
+end
 
 end
