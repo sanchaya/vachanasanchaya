@@ -19,7 +19,8 @@
 	<div class="vacha_lists">
 		<% @results.each do |result| %>
 		<%= link_to "#{result.vachana.id} (#{result.vachana.vachanakaara.name})", result.vachana,class: "btn btn-mini " %>
-		<p class="heighlight text-left"> <%= raw result.vachana.vachana.gsub(/\n/, '<br />') %> <span class="badge badge-info"><%= result.count %>   </span>  </p>
+		<p class="heighlight text-left"> <%= raw result.vachana.vachana.gsub(/\n/, '<br />') %>   </p>
+        <!-- <span class="badge badge-info"><%= result.count %>   </span> -->
 		<% end %>
 	</div>
 	<% end %>
