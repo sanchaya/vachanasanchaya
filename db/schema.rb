@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204140928) do
+ActiveRecord::Schema.define(:version => 20131204182056) do
 
   create_table "key_words", :force => true do |t|
     t.integer  "vachana_id"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20131204140928) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "vachanas", ["vachana"], :name => "index_vachanas_on_vachana"
 
   create_table "word_lists", :force => true do |t|
     t.string   "name"

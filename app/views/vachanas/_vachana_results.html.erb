@@ -1,11 +1,19 @@
 <div id="vachana_result" %>
-<div class= "span3"> </div>
+<div class= "span3" style="margin-top: 100px;"> 
+  <div class= "total_count_description"> 
+    <p class="lead">
+ಈ ವಚನ ಸಂಗ್ರಹವು <%= Vachanakaara.count %> ವಚನಕಾರರ <%= Vachana.count %> ವಚನಗಳನ್ನು ಒಳಗೊಂಡಿದೆ.
+</p>
+</div>
+</div>
 <div class="span5">
 	<% if @results %>
 	<% if @results.blank?  %>
 	<%= t :no_vachana_found %>
 	
 	<% else %>
+<%= will_paginate @results  %>
+
 	<div class="vacha_lists">
 		<% @results.each do |result| %>
 		<%= link_to "#{result.vachana.id} (#{result.vachana.vachanakaara.name})", result.vachana,class: "btn btn-mini " %>
@@ -19,7 +27,7 @@
 
 
 
-<div class= "span3">
+<div class= "span3" style="margin-top: 50px;">
     <% unless @results.blank? %>
     <div class="graph-space" >
 <div id="container" style="width: 310px; height: <%=get_height_for_graph %>px; margin: 0 auto"></div>
