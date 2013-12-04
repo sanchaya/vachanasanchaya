@@ -26,10 +26,11 @@ attr_accessible :word, :count, :vachana_id
        end
     end
 
-@vachanakaaras = @results.vachanas.vachanakaaras
-debugger
+# @vachanakaaras = @results.vachanas.vachanakaaras
+@vachanas = @results.vachanas
+@vachanakaaras = @vachanas.vachanakaaras
     @vachanakaaras.each do |vachanakaara|
-        @vachanakaaras_word_count << @results.vachanas.where(vachanakaara_id: vachanakaara.id).count
+        @vachanakaaras_word_count << @vachanas.where(vachanakaara_id: vachanakaara.id).count
         @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachanakaara.id}" + '</span>' + "#{vachanakaara.name}" + '</span>'
       end
 
