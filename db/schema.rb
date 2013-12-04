@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131130202650) do
+ActiveRecord::Schema.define(:version => 20131204140928) do
 
   create_table "key_words", :force => true do |t|
     t.integer  "vachana_id"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20131130202650) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "key_words", ["word"], :name => "index_key_words_on_word"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

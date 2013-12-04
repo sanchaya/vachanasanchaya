@@ -7,14 +7,18 @@ class VachanasController < ApplicationController
 
   def index
     @word_lists = WordList.all
-    @vachanakaras =  Vachanakaara.all
+    @vachanakaaras_list =  Vachanakaara.all
     if params[:vachana]
       @pada = params[:vachana]
       @search_type = params[:search_type]
       @vachanakaara = params[:vachanakaara]
-      @vachanas,@vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count , @vachanakaaras = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
-      @counts = @vachanas.values
-      @total_counts = @counts.inject{|sum,x| sum + x }
+      @word_lists, @vachanakaaras_word_count, @vachanakaaras_name = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara)
+      @vachanakaaras = @word_lists.vachanas.vachanakaaras
+      @total_counts = @word_lists.sum(:count)
+      @results = @word_lists.paginate(:page => params[:page])
+      # @vachanas,@vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count , @vachanakaaras = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
+      # @counts = @vachanas.values
+      # @total_counts = @counts.inject{|sum,x| sum + x }
       # flash[:notice] = "Got #{@total_counts ? @total_counts: "0"} #{'result'.pluralize(@total_counts)} for #{@pada}"
     end
     respond_to do |format|

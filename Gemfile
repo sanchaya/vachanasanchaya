@@ -39,3 +39,5 @@ gem "twitter-bootstrap-rails"
 
 
 gem 'devise'
+
+gem 'will_paginate'
