@@ -64,7 +64,7 @@ end
 
 
 def self.vachanakaara_ids
-  includes(:vachanakara).map(&:vachanakaara_id)
+  includes(:vachanakaara).map(&:vachanakaara_id)
 end
 
 def self.vachanakaaras
