@@ -21,6 +21,7 @@ kn:
   please_wait: "ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ"
   previous: "ಹಿಂದೆ"
   next: "ಮುಂದೆ"
+  read_more: "ಮುಂದೆ ಓದಿ "
 
   will_paginate:
     previous_label: "ಹಿಂದೆ"
