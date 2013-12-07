@@ -1,0 +1,19 @@
+
+		<% @results.each do |result| %>
+		<%= link_to "#{result.vachana.id} (#{result.vachana.vachanakaara.name})", result.vachana,class: "btn btn-mini " %>
+		<p class="heighlight text-left"> <%= raw result.vachana.vachana.gsub(/\n/, '<br />') %>   </p>
+        <!-- <span class="badge badge-info"><%= result.count %>   </span> -->
+		<% end %>
+
+
+<script type='text/javascript'>
+
+jQuery(function(){
+    var options = {
+        exact:"partial",
+        keys: "<%= params[:vachana] %>"
+    }
+    jQuery(document).SearchHighlight(options);
+});
+
+</script>

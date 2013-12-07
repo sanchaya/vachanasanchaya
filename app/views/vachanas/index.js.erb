@@ -1,2 +1,8 @@
-$("#vachana_result").html("<%= raw escape_javascript(render(:partial => 'vachana_results')) %>")
-$("#vachana_count").html("<%= raw escape_javascript(render(:partial => 'vachana_count')) %>")
+// $("#vachana_result").html("<%#= raw escape_javascript(render(:partial => 'vachana_results')) %>")
+// $("#vachana_count").html("<%#= raw escape_javascript(render(:partial => 'vachana_count')) %>")
+
+$('.vachanas_load').append("<%= escape_javascript(render(partial: 'results')) %>");
+$('a.load-more-vachanas').attr('href', '#{vachanas_path page: @vachanas.next_page}');
+<% unless @results.next_page %>
+  $('a.load-more-vachanas').remove();
+<% end %>
