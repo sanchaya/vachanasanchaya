@@ -9,7 +9,7 @@ attr_accessible :word, :count, :vachana_id
 
    	@vachanakaaras_word_count =  []
     @vachanakaaras_name =  []
-
+    add_search_count(pada, type)
     if type && type == "like_search"
 
     	if author.blank?
@@ -50,6 +50,26 @@ end
 
 def self.vachanas
   Vachana.where(id: vachana_ids)
+end
+
+
+def self.add_search_count(pada,type )
+    @search_pada = WordList.find_by_name(pada)
+    if @search_pada
+      if type && type == "like_search"
+        @search_pada.update_attribute('like_search_count', @search_pada.like_search_count + 1)
+      else
+        @search_pada.update_attribute('exact_search_count', @search_pada.exact_search_count + 1)
+      end
+    else
+      @new_search = WordList.new(name: pada)
+      if type && type == "like_search"
+       @new_search.like_search_count = 1
+     else
+      @new_search.exact_search_count = 1
+    end
+    @new_search.save
+  end
 end
 
 end
