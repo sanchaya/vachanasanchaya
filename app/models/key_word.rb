@@ -28,12 +28,18 @@ attr_accessible :word, :count, :vachana_id
 
 # @vachanakaaras = @results.vachanas.vachanakaaras
 @vachanas = @results.vachanas
+if author.blank?
 @vachanakaaras = @vachanas.vachanakaaras
     @vachanakaaras.each do |vachanakaara|
         @vachanakaaras_word_count << @vachanas.where(vachanakaara_id: vachanakaara.id).count
         @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachanakaara.id}" + '</span>' + "#{vachanakaara.name}" + '</span>'
       end
-
+    else
+  vachanakaara = Vachanakaara.find(author)   
+   @vachanakaaras_word_count << @vachanas.where(vachanakaara_id: vachanakaara.id).count
+        @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachanakaara.id}" + '</span>' + "#{vachanakaara.name}" + '</span>'
+      
+end
       return @results, @vachanakaaras_word_count, @vachanakaaras_name
 end
 

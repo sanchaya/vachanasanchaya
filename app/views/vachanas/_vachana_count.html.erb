@@ -1,5 +1,20 @@
 <div id="vachana_count" %>
 <% if @total_counts %>
+ <% if params[:vachanakaara] and !params[:vachanakaara].blank? %>
+
+<div class=" total_count"> <p class="btn"> 
+		<%= t :total %> <span class="badge badge-info"> <%= @total_counts %> </span> 
+		<%= "#{t :in_place} , " %>
+ <%= "#{t :vachanakaara} " %>  
+ <%= Vachanakaara.find(params[:vachanakaara].to_i).name %>  ,
+
+		<span class="badge badge-info"> <%= @results.count %> </span> 
+		<%= "#{t :this_word_used_in_vachanas}" %>
+
+	</p>  </div>
+
+
+        <% else %>
 	<div class=" total_count"> <p class="btn"> 
 		<%= t :total %> <span class="badge badge-info"> <%= @total_counts %> </span> 
 		<%= "#{t :in_place} , " %>
@@ -9,6 +24,9 @@
 		<%= "#{t :this_word_used_in_vachanas}" %>
 
 	</p>  </div>
+
+
+	<% end %>
 	<% end %>
 
 </div>
