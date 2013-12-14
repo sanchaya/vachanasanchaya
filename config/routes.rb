@@ -1,4 +1,6 @@
 KannadaVachana::Application.routes.draw do
+  get "home/index"
+
   devise_for :users
 
   get "vachanakaaras/index"
@@ -6,7 +8,7 @@ KannadaVachana::Application.routes.draw do
   resources :vachanas
   resources :vachanakaaras
   resources :word_lists
-root :to => "vachanas#index"
+root :to => "home#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
