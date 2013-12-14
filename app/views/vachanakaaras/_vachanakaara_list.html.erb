@@ -1,0 +1,8 @@
+<% if @vachanakaaras and params[:start_letter] %>
+<h3> 
+<%= params[:start_letter] %>
+</h3>
+<% @vachanakaaras.each do |vachanakaara| %>
+<%= vachanakaara.name %> <br/>
+	<% end %>
+<% end %>

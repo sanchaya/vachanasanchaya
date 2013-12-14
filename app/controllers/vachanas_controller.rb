@@ -7,7 +7,7 @@ class VachanasController < ApplicationController
 
   def index
     @word_lists = WordList.all
-    @vachanakaaras_list =  Vachanakaara.all
+    @vachanakaaras_list =  Vachanakaara.order("name")
     if params[:vachana]
       @pada = params[:vachana]
       @search_type = params[:search_type]

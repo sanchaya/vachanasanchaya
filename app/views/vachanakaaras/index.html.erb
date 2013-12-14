@@ -1,8 +1,57 @@
+<div class="main_heading">
+<h1>ವಚನಕಾರರು </h1> 
+</div>
 
-<div class="vacha_lists">
-  <% @vachanakaaras.each do |vachanakaara| %>
-  <div class= "vachanakaara-list">
-    <%= link_to vachanakaara.name, vachanakaara%>
-  </div>		
-  <% end %>
+<div class="row">
+  <div class="span4">
+  	<div class="letter_list">
+<% vowels.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+<% end %>
+ </div>
+
+<div class="letter_list">
+<% velars.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% palatals.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
+<% end %>
+</div>
+
+
+<div class="letter_list">
+	<% retroflex.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter), remote: true  %>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% dentals.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% labials.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% unstructured_consonants.each do |letter| %>
+<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+<% end %>
+</div>
+
+  </div>
+  <div class="span8">
+  	<div class="start_letter_vachanakaara_list">
+<%= render "vachanakaara_list.html" %>
+ </div>
+
+</div>
 </div>
