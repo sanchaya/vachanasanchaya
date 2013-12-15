@@ -3,8 +3,7 @@ KannadaVachana::Application.routes.draw do
 
   devise_for :users
 
-  get "vachanakaaras/index"
-
+resources :researches
   resources :vachanas
   resources :vachanakaaras
   resources :word_lists

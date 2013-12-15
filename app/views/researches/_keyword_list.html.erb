@@ -1,0 +1,14 @@
+<% if @keywords and params[:start_letter] %>
+<h3> ಪದಪುಂಜಗಳು </h3>
+<p> <span class="start_letter_header"> 
+<%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು </p>
+
+<div class="vacha_lists">
+  <% @keywords.each do |keyword| %>
+  <div class= "vachanakaara-list">
+    <%= link_to keyword.word, "#" %>
+  </div>		
+  <% end %>
+</div>
+
+<% end %>

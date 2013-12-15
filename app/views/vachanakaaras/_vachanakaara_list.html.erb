@@ -2,7 +2,12 @@
 <h3> 
 <%= params[:start_letter] %>
 </h3>
-<% @vachanakaaras.each do |vachanakaara| %>
-<%= vachanakaara.name %> <br/>
-	<% end %>
+<div class="vacha_lists">
+  <% @vachanakaaras.each do |vachanakaara| %>
+  <div class= "vachanakaara-list">
+    <%= link_to vachanakaara.name, vachanakaara %>
+  </div>		
+  <% end %>
+</div>
+
 <% end %>

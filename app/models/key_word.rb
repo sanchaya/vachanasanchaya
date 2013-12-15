@@ -72,4 +72,8 @@ def self.add_search_count(pada,type )
   end
 end
 
+
+
+scope :start_letter, lambda {|letter| select("DISTINCT word").where("word like ? ", "#{letter}%" )}
+
 end
