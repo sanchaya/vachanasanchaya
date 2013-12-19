@@ -7,3 +7,11 @@
     <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
     <% end %>
   </div>
+
+
+
+
+  <script type='text/javascript'>
+var words = <%= raw WordList.pluck("name") %>;   
+$('#search-word').typeahead({source: words}) 
+</script>
