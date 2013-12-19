@@ -37,13 +37,6 @@
 
 <script type='text/javascript'>
 
-
-
-
-var words = <%= raw WordList.pluck("name") %>;   
-$('#search-word').typeahead({source: words})  
-
-
 // high charts for graph 
 <% unless @results.blank? %>
 
