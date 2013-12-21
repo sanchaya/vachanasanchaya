@@ -8,7 +8,7 @@
  <%= "#{t :vachanakaara} " %>  
  <%= Vachanakaara.find(params[:vachanakaara].to_i).name %>  ,
 
-		<span class="badge badge-info"> <%= @results.count %> </span> 
+		<span class="badge badge-info"> <%= @word_lists.vachanas.count %> </span> 
 		<%= "#{t :this_word_used_in_vachanas}" %>
 
 	</p>  </div>
@@ -20,7 +20,7 @@
 		<%= "#{t :in_place} , " %>
 <span class="badge badge-info"> <%= @vachanakaaras.count %> </span> 
 <%= "#{t :vachanakaararu} ," %> 
-		<span class="badge badge-info"> <%= @results.count %> </span> 
+		<span class="badge badge-info"> <%= @word_lists.vachanas.count %> </span> 
 		<%= "#{t :this_word_used_in_vachanas}" %>
 
 	</p>  </div>
