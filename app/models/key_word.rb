@@ -1,7 +1,6 @@
 class KeyWord < ActiveRecord::Base
-attr_accessible :word, :count, :vachana_id
-
-   belongs_to :vachana
+attr_accessible :word, :count, :vachana_ids
+serialize :vachana_ids
    self.per_page = 20
 
 
@@ -44,11 +43,13 @@ end
 end
 
 
-def self.vachana_ids
-  includes(:vachana).map(&:vachana_id)
-end
+# def self.vachana_ids
+  
+#   includes(:vachana).map(&:vachana_id)
+# end
 
 def self.vachanas
+  vachana_ids = @results.map {|res| res.vachana_ids.keys}
   Vachana.where(id: vachana_ids)
 end
 

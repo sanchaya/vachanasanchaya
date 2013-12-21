@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204182056) do
+ActiveRecord::Schema.define(:version => 20131221185630) do
 
   create_table "key_words", :force => true do |t|
-    t.integer  "vachana_id"
     t.string   "word"
     t.integer  "count"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "vachana_ids"
   end
 
   add_index "key_words", ["word"], :name => "index_key_words_on_word"
