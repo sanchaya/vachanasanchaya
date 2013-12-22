@@ -9,7 +9,7 @@ task :update_concordance_for_keywords => :environment do
        	key_words= KeyWord.start_letter(alphabet)
        	count = key_words.count
        	vachanakaara_ids = key_words.pluck(:id) 
-       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "key_words_#{alphabet}", count: count, vachanakaara_ids:  vachanakaara_ids)
+       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "key_words_#{alphabet}", count: count, ids:  vachanakaara_ids)
        end
 end
 
@@ -27,7 +27,7 @@ task :update_concordance_for_vachanakaara => :environment do
        	vachanakaaras= Vachanakaara.start_letter(alphabet)
        	count = vachanakaaras.count
        	vachanakaara_ids = vachanakaaras.pluck(:id) 
-       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "vachanakaara_#{alphabet}", count: count, vachanakaara_ids:  vachanakaara_ids)
+       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "vachanakaara_#{alphabet}", count: count, ids:  vachanakaara_ids)
        end
 end
 
