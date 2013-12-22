@@ -1,3 +1,21 @@
+desc "concordance for keywords"
+task :update_concordance_for_keywords => :environment do
+		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
+		alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
+       parent = Concord.create(name: "key_word",concord_code: "key_word" )
+
+
+       alphabets.each do |alphabet|
+       	key_words= KeyWord.start_letter(alphabet)
+       	count = key_words.count
+       	vachanakaara_ids = key_words.pluck(:id) 
+       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "key_words_#{alphabet}", count: count, vachanakaara_ids:  vachanakaara_ids)
+       end
+end
+
+
+
+
 desc "concordance for vachanakaara"
 task :update_concordance_for_vachanakaara => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
