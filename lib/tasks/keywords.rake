@@ -18,13 +18,16 @@ task :update_keyword_count_in_vachana => :environment do
 					total_count = keyword.count + count
 	 				hash = keyword.vachana_ids
 					hash[vachana.id] = count
-					keyword.update_attributes(count: total_count, vachana_ids: hash)
+					arraya = keyword.vachanakaara_ids
+					arraya << vachana.vachanakaara_id
+					keyword.update_attributes(count: total_count, vachana_ids: hash, vachanakaara_ids: arraya)
 			    end
 			else
 				puts "new keyword"
 				count = vachana.vachana.scan(word).count
 				hash = {vachana.id => count}
-				KeyWord.create(word: word , vachana_ids: hash, count: count)
+				arraya = [vachana.vachanakaara_id]
+				KeyWord.create(word: word , vachana_ids: hash, count: count, vachanakaara_ids: arraya)
 			end
 		end
 		i += 1

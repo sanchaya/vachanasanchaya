@@ -11,14 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131221185630) do
+ActiveRecord::Schema.define(:version => 20131222084616) do
+
+  create_table "concords", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "concord_code"
+    t.integer  "count"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "key_words", :force => true do |t|
     t.string   "word"
     t.integer  "count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.text     "vachana_ids"
+    t.text     "vachanakaara_ids"
   end
 
   add_index "key_words", ["word"], :name => "index_key_words_on_word"
