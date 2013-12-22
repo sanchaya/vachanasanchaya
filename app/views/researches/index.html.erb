@@ -7,18 +7,27 @@
   	<div class="letter_list">
 <% vowels.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
  </div>
 
 <div class="letter_list">
 <% velars.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
 <div class="letter_list">
 <% palatals.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
@@ -26,24 +35,36 @@
 <div class="letter_list">
 	<% retroflex.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter), remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
 <div class="letter_list">
 <% dentals.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
 <div class="letter_list">
 <% labials.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
 <div class="letter_list">
 <% unstructured_consonants.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+</span>
 <% end %>
 </div>
 
