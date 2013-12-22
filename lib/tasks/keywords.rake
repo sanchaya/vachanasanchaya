@@ -1,3 +1,21 @@
+desc "concordance for vachanakaara"
+task :update_concordance_for_vachanakaara => :environment do
+		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
+		alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
+       parent = Concord.create(name: "vachanakaara",concord_code: "vachanakaara" )
+
+
+       alphabets.each do |alphabet|
+       	vachanakaaras= Vachanakaara.start_letter(alphabet)
+       	count = vachanakaaras.count
+       	vachanakaara_ids = vachanakaaras.pluck(:id) 
+       	Concord.create(name: alphabet,parent_id: parent.id, concord_code: "vachanakaara_#{alphabet}", count: count, vachanakaara_ids:  vachanakaara_ids)
+       end
+end
+
+
+
+
 desc "Keywords count for each vachana"
 task :update_keyword_count_in_vachana => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"

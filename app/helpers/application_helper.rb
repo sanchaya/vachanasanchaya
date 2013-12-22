@@ -8,7 +8,7 @@ module ApplicationHelper
 	end
 
 	def palatals	 
-["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"]
+        ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"]
 	end
 
 
