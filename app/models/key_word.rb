@@ -1,6 +1,7 @@
 class KeyWord < ActiveRecord::Base
-attr_accessible :word, :count, :vachana_ids
+attr_accessible :word, :count, :vachana_ids,:vachanakaara_ids
 serialize :vachana_ids
+serialize :vachanakaara_ids
    self.per_page = 20
 
 
@@ -14,7 +15,7 @@ serialize :vachana_ids
     	if author.blank?
           @results = where("word like ?", "%#{pada}%" )
        else
-  	      @results = includes(:vachana).where("word like ? and vachanas.vachanakaara_id = ? ", "%#{pada}%", author )
+  	      @results = where("word like ?  ", "%#{pada}%").select{|a| a.vachanakaara_ids.include?(author.to_i)}
        end
 
     else
