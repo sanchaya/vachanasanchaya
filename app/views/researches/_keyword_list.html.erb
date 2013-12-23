@@ -6,7 +6,7 @@
 <div class="vacha_lists">
   <% @keywords.each do |keyword| %>
   <div class= "vachanakaara-list">
-    <%= link_to keyword.word, "#" %>
+    <%= link_to keyword.word, vachanas_path(vachana: keyword.word, search_type: "like_search") %>
   </div>		
   <% end %>
 </div>
