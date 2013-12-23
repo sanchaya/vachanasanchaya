@@ -12,22 +12,25 @@ serialize :vachanakaara_ids
     add_search_count(pada, type)
     if type && type == "like_search"
 
-    	if author.blank?
+    	# if author.blank?
           @results = where("word like ?", "%#{pada}%" )
-       else
-  	      @results = where("word like ?  ", "%#{pada}%").select{|a| a.vachanakaara_ids.include?(author.to_i)}
-       end
+       # else
+  	      # @results = where("word like ?  ", "%#{pada}%").select{|a| a.vachanakaara_ids.include?(author.to_i)}
+       # end
 
     else
-    	 if author.blank?
+    	 # if author.blank?
            @results = where(word: pada )
-       else
-           @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
-       end
+       # else
+           # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
+       # end
     end
 
 # @vachanakaaras = @results.vachanas.vachanakaaras
 @vachanas = @results.vachanas
+unless author.blank?
+  @vachanas = @vachanas.where(vachanakaara_id: author)
+end
 if author.blank?
 @vachanakaaras = @vachanas.vachanakaaras
     @vachanakaaras.each do |vachanakaara|
