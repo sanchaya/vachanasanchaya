@@ -1,13 +1,30 @@
+
 <% if @vachanakaaras and params[:start_letter] %>
-<h3> 
-<%= params[:start_letter] %>
-</h3>
-<div class="vacha_lists">
+<p> <span class="start_letter_header"> 
+<%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರು </p>
+
+<div class="results_list_div">
   <% @vachanakaaras.each do |vachanakaara| %>
-  <div class= "vachanakaara-list">
-    <%= link_to vachanakaara.name, vachanakaara %>
-  </div>		
+
+<a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
+  <div class="box effect5">
+<h5> 
+	<%=  vachanakaara.name %> </h5>
+	<div class="keyword_used_count"> 
+	<span>  </span> <br /> <br />
+	<span> ವಚನಕಾರರ ಪರಿಚಯ </span>
+	</div>
+</div>
+</a>
+		
   <% end %>
 </div>
+
+<% unless @vachanakaaras.blank? %>
+<div class="click_for_more"> 
+	<%= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+</div>
+<% end %>
+
 
 <% end %>
