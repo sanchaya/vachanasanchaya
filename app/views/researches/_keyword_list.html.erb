@@ -3,12 +3,27 @@
 <p> <span class="start_letter_header"> 
 <%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು </p>
 
-<div class="vacha_lists">
+<div class="results_list_div">
   <% @keywords.each do |keyword| %>
-  <div class= "vachanakaara-list">
-    <%= link_to keyword.word, vachanas_path(vachana: keyword.word, search_type: "like_search") %>
-  </div>		
+
+<a href="<%= vachanas_path(vachana: keyword.word, search_type: "like_search") %>" title="<%=keyword.word  %>" >
+  <div class="box effect5">
+<h5> 
+	<%=  keyword.word %> </h5>
+	<div class="keyword_used_count"> 
+	<span> <%= keyword.vachana_ids.count %> ವಚನದಲ್ಲಿ ಈ ಪದವು ಬಳಕೆಯಾಗಿದೆ </span> <br /> <br />
+	<span><%= keyword.vachanakaara_ids.uniq.count %>  ವಚನಕಾರರು ಈ ಪದವನ್ನು ಬಳಸಿರುತ್ತಾರೆ </span>
+	</div>
+</div>
+</a>
+		
   <% end %>
 </div>
 
+
+<div class="click_for_more"> 
+	<%= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ಪದಗಳು" , "" %>
+</div>
+
 <% end %>
+

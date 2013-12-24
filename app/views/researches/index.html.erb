@@ -4,10 +4,10 @@
 </div>
 
 <div class="row">
-  <div class="span4">
+  <div class="span3">
   	<div class="letter_list">
 <% vowels.each do |letter| %>
-<%= link_to letter, researches_path(start_letter: letter) , remote: true %>
+<%= link_to letter, researches_path(start_letter: letter)  , remote: true %>
 <span class="vowels_count">
 (<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
 </span>
@@ -68,6 +68,8 @@
 </span>
 <% end %>
 </div>
+
+<hr />
 
   </div>
   <div class="span8">

@@ -93,3 +93,80 @@ cursor:pointer;
 .vowels_count{
 	font-size: 10px;
 }
+
+
+
+
+.box {
+  background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: 200px;
+    margin: 0 10px 10px 0;
+    width: 150px;
+    border:1px solid #ccc;
+    border-bottom:2px solid #bbb;
+    border-top:1px solid #ddd;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    
+    h5{
+ text-align: center;
+overflow: hidden;
+    }
+
+    .keyword_used_count{
+overflow: hidden;
+margin-left: 10px;
+    }
+}
+
+/*==================================================
+ * Effect 5
+ * ===============================================*/
+.effect5
+{
+  position: relative;
+}
+.effect5:before, .effect5:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 35px 20px #777;
+  -moz-box-shadow: 0 35px 20px #777;
+  box-shadow: 0 35px 20px #777;
+  -webkit-transform: rotate(-8deg);
+  -moz-transform: rotate(-8deg);
+  -o-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+.effect5:after
+{
+  -webkit-transform: rotate(8deg);
+  -moz-transform: rotate(8deg);
+  -o-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  transform: rotate(8deg);
+  right: 10px;
+  left: auto;
+}
+
+.results_list_div{
+	a:hover{
+	text-decoration:none !important;
+	color: black !important;
+	}
+}
+
+
+.click_for_more{
+	clear: both;
+}
