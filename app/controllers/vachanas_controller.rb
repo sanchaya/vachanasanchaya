@@ -103,9 +103,8 @@ class VachanasController < ApplicationController
   end
 
   def vachana_concord
-if params[:start_letter]
+   params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
       @vachanas= Vachana.start_letter(params[:start_letter])
-    end
 
     respond_to do |format|
       format.html

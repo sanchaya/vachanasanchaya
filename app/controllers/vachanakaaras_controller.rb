@@ -1,9 +1,8 @@
 class VachanakaarasController < ApplicationController
   def index
   	# @vachanakaaras = Vachanakaara.all
-  	if params[:start_letter]
+    params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
   		@vachanakaaras= Vachanakaara.start_letter(params[:start_letter])
-  	end
 
   	respond_to do |format|
   		format.html
