@@ -9,7 +9,7 @@
 <% vowels.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter)  , remote: true %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
  </div>
@@ -18,7 +18,7 @@
 <% velars.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true  %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
@@ -27,7 +27,7 @@
 <% palatals.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true  %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
@@ -37,7 +37,7 @@
 	<% retroflex.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter), remote: true  %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
@@ -46,7 +46,7 @@
 <% dentals.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
@@ -55,7 +55,7 @@
 <% labials.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
@@ -64,7 +64,7 @@
 <% unstructured_consonants.each do |letter| %>
 <%= link_to letter, researches_path(start_letter: letter) , remote: true %>
 <span class="vowels_count">
-(<%= Concord.find_by_concord_code("key_words_#{letter}").count %>)
+(<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
 </span>
 <% end %>
 </div>
