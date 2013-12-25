@@ -70,4 +70,7 @@ def self.vachanakaaras
   Vachanakaara.where(id: vachanakaara_ids)
 end
 
+
+scope :start_letter, lambda {|letter| where("vachana like ? ", "#{letter}%" ).limit(12)}
+
 end
