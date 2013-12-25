@@ -71,6 +71,6 @@ def self.vachanakaaras
 end
 
 
-scope :start_letter, lambda {|letter| where("vachana like ? ", "#{letter}%" ).limit(12)}
+scope :start_letter, lambda {|letter| where("vachana like ? ", "#{letter}%" )}
 
 end
