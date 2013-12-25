@@ -8,7 +8,10 @@
 			previousLanguages: [], // array of previous languages
 			previousInputMethods: [], // array of previous inputmethods
 			imes: {
-				'en': 'system'
+				'kn': 'kn-transliteration'
+				// default was english uncomment below line to make it default
+				// 'en': 'system'
+
 			}
 		},
 
