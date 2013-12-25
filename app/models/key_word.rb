@@ -79,6 +79,6 @@ end
 
 
 
-scope :start_letter, lambda {|letter| where("word like ? ", "#{letter}%" ).limit(12)}
+scope :start_letter, lambda {|letter| where("word like ? ", "#{letter}%" )}
 
 end
