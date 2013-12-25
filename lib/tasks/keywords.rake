@@ -1,5 +1,5 @@
 desc "concordance for vachanas"
-task :update_concordance_for_vachanas => :environment do
+task :update_concordance_for_vachanas_priority_3 => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
 		alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
        parent = Concord.create(name: "vachana",concord_code: "vachana" )
@@ -18,7 +18,7 @@ end
 
 
 desc "concordance for keywords"
-task :update_concordance_for_keywords => :environment do
+task :update_concordance_for_keywords_priority_4 => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
 		alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
        parent = Concord.create(name: "key_word",concord_code: "key_word" )
@@ -36,7 +36,7 @@ end
 
 
 desc "concordance for vachanakaara"
-task :update_concordance_for_vachanakaara => :environment do
+task :update_concordance_for_vachanakaara_priority_2 => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
 		alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
        parent = Concord.create(name: "vachanakaara",concord_code: "vachanakaara" )
@@ -54,7 +54,7 @@ end
 
 
 desc "Keywords count for each vachana"
-task :update_keyword_count_in_vachana => :environment do
+task :update_keyword_count_in_vachana_priority_1 => :environment do
 		puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
 	i = 1
 	Vachana.find_each do |vachana|
