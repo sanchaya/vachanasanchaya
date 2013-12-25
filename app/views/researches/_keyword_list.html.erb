@@ -11,8 +11,10 @@
 <h5> 
 	<%=  keyword.word %> </h5>
 	<div class="keyword_used_count"> 
-	<span> <%= keyword.vachana_ids.count %> ವಚನದಲ್ಲಿ ಈ ಪದವು ಬಳಕೆಯಾಗಿದೆ </span> <br /> <br />
-	<span><%= keyword.vachanakaara_ids.uniq.count %>  ವಚನಕಾರರು ಈ ಪದವನ್ನು ಬಳಸಿರುತ್ತಾರೆ </span>
+<span class="btn btn-primary btn-count-size"> <%= keyword.vachana_ids.count %> </span>
+
+	 <br /> <br />
+	<span class="btn btn-info btn-count-size"><%= keyword.vachanakaara_ids.uniq.count %> </span>
 	</div>
 </div>
 </a>
