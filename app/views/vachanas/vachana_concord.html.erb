@@ -1,0 +1,79 @@
+<%= render "layouts/search_box" %>
+<div class="main_heading">
+<h1>ವಚನ </h1> 
+</div>
+
+<div class="row">
+  <div class="span3">
+  	<div class="letter_list">
+<% vowels.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+ </div>
+
+<div class="letter_list">
+<% velars.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% palatals.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+
+<div class="letter_list">
+	<% retroflex.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter), remote: true  %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% dentals.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% labials.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+<div class="letter_list">
+<% unstructured_consonants.each do |letter| %>
+<%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+<span class="vowels_count">
+(<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+</span>
+<% end %>
+</div>
+
+  </div>
+  <div class="span8">
+  	<div class="start_letter_vachana_list">
+<%= render "vachana_concord_list.html" %>
+ </div>
+
+</div>
+</div>

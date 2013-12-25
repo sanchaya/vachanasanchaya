@@ -25,7 +25,6 @@ serialize :vachanakaara_ids
            # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
        # end
     end
-
 # @vachanakaaras = @results.vachanas.vachanakaaras
 @vachanas = @results.vachanas
 unless author.blank?
