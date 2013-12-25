@@ -1,0 +1,28 @@
+
+<% if @vachanas and params[:start_letter] %>
+<p> <span class="start_letter_header"> 
+<%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನ </p>
+
+<div class="results_list_div">
+  <% @vachanas.each do |vachana| %>
+
+<a href="<%= vachana_path(vachana) %>" title="<%= vachana.vachanakaara.name  %>" >
+  <div class="box effect5">
+
+	<div class="keyword_used_count"> 
+	<span>  <%=  vachana.vachana %> </span> 
+	</div>
+</div>
+</a>
+		
+  <% end %>
+</div>
+
+<% unless @vachanas.blank? %>
+<div class="click_for_more"> 
+	<%= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನ" , "" %>
+</div>
+<% end %>
+
+
+<% end %>

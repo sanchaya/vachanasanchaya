@@ -4,7 +4,11 @@ KannadaVachana::Application.routes.draw do
   devise_for :users
 
 resources :researches
-  resources :vachanas
+  resources :vachanas do
+    collection do
+        get :vachana_concord
+      end
+  end
   resources :vachanakaaras
   resources :word_lists
 root :to => "home#index"

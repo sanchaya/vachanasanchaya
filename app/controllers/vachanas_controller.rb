@@ -2,7 +2,7 @@ class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
   #check if logged_in user is Admin
-  before_filter :authenticate_user_role! , except: [:index, :show]
+  before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
 
 
   def index
@@ -100,5 +100,16 @@ class VachanasController < ApplicationController
       format.html { redirect_to vachanas_url }
       format.json { head :no_content }
     end
+  end
+
+  def vachana_concord
+if params[:start_letter]
+      @vachanas= Vachana.start_letter(params[:start_letter])
+    end
+
+    respond_to do |format|
+      format.html
+  format.js # actually means: if the client ask for js -> return file.js
+end
   end
 end
