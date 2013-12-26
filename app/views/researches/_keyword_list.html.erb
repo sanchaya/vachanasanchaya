@@ -7,14 +7,12 @@
   <% @keywords.each do |keyword| %>
 
 <a href="<%= vachanas_path(vachana: keyword.word, search_type: "like_search") %>" title="<%=keyword.word  %>" >
-  <div class="box effect5">
+  <div class="box effect5" style="height:auto;">
 <h5> 
 	<%=  keyword.word %> </h5>
-	<div class="keyword_used_count"> 
-<span class="btn btn-primary btn-count-size"> <%= keyword.vachana_ids.count %> </span>
-
-	 <br /> <br />
-	<span class="btn btn-info btn-count-size"><%= keyword.vachanakaara_ids.uniq.count %> </span>
+	<div class="keyword_used_count" style="text-align: center;margin-bottom: 5px;" > 
+( <span class="badge badge-primary"> <%= keyword.vachana_ids.count %> </span>,
+	<span class="badge badge-info"><%= keyword.vachanakaara_ids.uniq.count %> </span> )
 	</div>
 </div>
 </a>
@@ -25,7 +23,7 @@
 <% unless @keywords.blank? %>
 
 <div class="click_for_more"> 
-	<%= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ಪದಗಳು" , "" %>
+	<%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ಪದಗಳು" , "" %>
 </div>
 
 <% end %>
