@@ -69,7 +69,7 @@ task :update_keyword_count_in_vachana_priority_1 => :environment do
 				puts "already keyword exists "
 				unless keyword.vachana_ids.keys.include?(vachana.id)
 					puts "keyword in this vachana first time"
-					count = vachana.vachana.scan(word).count
+					count = words.count(word)
 					total_count = keyword.count + count
 	 				hash = keyword.vachana_ids
 					hash[vachana.id] = count
@@ -79,7 +79,8 @@ task :update_keyword_count_in_vachana_priority_1 => :environment do
 			    end
 			else
 				puts "new keyword"
-				count = vachana.vachana.scan(word).count
+				count = words.count(word)
+				# count = vachana.vachana.scan(word).count
 				hash = {vachana.id => count}
 				arraya = [vachana.vachanakaara_id]
 				KeyWord.create(word: word , vachana_ids: hash, count: count, vachanakaara_ids: arraya)
