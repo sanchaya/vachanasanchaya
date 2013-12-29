@@ -79,6 +79,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     multi_json (1.7.7)
+    mysql2 (0.3.10)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -147,6 +148,7 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     will_paginate (3.0.4)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -158,6 +160,7 @@ DEPENDENCIES
   devise
   jquery-rails
   less-rails
+  mysql2 (= 0.3.10)
   rack-mini-profiler
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
@@ -166,3 +169,4 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   will_paginate
+  yaml_db

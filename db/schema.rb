@@ -68,8 +68,6 @@ ActiveRecord::Schema.define(:version => 20131222084616) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "vachanas", ["vachana"], :name => "index_vachanas_on_vachana"
-
   create_table "word_lists", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",                        :null => false
