@@ -59,7 +59,7 @@ task :update_keyword_count_in_vachana_priority_1 => :environment do
 	i = 1
 	Vachana.find_each do |vachana|
 		puts i
-		words = vachana.vachana.split(/\ |\,|\.|\;/) if vachana.vachana
+		words = vachana.vachana.split(/\ |\,|\.|\;|(\n)/) if vachana.vachana
 		puts "inside vachana #{vachana.id}"
 		words.each do |word|
 			puts word
