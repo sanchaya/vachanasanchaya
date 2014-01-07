@@ -6,6 +6,7 @@
   <div class="results_list_div keywords_load">
    <%= render "results" %>
  </div>
+ <br />
  <%= link_to "#{t :read_more}...", researches_path(params: params, :page => @keywords.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @keywords.next_page %>
  <% unless @keywords.blank? %>
 
