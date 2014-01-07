@@ -1,0 +1,11 @@
+ <% @keywords.each do |keyword| %>
+
+    <a href="<%= vachanas_path(vachana: keyword.word, search_type: "exact_search") %>" title="<%=keyword.word  %>" >
+      <div class="box effect5" style="height:auto;">
+        <h5> 
+         <%=  keyword.word %> (<span style="color:#999999"> <%= keyword.vachana_ids.count %> </span> ,<span style="color:#4787AD"> <%= keyword.vachanakaara_ids.uniq.count %> </span>)</h5>
+
+       </div>
+     </a>
+     
+     <% end %>

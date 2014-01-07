@@ -1,1 +1,15 @@
+<% if params[:page] %>
+
+$('.keywords_load').append("<%= escape_javascript(render(partial: 'results')) %>");
+<% params.delete(:page) if params[:page] %>
+$('a.load-more-vachanas').attr('href',"<%= researches_path(params: params, :page => @keywords.next_page) %>" );
+<% unless @keywords.next_page %>
+$('a.load-more-vachanas').remove();
+<% end %>
+
+<% else %>
+
 $('.start_letter_keyword_list').html("<%= escape_javascript(render(:partial => 'keyword_list')) %>");
+
+
+<% end %>
