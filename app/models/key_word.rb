@@ -2,7 +2,8 @@ class KeyWord < ActiveRecord::Base
   attr_accessible :word, :count, :vachana_ids,:vachanakaara_ids
   serialize :vachana_ids
   serialize :vachanakaara_ids
-  WillPaginate.per_page = 20
+    self.per_page = 50
+  # WillPaginate.per_page = 20 #global set limit if in all model its same numbers
 
 
   def self.search_vachana_pada(pada,type,author)
