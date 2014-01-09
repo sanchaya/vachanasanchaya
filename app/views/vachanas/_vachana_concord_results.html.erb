@@ -1,0 +1,12 @@
+ <% @vachanas.each do |vachana| %>
+
+ <a href="<%= vachana_path(vachana) %>" title="<%= vachana.vachanakaara.name  %>" >
+  <div class="box effect5">
+
+   <div class="vachana-concord-box"> 
+     <span>  <%=  vachana.vachana %> </span> 
+   </div>
+ </div>
+</a>
+
+<% end %>

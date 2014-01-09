@@ -3,20 +3,11 @@
 <p> <span class="start_letter_header"> 
 <%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನ </p>
 
-<div class="results_list_div">
-  <% @vachanas.each do |vachana| %>
-
-<a href="<%= vachana_path(vachana) %>" title="<%= vachana.vachanakaara.name  %>" >
-  <div class="box effect5">
-
-	<div class="vachana-concord-box"> 
-	<span>  <%=  vachana.vachana %> </span> 
-	</div>
+<div class="results_list_div keywords_load">
+ <%= render "vachana_concord_results" %>
 </div>
-</a>
-		
-  <% end %>
-</div>
+<br />
+ <%= link_to "#{t :read_more}...", vachana_concord_vachanas_path(params: params, :page => @vachanas.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
 
 <% unless @vachanas.blank? %>
 <div class="click_for_more"> 
