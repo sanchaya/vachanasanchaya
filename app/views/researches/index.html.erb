@@ -1,7 +1,7 @@
 <%= render "layouts/search_box" %>
 
-
-<div class="span12">
+<div class="row">
+<div class="span2">
 
   <% vowels.each do |letter| %>
   <%= link_to letter, researches_path(start_letter: letter)  , remote: true %>
@@ -60,9 +60,9 @@
   <hr />
 </div>
 
-<div class="span12">
+<div class="span10">
  <div class="start_letter_keyword_list">
   <%= render "keyword_list.html" %>
 </div>
-
+</div>
 </div>
