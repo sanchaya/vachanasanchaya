@@ -1,5 +1,5 @@
 <div id="vachana_result" %>
-    <div class= "span3" style="margin-top: 100px;"> 
+   <!--  <div class= "span3" style="margin-top: 100px;"> 
       <div class= "total_count_description"> 
         <% if @results  and  !@results.blank? %>
         <p class="lead">  
@@ -7,31 +7,40 @@
         </p>
         <% end %>
     </div>
-</div>
-<div class="span5">
-	<% if @results %>
-	<% if @results.blank?  %>
-	<%= t :no_vachana_found %>
-	
-	<% else %>
-    <div class= "vacha_lists vachanas_load" %>
-       <%= render "results" %>
-   </div>
-   <%= link_to "#{t :read_more}...", vachanas_path(params: params, :page => @results.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @results.next_page %>
-   <% end %>
-
-   <% end %>
-</div>
+</div> -->
+<div class="row">
+    
 
 
+    <div class="span9">
+     <% if @results %>
+     <% if @results.blank?  %>
+     <%= t :no_vachana_found %>
 
-<div class= "span3" >
+     <% else %>
+     <div class= " vachanas_load" %>
+         <%= render "results" %>
+     </div>
+     <%= link_to "#{t :read_more}...", vachanas_path(params: params, :page => @results.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @results.next_page %>
+     <% end %>
+
+     <% end %>
+ </div>
+
+
+ <div class= "span3" >
     <% unless @results.blank? %>
     <div class="graph-space" >
         <div id="container" style="width: 310px; height: <%=get_height_for_graph %>px; margin: 0 auto"></div>
     </div>
     <% end %>
 </div>
+
+</div>
+
+
+
+
 </div>
 
 
@@ -96,15 +105,15 @@ $(function () {
 $(document).ready(function(){
 
     $('.highcharts-axis-labels text tspan').click(function(){
-      
-      
-       var  linkk = $(this).siblings('tspan').text();
-       var id = parseInt(linkk);
-       var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
-       window.location.href = "/vachanas/?" + params ;
+
+
+     var  linkk = $(this).siblings('tspan').text();
+     var id = parseInt(linkk);
+     var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
+     window.location.href = "/vachanas/?" + params ;
 
   //$('body').on('click','.highcharts-axis-labels',function(){
-      
+
   })
 })
 

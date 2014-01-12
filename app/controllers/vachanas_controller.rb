@@ -18,7 +18,7 @@ class VachanasController < ApplicationController
      else
       @vachanakaaras = @vachanas.vachanakaaras
     end
-      @results = @vachanas.paginate(:page => params[:page], :per_page => 20)
+      @results = @vachanas.paginate(:page => params[:page], :per_page => 15)
       # @vachanas,@vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count , @vachanakaaras = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
       # @counts = @vachanas.values
       # @total_counts = @counts.inject{|sum,x| sum + x }
