@@ -1,19 +1,24 @@
-
-		<% @results.each do |vachana| %>
-		<%= link_to "#{vachana.vachanakaara.name} (#{vachana.id})", vachana,class: "btn btn-mini " %>
-		<p class="heighlight text-left"> <%= raw vachana.vachana.gsub(/\n/, '<br />') %>   </p>
-        <!-- <span class="badge badge-info"><%#= result.count %>   </span> -->
-		<% end %>
-
+<div class="results_list_div">
+  <% @results.each do |vachana| %>
+  <%#= link_to "#{vachana.vachanakaara.name} (#{vachana.id})", vachana,class: "btn btn-mini " %>
+  <a href="<%= vachana_path(vachana) %>" title="<%= vachana.vachanakaara.name  %>" >
+    <div class="box effect5">
+     <div class="vachana-concord-box"> 
+       <span>  <%=  vachana.vachana %> </span> 
+   </div>
+</div>
+</a>
+<% end %>
+</div>
 
 <script type='text/javascript'>
 
-jQuery(function(){
-    var options = {
-        exact:"partial",
-        keys: "<%= params[:vachana] %> "
-    }
-    jQuery(document).SearchHighlight(options);
-});
+    // jQuery(function(){
+    //     var options = {
+    //         exact:"partial",
+    //         keys: "<%= params[:vachana] %> "
+    //     }
+    //     jQuery(document).SearchHighlight(options);
+    // });
 
 </script>
