@@ -12,14 +12,13 @@ class VachanasController < ApplicationController
       @pada = params[:vachana]
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
-      @word_lists, @vachanakaaras_word_count, @vachanakaaras_name = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara_id)
+      @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts  = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara_id)
      if params[:vachanakaara] and !params[:vachanakaara].blank?
       @vachanakaaras = [Vachanakaara.find(params[:vachanakaara].to_i)]
      else
-      @vachanakaaras = @word_lists.vachanas.vachanakaaras
+      @vachanakaaras = @vachanas.vachanakaaras
     end
-      @total_counts = @word_lists.sum(:count)
-      @results = @word_lists.paginate(:page => params[:page], :per_page => 20)
+      @results = @vachanas.paginate(:page => params[:page], :per_page => 20)
       # @vachanas,@vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count , @vachanakaaras = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
       # @counts = @vachanas.values
       # @total_counts = @counts.inject{|sum,x| sum + x }

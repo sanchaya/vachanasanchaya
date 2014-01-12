@@ -21,7 +21,7 @@ class KeyWord < ActiveRecord::Base
 
      else
     	 # if author.blank?
-      @results = where(word: pada )
+       @results = where(word: pada )
        # else
            # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
        # end
@@ -32,6 +32,7 @@ unless author.blank?
   @vachanas = @vachanas.where(vachanakaara_id: author)
 end
 if author.blank?
+  @total_counts = @results.sum(:count)
   @vachanakaaras = @vachanas.vachanakaaras
   @vachanakaaras.each do |vachanakaara|
     @vachanakaaras_word_count << @vachanas.where(vachanakaara_id: vachanakaara.id).count
@@ -43,7 +44,19 @@ else
   @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachanakaara.id}" + '</span>' + "#{vachanakaara.name}" + '</span>'
   
 end
-return @results, @vachanakaaras_word_count, @vachanakaaras_name
+if author.blank?
+  @total_counts = @results.sum(:count)
+else
+  vachana_ids = @vachanas.pluck(:id)
+  @total_counts = 0
+  @results.each do |result|
+   vachana_ids.each do |v_id|
+     @total_counts += result.vachana_ids[v_id].to_i
+   end
+ end
+end
+
+return @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts 
 end
 
 
