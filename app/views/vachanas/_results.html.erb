@@ -17,8 +17,10 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel"> <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> </h3>
   </div>
-  <div class="modal-body">
-    <p><%= raw vachana.vachana %></p>
+  <div class="modal-body vachana-pop">
+    <p><%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
+
+    </p>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
