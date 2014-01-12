@@ -1,18 +1,44 @@
 <div class="results_list_div">
   <% @results.each do |vachana| %>
   <%#= link_to "#{vachana.vachanakaara.name} (#{vachana.id})", vachana,class: "btn btn-mini " %>
-  <a href="<%= vachana_path(vachana) %>" title="<%= vachana.vachanakaara.name  %>" >
+  <a href="#myModal_<%= vachana.id %>" role="button"  data-toggle="modal" >
     <div class="box effect5">
      <div class="vachana-concord-box"> 
-     <span class= "btn btn-mini ">
+       <span class= "btn btn-mini ">
          <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> 
-     </span>
-       <span> <br /> <%=  vachana.vachana %> </span> 
+       </span>
+       <span> <br /> <%= vachana.vachana %> </span> 
+     </div>
    </div>
+ </a>
+
+<div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"> <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> </h3>
+  </div>
+  <div class="modal-body">
+    <p><%= raw vachana.vachana %></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <!-- <button class="btn btn-primary">Save changes</button> -->
+  </div>
 </div>
-</a>
-<% end %>
+
+
+ <% end %>
 </div>
+
+
+
+
+
+
+
+
+
+
 
 <script type='text/javascript'>
 
