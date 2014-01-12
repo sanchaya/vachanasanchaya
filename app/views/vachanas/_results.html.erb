@@ -1,6 +1,6 @@
 
 		<% @results.each do |vachana| %>
-		<%= link_to "#{vachana.id} (#{vachana.vachanakaara.name})", vachana,class: "btn btn-mini " %>
+		<%= link_to "#{vachana.vachanakaara.name} (#{vachana.id})", vachana,class: "btn btn-mini " %>
 		<p class="heighlight text-left"> <%= raw vachana.vachana.gsub(/\n/, '<br />') %>   </p>
         <!-- <span class="badge badge-info"><%#= result.count %>   </span> -->
 		<% end %>
