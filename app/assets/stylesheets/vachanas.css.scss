@@ -36,9 +36,10 @@ margin-bottom: 10px;
 }
 
 .graph-space{
-height: 500px;
+height: 625px;
 overflow-y: auto;
 width: 350px;
+background: none repeat scroll 0 0 #E6E6E6;
 
 }
 
@@ -170,6 +171,7 @@ margin-top: 20px;
 }
 
 .results_list_div{
+text-align: center;
 	a:hover{
 	text-decoration:none !important;
 	color: black !important;
