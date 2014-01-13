@@ -4,18 +4,18 @@
   <div class="box effect5">
 
    <div class="vachana-concord-box"> 
-   <div class="vachana-show-box"> 
-     <span>  <%=  vachana.vachana %> </span> 
+     <div class="vachana-show-box"> 
+       <span>  <%=  vachana.vachana %> </span> 
+     </div>
+     --------------
+     <div class= "vachanakaara-name"> 
+       <span  >
+         <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> 
+       </span>
+     </div>
    </div>
-   --------------
-   <div class= "vachanakaara-name"> 
-   <span  >
-     <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> 
-   </span>
-   </div>
- </div>
 
-</div>
+ </div>
 </a>
 
 <div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
