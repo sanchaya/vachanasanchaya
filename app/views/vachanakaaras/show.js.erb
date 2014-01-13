@@ -1,0 +1,10 @@
+<% if params[:page] %>
+$('.keywords_load').append("<%= escape_javascript(render(partial: 'vachanakaara_vachana_results')) %>");
+<% params.delete(:page) if params[:page] %>
+$('a.load-more-vachanas').attr('href',"<%= vachanakaara_path(params: params, :page => @vachanas.next_page) %>" );
+<% unless @vachanas.next_page %>
+$('a.load-more-vachanas').remove();
+<% end %>
+<% else %>
+$('.start_letter_vachana_list').html("<%= escape_javascript(render(:partial => 'vachanakaara_vachana_list')) %>");
+<% end %>
