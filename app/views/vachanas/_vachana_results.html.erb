@@ -7,9 +7,17 @@
         </p>
         <% end %>
     </div>
-</div> -->
-<div class="row">
-    
+  </div> -->
+  <div class="row">
+
+
+   <div class= "span3" >
+    <% unless @results.blank? %>
+    <div class="graph-space" >
+      <div id="container" style="width: 250px; height: <%=get_height_for_graph %>px;   margin: 10px auto;"></div>
+    </div>
+    <% end %>
+  </div>
 
 
     <div class="span9">
@@ -19,22 +27,15 @@
 
      <% else %>
      <div class= " vachanas_load" %>
-         <%= render "results" %>
+       <%= render "results" %>
      </div>
      <%= link_to "#{t :read_more}...", vachanas_path(params: params, :page => @results.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @results.next_page %>
      <% end %>
 
      <% end %>
- </div>
+   </div>
 
 
- <div class= "span3" >
-    <% unless @results.blank? %>
-    <div class="graph-space" >
-        <div id="container" style="width: 310px; height: <%=get_height_for_graph %>px;   margin: 10px auto;"></div>
-    </div>
-    <% end %>
-</div>
 
 </div>
 
@@ -51,51 +52,51 @@
 
 
 $(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: '<%= t :vachanakaararu %>'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            categories: <%= raw @vachanakaaras_name %>,
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '<%= "#{t :padaviruva} #{t :vachanagalu}" %>',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' <%="#{t :vachana}" %>'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: '<%="#{t :total}" %>',
-            data: <%= raw  @vachanakaaras_word_count %>
-        }]
-    });
+  $('#container').highcharts({
+    chart: {
+      type: 'bar'
+    },
+    title: {
+      text: '<%= t :vachanakaararu %>'
+    },
+    subtitle: {
+      text: ''
+    },
+    xAxis: {
+      categories: <%= raw @vachanakaaras_name %>,
+      title: {
+        text: null
+      }
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: '<%= "#{t :padaviruva} #{t :vachanagalu}" %>',
+        align: 'high'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },
+    tooltip: {
+      valueSuffix: ' <%="#{t :vachana}" %>'
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: '<%="#{t :total}" %>',
+      data: <%= raw  @vachanakaaras_word_count %>
+    }]
+  });
 });
 
 
@@ -104,13 +105,13 @@ $(function () {
 
 $(document).ready(function(){
 
-    $('.highcharts-axis-labels text tspan').click(function(){
+  $('.highcharts-axis-labels text tspan').click(function(){
 
 
-     var  linkk = $(this).siblings('tspan').text();
-     var id = parseInt(linkk);
-     var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
-     window.location.href = "/vachanas/?" + params ;
+   var  linkk = $(this).siblings('tspan').text();
+   var id = parseInt(linkk);
+   var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
+   window.location.href = "/vachanas/?" + params ;
 
   //$('body').on('click','.highcharts-axis-labels',function(){
 
