@@ -1,15 +1,21 @@
  <% @vachanas.each do |vachana| %>
 
-<a href="#myModal_<%= vachana.id %>" role="button"  data-toggle="modal" >
+ <a href="#myModal_<%= vachana.id %>" role="button"  data-toggle="modal" >
   <div class="box effect5">
 
    <div class="vachana-concord-box"> 
-   <span class= "btn btn-mini ">
-         <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> 
-     </span>
-     <span>  <br /> <%=  vachana.vachana %> </span> 
+   <div class="vachana-show-box"> 
+     <span>  <%=  vachana.vachana %> </span> 
+   </div>
+   --------------
+   <div class= "vachanakaara-name"> 
+   <span  >
+     <%= "#{vachana.vachanakaara.name}(#{vachana.id})" %> 
+   </span>
    </div>
  </div>
+
+</div>
 </a>
 
 <div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

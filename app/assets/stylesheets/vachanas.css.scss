@@ -75,6 +75,7 @@ cursor:pointer;
 .load-more-vachanas{
 clear: both;
 	float: right;
+  color: #0044CC;
 }
 
 .footer{
@@ -125,10 +126,21 @@ margin-left: 10px;
 margin-top: 20px;
     }
 
-  .vachana-concord-box{
+  /* .vachana-concord-box{
   height: 90%;
  margin: 5px;
     overflow: hidden;
+  } */
+
+  .vachana-show-box{
+    height: 140px;
+    margin: 5px;
+    overflow: hidden;
+  }
+  .vachanakaara-name{
+  height: 25px;
+  color:  #0044CC;
+  overflow: hidden;
   }
 }
 
