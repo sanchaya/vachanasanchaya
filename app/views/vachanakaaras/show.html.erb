@@ -1,10 +1,67 @@
-		<div class="back-button-show">
-			<%= link_to "Back",vachanakaaras_path, class: "btn btn-primary " %>
-		<h3> <%= @vachanakaara.name %> </h3>
+		<%= render "layouts/search_box" %>
+<!-- <div class="main_heading">
+</div>
+-->
+<div class="row">
+	<div class="span2">
+		<% vowels.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+		<% velars.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+		<% palatals.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+
+		<% retroflex.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+		<% dentals.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+		<% labials.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+		<% unstructured_consonants.each do |letter| %>
+		<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
+		<span class="vowels_count">
+			(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
+		</span>
+		<% end %>
+
+	</div>
+
+	<div class="span10">
+		<div class="start_letter_vachana_list">
+			<%= render "vachanakaara_vachana_list" %>
 		</div>
-		<div class="vacha_lists">
-			<% @vachanas.each do |vachana| %>
-			<%= link_to vachana.id,vachana, class: "btn btn-mini " %>
-			<p class="heighlight text-left"> <%= raw vachana.vachana.gsub(/\n/, '<br />') %>  </p>
-			<% end %>
-		</div>
+
+
+
+	</div>
+</div>

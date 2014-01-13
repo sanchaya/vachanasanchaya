@@ -32,7 +32,7 @@ class Vachana < ActiveRecord::Base
       @vachanakaaras = vachanas.select("distinct(vachanakaara_id)")
       @vachanakaaras.each do |vachana|
         @vachanakaaras_word_count << vachanas.where("vachanakaara_id = #{vachana.vachanakaara_id}").count
-       @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
+        @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
         @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachana.vachanakaara.id}" + '</span>' + "#{vachana.vachanakaara.name}" + '</span>'
 
       end
@@ -72,5 +72,13 @@ end
 
 
 scope :start_letter, lambda {|letter| where("vachana like ? ", "#{letter}%" )}
+
+
+
+def self.vachanakaaras_vachana_concord(vachanakaara, start_letter)
+  where("vachanakaara_id = ? and vachana like ? ", vachanakaara, "#{start_letter}%").count
+end
+
+
 
 end

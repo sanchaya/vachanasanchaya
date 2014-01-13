@@ -3,6 +3,7 @@ class Vachanakaara < ActiveRecord::Base
   has_many :vachanas
 
 
-scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
+  scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
+
 
 end
