@@ -1,17 +1,21 @@
 KannadaVachana::Application.routes.draw do
+
   get "home/index"
+  match "/contact_us" => "home#contact_us"
+  match "/about_us" => "home#about_us"
+  match "/help" => "home#help"
 
   devise_for :users
 
-resources :researches
+  resources :researches
   resources :vachanas do
     collection do
-        get :vachana_concord
-      end
+      get :vachana_concord
+    end
   end
   resources :vachanakaaras
   resources :word_lists
-root :to => "home#index"
+  root :to => "home#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
