@@ -9,39 +9,39 @@
 <body>
 	<% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
-    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-      <a class="close" data-dismiss="alert">&#215;</a>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+    <a class="close" data-dismiss="alert">&#215;</a>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  </div>
+  <% end %>
+  <% end %>
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <%= link_to "ವಚನ ಸಂಗ್ರಹ", root_path, class: "brand" %>
+      <%#= link_to "#{t :vachanakaararu}", vachanakaaras_path, class: "brand" %>
+      <% if current_user %>
+      <%= link_to "sign_out", destroy_user_session_path, method: :delete , class: "brand" %>
+      <% end %>
+      <ul class="nav">
+        <li class= <%= params[:controller] == "vachanakaaras" ? "active" : "" %> ><%= link_to "ವಚನಕಾರರು", vachanakaaras_path %> </li>
+        <li class= <%= params[:controller] == "vachanas" ? "active" : "" %> ><%= link_to "ವಚನಗಳು", vachana_concord_vachanas_path %> </li>
+        <li class= <%= params[:controller] == "researches" ? "active" : "" %> ><%= link_to "ಸಂಶೋಧನೆ", researches_path %>  </li>
+        <li class= <%= params[:action] == "contact_us" ? "active" : "" %> ><%= link_to "ಸಂಪರ್ಕಿಸಿ" , contact_us_path %></li>
+        <li class= <%= params[:action] == "help" ? "active" : "" %> ><%= link_to "ಸಹಾಯ" , help_path %></li>
+        <li class= <%= params[:action] == "about_us" ? "active" : "" %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , about_us_path %></li>
+
+      </ul>
     </div>
-  <% end %>
-<% end %>
 
-	<div class="navbar">
-  <div class="navbar-inner">
-    <%= link_to "ವಚನ ಸಂಗ್ರಹ", root_path, class: "brand" %>
-    <%#= link_to "#{t :vachanakaararu}", vachanakaaras_path, class: "brand" %>
-   <% if current_user %>
-  <%= link_to "sign_out", destroy_user_session_path, method: :delete , class: "brand" %>
-  <% end %>
-  <ul class="nav">
-<li class= <%= params[:controller] == "vachanakaaras" ? "active" : "" %> ><%= link_to "ವಚನಕಾರರು", vachanakaaras_path %> </li>
-<li class= <%= params[:controller] == "vachanas" ? "active" : "" %> ><%= link_to "ವಚನಗಳು", vachana_concord_vachanas_path %> </li>
-<li class= <%= params[:controller] == "researches" ? "active" : "" %> ><%= link_to "ಸಂಶೋಧನೆ", researches_path %>  </li>
-<li class= <%= params[:action] == "contact_us" ? "active" : "" %> ><%= link_to "ಸಂಪರ್ಕಿಸಿ" , contact_us_path %></li>
-<li class= <%= params[:action] == "help" ? "active" : "" %> ><%= link_to "ಸಹಾಯ" , help_path %></li>
-<li class= <%= params[:action] == "about_us" ? "active" : "" %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , about_us_path %></li>
+  </div>
+  <div class="container">
 
-</ul>
+
+    <%= yield %>
   </div>
 
-</div>
-<div class="container">
-
-
-<%= yield %>
-</div>
-
-<div class="footer"> 
-</div>
+  <div class="footer"> 
+  </div>
 </body>
 </html>
