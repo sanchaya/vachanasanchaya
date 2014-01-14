@@ -27,9 +27,9 @@
 <li class= <%= params[:controller] == "vachanakaaras" ? "active" : "" %> ><%= link_to "ವಚನಕಾರರು", vachanakaaras_path %> </li>
 <li class= <%= params[:controller] == "vachanas" ? "active" : "" %> ><%= link_to "ವಚನಗಳು", vachana_concord_vachanas_path %> </li>
 <li class= <%= params[:controller] == "researches" ? "active" : "" %> ><%= link_to "ಸಂಶೋಧನೆ", researches_path %>  </li>
-<li class= <%= %> ><%= link_to "ಸಂಪರ್ಕಿಸಿ" , "#" %></li>
-<li class= <%= %> ><%= link_to "ಸಹಾಯ" , "#" %></li>
-<li class= <%= %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , "#" %></li>
+<li class= <%= params[:action] == "contact_us" ? "active" : "" %> ><%= link_to "ಸಂಪರ್ಕಿಸಿ" , contact_us_path %></li>
+<li class= <%= params[:action] == "help" ? "active" : "" %> ><%= link_to "ಸಹಾಯ" , help_path %></li>
+<li class= <%= params[:action] == "about_us" ? "active" : "" %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , about_us_path %></li>
 
 </ul>
   </div>

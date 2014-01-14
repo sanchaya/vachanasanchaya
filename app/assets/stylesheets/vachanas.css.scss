@@ -52,158 +52,168 @@ background-color: wheat;
 color: #006DCC;
 font-size: 17px;
 }
- .btn-primary:visited{
-    color: #FFFFFF;
+.btn-primary:visited{
+color: #FFFFFF;
 }
 
 
 .highcharts-axis-labels .tspan
- {
- display:none;
- }
- .test
- {
-  display:none;
- }
+{
+display:none;
+}
+.test
+{
+display:none;
+}
 
- .highcharts-axis-labels text tspan
- {
+.highcharts-axis-labels text tspan
+{
 cursor:pointer;
 }
 
 
 .load-more-vachanas{
 clear: both;
-	float: right;
-  color: #0044CC;
+float: right;
+color: #0044CC;
 }
 
 .footer{
-	margin-top: 20px;
+margin-top: 20px;
 }
 
 
 .search_box{
-	width: 100%;
-	text-align: center;
+width: 100%;
+text-align: center;
 }
 
 
 .start_letter_header{
-	font-size: 20px;
+font-size: 20px;
 }
 
 .vowels_count{
-	font-size: 10px;
+font-size: 10px;
 }
 
 
 
 
 .box {
-  background: none repeat scroll 0 0 #FFFFFF;
-    float: left;
-    height: 200px;
-    margin: 0 10px 10px 0;
-    width: 150px;
-    border:1px solid #ccc;
-    border-bottom:2px solid #bbb;
-    border-top:1px solid #ddd;
-    border-radius:10px;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
-    
-    h5{
- text-align: center;
+background: none repeat scroll 0 0 #FFFFFF;
+float: left;
+height: 200px;
+margin: 0 10px 10px 0;
+width: 150px;
+border:1px solid #ccc;
+border-bottom:2px solid #bbb;
+border-top:1px solid #ddd;
+border-radius:10px;
+-webkit-border-radius:10px;
+-moz-border-radius:10px;
+
+h5{
+text-align: center;
 overflow: hidden;
 margin: 5px;
-    }
+}
 
-    .keyword_used_count{
-    height: 100%;
+.keyword_used_count{
+height: 100%;
 overflow: hidden;
 margin-left: 10px;
 margin-top: 20px;
-    }
+}
 
-  /* .vachana-concord-box{
-  height: 90%;
- margin: 5px;
-    overflow: hidden;
-  } */
+/* .vachana-concord-box{
+height: 90%;
+margin: 5px;
+overflow: hidden;
+} */
 
-  .vachana-show-box{
-    height: 140px;
-    margin: 5px;
-    overflow: hidden;
-  }
-  .vachanakaara-name{
-  height: 25px;
-  color:  #0044CC;
-  overflow: hidden;
-  }
+.vachana-show-box{
+height: 140px;
+margin: 5px;
+overflow: hidden;
+}
+.vachanakaara-name{
+height: 25px;
+color:  #0044CC;
+overflow: hidden;
+}
 }
 
 /*==================================================
- * Effect 5
- * ===============================================*/
+* Effect 5
+* ===============================================*/
 .effect5
 {
-  position: relative;
+position: relative;
 }
 .effect5:before, .effect5:after
 {
-  z-index: -1;
-  position: absolute;
-  content: "";
-  bottom: 25px;
-  left: 10px;
-  width: 50%;
-  top: 80%;
-  max-width:300px;
-  background: #777;
-  -webkit-box-shadow: 0 35px 20px #777;
-  -moz-box-shadow: 0 35px 20px #777;
-  box-shadow: 0 35px 20px #777;
-  -webkit-transform: rotate(-8deg);
-  -moz-transform: rotate(-8deg);
-  -o-transform: rotate(-8deg);
-  -ms-transform: rotate(-8deg);
-  transform: rotate(-8deg);
+z-index: -1;
+position: absolute;
+content: "";
+bottom: 25px;
+left: 10px;
+width: 50%;
+top: 80%;
+max-width:300px;
+background: #777;
+-webkit-box-shadow: 0 35px 20px #777;
+-moz-box-shadow: 0 35px 20px #777;
+box-shadow: 0 35px 20px #777;
+-webkit-transform: rotate(-8deg);
+-moz-transform: rotate(-8deg);
+-o-transform: rotate(-8deg);
+-ms-transform: rotate(-8deg);
+transform: rotate(-8deg);
 }
 .effect5:after
 {
-  -webkit-transform: rotate(8deg);
-  -moz-transform: rotate(8deg);
-  -o-transform: rotate(8deg);
-  -ms-transform: rotate(8deg);
-  transform: rotate(8deg);
-  right: 10px;
-  left: auto;
+-webkit-transform: rotate(8deg);
+-moz-transform: rotate(8deg);
+-o-transform: rotate(8deg);
+-ms-transform: rotate(8deg);
+transform: rotate(8deg);
+right: 10px;
+left: auto;
 }
 
 .results_list_div{
 text-align: center;
-	a:hover{
-	text-decoration:none !important;
-	color: black !important;
-	}
+a:hover{
+text-decoration:none !important;
+color: black !important;
+}
 }
 
 
 .click_for_more{
-	clear: both;
-   padding: 25px 0 0;
+clear: both;
+padding: 25px 0 0;
 }
 
 .btn-count-size{
 height: 25px;
-    width: 100px;
-    }
+width: 100px;
+}
 
 
-    .vachana-pop{
-    p{
-    background: url("/assets/bg-pattern.png") repeat scroll 0 0 transparent;
-    }
-    }
+.vachana-pop{
+p{
+background: url("/assets/bg-pattern.png") repeat scroll 0 0 transparent;
+}
+}
+
+
+.about-paragraph{
+border: 1px solid #F2F1F0;
+width: 550px;
+p{
+padding: 10px;
+
+}
+}
