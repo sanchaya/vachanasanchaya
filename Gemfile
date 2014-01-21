@@ -44,3 +44,4 @@ gem 'will_paginate'
 
 gem 'newrelic_rpm'
 
+gem 'google-analytics-rails'
