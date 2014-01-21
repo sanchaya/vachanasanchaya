@@ -41,3 +41,6 @@ gem "twitter-bootstrap-rails"
 gem 'devise'
 
 gem 'will_paginate'
+
+gem 'newrelic_rpm'
+
