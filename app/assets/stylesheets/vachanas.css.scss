@@ -211,6 +211,7 @@ background: url("/assets/bg-pattern.png") repeat scroll 0 0 transparent;
 
 .about-paragraph{
 border: 1px solid #F2F1F0;
+min-height: 700px;
 // width: 550px;
 p{
 padding: 10px;
@@ -240,4 +241,16 @@ padding: 10px;
     clear: both;
     margin: 0px;
     }
+}
+
+.namma-bagge{
+	width: 48%;
+	float: left;
+
+}
+
+.avrutthi-update{
+width: 48%;
+	float: left;
+	margin-left: 5px;
 }
