@@ -1,8 +1,10 @@
 
 <% if @vachanas and params[:start_letter] %>
 <p> <span class="start_letter_header"> 
-<%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನ </p>
+<%= params[:start_letter] %> </span> 
+ ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು - ವಚನಕಾರರು: <%= @vachanakaara.name %>
 
+ </p>
 <div class="results_list_div keywords_load">
  <%= render "vachanakaara_vachana_results" %>
 </div>
