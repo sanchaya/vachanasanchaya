@@ -4,6 +4,7 @@
  -->
 <div class="row">
   <div class="span2">
+  <div class="aksharamaale">
 <% vowels.each do |letter| %>
 <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
 <span class="vowels_count">
@@ -53,7 +54,7 @@
 (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
 </span>
 <% end %>
-
+</div>
   </div>
   
   <div class="span10">
