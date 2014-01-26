@@ -1,5 +1,6 @@
 class Vachana < ActiveRecord::Base
   attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
+  has_many :daily_vachanas
   belongs_to :vachanakaara
 
 
