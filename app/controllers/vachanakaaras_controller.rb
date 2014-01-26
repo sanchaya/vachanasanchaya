@@ -25,7 +25,7 @@ end
 
 
 def edit
-  @vachanakaaras = Vachanakaara.all
+  @vachanakaaras = Vachanakaara.order("name")
   @vachanakaara = Vachanakaara.find params[:id]
 end
 
