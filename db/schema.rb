@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126051020) do
+ActiveRecord::Schema.define(:version => 20140126161918) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(:version => 20140126051020) do
     t.integer  "vachana_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "database_connections", :force => true do |t|
+    t.string  "adapter",  :null => false
+    t.string  "database", :null => false
+    t.string  "password"
+    t.string  "username"
+    t.string  "host"
+    t.string  "encoding"
+    t.integer "port"
+    t.string  "title"
   end
 
   create_table "key_words", :force => true do |t|
@@ -61,8 +72,9 @@ ActiveRecord::Schema.define(:version => 20140126051020) do
 
   create_table "vachanakaaras", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "ankitha_naama"
   end
 
   create_table "vachanas", :force => true do |t|
