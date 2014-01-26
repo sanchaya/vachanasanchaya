@@ -35,4 +35,9 @@ def update
   redirect_to edit_vachanakaara_path @vachanakaara
 end
 
+def search_vachanakaara_name
+  @vachanakaaras = Vachanakaara.name_like params[:vachanakaara_name]
+
+end
+
 end

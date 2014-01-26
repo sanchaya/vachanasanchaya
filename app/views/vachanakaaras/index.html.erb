@@ -1,66 +1,79 @@
 <%= render "layouts/search_box" %>
+<div class="vachana-number-search"> 
+
+<%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
+  <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name],id: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
+  <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
+
+  <% end %>
+</div>
 <!-- <div class="main_heading">
 <h1>ವಚನಕಾರರು </h1> 
 </div> -->
 
 <div class="row">
   <div class="span2">
-  <div class="aksharamaale"> 
-<% vowels.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+    <div class="aksharamaale"> 
+      <% vowels.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
-<% velars.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+      <% velars.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
-<% palatals.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+      <% palatals.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
 
-	<% retroflex.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter), remote: true  %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+      <% retroflex.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter), remote: true  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
-<% dentals.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+      <% dentals.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
-<% labials.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
+      <% labials.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
 
-<% unstructured_consonants.each do |letter| %>
-<%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
-<span class="vowels_count">
-(<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
-</span>
-<% end %>
-</div>
+      <% unstructured_consonants.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: true %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+    </div>
   </div>
   <div class="span10">
   	<div class="start_letter_vachanakaara_list">
-<%= render "vachanakaara_list.html" %>
- </div>
+      <%= render "vachanakaara_list.html" %>
+    </div>
 
+  </div>
 </div>
-</div>
+
+<script type='text/javascript'>
+  var words = <%= raw Vachanakaara.pluck("name") %>;   
+  $('#search-vachanakaara-name').typeahead({source: words}) 
+</script>
