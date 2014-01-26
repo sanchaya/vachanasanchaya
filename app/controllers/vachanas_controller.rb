@@ -13,11 +13,11 @@ class VachanasController < ApplicationController
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
       @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts  = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara_id)
-     if params[:vachanakaara] and !params[:vachanakaara].blank?
-      @vachanakaaras = [Vachanakaara.find(params[:vachanakaara].to_i)]
-     else
-      @vachanakaaras = @vachanas.vachanakaaras
-    end
+      if params[:vachanakaara] and !params[:vachanakaara].blank?
+        @vachanakaaras = [Vachanakaara.find(params[:vachanakaara].to_i)]
+      else
+        @vachanakaaras = @vachanas.vachanakaaras
+      end
       @results = @vachanas.paginate(:page => params[:page], :per_page => 15)
       # @vachanas,@vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count , @vachanakaaras = Vachana.search_vachana_pada(@pada,@search_type,@vachanakaara)
       # @counts = @vachanas.values
@@ -103,11 +103,17 @@ class VachanasController < ApplicationController
 
   def vachana_concord
    params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
-      @vachanas= Vachana.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 15)
+   @vachanas= Vachana.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 15)
 
-    respond_to do |format|
-      format.html
+   respond_to do |format|
+    format.html
   format.js # actually means: if the client ask for js -> return file.js
 end
-  end
+end
+
+def search_vachana_number
+  @vachanas = Vachana.where(vachanaid: params[:vachana_number].to_i)
+end
+
+
 end
