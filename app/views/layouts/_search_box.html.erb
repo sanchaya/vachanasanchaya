@@ -1,17 +1,17 @@
 <div class="search_box">
-    <%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
-    <%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off", :'data-provide'=> "typeahead" %>
-    <%=t :like %> :<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
-    <%= t :exact %> :<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
-    <%= select_tag "vachanakaara", options_from_collection_for_select(Vachanakaara.order("name"), "id", "name",params[:vachanakaara]), prompt: "#{t :all}" %>
-    <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
-    <% end %>
-  </div>
+  <%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
+  <%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off", :'data-provide'=> "typeahead" %>
+  <%=t :like %> :<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
+  <%= t :exact %> :<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
+  <%= select_tag "vachanakaara", options_from_collection_for_select(Vachanakaara.order("name"), "id", "name",params[:vachanakaara]), prompt: "#{t :all}" %>
+  <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
+  <% end %>
+</div>
 
 
 
 
-  <script type='text/javascript'>
-var words = <%= raw WordList.pluck("name") %>;   
-$('#search-word').typeahead({source: words}) 
+<script type='text/javascript'>
+  var words = <%= raw WordList.pluck("name") %>;   
+  $('#search-word').typeahead({source: words}) 
 </script>

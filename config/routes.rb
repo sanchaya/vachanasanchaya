@@ -11,6 +11,7 @@ KannadaVachana::Application.routes.draw do
   resources :vachanas do
     collection do
       get :vachana_concord
+      get :search_vachana_number
     end
   end
   resources :vachanakaaras
