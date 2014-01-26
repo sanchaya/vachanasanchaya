@@ -1,0 +1,22 @@
+<div class="vachanakaara-list-edit"> 
+  <% @vachanakaaras.each do |vachanakaara| %>
+  <%= link_to "#{vachanakaara.name} --- #{vachanakaara.ankitha_naama}", edit_vachanakaara_path(vachanakaara) %> <br />
+  <% end %>
+</div>
+
+<%= form_for @vachanakaara do |f| %>
+Name: <%= f.text_field :name %>
+Ankitha Naama: <%= f.text_field :ankitha_naama %>
+<%= f.submit %>
+<% end %>
+
+<style>
+.vachanakaara-list-edit{
+  border: 2px solid #F2F1F0;
+    height: 300px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+    padding: 5px;
+    width: 100%;
+  }
+</style>

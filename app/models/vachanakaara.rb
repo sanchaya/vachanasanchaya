@@ -1,5 +1,5 @@
 class Vachanakaara < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :ankitha_naama
   has_many :vachanas
 
 

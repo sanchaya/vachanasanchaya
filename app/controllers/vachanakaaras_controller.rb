@@ -1,5 +1,6 @@
 class VachanakaarasController < ApplicationController
-  def index
+ before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
+ def index
   	# @vachanakaaras = Vachanakaara.all
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
     @vachanakaaras= Vachanakaara.start_letter(params[:start_letter])
@@ -20,6 +21,18 @@ def show
   format.html
   format.js # actually means: if the client ask for js -> return file.js
 end
+end
+
+
+def edit
+  @vachanakaaras = Vachanakaara.all
+  @vachanakaara = Vachanakaara.find params[:id]
+end
+
+def update
+  @vachanakaara =  Vachanakaara.find params[:id]
+  @vachanakaara.update_attributes params[:vachanakaara]
+  redirect_to edit_vachanakaara_path @vachanakaara
 end
 
 end
