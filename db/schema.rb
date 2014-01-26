@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131222084616) do
+ActiveRecord::Schema.define(:version => 20140126051020) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(:version => 20131222084616) do
     t.text     "ids"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "daily_vachanas", :force => true do |t|
+    t.integer  "vachana_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "key_words", :force => true do |t|

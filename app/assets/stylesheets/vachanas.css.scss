@@ -226,31 +226,54 @@ padding: 10px;
 }
 
 .navbar-inner{
-	a{
-	sub{
-	font-size: 50%;
-	}
-	}
+a{
+sub{
+font-size: 50%;
+}
+}
 }
 
 .vachana-wiki-info{
-	width: 900px;
-	 margin: auto;
-    text-align: left;
-    hr{
-    clear: both;
-    margin: 0px;
-    }
+width: 100%;
+margin: auto;
+text-align: left;
+hr{
+clear: both;
+margin: 0px;
+}
 }
 
 .namma-bagge{
-	width: 48%;
-	float: left;
+width: 48%;
+float: left;
 
 }
 
 .avrutthi-update{
 width: 48%;
-	float: left;
-	margin-left: 5px;
+float: left;
+margin-left: 5px;
+}
+
+
+.rand-vachana{
+border: 2px solid #F2F1F0;
+margin: auto;
+padding: 5px;
+text-align: center;
+width: 50%;
+}
+
+.wiki-info-kan{
+float: left;
+margin: auto;
+text-align: left;
+width: 48%;
+}
+
+.wiki-info-eng{
+float: right;
+margin: auto;
+text-align: left;
+width: 48%;
 }
