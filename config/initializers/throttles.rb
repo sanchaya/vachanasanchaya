@@ -21,5 +21,5 @@ Rack::Attack.throttled_response = lambda do |env|
   # Using 503 because it may make attacker think that they have successfully
   # DOSed the site. Rack::Attack returns 429 for throttling by default
   # [ 503, {}, [body]]
-  [ 503, {}, ["Oh Something went wrong please try again later"]]
+  [ 503, {}, ["ವಚನ ಸಂಚಯವನ್ನು ನಿಧಾನವಾಗಿ ಓದಿ... ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ "]]
 end
