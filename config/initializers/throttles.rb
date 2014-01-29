@@ -1,5 +1,5 @@
 # Throttle requests to 5 requests per second per ip
-# Rack::Attack.throttle('req/ip', :limit => 10, :period => 1.minute) do |req|
+Rack::Attack.throttle('req/ip', :limit => 10, :period => 1.minute) do |req|
   # If the return value is truthy, the cache key for the return value
   # is incremented and compared with the limit. In this case:
   #   "rack::attack:#{Time.now.to_i/1.second}:req/ip:#{req.ip}"
