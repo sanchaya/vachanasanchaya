@@ -9,7 +9,7 @@ class VachanasController < ApplicationController
     @word_lists = WordList.all
     @vachanakaaras_list =  Vachanakaara.order("name")
     if params[:vachana]
-      @pada = params[:vachana]
+      @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
       @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts  = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara_id)
