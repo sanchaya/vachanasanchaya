@@ -22,7 +22,7 @@ end
 gem 'jquery-rails'
 
 
-
+gem 'rack-attack'
 # Deploy with Capistrano
 gem 'capistrano'
 
