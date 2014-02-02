@@ -1,8 +1,14 @@
+ <div class= "back-button" > 
+  <%= link_to_function "", "history.back()", class: "btn icon-arrow-left", style: "color: #0044CC;" %>
+</div>
+
+
 <%= render "layouts/search_box" %>
 <div class="vachana-number-search"> 
 
   <%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
-  <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name],id: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
+  <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name], class: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
+  <%= text_field_tag :ankitha_naama,params[:ankitha_naama], class: "search-vachanakaara-name", placeholder: "ಅಂಕಿತ ನಾಮ " %>
   <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
 
   <% end %>
@@ -19,30 +25,30 @@
 
       <% if @vachanakaaras %>
 
-        <div class="results_list_div">
+      <div class="results_list_div">
 
         <% @vachanakaaras.each do |vachanakaara| %>
-          <a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
-            <div class="box effect5">
-              <h5> 
-                <%=  vachanakaara.name %> </h5>
-                <div class="keyword_used_count"> 
-                  <span>  </span> <br /> <br />
-                  <span> ವಚನಕಾರರ ಪರಿಚಯ </span>
-                </div>
+        <a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
+          <div class="box effect5">
+            <h5> 
+              <%=  vachanakaara.name %> </h5>
+              <div class="keyword_used_count"> 
+                <span>  </span> <br /> <br />
+                <span> ವಚನಕಾರರ ಪರಿಚಯ </span>
               </div>
-            </a>
-
-            <% end %>
-          </div>
+            </div>
+          </a>
 
           <% end %>
         </div>
 
+        <% end %>
       </div>
-    </div>
 
-    <script type='text/javascript'>
-      var words = <%= raw Vachanakaara.pluck("name") %>;   
-      $('#search-vachanakaara-name').typeahead({source: words}) 
-    </script>
+    </div>
+  </div>
+
+  <script type='text/javascript'>
+    var words = <%= raw Vachanakaara.pluck("name") %>;   
+    $('#search-vachanakaara-name').typeahead({source: words}) 
+  </script>
