@@ -21,6 +21,7 @@
 //= require jquery.ime.preferences
 //= require jquery.ime.inputmethods
 //= require SearchHighlight
+//= require zeroclipboard
 //= require_tree .
 
 
