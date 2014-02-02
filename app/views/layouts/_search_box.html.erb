@@ -1,7 +1,4 @@
-<!-- <div> 
-<%= link_to_function "Back", "history.back()" %>
-</div>
- -->
+
 <div class="search_box">
   <%= form_tag vachanas_path,name: "search_vachana",onsubmit: "return validateSearchForm()",method: :get do %>
   <%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off", :'data-provide'=> "typeahead" %>
@@ -18,6 +15,6 @@
 
 
 <script type='text/javascript'>
-  var words = <%= raw WordList.pluck("name") %>;   
-  $('#search-word').typeahead({source: words}) 
+  // var words = <%=  WordList.pluck("name") %>;   
+  // $('#search-word').typeahead({source: words}) 
 </script>

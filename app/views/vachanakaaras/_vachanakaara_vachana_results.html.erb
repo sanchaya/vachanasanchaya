@@ -28,11 +28,16 @@
    </h3>
  </div>
  <div class="modal-body vachana-pop">
-  <p><%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
+   <p id='fe_text_<%= vachana.id %>'><%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
 
-  </p>
-</div>
-<div class="modal-footer">
+   </p>
+ </div>
+ <div class="modal-footer">
+  <div class='demo-area'>
+    <button class='btn d_clip_button' data-clipboard-target='fe_text_<%= vachana.id %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
+    <%= image_tag("clipboard.jpg") %>
+    </button>
+  </div>
   <!-- ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %> -->
   <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
   <!-- <button class="btn btn-primary">Save changes</button> -->
@@ -42,3 +47,16 @@
 
 
 <% end %>
+
+
+<script>
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($(".d_clip_button"))
+  });
+
+  // $("#clear-test").on("click", function(){
+  //   $("#fe_text").val("Copy me!");
+  //   $("#testarea").val("");
+  // });
+</script>
+
