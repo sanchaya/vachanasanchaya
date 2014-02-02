@@ -36,7 +36,9 @@ def update
 end
 
 def search_vachanakaara_name
-  @vachanakaaras = Vachanakaara.name_like params[:vachanakaara_name]
+  @vachanakaara = params[:vachanakaara_name].to_s
+  @ankitha_naama = params[:ankitha_naama].to_s
+  @vachanakaaras = Vachanakaara.name_or_ankitha_like  @vachanakaara,@ankitha_naama
 
 end
 
