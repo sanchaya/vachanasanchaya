@@ -21,13 +21,15 @@
 //= require jquery.ime.preferences
 //= require jquery.ime.inputmethods
 //= require SearchHighlight
+//= require zeroclipboard
 //= require_tree .
 
 
 $( document ).ready( function () {
 	$( '#search-word' ).ime();
 
-$( '#search-vachanakaara-name' ).ime();
+	$( '#search-vachanakaara-name' ).ime();
+
 
 } );
 
