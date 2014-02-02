@@ -1,15 +1,16 @@
 
+
 <% if @vachanas and params[:start_letter] %>
 <p> <span class="start_letter_header"> 
-<%= params[:start_letter] %> </span> 
- ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು - <b> ವಚನಕಾರ:</b> <span class="vachanakaara-name"> <%= @vachanakaara.name %> </span>
+  <%= params[:start_letter] %> </span> 
+  ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು - <b> ವಚನಕಾರ:</b> <span class="vachanakaara-name"> <%= @vachanakaara.name %> </span>
 
- </p>
+</p>
 <div class="results_list_div keywords_load">
  <%= render "vachanakaara_vachana_results" %>
 </div>
 <br />
- <%= link_to "#{t :read_more}...", vachanakaara_path(params: params, :page => @vachanas.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
+<%= link_to "#{t :read_more}...", vachanakaara_path(params: params, :page => @vachanas.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
 
 <% unless @vachanas.blank? %>
 <div class="click_for_more"> 

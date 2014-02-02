@@ -78,6 +78,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcache-client (1.8.5)
     mime-types (1.23)
     multi_json (1.7.7)
     mysql2 (0.3.10)
@@ -167,6 +168,7 @@ DEPENDENCIES
   google-analytics-rails
   jquery-rails
   less-rails
+  memcache-client
   mysql2 (= 0.3.10)
   newrelic_rpm
   rack-attack

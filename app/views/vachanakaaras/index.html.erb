@@ -1,5 +1,8 @@
 
 <%= render "layouts/search_box" %>
+
+
+
 <!-- <div class="vachana-number-search"> 
 
 <%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
@@ -14,7 +17,8 @@
 
 <div class="row">
   <div class="span2">
-  <p style="text-align:center;">   ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು </p>
+    <p style="text-align:center;">   ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು </p>
+    
 
     <div class="aksharamaale"> 
       <% vowels.each do |letter| %>
@@ -77,6 +81,6 @@
 </div>
 
 <script type='text/javascript'>
-  var words = <%= raw Vachanakaara.pluck("name") %>;   
-  $('#search-vachanakaara-name').typeahead({source: words}) 
+  // var words = <%= raw Vachanakaara.pluck("name") %>;   
+  // $('#search-vachanakaara-name').typeahead({source: words}) 
 </script>

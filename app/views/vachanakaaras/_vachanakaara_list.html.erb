@@ -1,30 +1,50 @@
 
 <% if @vachanakaaras and params[:start_letter] %>
-<p> <span class="start_letter_header"> 
-<%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
+<div class="advance_search_div"> 
+  <div class="praramba_para"> 
+    <p> <span class="start_letter_header"> 
+      <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
+    </div>
+    <div class="advanced_search_box">
+      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#advance_search_collapse">
+        Advanced Search
+      </button>
+    </div>
+  </div>
 
-<div class="results_list_div">
-  <% @vachanakaaras.each do |vachanakaara| %>
+  <div id="advance_search_collapse" class="collapse" style="clear:both;">
+    <%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
+    <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name], class: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
+    <%= text_field_tag :ankitha_naama,params[:ankitha_naama], class: "search-vachanakaara-name", placeholder: "ಅಂಕಿತ ನಾಮ " %>
+    <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
 
-<a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
-  <div class="box effect5">
-<h5> 
-	<%=  vachanakaara.name %> </h5>
-	<div class="keyword_used_count"> 
-	<span>  </span> <br /> <br />
-	<span> ವಚನಕಾರರ ಪರಿಚಯ </span>
-	</div>
-</div>
-</a>
-		
-  <% end %>
-</div>
+    <% end %>
 
-<% unless @vachanakaaras.blank? %>
-<div class="click_for_more"> 
-	<%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
-</div>
-<% end %>
+  </div>
 
 
-<% end %>
+  <div class="results_list_div">
+    <% @vachanakaaras.each do |vachanakaara| %>
+
+    <a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
+      <div class="box effect5">
+        <h5> 
+         <%=  vachanakaara.name %> </h5>
+         <div class="keyword_used_count"> 
+           <span>  </span> <br /> <br />
+           <span> ವಚನಕಾರರ ಪರಿಚಯ </span>
+         </div>
+       </div>
+     </a>
+
+     <% end %>
+   </div>
+
+   <% unless @vachanakaaras.blank? %>
+   <div class="click_for_more"> 
+     <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+   </div>
+   <% end %>
+
+
+   <% end %>
