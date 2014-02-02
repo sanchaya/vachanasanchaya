@@ -28,7 +28,8 @@
 $( document ).ready( function () {
 	$( '#search-word' ).ime();
 
-$( '#search-vachanakaara-name' ).ime();
+	$( '#search-vachanakaara-name' ).ime();
+
 
 } );
 
