@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126161918) do
+ActiveRecord::Schema.define(:version => 20140204195622) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -23,11 +23,16 @@ ActiveRecord::Schema.define(:version => 20140126161918) do
     t.datetime "updated_at",   :null => false
   end
 
+  add_index "concords", ["count"], :name => "index_concords_on_count"
+  add_index "concords", ["parent_id"], :name => "index_concords_on_parent_id"
+
   create_table "daily_vachanas", :force => true do |t|
     t.integer  "vachana_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "daily_vachanas", ["vachana_id"], :name => "index_daily_vachanas_on_vachana_id"
 
   create_table "database_connections", :force => true do |t|
     t.string  "adapter",  :null => false
@@ -77,6 +82,9 @@ ActiveRecord::Schema.define(:version => 20140126161918) do
     t.string   "ankitha_naama"
   end
 
+  add_index "vachanakaaras", ["ankitha_naama"], :name => "index_vachanakaaras_on_ankitha_naama"
+  add_index "vachanakaaras", ["name"], :name => "index_vachanakaaras_on_name"
+
   create_table "vachanas", :force => true do |t|
     t.integer  "vachanaid"
     t.string   "name"
@@ -85,6 +93,9 @@ ActiveRecord::Schema.define(:version => 20140126161918) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "vachanas", ["vachanaid"], :name => "index_vachanas_on_vachanaid"
+  add_index "vachanas", ["vachanakaara_id"], :name => "index_vachanas_on_vachanakaara_id"
 
   create_table "word_lists", :force => true do |t|
     t.string   "name"
