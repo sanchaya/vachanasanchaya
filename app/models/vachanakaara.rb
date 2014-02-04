@@ -1,4 +1,5 @@
 class Vachanakaara < ActiveRecord::Base
+  default_scope order('name')
   attr_accessible :name, :ankitha_naama
   has_many :vachanas
 
