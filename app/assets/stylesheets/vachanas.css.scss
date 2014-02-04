@@ -291,17 +291,21 @@ width: 79%;
 .back-button{
 margin: 1%;
 position: absolute;
-width: 100%;
+width: 5%;
 }
-
+/*
 .advance_search_div{
 width: 100%;
 .praramba_para{
 float: left; 
-width: 50%;
+width: 100%;
 }
-
 .advanced_search_box{
 float: right; width: 40%;
-}
+} 
+}*/
+
+.advance_search_div{
+	text-align: center;
+    width: 100%;
 }
