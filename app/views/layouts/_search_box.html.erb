@@ -5,7 +5,22 @@
   <%= t :exact %> :<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
   <%= select_tag "vachanakaara", options_from_collection_for_select(Vachanakaara.all, "id", "name",params[:vachanakaara]), prompt: "#{t :all}" %>
   <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
+  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#advance_search_collapse">
+    ಹೆಚ್ಚು ಹುಡುಕು 
+  </button>
   <% end %>
+
+</div>
+
+<div id="advance_search_collapse" class="collapse advance_search_div <%= (params[:vachanakaara_name] or params[:ankitha_naama]) ? "in" : "" %> ">
+  <%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
+  <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name], class: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
+  (ಅಥವಾ)
+  <%= text_field_tag :ankitha_naama,params[:ankitha_naama], class: "search-vachanakaara-name", placeholder: "ಅಂಕಿತ ನಾಮ " %>
+  <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
+
+  <% end %>
+
 </div>
 
 
