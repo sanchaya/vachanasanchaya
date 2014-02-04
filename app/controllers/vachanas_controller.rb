@@ -8,7 +8,7 @@ class VachanasController < ApplicationController
 
   def index
     @word_lists = WordList.all
-    @vachanakaaras_list =  Vachanakaara.order("name")
+    @vachanakaaras_list =  Vachanakaara.all
     if params[:vachana]
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
