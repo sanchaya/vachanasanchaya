@@ -38,7 +38,18 @@ end
 def search_vachanakaara_name
   @vachanakaara = params[:vachanakaara_name].to_s
   @ankitha_naama = params[:ankitha_naama].to_s
-  @vachanakaaras = Vachanakaara.name_or_ankitha_like  @vachanakaara,@ankitha_naama
+  if @vachanakaara.blank? and @ankitha_naama.blank?
+    flash[:notice] = "ನೀವು ಯಾವುದೇ ಆಯ್ಕೆ ಮಾಡಿರುವುದಿಲ್ಲ"
+    redirect_to :back
+  else
+    if @vachanakaara.blank?
+      @vachanakaaras = Vachanakaara.ankitha_like  @ankitha_naama
+    elsif @ankitha_naama.blank?
+      @vachanakaaras = Vachanakaara.name_like  @vachanakaara
+    else
+      @vachanakaaras = Vachanakaara.name_or_ankitha_like  @vachanakaara,@ankitha_naama
+    end
+  end
 
 end
 
