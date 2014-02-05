@@ -6,5 +6,6 @@ class Vachanakaara < ActiveRecord::Base
 
   scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
   scope :name_or_ankitha_like, lambda {|name,ankitha| where("name like ? or ankitha_naama like ?", "%#{name}%", "%#{ankitha}%" )}
-
+  scope :name_like, lambda {|name| where("name like ? ", "%#{name}%")}
+  scope :ankitha_like, lambda {|ankitha| where("ankitha_naama like ?", "%#{ankitha}%" )}
 end
