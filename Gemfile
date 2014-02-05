@@ -47,3 +47,4 @@ gem 'newrelic_rpm'
 gem 'google-analytics-rails'
 gem 'memcache-client'
 gem 'zeroclipboard-rails'
+
