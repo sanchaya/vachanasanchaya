@@ -9,7 +9,7 @@ class VachanasController < ApplicationController
   def index
     @word_lists = WordList.all
     @vachanakaaras_list =  Vachanakaara.all
-    if params[:vachana]
+    if params[:vachana] and !params[:vachana].blank?
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
@@ -24,12 +24,16 @@ class VachanasController < ApplicationController
       # @counts = @vachanas.values
       # @total_counts = @counts.inject{|sum,x| sum + x }
       # flash[:notice] = "Got #{@total_counts ? @total_counts: "0"} #{'result'.pluralize(@total_counts)} for #{@pada}"
-    end
-    respond_to do |format|
+      respond_to do |format|
       format.html # index.html.erb
       format.js
     end
+  else
+    flash[:notice] = "You cant search for blank"
+    redirect_to :back 
   end
+  
+end
 
   # GET /vachanas/1
   # GET /vachanas/1.json
