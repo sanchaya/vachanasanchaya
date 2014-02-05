@@ -289,8 +289,8 @@ width: 79%;
 
 
 .back-button{
- float: right;
-    margin: 1%;
+float: right;
+margin: 1%;
 }
 /*
 .advance_search_div{
@@ -299,12 +299,21 @@ width: 100%;
 float: left; 
 width: 100%;
 }
-.advanced_search_box{
-float: right; width: 40%;
-} 
+
 }*/
 
 .advance_search_div{
-	text-align: center;
-    width: 100%;
+text-align: center;
+width: 100%;
+}
+
+
+.advanced_search_box{
+margin: -2% 0 1%;
+text-align: center;
+width: 95%;
+a{
+	color: #0044CC;
+	border: 2px solid #F8F8F8;
+}
 }
