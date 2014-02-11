@@ -7,7 +7,6 @@ class VachanasController < ApplicationController
 
 
   def index
-    debugger
     @word_lists = WordList.all
     @vachanakaaras_list =  Vachanakaara.all
     if params[:vachana] and !params[:vachana].blank? 
