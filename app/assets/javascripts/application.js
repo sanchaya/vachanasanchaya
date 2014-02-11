@@ -51,19 +51,22 @@ $( document ).ready( function () {
 				maxlength: "User name should not exceed 20 letters"
 			}
 		},
-    // errorElement: "div",
-    //     wrapper: "div",  // a wrapper around the error message
-    //     errorPlacement: function(error, element) {
-    //       offset = element.offset();
-    //       error.insertBefore(element)
-    //         error.addClass('message');  // add a class to the wrapper
-    //         error.css('position', 'absolute');
-    //         error.css('left', offset.left + element.outerWidth());
-    //         error.css('top', offset.top);
-    //       }
-    errorPlacement: function (error, element) {
-    	alert(error.text());
-    }
+		errorElement: "div",
+        wrapper: "div",  // a wrapper around the error message
+        errorPlacement: function(error, element) {
+        	offset = element.offset();
+        	error.insertBefore(element)
+            error.addClass('message');  // add a class to the wrapper
+            error.css('position', 'absolute');
+            // error.css('left', '28%' );
+            // error.css('top', '35%' );
+            error.css('left', offset.left + 30); // error.css('left', offset.left + element.outerWidth());
+            error.css('top', offset.top  - 25);
+            error.css('color', '#D21000' );
+        }
+    // errorPlacement: function (error, element) {
+    // 	alert(error.text());
+    // }
 
 
 });

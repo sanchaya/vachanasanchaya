@@ -7,9 +7,10 @@ class VachanasController < ApplicationController
 
 
   def index
+    debugger
     @word_lists = WordList.all
     @vachanakaaras_list =  Vachanakaara.all
-    if params[:vachana] and !params[:vachana].blank?
+    if params[:vachana] and !params[:vachana].blank? 
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
@@ -29,7 +30,7 @@ class VachanasController < ApplicationController
       format.js
     end
   else
-    flash[:notice] = "You cant search for blank"
+    flash[:notice] = "ಕನಿಷ್ಟ 2 ಅಕ್ಷರವನ್ನು ಬೆರಳಚ್ಚು ಮಾಡಿ"
     redirect_to :back 
   end
   
