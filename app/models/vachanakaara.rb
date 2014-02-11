@@ -1,7 +1,7 @@
 class Vachanakaara < ActiveRecord::Base
   default_scope order('name')
 
-  attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse
+  attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse,:birth_place
   has_many :vachanas
 
 

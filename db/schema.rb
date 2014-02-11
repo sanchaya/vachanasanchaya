@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210184322) do
+ActiveRecord::Schema.define(:version => 20140211185948) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20140210184322) do
     t.text     "information"
     t.string   "parents"
     t.string   "spouse"
+    t.string   "birth_place"
   end
 
   add_index "vachanakaaras", ["ankitha_naama"], :name => "index_vachanakaaras_on_ankitha_naama"
