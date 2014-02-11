@@ -9,13 +9,14 @@
   <table> 
     ಹೆಸರು : <br /><%= f.text_field :name %> <br />
     ಅಂಕಿತ ನಾಮ: <br /><%= f.text_field :ankitha_naama %> <br />
-    ತಂದೆ / ತಾಯಿ: <br /><%= f.text_field :parents %> <br />
-    ಗಂಡ / ಹೆಂಡತಿ:<br /> <%= f.text_field :spouse %> <br />
+    ತಂದೆ/ತಾಯಿ: <br /><%= f.text_field :parents %> <br />
+    ಗಂಡ/ಹೆಂಡತಿ:<br /> <%= f.text_field :spouse %> <br />
     ಕಾಲ : <br /><%= f.text_field :time_period %> <br />
-    ಸಿಕ್ಕಿರುವ ಒಟ್ಟೂ ವಚನ: <br /><%= f.number_field :vachana_found %> <br />
-    ಗಂಡು / ಹೆಣ್ಣು :<br /> <%= f.select :sex, [['ಗಂಡು',true],['ಹೆಣ್ಣು ',false]] %> <br />
+    ಹುಟ್ಟಿದ ಸ್ಥಳ : <br /><%= f.text_field :birth_place %> <br />
+    ದೊರಕಿರುವ ಒಟ್ಟು ವಚನಗಳು: <br /><%= f.number_field :vachana_found %> <br />
+    ಗಂಡು/ಹೆಣ್ಣು :<br /> <%= f.select :sex, [['ಗಂಡು',true],['ಹೆಣ್ಣು ',false]] %> <br />
     ಪರಿಚಯ: <br /><%= f.text_area :information, style: "    height: 100px; width: 208px;" %> <br />
-    <%= f.submit %>
+    <%= f.submit "Update" %>
   </table>
   <% end %>
 </div>
