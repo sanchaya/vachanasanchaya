@@ -48,3 +48,5 @@ gem 'google-analytics-rails'
 gem 'memcache-client'
 gem 'zeroclipboard-rails'
 
+gem 'rabl'
+
