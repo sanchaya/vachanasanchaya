@@ -92,6 +92,8 @@ GEM
     newrelic_rpm (3.7.1.188)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    rabl (0.9.3)
+      activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-attack (2.3.0)
       rack
@@ -171,6 +173,7 @@ DEPENDENCIES
   memcache-client
   mysql2 (= 0.3.10)
   newrelic_rpm
+  rabl
   rack-attack
   rack-mini-profiler
   rails (= 3.2.13)

@@ -1,3 +1,5 @@
+require 'api_constraints'
+
 KannadaVachana::Application.routes.draw do
 
   get "home/index"
@@ -21,6 +23,14 @@ KannadaVachana::Application.routes.draw do
   end
   resources :word_lists
   root :to => "home#index"
+
+  #for API
+
+  namespace :api, defaults: {format: 'json'} do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+      resources :homes
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
