@@ -24,13 +24,40 @@ KannadaVachana::Application.routes.draw do
   resources :word_lists
   root :to => "home#index"
 
+
+
   #for API
 
   namespace :api, defaults: {format: 'json'} do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
-      resources :homes
+
+
+#for version 1
+scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+
+
+
+  resources :homes
+  match "/today_vachana" => "homes#today_vachana"
+
+  resources :vachanas do
+    collection do
+      get :pada
     end
-  end
+  end 
+
+  resources :vachanakaaras
+
+
+
+end
+
+
+
+
+end
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
