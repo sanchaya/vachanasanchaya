@@ -43,6 +43,9 @@
       <li>
         <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank" %>
       </li>
+      <li style="margin-top: 5%;">
+      <div class="g-plusone" data-href="http://vachana.sanchaya.net" ></div>
+      </li>
 
     </ul>
   </div>
@@ -54,11 +57,21 @@
 
 
   <%= yield %>
-</div>
+
 
   <!-- <div class="navbar navbar-fixed-bottom" style="margin-top: 10px;">
     <div class="navbar-inner">
     </div>
   </div> -->
+
+  <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/platform.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  </script>
+
+
 </body>
 </html>
