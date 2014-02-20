@@ -6,6 +6,10 @@ module Api
       def index
         @vachana = DailyVachana.last.vachana
       end
+
+      def today_vachana
+        @vachana = DailyVachana.last.vachana
+      end
       
       
     end
