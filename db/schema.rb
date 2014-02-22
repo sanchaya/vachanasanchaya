@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211185948) do
+ActiveRecord::Schema.define(:version => 20140222192106) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20140211185948) do
     t.string  "encoding"
     t.integer "port"
     t.string  "title"
+  end
+
+  create_table "glossaries", :force => true do |t|
+    t.string   "word"
+    t.text     "meanings"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "key_words", :force => true do |t|
