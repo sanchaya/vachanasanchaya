@@ -1,6 +1,8 @@
 require 'api_constraints'
 
 KannadaVachana::Application.routes.draw do
+  
+  root :to => "home#index"
 
   get "home/index"
   match "/contact_us" => "home#contact_us"
@@ -16,13 +18,18 @@ KannadaVachana::Application.routes.draw do
       get :search_vachana_number
     end
   end
+
   resources :vachanakaaras do
     collection do
       get :search_vachanakaara_name
     end
   end
+
   resources :word_lists
-  root :to => "home#index"
+
+  resources :glossaries
+
+
 
 
 
