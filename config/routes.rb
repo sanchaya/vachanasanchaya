@@ -27,7 +27,11 @@ KannadaVachana::Application.routes.draw do
 
   resources :word_lists
 
-  resources :glossaries
+  resources :glossaries do
+    collection do
+      post :search
+    end
+  end
 
 
 
