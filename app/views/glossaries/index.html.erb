@@ -1,4 +1,6 @@
 <% @words.each do |word| %>
 <%= word.word %> -- 
-<%= word.meanings %> <br/>
+<%= word.meanings %> ">>>>>>>>>"
+<%= link_to "delete", word , method: :delete %>
+<br/>
 <% end %>
