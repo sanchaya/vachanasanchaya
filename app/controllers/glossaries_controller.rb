@@ -8,4 +8,10 @@ class GlossariesController < ApplicationController
     @glossary.destroy
     redirect_to glossaries_path
   end
+
+  def search 
+    @word = params[:word].to_s
+    @words = Glossary.words_like(@word)
+  end
+
 end
