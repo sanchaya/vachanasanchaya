@@ -30,6 +30,7 @@ $( document ).ready( function () {
 	$( '#search-word' ).ime();
 
 	$( '.search-vachanakaara-name' ).ime();
+	$( '.kannada-ime' ).ime(); 
 
 
 	$("#main_search").validate({
