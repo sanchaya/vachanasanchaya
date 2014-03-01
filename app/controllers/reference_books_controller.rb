@@ -12,6 +12,7 @@ class ReferenceBooksController < ApplicationController
       redirect_to reference_books_path
       flash[:notice] = "Reference creation succesfull"
     else
+      flash[:error] = "Please fill required fields"
       render "new"
     end
   end
