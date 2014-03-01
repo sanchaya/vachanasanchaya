@@ -1,0 +1,56 @@
+<%= form_for @reference_book, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :book_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :book_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :book_volume, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :book_volume, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publisher, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :publisher, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :author, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :author, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :published_year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :published_year, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :isbn, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :isbn, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :language, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :language, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :reference_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :reference_type, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                reference_books_path, :class => 'btn' %>
+  </div>
+<% end %>

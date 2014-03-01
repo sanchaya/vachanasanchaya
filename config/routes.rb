@@ -33,7 +33,7 @@ KannadaVachana::Application.routes.draw do
     end
   end
 
-
+  resources :reference_books
 
 
 
