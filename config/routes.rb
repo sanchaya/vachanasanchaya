@@ -1,15 +1,20 @@
 require 'api_constraints'
 
 KannadaVachana::Application.routes.draw do
-  
+
   root :to => "home#index"
 
   get "home/index"
   match "/contact_us" => "home#contact_us"
   match "/about_us" => "home#about_us"
   match "/help" => "home#help"
+  match "/admin_panel" => "home#admin_panel"
+
 
   devise_for :users
+  devise_scope :user do
+  get "/login" => "devise/sessions#new"
+end
 
   resources :researches
   resources :vachanas do
