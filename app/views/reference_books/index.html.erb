@@ -14,7 +14,6 @@
       <th><%= model_class.human_attribute_name(:isbn) %></th>
       <th><%= model_class.human_attribute_name(:language) %></th>
       <th><%= model_class.human_attribute_name(:reference_type) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -30,7 +29,6 @@
         <td><%= reference_book.isbn %></td>
         <td><%= reference_book.language %></td>
         <td><%= reference_book.reference_type %></td>
-        <td><%= reference_book.created_at %></td>
         <td>
           <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_reference_book_path(reference_book), :class => 'btn btn-mini' %>
