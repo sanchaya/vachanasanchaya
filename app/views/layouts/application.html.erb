@@ -24,9 +24,7 @@
       ವಚನ ಸಂಚಯ<sub> beta v0.1.3 </sub>
     </a>
     <%#= link_to "#{t :vachanakaararu}", vachanakaaras_path, class: "brand" %>
-    <% if current_user %>
-    <%= link_to "sign_out", destroy_user_session_path, method: :delete , class: "brand" %>
-    <% end %>
+
     <ul class="nav">
       <li class= <%= params[:controller] == "vachanakaaras" ? "active" : "" %> ><%= link_to "ವಚನಕಾರರು", vachanakaaras_path %> </li>
       <li class= <%= params[:controller] == "vachanas" ? "active" : "" %> ><%= link_to "ವಚನಗಳು", vachana_concord_vachanas_path %> </li>
@@ -36,20 +34,37 @@
       <li class= <%= params[:action] == "help" ? "active" : "" %> ><%= link_to "ಸಹಾಯ" , help_path %></li>
       <li class= <%= params[:action] == "about_us" ? "active" : "" %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , about_us_path %></li>
 
-    </ul>
-    <ul class="nav" style="float: right;">
-      <li>
-        <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" %>
-      </li>
-      <li>
-        <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank" %>
-      </li>
-      <li style="margin-top: 5%;">
-        <div class="g-plusone" data-href="http://vachana.sanchaya.net" ></div>
-      </li>
+      <% if current_user %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Admin 
+          <b class="caret"></b>
+        </a>
 
-    </ul>
-  </div>
+        <ul class="dropdown-menu">
+         <li> <%= link_to "Sign out", destroy_user_session_path, method: :delete %> </li>
+         <li> <%= link_to "Admin Panel", admin_panel_path %> </li>
+       </ul>
+     </li>
+
+
+
+     <% end %>
+
+   </ul>
+   <ul class="nav" style="float: right;">
+    <li>
+      <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" %>
+    </li>
+    <li>
+      <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank" %>
+    </li>
+    <li style="margin-top: 5%;">
+      <div class="g-plusone" data-href="http://vachana.sanchaya.net" ></div>
+    </li>
+
+  </ul>
+</div>
 
 
 
