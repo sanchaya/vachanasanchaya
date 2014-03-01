@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140222192106) do
+ActiveRecord::Schema.define(:version => 20140301212615) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(:version => 20140222192106) do
 
   add_index "key_words", ["word"], :name => "index_key_words_on_word"
 
+  create_table "reference_books", :force => true do |t|
+    t.string   "book_name"
+    t.string   "book_volume"
+    t.string   "publisher"
+    t.string   "author"
+    t.string   "published_year"
+    t.string   "isbn"
+    t.string   "language"
+    t.string   "reference_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -84,8 +97,8 @@ ActiveRecord::Schema.define(:version => 20140222192106) do
 
   create_table "vachanakaaras", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "ankitha_naama"
     t.string   "time_period"
     t.integer  "vachana_found"
@@ -94,10 +107,12 @@ ActiveRecord::Schema.define(:version => 20140222192106) do
     t.string   "parents"
     t.string   "spouse"
     t.string   "birth_place"
+    t.integer  "reference_book_id"
   end
 
   add_index "vachanakaaras", ["ankitha_naama"], :name => "index_vachanakaaras_on_ankitha_naama"
   add_index "vachanakaaras", ["name"], :name => "index_vachanakaaras_on_name"
+  add_index "vachanakaaras", ["reference_book_id"], :name => "index_vachanakaaras_on_reference_book_id"
 
   create_table "vachanas", :force => true do |t|
     t.integer  "vachanaid"

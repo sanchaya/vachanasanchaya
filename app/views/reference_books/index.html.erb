@@ -1,0 +1,50 @@
+<%- model_class = ReferenceBook -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:book_name) %></th>
+      <th><%= model_class.human_attribute_name(:book_volume) %></th>
+      <th><%= model_class.human_attribute_name(:publisher) %></th>
+      <th><%= model_class.human_attribute_name(:author) %></th>
+      <th><%= model_class.human_attribute_name(:published_year) %></th>
+      <th><%= model_class.human_attribute_name(:isbn) %></th>
+      <th><%= model_class.human_attribute_name(:language) %></th>
+      <th><%= model_class.human_attribute_name(:reference_type) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reference_books.each do |reference_book| %>
+      <tr>
+        <td><%= link_to reference_book.id, reference_book_path(reference_book) %></td>
+        <td><%= reference_book.book_name %></td>
+        <td><%= reference_book.book_volume %></td>
+        <td><%= reference_book.publisher %></td>
+        <td><%= reference_book.author %></td>
+        <td><%= reference_book.published_year %></td>
+        <td><%= reference_book.isbn %></td>
+        <td><%= reference_book.language %></td>
+        <td><%= reference_book.reference_type %></td>
+        <td><%= reference_book.created_at %></td>
+        <td>
+          <%#= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_reference_book_path(reference_book), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      reference_book_path(reference_book),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_reference_book_path,
+            :class => 'btn btn-primary' %>
