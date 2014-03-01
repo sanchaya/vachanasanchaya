@@ -9,6 +9,7 @@
   <table> 
     ಹೆಸರು : <br /><%= f.text_field :name %> <br />
     ಅಂಕಿತ ನಾಮ: <br /><%= f.text_field :ankitha_naama %> <br />
+     ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <br /><%= f.select :reference_book_id, ReferenceBook.all.collect {|r| [r.book_volume , r.id]} %> <br />
     ತಂದೆ/ತಾಯಿ: <br /><%= f.text_field :parents %> <br />
     ಗಂಡ/ಹೆಂಡತಿ:<br /> <%= f.text_field :spouse %> <br />
     ಕಾಲ : <br /><%= f.text_field :time_period %> <br />
