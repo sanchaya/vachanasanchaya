@@ -313,15 +313,21 @@ margin: -2% 0 1%;
 text-align: center;
 width: 95%;
 a{
-	color: #0044CC;
-	border: 2px solid #F8F8F8;
+color: #0044CC;
+border: 2px solid #F8F8F8;
 }
 }
 
 .social-nav-right {
-	padding: 10px !important;
+padding: 10px !important;
 }
 
 .vachanakaara-name a{
-	color: #0044CC ;
+color: #0044CC ;
+}
+.vachanakaara-parichaya{
+margin-top: 10px;
+margin-left: 10px;
+font-size: 12px;
+overflow: hidden;
 }
