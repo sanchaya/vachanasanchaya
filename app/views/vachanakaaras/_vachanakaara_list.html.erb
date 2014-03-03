@@ -1,10 +1,10 @@
 
 <% if @vachanakaaras and params[:start_letter] %>
-  <div class="praramba_para"> 
-    <p> <span class="start_letter_header"> 
-      <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
-    </div>
-   
+<div class="praramba_para"> 
+  <p> <span class="start_letter_header"> 
+    <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
+  </div>
+  
 
   
 
@@ -17,8 +17,14 @@
         <h5> 
          <%=  vachanakaara.name %> </h5>
          <div class="keyword_used_count"> 
-           <span>  </span> <br /> <br />
-           <span> ವಚನಕಾರರ ಪರಿಚಯ </span>
+           <span> ಅಂಕಿತ ನಾಮ: </span> 
+           <span> <%= vachanakaara.ankitha_naama %> </span>
+           <br /> <br />
+           <span> ಕಾಲ: </span> <br />
+           <span> <%= vachanakaara.time_period %> </span>
+           <br /> <br />
+           <span> ದೊರಕಿರುವ ವಚನ: </span> <br /> 
+           <span> <%= vachanakaara.vachana_found %> </span>
          </div>
        </div>
      </a>
