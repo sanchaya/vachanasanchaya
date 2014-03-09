@@ -1,0 +1,13 @@
+<%= form_tag assign_vachanakaaras_user_path(@user) do %>
+<div class="assign_vachanakaaras span5"> 
+<%= submit_tag "Assign", class: "btn" %> <br />
+  <% @vachanakaaras.all.each do |v|  %>
+  <%= check_box_tag "vachanakaaras[]", v.id %>
+  <%= v.name %>
+  <br />
+  <% end %>
+</div>
+
+
+
+<% end %>

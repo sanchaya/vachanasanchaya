@@ -50,3 +50,5 @@ gem 'zeroclipboard-rails'
 
 gem 'rabl'
 
+gem "rails-erd"
+gem "cancan"

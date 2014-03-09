@@ -324,7 +324,7 @@ padding: 10px !important;
 
 .alert-error {
 text-align: center;
-}
+padding: 10px !important;
 .vachanakaara-name a{
 color: #0044CC ;
 
@@ -334,4 +334,17 @@ margin-top: 10px;
 margin-left: 10px;
 font-size: 12px;
 overflow: hidden;
+
+}
+
+.assign_vachanakaaras{
+height: 550px;
+overflow-y: scroll;
+}
+
+.list-assigned-vachanakaaras{
+max-height: 550px;
+overflow-y: scroll;
+margin-left: 5px;
+border: #F5F5F5 solid 1px;
 }

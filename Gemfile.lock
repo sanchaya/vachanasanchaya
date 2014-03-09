@@ -31,12 +31,14 @@ GEM
     arel (3.0.3)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
+    cancan (1.6.10)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    choice (0.1.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -113,6 +115,11 @@ GEM
       activesupport (= 3.2.17)
       bundler (~> 1.0)
       railties (= 3.2.17)
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     railties (3.2.17)
       actionpack (= 3.2.17)
       activesupport (= 3.2.17)
@@ -124,6 +131,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    ruby-graphviz (1.0.9)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -163,6 +171,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancan
   capistrano
   coffee-rails (~> 3.2.1)
   debugger
@@ -177,6 +186,7 @@ DEPENDENCIES
   rack-attack
   rack-mini-profiler
   rails (= 3.2.17)
+  rails-erd
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer
