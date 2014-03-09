@@ -19,7 +19,8 @@
 <div class="control-group">
   <%= f.label :password, :class => 'control-label' %>
   <div class="controls">
-    <%= f.password_field :password, :class => 'text_field' %>
+    <%= f.password_field :password, :class => 'text_field' %> 
+    <% if @user.persisted? %>(leave blank for no change password) <% end %>
   </div>
 </div>
 

@@ -32,6 +32,7 @@ end
 
 def update
   @user = User.find(params[:id])
+  params[:user].delete(:password)  if params[:user][:password].blank?
   if @user.update_attributes(params[:user])
     flash[:notice] = "User updated successfully"
     redirect_to @user
