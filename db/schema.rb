@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140301212615) do
+ActiveRecord::Schema.define(:version => 20140309173328) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -76,6 +76,19 @@ ActiveRecord::Schema.define(:version => 20140301212615) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "user_vachanakaaras", :force => true do |t|
+    t.integer  "vachanakaara_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -90,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20140301212615) do
     t.string   "user_role"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "role_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
