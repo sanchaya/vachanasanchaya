@@ -4,6 +4,8 @@ class Vachanakaara < ActiveRecord::Base
   attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse,:birth_place, :reference_book_id
   has_many :vachanas
   belongs_to :reference_book
+  has_many :users, through: :user_vachanakaaras
+  has_many :user_vachanakaaras
 
 
   scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
