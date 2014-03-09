@@ -30,6 +30,7 @@ group :development do
 # To use debugger
 gem 'debugger'
 gem 'rack-mini-profiler'
+gem "rails-erd"
 
 end
 
@@ -50,5 +51,4 @@ gem 'zeroclipboard-rails'
 
 gem 'rabl'
 
-gem "rails-erd"
 gem "cancan"
