@@ -18,8 +18,15 @@ class User < ActiveRecord::Base
   has_many :user_vachanakaaras
 
 
- def is_admin?
+  def is_admin?
     user_role == "Admin"
+  end
+
+
+  def self.assign_vachanakaara(user, vachanakaaras)
+    vachanakaaras.each do |v_id|
+      user.user_vachanakaaras.create(vachanakaara_id: v_id)
+    end
   end
 
   private

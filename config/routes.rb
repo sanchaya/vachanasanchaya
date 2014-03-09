@@ -15,7 +15,12 @@ KannadaVachana::Application.routes.draw do
   devise_scope :user do
   get "/login" => "devise/sessions#new"
 end
- resources :users
+ resources :users do
+  member do
+    get :assign_new_vachanakaaras
+    post :assign_vachanakaaras
+  end
+ end
 
   resources :researches
   resources :vachanas do

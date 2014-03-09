@@ -27,4 +27,17 @@ def edit
   @user = User.find(params[:id])
 end
 
+def assign_new_vachanakaaras
+  @user = User.find(params[:id])
+  @vachanakaaras = Vachanakaara.not_in_user_vachanakaaras
+end
+
+def assign_vachanakaaras
+  @user = User.find(params[:id])
+  User.assign_vachanakaara(@user, params[:vachanakaaras])
+  flash[:notice] = "Vachanakaara assignment for user successfull"
+  redirect_to @user
+
+end
+
 end
