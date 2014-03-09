@@ -10,12 +10,14 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role_id, :name
   # attr_accessible :title, :body
 
   belongs_to :role
   has_many :vachanakaaras, through: :user_vachanakaaras
-  has_many :user_vachanakaaras
+  has_many :user_vachanakaaras, dependent: :destroy
+
+  validates :name,:role_id, presence: true
 
 
   def is_admin?

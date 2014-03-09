@@ -5,7 +5,7 @@ class Vachanakaara < ActiveRecord::Base
   has_many :vachanas
   belongs_to :reference_book
   has_many :users, through: :user_vachanakaaras
-  has_many :user_vachanakaaras
+  has_many :user_vachanakaaras, dependent: :destroy
 
 
   scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
