@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
  before_filter :authenticate_user_role! 
+ load_and_authorize_resource
+
  def index
-  @users = User.all
+  @users = User.not_is_admin(current_user)
 end
 
 def show
@@ -30,6 +32,7 @@ end
 
 def update
   @user = User.find(params[:id])
+  params[:user].delete(:password)  if params[:user][:password].blank?
   if @user.update_attributes(params[:user])
     flash[:notice] = "User updated successfully"
     redirect_to @user

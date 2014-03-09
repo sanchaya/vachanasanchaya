@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   validates :name,:role_id, presence: true
 
 
+  scope :not_is_admin,lambda {|user| where("user_role != 'Admin' and id != ?", user.id) }
+
   def is_admin?
     user_role == "Admin"
   end
