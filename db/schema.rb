@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140309201424) do
+ActiveRecord::Schema.define(:version => 20140310201627) do
 
   create_table "concords", :force => true do |t|
     t.string   "name"
@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(:version => 20140309201424) do
 
   add_index "key_words", ["word"], :name => "index_key_words_on_word"
 
+  create_table "old_vachanas", :force => true do |t|
+    t.integer  "vachana_id"
+    t.text     "old_vachana"
+    t.integer  "old_vachanaid"
+    t.string   "old_name"
+    t.integer  "reviewer_id"
+    t.integer  "publisher_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "old_vachanas", ["publisher_id"], :name => "index_old_vachanas_on_publisher_id"
+  add_index "old_vachanas", ["reviewer_id"], :name => "index_old_vachanas_on_reviewer_id"
+  add_index "old_vachanas", ["vachana_id"], :name => "index_old_vachanas_on_vachana_id"
+
   create_table "reference_books", :force => true do |t|
     t.string   "book_name"
     t.string   "book_volume"
@@ -75,6 +90,23 @@ ActiveRecord::Schema.define(:version => 20140309201424) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "review_vachanas", :force => true do |t|
+    t.integer  "vachana_id"
+    t.integer  "reviewer_id"
+    t.boolean  "published"
+    t.integer  "publisher_id"
+    t.text     "review_vachana"
+    t.integer  "review_vachanaid"
+    t.string   "review_name"
+    t.boolean  "reviewed"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "review_vachanas", ["publisher_id"], :name => "index_review_vachanas_on_publisher_id"
+  add_index "review_vachanas", ["reviewer_id"], :name => "index_review_vachanas_on_reviewer_id"
+  add_index "review_vachanas", ["vachana_id"], :name => "index_review_vachanas_on_vachana_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
