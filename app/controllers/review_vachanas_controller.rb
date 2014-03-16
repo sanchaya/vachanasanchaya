@@ -1,3 +1,4 @@
+class ReviewVachanasController < ApplicationController
 def index
   if current_user.vachanakaaras.blank?
    flash[:notice] = "Sorry no vachanakaaras assigned to you."
@@ -14,4 +15,5 @@ end
 
 def new
 end
+
 end
