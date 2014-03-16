@@ -23,8 +23,13 @@ class User < ActiveRecord::Base
   scope :not_is_admin,lambda {|user| where("user_role != 'Admin' and id != ?", user.id) }
 
   def is_admin?
-    user_role == "Admin"
+    self.role.name == "Admin"
   end
+
+  def is_reviewer?
+    self.role.name == "Reviewer"
+  end
+  
 
 
   def self.assign_vachanakaara(user, vachanakaaras)
