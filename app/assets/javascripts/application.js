@@ -23,6 +23,8 @@
 //= require jquery.ime.inputmethods
 //= require SearchHighlight
 //= require zeroclipboard
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
 
 
@@ -31,6 +33,7 @@ $( document ).ready( function () {
 
 	$( '.search-vachanakaara-name' ).ime();
 	$( '.kannada-ime' ).ime(); 
+	
 
 
 	$("#main_search").validate({
@@ -71,6 +74,16 @@ $( document ).ready( function () {
 
 
 });
+
+
+// For fluid containers
+// dataTables
+$('.datatable').dataTable({
+	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+	"sPaginationType": "bootstrap"
+});
+
+
 
 } );
 

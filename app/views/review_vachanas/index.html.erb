@@ -1,6 +1,6 @@
 
 <div class="page-header">
-  <h1> Review Vachana </h1>
+<h1> Welcome <%= current_user.name %>  </h1>
 </div>
 
 <%= form_tag user_review_vachanas_path(current_user), method: :get  do %>
@@ -10,8 +10,20 @@
 <% end %>
 
 
-<% @vachanas.each do |vachana| %>
-<%= link_to vachana.vachanaid, "#" %>  -
-<%= link_to truncate(vachana.vachana, length: 100), "#", class: "btn-link" %> 
-<br />
-<% end %>
+<table class="datatable">
+  <thead>
+    <tr>
+      <th>vachanaid</th>
+      <th>vachana</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vachanas.each do |vachana| %>
+    <tr>
+      <td><%= link_to vachana.vachanaid, "#" %></td>
+      <td><%= link_to truncate(vachana.vachana, length: 100), "#", class: "btn-link" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
