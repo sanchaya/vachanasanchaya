@@ -20,6 +20,7 @@ end
     get :assign_new_vachanakaaras
     post :assign_vachanakaaras
   end
+  resources :review_vachanas
  end
 
   resources :researches
