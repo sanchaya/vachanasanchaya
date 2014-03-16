@@ -13,30 +13,45 @@
     <% @vachanakaaras.each do |vachanakaara| %>
 
     <a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
-      <div class="box effect5">
+      <div class="box effect5 vachanakaara-box">
         <h5> 
          <%=  vachanakaara.name %> </h5>
          <div class="vachanakaara-parichaya"> 
-           <span> ಅಂಕಿತ ನಾಮ: </span> <br /> 
-           <span> <%= vachanakaara.ankitha_naama %> </span>
-           <br /> <br />
-           <span> ಕಾಲ: </span> <br />
-           <span> <%= vachanakaara.time_period %> </span>
-           <br /> <br />
-           <span> ದೊರಕಿರುವ ವಚನ: </span> <br /> 
-           <span> <%= vachanakaara.vachana_found %> </span>
-         </div>
-       </div>
-     </a>
+          <% if vachanakaara.information and !vachanakaara.information.blank?  %>
+          <span> <%= vachanakaara.information %> </span> <br /> 
+          <% else %>
+          <span> ----- </span> <br /> 
+          <% end %>
+<%
+=begin %> 
+          <% if vachanakaara.ankitha_naama   %>
+          <span> ಅಂಕಿತ ನಾಮ: </span> <br /> 
+          <span> <%= vachanakaara.ankitha_naama %> </span>
+          <br /> <br />
+          <% end %>
+          <% if vachanakaara.time_period   %>
+          <span> ಕಾಲ: </span> <br />
+          <span> <%= vachanakaara.time_period %> </span>
+          <br /> <br />
+          <% end %>
+          <% if vachanakaara.vachana_found   %>
+          <span> ದೊರಕಿರುವ ವಚನ: </span> <br /> 
+          <span> <%= vachanakaara.vachana_found %> </span>
+          <% end %>
+<% 
+=end %>
+        </div>
+      </div>
+    </a>
 
-     <% end %>
-   </div>
+    <% end %>
+  </div>
 
-   <% unless @vachanakaaras.blank? %>
-   <div class="click_for_more"> 
-     <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
-   </div>
-   <% end %>
+  <% unless @vachanakaaras.blank? %>
+  <div class="click_for_more"> 
+   <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+ </div>
+ <% end %>
 
 
-   <% end %>
+ <% end %>
