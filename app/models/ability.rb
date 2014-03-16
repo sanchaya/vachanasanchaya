@@ -9,6 +9,8 @@ class Ability
         can :manage, :all
     elsif user.role.name == "Admin"
         can :manage, User
+    elsif user.role.name == "Reviewer"
+        can :manage, RevieweVachana
     else
         can :read, :all
     end

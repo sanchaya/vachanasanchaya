@@ -43,7 +43,11 @@
 
         <ul class="dropdown-menu">
          <li> <%= link_to "Sign out", destroy_user_session_path, method: :delete %> </li>
+         <% if current_user.is_admin? %>
          <li> <%= link_to "Admin Panel", admin_panel_path %> </li>
+         <% elsif current_user.is_reviewer? %>
+         <li><%= link_to "Review vachanas", user_review_vachanas_path(current_user) %> </li>
+         <% end %>
        </ul>
      </li>
 
@@ -52,20 +56,20 @@
      <% end %>
 
 
-    </ul>
-    <ul class="nav" style="float: right;">
-      <li>
-        <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right " %>
-      </li>
-      <li>
-        <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right " %>
-      </li>
-      <li class="social-nav-right ">
-        <div class="g-plusone " data-href="http://vachana.sanchaya.net" ></div>
-      </li>
+   </ul>
+   <ul class="nav" style="float: right;">
+    <li>
+      <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right " %>
+    </li>
+    <li>
+      <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right " %>
+    </li>
+    <li class="social-nav-right ">
+      <div class="g-plusone " data-href="http://vachana.sanchaya.net" ></div>
+    </li>
 
-    </ul>
-  </div>
+  </ul>
+</div>
 
 
 
