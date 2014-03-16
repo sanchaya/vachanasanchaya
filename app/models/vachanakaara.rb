@@ -14,4 +14,5 @@ class Vachanakaara < ActiveRecord::Base
   scope :ankitha_like, lambda {|ankitha| where("ankitha_naama like ?", "%#{ankitha}%" )}
 
   scope :not_in_user_vachanakaaras, includes(:user_vachanakaaras).where("id NOT IN (select vachanakaara_id from user_vachanakaaras)")
+
 end
