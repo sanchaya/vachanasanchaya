@@ -7,8 +7,9 @@
     <%= form_for [@reviewer,@review_vachana] do |f| %>
     <%= f.hidden_field :vachana_id, value: @vachana.id %>
 
-    <%= f.text_area :review_vachana, value: @vachana.vachana %>
-    <%= f.text_field :review_vachanaid,  value: @vachana.vachanaid %>
+    
+    <%= f.text_area :review_vachana %>
+    <%= f.text_field :review_vachanaid %>
     <%= f.submit %>
     <% end %> 
 
