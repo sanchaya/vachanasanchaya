@@ -353,3 +353,39 @@ overflow-y: scroll;
 margin-left: 5px;
 border: #F5F5F5 solid 1px;
 }
+
+.review-box{
+border: 3px solid #F6F6F6;
+height: 500px;
+padding: 2%;
+width: 95%;
+
+textarea{
+height: 250px;
+width: 400px;
+}
+
+
+
+}
+
+.original-vachana-box{
+border: 1px solid #E3E3E3;
+height: 250px;
+overflow: auto;
+padding-left: 7px;
+width: 400px;
+
+}
+
+.original-vachana-input{
+border: 1px solid #E3E3E3;
+height: 20px;
+padding: 1%;
+width: 200px;	
+}
+
+.original-vachana-lable{
+margin: 10px 0;
+}
+
