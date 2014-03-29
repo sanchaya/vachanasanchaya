@@ -1,17 +1,57 @@
 <div class="row">
   <div class="span6"> 
-    <%= raw @vachana.vachana.gsub(/\n/, '<br />') %>
-  </div>
+    <div class="review-box">
+     <div class="control-group">
+     Original Vachana:
+    </div> 
+    <div class="original-vachana-box"> 
+      <%= raw @vachana.vachana.gsub(/\n/, '<br />') %>
+    </div>
 
-  <div class="span6">
-    <%= form_for [@reviewer,@review_vachana] do |f| %>
+    <div class="original-vachana-lable">
+     Original Kramasanke:
+    </div> 
+
+    <div class="original-vachana-input">
+     <%= @vachana.vachanaid %>
+    </div> 
+
+    <div class="original-vachana-lable">
+     Vachanakaara:
+    </div> 
+
+    <div class="original-vachana-input">
+     <%= @vachana.vachanakaara.name %>
+    </div> 
+
+  </div>
+</div>
+
+<div class="span6">
+  <div class="review-box"> 
+    <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
     <%= f.hidden_field :vachana_id, value: @vachana.id %>
+    <div class="control-group">
+      Review Vachana:
+    </div>
+    <div class="control-group">
+      <%= f.text_area :review_vachana %>
+    </div>
 
-    
-    <%= f.text_area :review_vachana %>
+    <div class="control-group">
+     Review Kramasanke:
+   </div>
+
+   <div class="control-group">
     <%= f.text_field :review_vachanaid %>
-    <%= f.submit %>
-    <% end %> 
-
   </div>
+
+  <div class="control-group">
+    <%= f.submit "Update" %>
+  </div>
+
+  <% end %> 
+</div>
+
+</div>
 </div>
