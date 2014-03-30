@@ -13,15 +13,21 @@ KannadaVachana::Application.routes.draw do
 
   devise_for :users
   devise_scope :user do
-  get "/login" => "devise/sessions#new"
-end
- resources :users do
-  member do
-    get :assign_new_vachanakaaras
-    post :assign_vachanakaaras
+    get "/login" => "devise/sessions#new"
   end
-  resources :review_vachanas
- end
+  resources :users do
+    member do
+      get :assign_new_vachanakaaras
+      post :assign_vachanakaaras
+    end
+    resources :review_vachanas
+    resources :publishers do
+      collection do
+        get :published_vachanas
+      end
+    end
+    
+  end
 
   resources :researches
   resources :vachanas do
@@ -46,7 +52,6 @@ end
   end
 
   resources :reference_books
-
 
 
   #for API
