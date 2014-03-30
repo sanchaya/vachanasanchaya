@@ -14,7 +14,7 @@ class Ability
     elsif user.role.name == "Reviewer"
         can :manage, ReviewVachana
     else
-        can :read, :all
+        can :read, Vachana
     end
     #
     # The first argument to `can` is the action you are giving the user 
