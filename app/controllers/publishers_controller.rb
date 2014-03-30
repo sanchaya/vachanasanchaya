@@ -1,5 +1,5 @@
 class PublishersController < ApplicationController
-
+  authorize_resource :class => false
   def index
     @users =  User.includes(:role).where("roles.name = 'Publisher'")
     @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false)

@@ -23,31 +23,34 @@ class User < ActiveRecord::Base
   scope :not_is_admin,lambda {|user| where("user_role != 'Admin' and id != ?", user.id) }
 
   def is_admin?
-    self.role.name == "Admin"
+    self.role.name == "Admin" 
   end
+  def is_user_admin?
+   self.user_role == "Admin" 
+ end
 
-  def is_reviewer?
-    self.role.name == "Reviewer"
+ def is_reviewer?
+  self.role.name == "Reviewer"
+end
+
+
+def is_publisher?
+  self.role.name == "Publisher"
+end
+
+
+
+def self.assign_vachanakaara(user, vachanakaaras)
+  vachanakaaras.each do |v_id|
+    user.user_vachanakaaras.create(vachanakaara_id: v_id)
   end
+end
 
+private
 
-  def is_publisher?
-    self.role.name == "Publisher"
-  end
-  
-
-
-  def self.assign_vachanakaara(user, vachanakaaras)
-    vachanakaaras.each do |v_id|
-      user.user_vachanakaaras.create(vachanakaara_id: v_id)
-    end
-  end
-
-  private
-
-  def default_user_role
-    self.user_role = "Student"
-  end
+def default_user_role
+  self.user_role = "Student"
+end
 
 
 end
