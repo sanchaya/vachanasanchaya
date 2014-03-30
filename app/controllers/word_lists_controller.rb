@@ -1,5 +1,5 @@
 class WordListsController < ApplicationController
-	
+	load_and_authorize_resource
 	def index
 		@word_lists = WordList.all
 	end
