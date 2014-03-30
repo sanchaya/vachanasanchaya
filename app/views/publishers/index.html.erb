@@ -1,0 +1,23 @@
+
+<div class="page-header">
+  <h1> Welcome <%= current_user.name %>  </h1>
+  <h3> Publish Reviewed Vachana </h3>
+</div>
+
+
+<table class="datatable">
+  <thead>
+    <tr>
+      <th>vachanaid</th>
+      <th>vachana</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviewed_vachanas.each do |rv| %>
+    <tr>
+      <td><%= link_to rv.vachana.vachanaid, user_publisher_path(current_user,rv.id) %></td>
+      <td><%= link_to truncate(rv.vachana.vachana, length: 100), user_publisher_path(current_user,rv.id) , class: "btn-link" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

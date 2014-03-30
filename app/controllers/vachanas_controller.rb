@@ -5,7 +5,6 @@ class VachanasController < ApplicationController
   before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
   # caches_action :index, :cache_path => Proc.new { |c| c.params }
 
-
   def index
     @word_lists = WordList.all
     @vachanakaaras_list =  Vachanakaara.all
