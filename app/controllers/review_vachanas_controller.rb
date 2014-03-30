@@ -1,4 +1,5 @@
 class ReviewVachanasController < ApplicationController
+   load_and_authorize_resource
   def index
     if current_user.vachanakaaras.blank?
      flash[:notice] = "Sorry no vachanakaaras assigned to you."
@@ -47,6 +48,10 @@ def update
   if @review_vachana.update_attributes(params[:review_vachana])
    redirect_to edit_user_review_vachana_path(@reviewer,@review_vachana)
  end
+end
+
+
+def reviewed_vachanas
 end
 
 end

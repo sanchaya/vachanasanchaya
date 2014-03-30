@@ -9,10 +9,12 @@ class Ability
         can :manage, :all
     elsif user.role.name == "Admin"
         can :manage, User
+    elsif user.role.name == "Publisher"
+        can :manage, :publisher
     elsif user.role.name == "Reviewer"
-        can :manage, RevieweVachana
+        can :manage, ReviewVachana
     else
-        can :read, :all
+        can :read, Vachana
     end
     #
     # The first argument to `can` is the action you are giving the user 
