@@ -29,6 +29,11 @@ class User < ActiveRecord::Base
   def is_reviewer?
     self.role.name == "Reviewer"
   end
+
+
+  def is_publisher?
+    self.role.name == "Publisher"
+  end
   
 
 

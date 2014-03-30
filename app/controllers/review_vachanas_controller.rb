@@ -49,4 +49,8 @@ def update
  end
 end
 
+
+def reviewed_vachanas
+end
+
 end
