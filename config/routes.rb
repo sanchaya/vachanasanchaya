@@ -20,7 +20,11 @@ KannadaVachana::Application.routes.draw do
       get :assign_new_vachanakaaras
       post :assign_vachanakaaras
     end
-    resources :review_vachanas
+    resources :review_vachanas do
+      collection do
+        get :reviewed_vachanas
+      end
+    end
     resources :publishers do
       collection do
         get :published_vachanas
