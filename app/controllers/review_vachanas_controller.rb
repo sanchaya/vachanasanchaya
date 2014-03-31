@@ -1,17 +1,18 @@
 class ReviewVachanasController < ApplicationController
-   load_and_authorize_resource
-  def index
-    if current_user.vachanakaaras.blank?
-     flash[:notice] = "Sorry no vachanakaaras assigned to you."
-     redirect_to :back
-   else
-    @vachanakaaras = current_user.vachanakaaras
-    if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
-      @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas
-    else
-      @vachanas = @vachanakaaras.first.vachanas
-    end
+ load_and_authorize_resource
+ def index
+  if current_user.vachanakaaras.blank?
+   flash[:notice] = "Sorry no vachanakaaras assigned to you."
+   redirect_to :back
+ else
+  @vachanakaaras = current_user.vachanakaaras
+  @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
+  if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
+    @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)", @published)
+  else
+    @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published)
   end
+end
 end
 
 def new
@@ -39,7 +40,11 @@ end
 def edit
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
-  @vachana = @review_vachana.vachana
+  if @review_vachana.published == true 
+    redirect_to vachana_path(@review_vachana.vachana.id)
+  else
+    @vachana = @review_vachana.vachana
+  end
 end
 
 def update
@@ -52,6 +57,7 @@ end
 
 
 def reviewed_vachanas
+  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
 end
 
 end
