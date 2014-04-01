@@ -1,18 +1,18 @@
 class ReviewVachanasController < ApplicationController
- load_and_authorize_resource
- def index
-  if current_user.vachanakaaras.blank?
-   flash[:notice] = "Sorry no vachanakaaras assigned to you."
-   redirect_to :back
- else
-  @vachanakaaras = current_user.vachanakaaras
-  @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
-  if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
-    @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)", @published)
-  else
-    @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published)
+  load_and_authorize_resource
+  def index
+    if current_user.vachanakaaras.blank?
+     flash[:notice] = "Sorry no vachanakaaras assigned to you."
+     redirect_to :back
+   else
+    @vachanakaaras = current_user.vachanakaaras
+    @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
+    if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
+      @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)", @published)
+    else
+      @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published)
+    end
   end
-end
 end
 
 def new
