@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user,params)
     # Define abilities for the passed in user here. For example:
     #
       user ||= User.new # guest user (not logged in)
@@ -12,7 +12,21 @@ class Ability
     elsif user.role.name == "Publisher"
         can :manage, :publisher
     elsif user.role.name == "Reviewer"
-        can :manage, ReviewVachana
+        if (params[:user_id].to_i == user.id )
+            can :read, ReviewVachana
+            can :reviewed_vachanas, ReviewVachana
+            if (params[:action] == "new" or params[:action] == "create" )
+                uv = user.vachanakaaras.map{|v| v.id}
+                v = Vachana.find(params[:vachana_id])
+                if uv.include?(v.vachanakaara_id)
+                    can :create, ReviewVachana
+                end
+            end
+
+            if (params[:action] == "edit" or params[:action] == "update" )
+                can :update, ReviewVachana if  ReviewVachana.find(params[:id]).reviewer_id == user.id
+            end
+        end
     else
         can :read, Vachana
     end
