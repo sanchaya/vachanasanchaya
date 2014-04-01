@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :vachanakaaras, through: :user_vachanakaaras
   has_many :user_vachanakaaras, dependent: :destroy
+  has_many :review_vachanas, foreign_key: :reviewer_id
 
   validates :name,:role_id, presence: true
 
