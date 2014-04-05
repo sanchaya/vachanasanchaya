@@ -1,4 +1,7 @@
 class ReviewVachana < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
+  
   attr_accessible :review_vachana, :vachana_id, :review_vachanaid
   belongs_to :vachana
   belongs_to :user, foreign_key: :reviewer_id
