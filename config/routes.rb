@@ -2,6 +2,8 @@ require 'api_constraints'
 
 KannadaVachana::Application.routes.draw do
 
+  
+
   root :to => "home#index"
 
   get "home/index"
@@ -56,9 +58,11 @@ KannadaVachana::Application.routes.draw do
   end
 
   resources :reference_books
+  resources :activities
 
+# for web ends here
 
-  #for API
+  #for API starts
 
   namespace :api, defaults: {format: 'json'} do
 

@@ -1,10 +1,13 @@
 class Vachana < ActiveRecord::Base
-  attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
-  has_many :daily_vachanas
-  belongs_to :vachanakaara
+ include PublicActivity::Model
+ tracked owner: Proc.new{ |controller, model| controller.current_user }
+ 
+ attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
+ has_many :daily_vachanas
+ belongs_to :vachanakaara
 
 
-  def self.search_vachana_pada(pada,type,author)
+ def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )
     @vachanakaaras_word_count =  []
     @vachanakaaras_name =  []

@@ -11,10 +11,11 @@
     <dd><%= @user.role.name %></dd>
   </dl>
 
+  <% if @user.is_reviewer? %>
   <div class="span4">
     <%= link_to "Assign vachanakaara", assign_new_vachanakaaras_user_path(@user) , :class => 'btn'%>
     <% unless @user_vachanakaaras.blank? %>
-    <%= link_to "Remove ", assign_new_vachanakaaras_user_path(@user) , :class => 'btn btn-danger'%>
+    <%#= link_to "Remove ", assign_new_vachanakaaras_user_path(@user) , :class => 'btn btn-danger'%>
     <div class="list-assigned-vachanakaaras"> 
       <% @user_vachanakaaras.each do |u_v| %>
       <%= u_v.vachanakaara.name %> <br />
@@ -22,8 +23,9 @@
     </div>
     <% end %>
   </div>
-</div> 
+  <% end %>
 
+</div> 
 
 
 

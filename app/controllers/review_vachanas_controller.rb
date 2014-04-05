@@ -32,7 +32,10 @@ def create
   @review_vachana.reviewer_id = @reviewer.id
   @review_vachana.reviewed = true
   if @review_vachana.save 
-    redirect_to edit_user_review_vachana_path(@reviewer,@review_vachana)
+    @review_vachana.activity_owner = current_user
+    # @review_vachana.create_activity owner: current_user
+    flash[:notice] = "Vachana reviewed successfully"
+    redirect_to user_review_vachanas_path(current_user) #edit_user_review_vachana_path(@reviewer,@review_vachana)
   else
   end
 end
@@ -51,8 +54,9 @@ def update
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
   if @review_vachana.update_attributes(params[:review_vachana])
-   redirect_to edit_user_review_vachana_path(@reviewer,@review_vachana)
- end
+    flash[:notice] = "Vachana reviewed successfully"
+    redirect_to user_review_vachanas_path(current_user) #edit_user_review_vachana_path(@reviewer,@review_vachana)
+  end
 end
 
 
