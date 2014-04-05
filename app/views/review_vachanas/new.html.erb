@@ -28,6 +28,8 @@
 </div>
 
 <div class="span6">
+
+  <% if params[:review] == "yes" %>
   <div class="review-box"> 
     <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
     <%= f.hidden_field :vachana_id, value: @vachana.id %>
@@ -52,6 +54,12 @@
 
   <% end %> 
 </div>
+
+<% else %>
+<div class="review_button"> 
+<%= link_to "Review",  new_user_review_vachana_path(current_user,vachana_id: @vachana.id, review: "yes"), confirm: "Are You Sure ?" , class: "btn" %>
+</div>
+<% end %>
 
 </div>
 </div>

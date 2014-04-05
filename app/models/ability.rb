@@ -16,8 +16,9 @@ class Ability
             can :read, ReviewVachana
             can :reviewed_vachanas, ReviewVachana
             if (params[:action] == "new" or params[:action] == "create" )
+                vachana_id = params[:vachana_id] ? params[:vachana_id].to_i : params[:review_vachana][:vachana_id].to_i
                 uv = user.vachanakaaras.map{|v| v.id}
-                v = Vachana.find(params[:vachana_id])
+                v = Vachana.find(vachana_id)
                 if uv.include?(v.vachanakaara_id)
                     can :create, ReviewVachana
                 end
