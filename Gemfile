@@ -54,3 +54,5 @@ gem 'rabl'
 gem "cancan"
 
 gem 'jquery-datatables-rails'#, git: 'git://github.com/rweng/jquery-datatables-rails.git'
+
+gem 'public_activity' #activity log tracker
