@@ -29,7 +29,7 @@ class WordListsController < ApplicationController
 
   def download_keyword_csv
     require 'csv'
-    @keywords = KeyWord.order("name")
+    @keywords = KeyWord.order("word")
     send_data(
       @keywords.to_csv,
       :type => 'text/csv',
