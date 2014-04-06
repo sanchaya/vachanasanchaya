@@ -21,7 +21,7 @@ class KeyWord < ActiveRecord::Base
 
      else
     	 # if author.blank?
-       @results = where(word: pada )
+      @results = where(word: pada )
        # else
            # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
        # end
@@ -93,5 +93,17 @@ end
 
 
 scope :start_letter, lambda {|letter| where("word like ? ", "#{letter}%" )}
+
+
+def self.to_csv
+  CSV.generate do |csv|
+    csv << ["id", "word"]
+    all.each do |key|
+      csv << [key.id, key.word]
+    end
+  end
+end
+
+
 
 end

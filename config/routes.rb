@@ -49,7 +49,11 @@ KannadaVachana::Application.routes.draw do
     end
   end
 
-  resources :word_lists
+  resources :word_lists do
+    collection do
+      get :download_keyword_csv
+    end
+  end
 
   resources :glossaries do
     collection do
