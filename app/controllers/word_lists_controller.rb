@@ -28,8 +28,13 @@ class WordListsController < ApplicationController
   end
 
   def download_keyword_csv
+    require 'csv'
     @keywords = KeyWord.limit(20)
-    send_data @keywords.to_csv
-
+    send_data(
+      @keywords.to_csv,
+      :type => 'text/csv',
+      :filename => 'export.csv',
+      :disposition => 'attachment'
+      )
   end
 end
