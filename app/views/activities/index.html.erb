@@ -1,5 +1,8 @@
-<h1>Friends&rsquo; Activities</h1>
-<% @activities.first(2).each do |activity| %>
-<%= activity.inspect %> <br />
+<%= render "layouts/back_button" %>
+
+<h1>Activities</h1>
+<% @activities.each do |activity| %>
+<%= "#{activity.owner.name}(#{activity.owner.email})" %>
+<%= render_activity activity %> <hr /> 
 <% end %>
 

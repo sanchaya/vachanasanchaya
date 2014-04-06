@@ -1,6 +1,9 @@
 class Vachanakaara < ActiveRecord::Base
- include PublicActivity::Model
- tracked owner: Proc.new{ |controller, model| controller.current_user }
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user },
+  :params => {
+    used_ip: Proc.new{ |controller, model| controller.current_user.current_sign_in_ip }
+  }
  
  default_scope order('name')
 
