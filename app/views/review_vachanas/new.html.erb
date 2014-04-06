@@ -1,3 +1,8 @@
+ <div class= "back-button" > 
+  <%= link_to_function "", "history.back()", class: "btn icon-arrow-left", style: "color: #0044CC;" %>
+</div>
+<div style="clear:both"> </div>
+
 <div class="row">
   <div class="span6"> 
     <div class="review-box">
@@ -57,7 +62,7 @@
 
 <% else %>
 <div class="review_button"> 
-<%= link_to "Review",  new_user_review_vachana_path(current_user,vachana_id: @vachana.id, review: "yes"), confirm: "Are You Sure ?" , class: "btn" %>
+  <%= link_to "Review",  new_user_review_vachana_path(current_user,vachana_id: @vachana.id, review: "yes"), confirm: "Are You Sure ?" , class: "btn" %>
 </div>
 <% end %>
 

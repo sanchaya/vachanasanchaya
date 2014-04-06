@@ -1,3 +1,7 @@
+ <div class= "back-button" > 
+  <%= link_to_function "", "history.back()", class: "btn icon-arrow-left", style: "color: #0044CC;" %>
+</div>
+
 <h1>Activities</h1>
 <% @activities.each do |activity| %>
 <%= "#{activity.owner.name}(#{activity.owner.email})" %>

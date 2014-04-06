@@ -1,3 +1,7 @@
+ <div class= "back-button" > 
+  <%= link_to_function "", "history.back()", class: "btn icon-arrow-left", style: "color: #0044CC;" %>
+</div>
+
 <%= form_tag assign_vachanakaaras_user_path(@user) do %>
 <div class="assign_vachanakaaras span5"> 
 <%= submit_tag "Assign", class: "btn" %> <br />
