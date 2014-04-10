@@ -8,9 +8,9 @@ class ReviewVachanasController < ApplicationController
     @vachanakaaras = current_user.vachanakaaras
     @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
     if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
-      @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)", @published)
+      @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
     else
-      @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published)
+      @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published.blank? ? 0 : @published)
     end
   end
 end
