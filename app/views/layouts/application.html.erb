@@ -39,13 +39,21 @@
     </ul>
     <ul class="nav" style="float: right;">
       <li>
-        <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right " %>
+        <%= link_to("http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right ") do %>
+        <i class="fa fa-facebook fa-2x"></i>
+        <% end %>
       </li>
       <li>
-        <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right " %>
+        <%= link_to("http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right ") do %>
+        <i class="fa fa-twitter fa-2x"></i> 
+        <% end %>
       </li>
-      <li class="social-nav-right ">
-        <div class="g-plusone " data-href="http://vachana.sanchaya.net" ></div>
+      
+
+      <li>
+        <%= link_to("https://plus.google.com/share?url=http://vachana.sanchaya.net" , target: "_blank",class: "social-nav-right ") do %>
+        <i class="fa fa-google-plus fa-2x"></i> 
+        <% end %>
       </li>
 
     </ul>
@@ -58,20 +66,6 @@
 
 
   <%= yield %>
-
-
-  <!-- <div class="navbar navbar-fixed-bottom" style="margin-top: 10px;">
-    <div class="navbar-inner">
-    </div>
-  </div> -->
-
-  <script type="text/javascript">
-    (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/platform.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-  </script>
 
 
 </body>
