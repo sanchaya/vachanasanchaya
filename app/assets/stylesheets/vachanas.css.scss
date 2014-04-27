@@ -357,7 +357,7 @@ border: #F5F5F5 solid 1px;
 
 .review-box{
 border: 3px solid #F6F6F6;
-height: 500px;
+height: 325px;
 padding: 2%;
 width: 95%;
 
@@ -372,22 +372,27 @@ width: 400px;
 
 .original-vachana-box{
 border: 1px solid #E3E3E3;
+float: left;
 height: 250px;
 overflow: auto;
 padding-left: 7px;
-width: 400px;
+width: 55%;
 
 }
 
 .original-vachana-input{
 border: 1px solid #E3E3E3;
+float: left;
 height: 20px;
+margin: 0 0 0 10px;
 padding: 1%;
-width: 200px;	
+width: 22%;	
 }
 
 .original-vachana-lable{
-margin: 10px 0;
+float: left;
+margin: 0 0 0 10px;
+width: 30%;
 }
 
 
@@ -396,4 +401,33 @@ border: 2px solid #F2F1F0;
 max-height: 400px;
 overflow: auto;
 padding: 3%;
+}
+
+.review-vachana-text {
+float: left;
+width: 30%;
+}
+
+.review-vachana-lable{
+float: left;
+width: 30%;
+}
+
+.review-vachana-box{
+float: left;
+width: 60%;
+}
+
+
+.review-vachana-submit{
+clear: both;
+padding-top: 2%;	
+}
+
+
+.reviewer-left-box{
+border: 2px solid #F2F1F0;
+max-height: 800px;
+padding: 3px;
+text-align: center;
 }
