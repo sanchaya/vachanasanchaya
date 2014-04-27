@@ -1,8 +1,44 @@
 <%= render "layouts/back_button" %>
-<div style="clear:both"> </div>
+
+
+<div class="page-header">
+  <h1> Welcome <%= current_user.name %>  </h1>
+</div>
 
 <div class="row">
-  <div class="span6"> 
+  <div class="span4">
+    <div class="reviewer-left-box"> 
+      <%= form_tag user_review_vachanas_path(current_user), method: :get  do %>
+      <%= select_tag :user_vachanakaara, options_from_collection_for_select(@vachanakaaras,  "id","name",params[:user_vachanakaara]), onchange: "submit();" %>
+
+      <% end %>
+
+      <div class="reviewer-left-table"> 
+        <table class="table-bordered table-striped"> 
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>vachana</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @vachanas.each do |vachana| %>
+            <tr>
+             <td><%= link_to vachana.id, user_review_vachanas_path(current_user,vachana_id: vachana.id) %></td>
+             <td><%= link_to truncate(vachana.vachana, length: 40), new_user_review_vachana_path(current_user,vachana_id: vachana.id) , class: "btn-link" %></td>
+
+           </tr>
+           <% end %>
+         </tbody>
+       </table>
+     </div>
+
+   </div>
+ </div>
+
+
+ <div class="span8">
+  <div class="reviewer-right-box"> 
     <div class="review-box">
      <div class="control-group">
        Original Vachana:
@@ -28,34 +64,32 @@
    </div> 
 
  </div>
-</div>
 
-<div class="span6">
 
-  <% if params[:review] == "yes" %>
-  <div class="review-box"> 
-    <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
-    <%= f.hidden_field :vachana_id, value: @vachana.id %>
-    <div class="control-group">
-      Review Vachana:
-    </div>
-    <div class="control-group">
-      <%= f.text_area :review_vachana, value: @vachana.vachana  %>
-    </div>
-
-    <div class="control-group">
-     Review Kramasanke:
-   </div>
-
-   <div class="control-group">
-    <%= f.text_field :review_vachanaid,  value: @vachana.vachanaid  %>
+ <% if params[:review] == "yes" %>
+ <div class="review-box"> 
+  <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
+  <%= f.hidden_field :vachana_id, value: @vachana.id %>
+  <div class="control-group">
+    Review Vachana:
+  </div>
+  <div class="control-group">
+    <%= f.text_area :review_vachana, value: @vachana.vachana  %>
   </div>
 
   <div class="control-group">
-    <%= f.submit "Update" %>
-  </div>
+   Review Kramasanke:
+ </div>
 
-  <% end %> 
+ <div class="control-group">
+  <%= f.text_field :review_vachanaid,  value: @vachana.vachanaid  %>
+</div>
+
+<div class="control-group">
+  <%= f.submit "Update" %>
+</div>
+
+<% end %> 
 </div>
 
 <% else %>
@@ -64,5 +98,17 @@
 </div>
 <% end %>
 
+
+</div>
+
 </div>
 </div>
+
+
+
+
+
+
+
+
+
