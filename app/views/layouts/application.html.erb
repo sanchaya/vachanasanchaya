@@ -47,12 +47,9 @@
          <li> <%= link_to "Admin Panel", admin_panel_path %> </li>
 
          <% elsif current_user.is_reviewer? %>
-         <li><%= link_to "Review vachanas", user_review_vachanas_path(current_user) %> </li>
-         <li><%= link_to "Reviewed vachanas", reviewed_vachanas_user_review_vachanas_path(current_user) %> </li>
-         
+         <li><%= link_to "Review/Reviewed vachanas", user_review_vachanas_path(current_user) %> </li>
          <% elsif current_user.is_publisher? %>
-         <li><%= link_to "Reviewed vachanas", user_publishers_path(current_user)  %> </li>
-         <li><%= link_to "Published vachanas", published_vachanas_user_publishers_path(current_user)  %> </li>
+         <li><%= link_to "Reviewed/Published vachanas", user_publishers_path(current_user)  %> </li>
          <% end %>
        </ul>
        
