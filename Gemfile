@@ -50,3 +50,4 @@ gem 'zeroclipboard-rails'
 
 gem 'rabl'
 
+gem "font-awesome-rails"
