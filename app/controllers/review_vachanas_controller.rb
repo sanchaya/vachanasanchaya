@@ -16,14 +16,29 @@ class ReviewVachanasController < ApplicationController
 end
 
 def new
-  @reviewer = current_user
-  @vachana = Vachana.find(params[:vachana_id])
-  reviewed_already = ReviewVachana.find_by_vachana_id(params[:vachana_id] )
-  if reviewed_already
-    redirect_to edit_user_review_vachana_path(@reviewer,reviewed_already) 
+
+  if current_user.vachanakaaras.blank?
+   flash[:notice] = "Sorry no vachanakaaras assigned to you."
+   redirect_to :back
+ else
+  @vachanakaaras = current_user.vachanakaaras
+  @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
+  if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
+    @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
   else
-    @review_vachana = ReviewVachana.new()
+    @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published.blank? ? 0 : @published)
   end
+end
+
+
+@reviewer = current_user
+@vachana = Vachana.find(params[:vachana_id])
+reviewed_already = ReviewVachana.find_by_vachana_id(params[:vachana_id] )
+if reviewed_already
+  redirect_to edit_user_review_vachana_path(@reviewer,reviewed_already) 
+else
+  @review_vachana = ReviewVachana.new()
+end
 end
 
 def create
