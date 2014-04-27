@@ -1,29 +1,53 @@
  <div class="span4">
-    <div class="reviewer-left-box"> 
-      <%= form_tag user_review_vachanas_path(current_user), method: :get  do %>
-      <%= select_tag :user_vachanakaara, options_from_collection_for_select(@vachanakaaras,  "id","name",params[:user_vachanakaara]), onchange: "submit();" %>
+  <div class="reviewer-left-box"> 
+    <%= form_tag user_review_vachanas_path(current_user), method: :get  do %>
+    <%= select_tag :user_vachanakaara, options_from_collection_for_select(@vachanakaaras,  "id","name",@vachanakaara.id), onchange: "submit();" %>
 
-      <% end %>
+    <% end %>
+    Review Vachana
 
-      <div class="reviewer-left-table"> 
-        <table class="table-bordered table-striped"> 
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>vachana</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @vachanas.each do |vachana| %>
-            <tr>
-             <td><%= link_to vachana.id, user_review_vachanas_path(current_user,vachana_id: vachana.id) %></td>
-             <td><%= link_to truncate(vachana.vachana, length: 40), new_user_review_vachana_path(current_user,vachana_id: vachana.id) , class: "btn-link" %></td>
+    <div class="reviewer-left-table"> 
+      <table class="table-bordered table-striped"> 
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>vachana</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @vachanas.each do |vachana| %>
+          <tr>
+           <td><%= link_to vachana.id, user_review_vachanas_path(current_user,vachana_id: vachana.id) %></td>
+           <td><%= link_to truncate(vachana.vachana, length: 40), new_user_review_vachana_path(current_user,vachana_id: vachana.id) , class: "btn-link" %></td>
 
-           </tr>
-           <% end %>
-         </tbody>
-       </table>
-     </div>
-
+         </tr>
+         <% end %>
+       </tbody>
+     </table>
    </div>
- </div>
+
+   Reviewed Vachana
+
+   <div class="reviewer-left-table"> 
+
+     <table class="table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>vachana</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @reviewed_vachanas.each do |rv| %>
+        <tr>
+          <td><%= link_to rv.vachana.id, edit_user_review_vachana_path(current_user,rv) %></td>
+          <td><%= link_to truncate(rv.review_vachana, length: 40), edit_user_review_vachana_path(current_user,rv) , class: "btn-link" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+</div>

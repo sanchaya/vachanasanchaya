@@ -10,7 +10,6 @@ class ReviewVachanasController < ApplicationController
 end
 
 def new
-  list_vachanakaara_vachanas
 
   @reviewer = current_user
   @vachana = Vachana.find(params[:vachana_id])
@@ -20,6 +19,8 @@ def new
   else
     @review_vachana = ReviewVachana.new()
   end
+  list_vachanakaara_vachanas
+
 end
 
 def create
@@ -45,6 +46,7 @@ def edit
   else
     @vachana = @review_vachana.vachana
   end
+  list_vachanakaara_vachanas
 end
 
 def update
@@ -67,12 +69,13 @@ def list_vachanakaara_vachanas
 
   @vachanakaaras = current_user.vachanakaaras
   @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
-  if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
-    @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
+  if (params[:user_vachanakaara] and !params[:user_vachanakaara].blank?) or @vachana
+    @vachanakaara = @vachana ? @vachana.vachanakaara : Vachanakaara.find(params[:user_vachanakaara]) 
   else
-    @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published.blank? ? 0 : @published)
+    @vachanakaara = @vachanakaaras.first
   end
-
+  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
+  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
 end
 
 end
