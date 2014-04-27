@@ -45,33 +45,38 @@
          <li> <%= link_to "Sign out", destroy_user_session_path, method: :delete %> </li>
          <% if current_user.is_admin? %>
          <li> <%= link_to "Admin Panel", admin_panel_path %> </li>
+
          <% elsif current_user.is_reviewer? %>
          <li><%= link_to "Review vachanas", user_review_vachanas_path(current_user) %> </li>
          <li><%= link_to "Reviewed vachanas", reviewed_vachanas_user_review_vachanas_path(current_user) %> </li>
-
          
          <% elsif current_user.is_publisher? %>
          <li><%= link_to "Reviewed vachanas", user_publishers_path(current_user)  %> </li>
          <li><%= link_to "Published vachanas", published_vachanas_user_publishers_path(current_user)  %> </li>
          <% end %>
        </ul>
+       
      </li>
 
-
-
      <% end %>
-
 
    </ul>
    <ul class="nav" style="float: right;">
     <li>
-      <%= link_to image_tag("fb1.jpg"), "http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right " %>
+      <%= link_to("http://www.facebook.com/vachanasanchaya", target: "_blank" , class: "social-nav-right ") do %>
+      <i class="fa fa-facebook fa-2x"></i>
+      <% end %>
     </li>
     <li>
-      <%= link_to image_tag("twitter1.jpg"), "http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right " %>
+      <%= link_to("http://twitter.com/vachanasanchaya" , target: "_blank",class: "social-nav-right ") do %>
+      <i class="fa fa-twitter fa-2x"></i> 
+      <% end %>
     </li>
-    <li class="social-nav-right ">
-      <div class="g-plusone " data-href="http://vachana.sanchaya.net" ></div>
+
+    <li>
+      <%= link_to("https://plus.google.com/share?url=http://vachana.sanchaya.net" , target: "_blank",class: "social-nav-right ") do %>
+      <i class="fa fa-google-plus fa-2x"></i> 
+      <% end %>
     </li>
 
   </ul>
@@ -79,26 +84,11 @@
 
 
 
+
 </div>
 <div class="container">
 
-
   <%= yield %>
-
-
-  <!-- <div class="navbar navbar-fixed-bottom" style="margin-top: 10px;">
-    <div class="navbar-inner">
-    </div>
-  </div> -->
-
-  <script type="text/javascript">
-    (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/platform.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-  </script>
-
 
 </body>
 </html>
