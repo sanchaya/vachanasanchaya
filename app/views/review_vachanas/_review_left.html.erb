@@ -1,0 +1,29 @@
+ <div class="span4">
+    <div class="reviewer-left-box"> 
+      <%= form_tag user_review_vachanas_path(current_user), method: :get  do %>
+      <%= select_tag :user_vachanakaara, options_from_collection_for_select(@vachanakaaras,  "id","name",params[:user_vachanakaara]), onchange: "submit();" %>
+
+      <% end %>
+
+      <div class="reviewer-left-table"> 
+        <table class="table-bordered table-striped"> 
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>vachana</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @vachanas.each do |vachana| %>
+            <tr>
+             <td><%= link_to vachana.id, user_review_vachanas_path(current_user,vachana_id: vachana.id) %></td>
+             <td><%= link_to truncate(vachana.vachana, length: 40), new_user_review_vachana_path(current_user,vachana_id: vachana.id) , class: "btn-link" %></td>
+
+           </tr>
+           <% end %>
+         </tbody>
+       </table>
+     </div>
+
+   </div>
+ </div>
