@@ -25,4 +25,18 @@ def current_ability
 end
 
 
+def after_sign_in_path_for(resource)
+  if resource.is_reviewer?
+    user_review_vachanas_path(current_user)
+  elsif resource.is_publisher?
+    user_publishers_path(current_user)  
+  elsif resource.is_admin?
+    admin_panel_path
+  else
+    super
+  end
+
+
+end
+
 end

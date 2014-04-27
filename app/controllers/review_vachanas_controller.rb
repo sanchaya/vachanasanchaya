@@ -5,17 +5,12 @@ class ReviewVachanasController < ApplicationController
      flash[:notice] = "Sorry no vachanakaaras assigned to you."
      redirect_to :back
    else
-    @vachanakaaras = current_user.vachanakaaras
-    @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
-    if params[:user_vachanakaara] and !params[:user_vachanakaara].blank?
-      @vachanas = Vachanakaara.find(params[:user_vachanakaara]).vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
-    else
-      @vachanas = @vachanakaaras.first.vachanas.where("id not in (?)", @published.blank? ? 0 : @published)
-    end
+    list_vachanakaara_vachanas
   end
 end
 
 def new
+
   @reviewer = current_user
   @vachana = Vachana.find(params[:vachana_id])
   reviewed_already = ReviewVachana.find_by_vachana_id(params[:vachana_id] )
@@ -24,6 +19,8 @@ def new
   else
     @review_vachana = ReviewVachana.new()
   end
+  list_vachanakaara_vachanas
+
 end
 
 def create
@@ -33,10 +30,11 @@ def create
   @review_vachana.reviewed = true
   if @review_vachana.save 
     @review_vachana.activity_owner = current_user
-    # @review_vachana.create_activity owner: current_user
     flash[:notice] = "Vachana reviewed successfully"
     redirect_to user_review_vachanas_path(current_user) #edit_user_review_vachana_path(@reviewer,@review_vachana)
   else
+    flash[:error] = "Vachana review failed! please try again"
+    redirect_to user_review_vachanas_path(current_user)
   end
 end
 
@@ -48,6 +46,7 @@ def edit
   else
     @vachana = @review_vachana.vachana
   end
+  list_vachanakaara_vachanas
 end
 
 def update
@@ -61,6 +60,21 @@ end
 
 
 def reviewed_vachanas
+  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
+end
+
+private
+
+def list_vachanakaara_vachanas
+
+  @vachanakaaras = current_user.vachanakaaras
+  @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
+  if (params[:user_vachanakaara] and !params[:user_vachanakaara].blank?) or @vachana
+    @vachanakaara = @vachana ? @vachana.vachanakaara : Vachanakaara.find(params[:user_vachanakaara]) 
+  else
+    @vachanakaara = @vachanakaaras.first
+  end
+  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
   @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
 end
 

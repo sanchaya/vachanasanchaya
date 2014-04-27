@@ -1,8 +1,16 @@
 <%= render "layouts/back_button" %>
-<div style="clear:both"> </div>
+
+
+<div class="page-header">
+  <h2> Welcome <%= current_user.name %>  </h2>
+</div>
 
 <div class="row">
-  <div class="span6"> 
+ <%= render "review_left" %>
+
+
+ <div class="span8">
+  <div class="reviewer-right-box"> 
     <div class="review-box">
      <div class="control-group">
        Original Vachana:
@@ -28,31 +36,30 @@
    </div> 
 
  </div>
-</div>
 
-<div class="span6">
 
-  <% if params[:review] == "yes" %>
-  <div class="review-box"> 
-    <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
-    <%= f.hidden_field :vachana_id, value: @vachana.id %>
-    <div class="control-group">
-      Review Vachana:
-    </div>
-    <div class="control-group">
-      <%= f.text_area :review_vachana, value: @vachana.vachana  %>
-    </div>
+ <% if params[:review] == "yes" %>
+ <div class="review-box"> 
+  <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
+  <%= f.hidden_field :vachana_id, value: @vachana.id %>
+  <div class="control-group">
+    Review Vachana:
+  </div>
+  <div class="review-vachana-box">
+    <%= f.text_area :review_vachana, value: @vachana.vachana  %>
+  </div>
 
-    <div class="control-group">
-     Review Kramasanke:
-   </div>
+  <div class="review-vachana-lable">
+    Review Kramasanke:
+  </div>
 
-   <div class="control-group">
+  <div class="review-vachana-text">
     <%= f.text_field :review_vachanaid,  value: @vachana.vachanaid  %>
   </div>
 
-  <div class="control-group">
-    <%= f.submit "Update" %>
+  <div class="review-vachana-submit">
+    <%= f.submit "Update" ,class: 'btn btn-primary' %>
+    <%= link_to "Cancel", user_review_vachanas_path(current_user), confirm: "Are you sure ?", class: 'btn btn-danger' %>
   </div>
 
   <% end %> 
@@ -64,5 +71,17 @@
 </div>
 <% end %>
 
+
+</div>
+
 </div>
 </div>
+
+
+
+
+
+
+
+
+
