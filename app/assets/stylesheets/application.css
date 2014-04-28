@@ -16,10 +16,7 @@
  */
 
 
-
-
-
- //datatables css
+ /*datatables css*/
 
  div.dataTables_length label {
  	width: 460px;
@@ -50,4 +47,16 @@
  	clear: both;
  }
 
+ /*font awesome overriding*/
+
+ .fa-facebook:hover{
+ 	color: #3B5998;
+ }
+
+ .fa-twitter:hover{
+ 	color: #55ACEE;
+ }
+ .fa-google-plus:hover{
+ 	color: #DD4B39;
+ }
 
