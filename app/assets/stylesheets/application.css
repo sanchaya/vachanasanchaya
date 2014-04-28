@@ -12,3 +12,19 @@
  *= require font-awesome
  *= require_tree .
  */
+
+ /*font awesome overriding*/
+
+ .fa-facebook:hover{
+ 	color: #3B5998;
+ }
+
+ .fa-twitter:hover{
+ 	color: #55ACEE;
+ }
+ .fa-google-plus:hover{
+ 	color: #DD4B39;
+ }
+
+
+ /*datatables css*/
