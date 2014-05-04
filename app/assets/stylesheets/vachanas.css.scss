@@ -358,13 +358,14 @@ border: #F5F5F5 solid 1px;
 
 .review-box{
 border: 3px solid #F6F6F6;
-height: 325px;
+height: auto;
 padding: 2%;
-width: 95%;
+width: 45%;
+float: left;
 
 textarea{
-height: 250px;
-width: 400px;
+height: 240px;
+width: 340px;
 }
 
 
@@ -377,23 +378,19 @@ float: left;
 height: 250px;
 overflow: auto;
 padding-left: 7px;
-width: 55%;
+width: 100%;
 
 }
 
 .original-vachana-input{
 border: 1px solid #E3E3E3;
-float: left;
 height: 20px;
 margin: 0 0 0 10px;
 padding: 1%;
-width: 22%;	
 }
 
 .original-vachana-lable{
-float: left;
 margin: 0 0 0 10px;
-width: 30%;
 }
 
 
@@ -406,18 +403,15 @@ text-align: left;
 }
 
 .review-vachana-text {
-float: left;
-width: 30%;
+
 }
 
 .review-vachana-lable{
-float: left;
-width: 30%;
+
 }
 
 .review-vachana-box{
-float: left;
-width: 60%;
+
 }
 
 
