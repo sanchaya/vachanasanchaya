@@ -27,12 +27,20 @@
      <%= @vachana.vachanaid %>
    </div> 
 
+   
    <div class="original-vachana-lable">
      Vachanakaara:
    </div> 
 
    <div class="original-vachana-input">
      <%= @vachana.vachanakaara.name %>
+   </div> 
+   <div class="original-vachana-lable">
+     Samputa:
+   </div> 
+
+   <div class="original-vachana-input">
+     <%= @vachana.vachanakaara.reference_book ? @vachana.vachanakaara.reference_book.book_volume : "--"%>
    </div> 
 
  </div>
@@ -54,15 +62,31 @@
   <%= f.text_field :review_vachanaid %>
 </div>
 
+  <div class="original-vachana-lable">
+   Vachanakaara:
+ </div> 
+
+ <div class="original-vachana-input">
+   <%= @vachana.vachanakaara.name %>
+ </div> 
+ <div class="original-vachana-lable">
+   Samputa:
+ </div> 
+
+ <div class="original-vachana-input">
+   <%= @vachana.vachanakaara.reference_book ? @vachana.vachanakaara.reference_book.book_volume : "--"%>
+ </div> 
+
+
+</div>
+
+
 <div class="review-vachana-submit">
  <%= f.submit "Update" ,class: 'btn btn-primary' %>
  <%= link_to "Cancel", user_review_vachanas_path(current_user), confirm: "Are you sure ?", class: 'btn btn-danger' %>
 </div>
 
 <% end %> 
-
-
-</div>
 
 </div>
 </div>
