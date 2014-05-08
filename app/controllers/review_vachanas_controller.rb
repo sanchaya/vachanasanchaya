@@ -38,6 +38,7 @@ def create
     @review_vachana.reviewer_id = @reviewer.id
     @review_vachana.reviewed = true
     if @review_vachana.save 
+      @review_vachana.review_comments.new(comment: params[:comment], user_id: @reviewer.id).save
       @review_vachana.activity_owner = current_user
       flash[:notice] = "Vachana reviewed successfully"
     redirect_to user_review_vachanas_path(current_user) #edit_user_review_vachana_path(@reviewer,@review_vachana)
@@ -57,6 +58,7 @@ def edit
     @vachana = @review_vachana.vachana
   end
   list_vachanakaara_vachanas
+  @comments = @review_vachana.review_comments
 end
 
 def update
@@ -66,7 +68,8 @@ def update
     redirect_to vachana_path(@review_vachana.vachana.id)
   else
     if @review_vachana.update_attributes(params[:review_vachana])
-      flash[:notice] = "Vachana reviewed successfully"
+     @review_vachana.review_comments.new(comment: params[:comment], user_id: @reviewer.id).save
+     flash[:notice] = "Vachana reviewed successfully"
     redirect_to user_review_vachanas_path(current_user) #edit_user_review_vachana_path(@reviewer,@review_vachana)
   end
 end
