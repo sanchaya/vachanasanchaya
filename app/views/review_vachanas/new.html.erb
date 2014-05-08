@@ -10,7 +10,8 @@
 
 
  <div class="span8">
-  <div class="reviewer-right-box"> 
+   <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
+   <div class="reviewer-right-box"> 
     <div class="review-box">
      <div class="control-group">
        Original Vachana:
@@ -46,7 +47,6 @@
 
 
  <% if params[:review] == "yes" %>
- <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
  <div class="review-box"> 
   <%= f.hidden_field :vachana_id, value: @vachana.id %>
   <div class="control-group">
@@ -81,12 +81,17 @@
 
 
 </div>
+<div class="review-comment">  
+  <div class="original-vachana-lable">
+    Reason for Editing:
+  </div> 
 
+  <%= text_area_tag :comment %>
+</div>
 <div class="review-vachana-submit">
   <%= f.submit "Update" ,class: 'btn btn-primary' %>
   <%= link_to "Cancel", user_review_vachanas_path(current_user), confirm: "Are you sure ?", class: 'btn btn-danger' %>
 </div>
-<% end %> 
 
 <% else %>
 <div class="review_button"> 
@@ -96,6 +101,7 @@
 
 
 </div>
+<% end %> 
 
 </div>
 </div>
