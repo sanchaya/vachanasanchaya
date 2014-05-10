@@ -53,6 +53,7 @@ def edit
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
   if @review_vachana.published == true 
+    flash[:notice] = "Vachana published successfully, Thank you for your review"
     redirect_to vachana_path(@review_vachana.vachana.id)
   else
     @vachana = @review_vachana.vachana
@@ -65,6 +66,7 @@ def update
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
   if @review_vachana.published == true 
+    flash[:notice] = "Vachana published successfully, Thank you for your review"
     redirect_to vachana_path(@review_vachana.vachana.id)
   else
     if @review_vachana.update_attributes(params[:review_vachana])
@@ -94,7 +96,7 @@ def list_vachanakaara_vachanas
     @vachanakaara = @vachanakaaras.first
   end
   @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
-  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
+  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id).order("vachana_id")
 end
 
 def set_cache_buster
