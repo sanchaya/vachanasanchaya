@@ -1,28 +1,27 @@
 <%= render "layouts/back_button" %>
+
+
+<div class="page-header">
+  <h2> Welcome <%= current_user.name %>  </h2>
+</div>
+
 <div class="row">
- <div class="span6"> 
+ <%= render "publish_left" %>
+
+ <div class="span8">
+
    Reviewer Name: <%= @reviewed_vachana.user.name %> <br />
    Reviewer Email: <%= mail_to @reviewed_vachana.user.email %>
- </div>
- <div class="span6">
-   <% if @reviewed_vachana.is_published? %>
-   <btn class= "btn btn-success" > Published </btn>
-   <% else %>
-   <%= form_tag user_publishers_path(current_user.id) do %>
+   <%= form_tag user_publishers_path(current_user.id), class: "review-vachana" do %>
    <%= hidden_field_tag :reviewed_vachana, @reviewed_vachana.id %>
-   <%= submit_tag "Publish" ,confirm: "Are You Sure To Publish" , class: "btn btn-primary"%>
-   <% end %>
-   <% end %>
- </div>
-</div>
-<div class="row">
-  <div class="span6"> 
+   <%#= form_for [@reviewer,@review_vachana], html: {class: "form-inline review-vachana"} do |f| %>
+   <div class="reviewer-right-box"> 
     <div class="review-box">
      <div class="control-group">
        Original Vachana:
      </div> 
      <div class="original-vachana-box"> 
-      <%= raw @reviewed_vachana.vachana.vachana.gsub(/\n/, '<br />') %>
+      <%= raw @vachana.vachana.gsub(/\n/, '<br />') %>
     </div>
 
     <div class="original-vachana-lable">
@@ -30,22 +29,28 @@
    </div> 
 
    <div class="original-vachana-input">
-     <%= @reviewed_vachana.vachana.vachanaid %>
+     <%= @vachana.vachanaid %>
    </div> 
 
+   
    <div class="original-vachana-lable">
      Vachanakaara:
    </div> 
 
    <div class="original-vachana-input">
-     <%= @reviewed_vachana.vachana.vachanakaara.name %>
+     <%= @vachana.vachanakaara.name %>
+   </div> 
+   <div class="original-vachana-lable">
+     Samputa:
+   </div> 
+
+   <div class="original-vachana-input">
+     <%= @vachana.vachanakaara.reference_book ? @vachana.vachanakaara.reference_book.book_volume : "--"%>
    </div> 
 
  </div>
-</div>
 
-<div class="span6"> 
-  <div class="review-box">
+ <div class="review-box">
    <div class="control-group">
      Reviewed Vachana:
    </div> 
@@ -62,8 +67,54 @@
  </div> 
 
 
+ <div class="original-vachana-lable">
+   Vachanakaara:
+ </div> 
+
+ <div class="original-vachana-input">
+   <%= @vachana.vachanakaara.name %>
+ </div> 
+ <div class="original-vachana-lable">
+   Samputa:
+ </div> 
+
+ <div class="original-vachana-input">
+   <%= @vachana.vachanakaara.reference_book ? @vachana.vachanakaara.reference_book.book_volume : "--"%>
+ </div> 
+
 </div>
+
+<div class="review-comment">  
+  <div class="original-vachana-lable">
+  Comments:
+  </div> 
+
+  <div> 
+    <%@comments.each do |comment| %>
+    <%=  comment.user.name  %> : <%= comment.comment %>  <br />
+    <% end %>
+
+  </div>
+<br />
+ <%= text_area_tag :comment %>
+
+</div>
+<div class="review-vachana-submit">
+ <%= submit_tag "Publish" ,class: 'btn btn-primary' %>
+ <%= submit_tag "Comment and reject", value: "reject-review",  class: 'btn btn-danger' %>
 </div>
 
 
 </div>
+<% end %> 
+
+</div>
+
+
+</div>
+
+
+
+
+
+

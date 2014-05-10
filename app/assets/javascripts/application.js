@@ -76,6 +76,50 @@ $( document ).ready( function () {
 });
 
 
+// validations for review vachana 
+
+
+	$(".review-vachana").validate({
+		rules:{
+
+			"comment":
+			{
+				required: true,
+				minlength: 2,
+			}
+			
+		},
+		messages:{
+			"comment":
+			{
+				required: "ದಯವಿಟ್ಟು ಪರಿಷ್ಕರಣೆಯ ಕಾರಣವನ್ನು ತಿಳಿಸಿ ",
+				minlength: "ಕನಿಷ್ಟ 2 ಅಕ್ಷರವನ್ನು ಬೆರಳಚ್ಚು ಮಾಡಿ",
+			}
+		},
+		errorElement: "div",
+        wrapper: "div",  // a wrapper around the error message
+        errorPlacement: function(error, element) {
+        	offset = element.offset();
+        	error.insertBefore(element)
+            error.addClass('message');  // add a class to the wrapper
+            error.css('position', 'absolute');
+            // error.css('left', '28%' );
+            // error.css('top', '35%' );
+            error.css('left', offset.left + 300); // error.css('left', offset.left + element.outerWidth());
+            error.css('top', offset.top  - 25);
+            error.css('color', '#D21000' );
+        }
+    // errorPlacement: function (error, element) {
+    // 	alert(error.text());
+    // }
+
+
+});
+
+
+// review vachana validation ended
+
+
 // For fluid containers
 // dataTables
 $('.datatable').dataTable({
