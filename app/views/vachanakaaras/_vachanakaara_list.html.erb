@@ -6,13 +6,11 @@
   </div>
   
 
-  
-
 
   <div class="results_list_div">
     <% @vachanakaaras.each do |vachanakaara| %>
 
-    <a href="<%= vachanakaara_path(vachanakaara) %>" title="<%= vachanakaara.name  %>" >
+    <a href="#myModal_<%= vachanakaara.id %>" role="button"  data-toggle="modal" >
       <div class="box effect5 vachanakaara-box">
         <h5> 
          <%=  vachanakaara.name %> </h5>
@@ -22,7 +20,7 @@
           <% else %>
           <span> ----- </span> <br /> 
           <% end %>
-<%
+          <%
 =begin %> 
           <% if vachanakaara.ankitha_naama   %>
           <span> ಅಂಕಿತ ನಾಮ: </span> <br /> 
@@ -40,18 +38,59 @@
           <% end %>
 <% 
 =end %>
-        </div>
-      </div>
-    </a>
+</div>
+</div>
 
-    <% end %>
-  </div>
 
-  <% unless @vachanakaaras.blank? %>
-  <div class="click_for_more"> 
-   <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+
+</a>
+
+
+<div id="myModal_<%= vachanakaara.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: left;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">
+     <span class="vachanakaara-name">
+       <%= "#{vachanakaara.name}" %>
+     </span>
+   </h3>
  </div>
- <% end %>
+ <div class="modal-body vachana-pop">
+  <span> ಅಂಕಿತ ನಾಮ: </span>  <br />
+  <span> <%= vachanakaara.ankitha_naama %> </span>
+  <br /> <br />
+  <span> ಕಾಲ: </span>
+  <span> <%= vachanakaara.time_period %> </span>
+  <br /> <br />
+  <span> ದೊರಕಿರುವ ವಚನ: </span> 
+  <span> <%= vachanakaara.vachana_found %> </span>
+  <br /> <br />
+  <span> ತಂದೆ ತಾಯಿ: </span> 
+  <span> <%= vachanakaara.parents %> </span>
+  <br /> <br />
+  <span> ಹುಟ್ಟಿದ ಸ್ಥಳ: </span> 
+  <span> <%= vachanakaara.birth_place %> </span>
+  <br /> <br />
+  <span> <%= link_to "ವಚನಗಳು", vachanakaara , class: "btn-link"%> </span>
+  <br /> <br />
+  <span>   ಪರಿಚಯ: </span> 
+  <span> <%= vachanakaara.information %> </span>
+</div>
+<div class="modal-footer">
 
 
- <% end %>
+</div>
+</div>
+
+
+<% end %>
+</div>
+
+<% unless @vachanakaaras.blank? %>
+<div class="click_for_more"> 
+ <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+</div>
+<% end %>
+
+
+<% end %>
