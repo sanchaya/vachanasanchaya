@@ -10,7 +10,7 @@
 
 
  <div class="span8">
-   <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline"} do |f| %>
+   <%= form_for [@reviewer,@review_vachana], html: {class: "form-inline review-vachana"} do |f| %>
    <div class="reviewer-right-box"> 
     <div class="review-box">
      <div class="control-group">
@@ -88,7 +88,7 @@
   <%= text_area_tag :comment %>
   <div> 
     <%@comments.each do |comment| %>
-    <%= comment.user.name %> : <%= comment.comment %>  <br />
+    <%= comment.user.is_reviewer? ? comment.user.name : "Publisher" %> : <%= comment.comment %>  <br />
     <% end %>
 
   </div>
