@@ -53,6 +53,7 @@ def edit
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
   if @review_vachana.published == true 
+    flash[:notice] = "Vachana published successfully, Thank you for your review"
     redirect_to vachana_path(@review_vachana.vachana.id)
   else
     @vachana = @review_vachana.vachana
@@ -65,6 +66,7 @@ def update
   @reviewer = current_user
   @review_vachana = ReviewVachana.find(params[:id])
   if @review_vachana.published == true 
+    flash[:notice] = "Vachana published successfully, Thank you for your review"
     redirect_to vachana_path(@review_vachana.vachana.id)
   else
     if @review_vachana.update_attributes(params[:review_vachana])
