@@ -6,21 +6,21 @@
     <%# end %>
     
 
-   <h5> Reviewed Vachana </h5>
+   <h5> ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು  </h5>
 
    <div class="reviewer-left-table"> 
 
      <table class="table-bordered table-striped">
       <thead>
         <tr>
-          <th>id</th>
-          <th>vachana</th>
+          <th>ಕ್ರಮಸಂಖ್ಯೆ</th>
+          <th>ವಚನ</th>
         </tr>
       </thead>
       <tbody>
         <% @reviewed_vachanas.each do |rv| %>
         <tr>
-          <td><%= link_to rv.vachana.id, user_publisher_path(current_user,rv) %></td>
+          <td><%= link_to rv.vachana.vachanaid, user_publisher_path(current_user,rv) %></td>
           <td><%= link_to truncate(rv.review_vachana, length: 40), user_publisher_path(current_user,rv), class: "btn-link" %></td>
         </tr>
         <% end %>
