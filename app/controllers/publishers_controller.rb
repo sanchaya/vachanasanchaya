@@ -2,14 +2,14 @@ class PublishersController < ApplicationController
   authorize_resource :class => false
   def index
     @users =  User.includes(:role).where("roles.name = 'Publisher'")
-    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("vachana_id")
+    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
   end
 
   def show
     @reviewed_vachana = ReviewVachana.find(params[:id])
     @vachana = @reviewed_vachana.vachana
     @comments = @reviewed_vachana.review_comments
-    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("vachana_id")
+    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
   end
 
   def create
