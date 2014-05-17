@@ -95,8 +95,8 @@ def list_vachanakaara_vachanas
   else
     @vachanakaara = @vachanakaaras.first
   end
-  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published)
-  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id).order("vachana_id")
+  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published).order("vachanaid")
+  @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id).order("review_vachanaid")
 end
 
 def set_cache_buster
