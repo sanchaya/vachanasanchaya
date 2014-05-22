@@ -7,9 +7,14 @@ class PublishersController < ApplicationController
 
   def show
     @reviewed_vachana = ReviewVachana.find(params[:id])
-    @vachana = @reviewed_vachana.vachana
-    @comments = @reviewed_vachana.review_comments
-    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
+    unless @reviewed_vachana.published == true
+      @vachana = @reviewed_vachana.vachana
+      @comments = @reviewed_vachana.review_comments
+      @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
+    else
+      flash[:notice] = "This reviewed vachana already posted."
+      redirect_to @reviewed_vachana.vachana
+    end
   end
 
   def create
