@@ -59,7 +59,10 @@
  .fa-google-plus:hover{
  	color: #DD4B39;
  }
+ .fa-check:hover{
+ 	color:	#4E8109;
+ }
 
-.alert{
-	text-align: center;
-}
+ .alert{
+ 	text-align: center;
+ }
