@@ -4,13 +4,14 @@ class Vachana < ActiveRecord::Base
   :params => {
     used_ip: Proc.new{ |controller, model| controller.current_user.current_sign_in_ip }
   }
- 
- attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
- has_many :daily_vachanas
- belongs_to :vachanakaara
+  
+  attr_accessible :author, :vachana, :name, :vachanakaara_id  , :vachanaid
+  has_many :daily_vachanas
+  belongs_to :vachanakaara
+  has_one :old_vachana
 
 
- def self.search_vachana_pada(pada,type,author)
+  def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )
     @vachanakaaras_word_count =  []
     @vachanakaaras_name =  []
