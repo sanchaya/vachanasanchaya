@@ -438,9 +438,12 @@ width: 40%;
 
 
 .review-comment{
-	clear:both;
-	textarea{
-	height: 83px;
-    width: 749px;
-	}
+clear:both;
+textarea{
+height: 83px;
+width: 749px;
+}
+}
+.modal-footer-left{
+float:left;
 }
