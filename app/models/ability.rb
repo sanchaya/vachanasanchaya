@@ -11,6 +11,7 @@ class Ability
         can :manage, User
     elsif user.role.name == "Publisher"
         can :manage, :publisher
+        can :manage, User
     elsif user.role.name == "Reviewer"
         if (params[:user_id].to_i == user.id )
             can :read, ReviewVachana
