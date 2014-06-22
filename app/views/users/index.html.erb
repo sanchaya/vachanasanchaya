@@ -2,15 +2,15 @@
 
 <%- model_class = User -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1> ಬಳಕೆದಾರರು </h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
-      <th> Last sign in IP </th>
-      <th><%= model_class.human_attribute_name(:role_id) %></th>
+      <th> ಇಮೇಲ್ </th>
+      <th> ಕೊನೆಯ ಬಾರಿ ಸೈನ್‌ಇನ್ ಆದದ್ದು </th>
+      <th> ಸೈನ್‌ಇನ್ ಆದ ‌IP </th>
+      <th> ಕರ್ತವ್ಯ</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +26,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to "ಹೊಸ ಬಳಕೆದಾರ",
 new_user_path,
 :class => 'btn btn-primary' %>

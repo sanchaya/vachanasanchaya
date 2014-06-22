@@ -3,21 +3,21 @@
 <% end %>
 <%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
 <div class="control-group">
-  <%= f.label :email, :class => 'control-label' %>
+<div class= 'control-label'> ಇಮೇಲ್ </div>
   <div class="controls">
     <%= f.text_field :email, :class => 'text_field' %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :name, :class => 'control-label' %>
+  <div class= 'control-label'> ಹೆಸರು </div>
   <div class="controls">
     <%= f.text_field :name, :class => 'text_field' %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :password, :class => 'control-label' %>
+  <div class= 'control-label'> ಗುಪ್ತಪದ </div>
   <div class="controls">
     <%= f.password_field :password, :class => 'text_field' %> 
     <% if @user.persisted? %>(leave blank for no change password) <% end %>
@@ -26,14 +26,14 @@
 
 
 <div class="control-group">
-  <%= f.label :role_id, :class => 'control-label' %>
+   <div class= 'control-label'> ಕರ್ತವ್ಯ </div>
   <div class="controls">
     <%= f.select :role_id, Role.all.collect{|role| [role.name, role.id]} ,:class => 'number_field' %>
   </div>
 </div>
 <div class="form-actions">
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+  <%= f.submit "ಹೊಸ ಬಳಕೆದಾರನನ್ನು ಸೇರಿಸಿ", :class => 'btn btn-primary' %>
+  <%= link_to "ರದ್ದು ಮಾಡು",
   users_path, :class => 'btn' %>
 </div>
 <% end %>
