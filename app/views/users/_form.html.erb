@@ -28,7 +28,7 @@
 <div class="control-group">
    <div class= 'control-label'> ಕರ್ತವ್ಯ </div>
   <div class="controls">
-    <%= f.select :role_id, Role.all.collect{|role| [role.name, role.id]} ,:class => 'number_field' %>
+    <%= f.select :role_id, get_roles.collect{|role| [role.name, role.id]} ,:class => 'number_field' %>
   </div>
 </div>
 <div class="form-actions">

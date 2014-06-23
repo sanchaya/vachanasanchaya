@@ -8,7 +8,7 @@ module ApplicationHelper
 	end
 
 	def palatals	 
-        ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"]
+		["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"]
 	end
 
 
@@ -21,12 +21,19 @@ module ApplicationHelper
 	end
 
 	def labials 
-		 ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"]
+		["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"]
 	end
 
 	def unstructured_consonants
 		["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
 	end
 
+	def get_roles
+		if current_user.is_admin?
+			Role.all
+		else
+			Role.where("name != ? ", 'Admin')
+		end
+	end
 
 end
