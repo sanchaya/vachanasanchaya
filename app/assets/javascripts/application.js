@@ -92,7 +92,7 @@ $( document ).ready( function () {
 		messages:{
 			"comment":
 			{
-				required: "ದಯವಿಟ್ಟು ಪರಿಷ್ಕರಣೆಯ ಕಾರಣವನ್ನು ತಿಳಿಸಿ ",
+				required: "ದಯವಿಟ್ಟು  ಕಾರಣವನ್ನು ತಿಳಿಸಿ ",
 				minlength: "ಕನಿಷ್ಟ 2 ಅಕ್ಷರವನ್ನು ಬೆರಳಚ್ಚು ಮಾಡಿ",
 			}
 		},

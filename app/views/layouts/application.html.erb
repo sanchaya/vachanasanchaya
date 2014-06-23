@@ -47,10 +47,10 @@
          <li> <%= link_to "ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು", admin_panel_path %> </li>
 
          <% elsif current_user.is_reviewer? %>
-         <li><%= link_to "Review/Reviewed vachanas", user_review_vachanas_path(current_user) %> </li>
+         <li><%= link_to "ವಚನವನ್ನು ಪರಿಶೀಲಿಸಿ", user_review_vachanas_path(current_user) %> </li>
          <% elsif current_user.is_publisher? %>
-         <li><%= link_to "Reviewed/Published vachanas", user_publishers_path(current_user)  %> </li>
-         <li><%= link_to "Manage Users", users_path %> </li>
+         <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
+         <li><%= link_to "ಬಳಕೆದಾರರು", users_path %> </li>
          <% end %>
        </ul>
        
