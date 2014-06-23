@@ -48,11 +48,15 @@ def assign_new_vachanakaaras
 end
 
 def assign_vachanakaaras
-  @user = User.find(params[:id])
-  User.assign_vachanakaara(@user, params[:vachanakaaras])
-  flash[:notice] = "Vachanakaara assignment for user successfull"
-  redirect_to @user
-
+  if params[:vachanakaaras] and !params[:vachanakaaras].blank?
+    @user = User.find(params[:id])
+    User.assign_vachanakaara(@user, params[:vachanakaaras])
+    flash[:notice] = "Vachanakaara assignment for user successfull"
+    redirect_to @user
+  else
+    flash[:error] = "Please select atleast one vaachanakaara"
+    redirect_to :back
+  end
 end
 
 def destroy
