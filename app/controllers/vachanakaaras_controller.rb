@@ -53,4 +53,27 @@ def search_vachanakaara_name
 
 end
 
+def download_vachanakaara_csv
+  require 'csv'
+  @vachanakaaras = Vachanakaara.order("name")
+  send_data(
+    @vachanakaaras.to_csv,
+    :type => 'text/csv',
+    :filename => 'KeyWord.csv',
+    :disposition => 'attachment'
+    )
+end
+
+def download_akkamahadevi_vachana_csv
+  require 'csv'
+  @vachanakaara = Vachanakaara.find 10
+  @vachanas = @vachanakaara.vachanas
+  send_data(
+    @vachanas.to_csv,
+    :type => 'text/csv',
+    :filename => 'KeyWord.csv',
+    :disposition => 'attachment'
+    )
+end
+
 end

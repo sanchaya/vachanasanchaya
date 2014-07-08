@@ -46,6 +46,8 @@ KannadaVachana::Application.routes.draw do
   resources :vachanakaaras do
     collection do
       get :search_vachanakaara_name
+      get :download_vachanakaara_csv
+      get :download_akkamahadevi_vachana_csv
     end
   end
 
