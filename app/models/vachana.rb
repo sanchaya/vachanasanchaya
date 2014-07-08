@@ -88,5 +88,14 @@ def self.vachanakaaras_vachana_concord(vachanakaara, start_letter)
 end
 
 
+# TO get akkamahadevi vachanas as csv for temporary
+def self.to_csv
+ CSV.generate do |csv|
+  csv << ["Akkamahadeviya Vachana"]
+  all.each do |vachana|
+    csv << [vachana.vachana]
+  end
+end
+end
 
 end

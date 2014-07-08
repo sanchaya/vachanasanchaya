@@ -21,7 +21,7 @@ class KeyWord < ActiveRecord::Base
 
      else
     	 # if author.blank?
-      @results = where(word: pada )
+       @results = where(word: pada )
        # else
            # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
        # end
