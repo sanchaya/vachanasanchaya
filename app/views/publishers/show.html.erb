@@ -10,8 +10,8 @@
 
  <div class="span8">
 
-   ಪರೀಕ್ಷಿಕರ ಹೆಸರು: <%= @reviewed_vachana.user.name %> <br />
-   ಪರೀಕ್ಷಿಕರ ಇ-ಮೇಲ್: <%= mail_to @reviewed_vachana.user.email %>
+   ಪರಿಶೀಲಕರ ಹೆಸರು : <%= @reviewed_vachana.user.name %> <br />
+   ಪರಿಶೀಲಕರ ಇ-ಇಮೇಲ್: <%= mail_to @reviewed_vachana.user.email %>
    <%= form_tag user_publishers_path(current_user.id), class: "review-vachana" do %>
    <%= hidden_field_tag :reviewed_vachana, @reviewed_vachana.id %>
    <%#= form_for [@reviewer,@review_vachana], html: {class: "form-inline review-vachana"} do |f| %>
@@ -86,7 +86,7 @@
 
 <div class="review-comment">  
   <div class="original-vachana-lable">
-  ಪ್ರತಿಕ್ರಿಯೆ/ಸಲಹೆ/ಟಿಪ್ಪಣ:
+    ಪ್ರತಿಕ್ರಿಯೆ/ಸಲಹೆ/ಟಿಪ್ಪಣ:
   </div> 
 
   <div> 
@@ -95,8 +95,8 @@
     <% end %>
 
   </div>
-<br />
- <%= text_area_tag :comment %>
+  <br />
+  <%= text_area_tag :comment %>
 
 </div>
 <div class="review-vachana-submit">
