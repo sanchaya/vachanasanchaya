@@ -4,7 +4,7 @@
   <li>  <%= link_to "ಆಕರಗಳು", reference_books_path %> </li> 
   <li> <%= link_to "ಬಳಕೆದಾರರು", users_path %> </li>
   <li> <%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ ", activities_path %> </li>
-  
+  <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
 </ol>
 
 <%= link_to "Download KeyWords as CSV", download_keyword_csv_word_lists_path %> 
