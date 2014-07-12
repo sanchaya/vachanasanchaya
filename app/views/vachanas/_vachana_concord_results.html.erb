@@ -39,8 +39,11 @@
         <% end %>
         ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
       </div>
+      <%= link_to vachana.vachanakaara do %>
+      <i class="fa fa-user fa-1x"></i> 
+      <% end %>
       <button class='btn d_clip_button' data-clipboard-target='fe_text_<%= vachana.id %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
-      <i class="fa fa-files-o fa-1x"></i>
+        <i class="fa fa-files-o fa-1x"></i>
       </button>
     </div>
     <!-- ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %> -->
