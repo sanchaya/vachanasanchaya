@@ -43,7 +43,7 @@ $( document ).ready( function () {
 			{
 				required: true,
 				minlength: 2,
-				maxlength: 20
+				maxlength: 50
 			}
 			
 		},
@@ -52,7 +52,7 @@ $( document ).ready( function () {
 			{
 				required: "ದಯವಿಟ್ಟು ಪದವನ್ನು ಬೆರಳಚ್ಚು ಮಾಡಿ",
 				minlength: "ಕನಿಷ್ಟ 2 ಅಕ್ಷರವನ್ನು ಬೆರಳಚ್ಚು ಮಾಡಿ",
-				maxlength: "User name should not exceed 20 letters"
+				maxlength: "ಪದ 50 ಅಕ್ಷರವನ್ನು ಮೀರಿದೆ"
 			}
 		},
 		errorElement: "div",
