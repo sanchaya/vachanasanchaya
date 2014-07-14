@@ -66,10 +66,9 @@ end
 
 def download_akkamahadevi_vachana_csv
   require 'csv'
-  @vachanakaara = Vachanakaara.find 10
-  @vachanas = @vachanakaara.vachanas
+ 
   send_data(
-    @vachanas.to_csv,
+    Vachana.to_csv,
     :type => 'text/csv',
     :filename => 'KeyWord.csv',
     :disposition => 'attachment'
