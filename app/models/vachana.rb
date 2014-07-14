@@ -90,9 +90,11 @@ end
 
 # TO get akkamahadevi vachanas as csv for temporary
 def self.to_csv
+ @vachanakaara = Vachanakaara.find 10
+ @vachanas = @vachanakaara.vachanas
  CSV.generate do |csv|
   csv << ["Akkamahadeviya Vachana"]
-  all.each do |vachana|
+  @vachanas.each do |vachana|
     csv << [vachana.vachana]
   end
 end
