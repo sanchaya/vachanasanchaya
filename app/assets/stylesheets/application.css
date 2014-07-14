@@ -62,7 +62,12 @@
  .fa-check:hover{
  	color:	#4E8109;
  }
-
+ .fa-user{
+ 	font-size: 20px;
+ }
+ .fa-user:hover{
+ 	color: #3B5998;
+ }
  .alert{
  	text-align: center;
  }
