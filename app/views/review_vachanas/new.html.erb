@@ -48,7 +48,6 @@
  </div>
 
 
- <% if params[:review] == "yes" %>
  <div class="review-box"> 
   <%= f.hidden_field :vachana_id, value: @vachana.id %>
   <div class="control-group">
@@ -95,11 +94,6 @@
   <%= link_to "ನಿಲ್ಲಿಸು", user_review_vachanas_path(current_user), confirm: "Are you sure ?", class: 'btn btn-danger' %>
 </div>
 
-<% else %>
-<div class="review_button"> 
-  <%= link_to "ಪರಿಶೀಲಿಸು",  new_user_review_vachana_path(current_user,vachana_id: @vachana.id, review: "yes"),  class: "btn" %>
-</div>
-<% end %>
 
 
 </div>
