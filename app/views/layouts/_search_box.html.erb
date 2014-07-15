@@ -8,13 +8,7 @@
 
   <% end %>
 </div>
-
-<div class="advanced_search_box"> 
-  <%= link_to "ಇನ್ನಷ್ಟು ಹುಡುಕುಗಳು", "javascript:void(0)", :"data-toggle"=> "collapse", :"data-target"=> "#advance_search_collapse" %>
-</div>
-
-<!-- , :disable_with => "#{t :please_wait}..." -->
-<div id="advance_search_collapse" class="collapse advance_search_div <%= (params[:vachanakaara_name] or params[:ankitha_naama]) ? "in" : "" %> ">
+<div id="advance_search_collapse" class="collapse advance_search_div in ">
   <%= form_tag search_vachanakaara_name_vachanakaaras_path,method: :get do %>
   <%= text_field_tag :vachanakaara_name,params[:vachanakaara_name], class: "search-vachanakaara-name", placeholder: "ವಚನಕಾರ" %>
   ಅಥವಾ
