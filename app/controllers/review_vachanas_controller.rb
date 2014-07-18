@@ -89,13 +89,13 @@ private
 def list_vachanakaara_vachanas
 
   @vachanakaaras = current_user.vachanakaaras
-  @published = ReviewVachana.where(reviewer_id: current_user.id, published: true).pluck("vachana_id")
+  @reviewed = ReviewVachana.where(reviewer_id: current_user.id).pluck("vachana_id")
   if (params[:user_vachanakaara] and !params[:user_vachanakaara].blank?) or @vachana
     @vachanakaara = @vachana ? @vachana.vachanakaara : Vachanakaara.find(params[:user_vachanakaara]) 
   else
     @vachanakaara = @vachanakaaras.first
   end
-  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @published.blank? ? 0 : @published).order("vachanaid")
+  @vachanas = @vachanakaara.vachanas.where("id not in (?)",  @reviewed.blank? ? 0 : @reviewed).order("vachanaid")
   @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id).order("review_vachanaid")
 end
 
