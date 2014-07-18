@@ -7,6 +7,9 @@
     
     <h5> ವಚನಗಳನ್ನು ಪರಿಶೀಲಿಸಿ </h5>
     <div class="reviewer-left-table"> 
+      <% if @vachanas.blank? %>
+      ಈ ವಚನಕಾರರ ವಚನಗಳು ಲಭ್ಯವಿಲ್ಲ 
+      <% else %>
       <table class="table-bordered table-striped"> 
         <thead>
           <tr>
@@ -19,11 +22,12 @@
           <tr>
             <td style="text-align: center;"><%= link_to vachana.vachanaid, new_user_review_vachana_path(current_user,vachana_id: vachana.id) %></td>
             <td><%= link_to truncate(vachana.vachana, length: 35), new_user_review_vachana_path(current_user,vachana_id: vachana.id) , class: "btn-link" %></td>
-
           </tr>
           <% end %>
         </tbody>
       </table>
+      <% end %>
+
     </div>
 
     <h5>  ಪರಿಶೀಲಿಸಲಾಗಿರುವ ವಚನಗಳು</h5>
