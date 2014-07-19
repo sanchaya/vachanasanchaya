@@ -26,7 +26,7 @@ class Ability
             end
 
             if (params[:action] == "edit" or params[:action] == "update" )
-                can :update, ReviewVachana if  ReviewVachana.find(params[:id]).reviewer_id == user.id
+                can :update, ReviewVachana unless  user.vachanakaaras.where(id: ReviewVachana.find(params[:id]).vachana.vachanakaara_id).blank?
             end
         end
     else
