@@ -17,6 +17,8 @@ config/database.yml
 capfile
 config/deploy.rb
 db/vachana_db.sqlite
+.rvmrc
+log/sunspot-solr-development.log.lck
 
 
 
