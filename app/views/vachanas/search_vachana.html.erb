@@ -1,0 +1,59 @@
+<div class="vachana-full-search"> 
+  <%= form_tag search_vachana_vachanas_path, :method => :get do %>
+  <%= text_field_tag :search, params[:search], style: "width: 40%; height: 50px;" %>
+  <% end %>
+</div>
+
+<div class="results_list_div">
+  <% @vachanas.each do |vachana| %>
+  <a href="#myModal_<%= vachana.id %>" role="button"  data-toggle="modal" >
+    <div class="box effect5">
+     <div class="vachana-concord-box"> 
+       <div class="vachana-show-box"> 
+         <span>  <%=  vachana.vachana %> </span> 
+       </div>
+       --------------
+       <div class= "vachanakaara-name"> 
+         <span  >
+           <%= "#{vachana.vachanakaara.name}" %> 
+         </span>
+       </div>
+     </div>
+   </div>
+ </a>
+
+ <div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"> 
+     <span class="vachanakaara-name">
+      <%= "#{vachana.vachanakaara.name}" %>
+    </span>
+  </h3>
+</div>
+<div class="modal-body vachana-pop">
+  <p id='fe_text_<%= vachana.id %>'> <%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
+
+  </p>
+</div>
+<div class="modal-footer">
+  <div class='demo-area'>
+    <div class='modal-footer-left'> 
+      <% if vachana.old_vachana %>
+      <i class="fa fa-check fa-2x"></i>
+      <% end %>
+      ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
+    </div>
+    <%= link_to(vachana.vachanakaara, class: "vachanakaara-icon-link") do %>
+    <i class="fa fa-user fa-1x"></i> 
+    <% end %>
+    <button class='btn d_clip_button' data-clipboard-target='fe_text_<%= vachana.id %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
+      <i class="fa fa-files-o fa-1x"></i>
+    </button>
+  </div>
+</div>
+</div>
+
+
+<% end %>
+</div>

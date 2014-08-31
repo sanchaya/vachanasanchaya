@@ -119,5 +119,13 @@ def search_vachana_number
   @vachanas = Vachana.where(vachanaid: params[:vachana_number].to_i)
 end
 
+# Full text search on vachana
+def search_vachana
+ @search = Vachana.search do
+  fulltext params[:search]
+end
+@vachanas = @search.results
+end
+
 
 end

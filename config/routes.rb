@@ -44,6 +44,7 @@ KannadaVachana::Application.routes.draw do
     collection do
       get :vachana_concord
       get :search_vachana_number
+      get :search_vachana
     end
   end
 
