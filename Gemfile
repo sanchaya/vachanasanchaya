@@ -60,3 +60,5 @@ gem "font-awesome-rails"
 group :production do
   gem 'dalli'
 end
+gem 'sunspot_rails'
+gem 'sunspot_solr'

@@ -100,4 +100,8 @@ def self.to_csv
 end
 end
 
+searchable do
+  text :vachana
+end
+
 end
