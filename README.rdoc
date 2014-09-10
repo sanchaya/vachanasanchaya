@@ -9,3 +9,9 @@ Sqlite
 
 To start solr
 bundle exec rake sunspot:solr:start
+
+To reindex Solr
+rake sunspot:solr:stop
+rm -rvf solr (Delete your /solr directory)
+rake sunspot:solr:start
+rake sunspot:solr:reindex
