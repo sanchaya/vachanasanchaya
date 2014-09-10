@@ -23,6 +23,6 @@ solr/data
 solr/test
 solr/development
 solr/default/data
-
+solr/pids/development/
 
 
