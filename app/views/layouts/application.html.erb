@@ -44,7 +44,7 @@
 
         <ul class="dropdown-menu">
          <li> <%= link_to "ಹೊರನೆಡೆ", destroy_user_session_path, method: :delete %> </li>
-         <li> <%= link_to "ಪೂರ್ಣಪಠ್ಯ ಹುಡುಕು", dsearch_vachana_vachanas_path %> </li>
+         <li> <%= link_to "ಪೂರ್ಣಪಠ್ಯ ಹುಡುಕು", search_vachana_vachanas_path %> </li>
          <% if current_user.is_admin? %>
          <li> <%= link_to "ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು", admin_panel_path %> </li>
 
