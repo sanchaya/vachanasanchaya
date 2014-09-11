@@ -2,7 +2,7 @@ class VachanasController < ApplicationController
   # GET /vachanas
   # GET /vachanas.json
   #check if logged_in user is Admin
-  before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy, :search_vachana]
+  before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
   # caches_action :index, :cache_path => Proc.new { |c| c.params }
 
   def index
