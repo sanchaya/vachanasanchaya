@@ -88,17 +88,25 @@ def self.vachanakaaras_vachana_concord(vachanakaara, start_letter)
 end
 
 
-# TO get akkamahadevi vachanas as csv for temporary
+# TO get vachanas as csv for temporary
 def self.to_csv
- @vachanakaara = Vachanakaara.find 10
- @vachanas = @vachanakaara.vachanas
- CSV.generate do |csv|
-  csv << ["Akkamahadeviya Vachana"]
-  @vachanas.each do |vachana|
-    csv << [vachana.vachana]
+  @vachanakaaras = Vachanakaara.includes(:vachanas).first(2)
+  CSV.generate do |csv|
+    csv << ["Vachana", "vachana_id", "vachanakaara_id"]
+    @vachanakaaras.each do |vachanakaara|
+      @vachanas = vachanakaara.vachanas
+      csv << [">>>>>>>>>>>>>>>>#{vachanakaara.name}>>>>>>>>>>>>>>>>>>", '', '']
+      csv << ["#{vachanakaara.name} vachanas started", '', vachanakaara.id]
+      @vachanas.each do |vachana|
+        puts vachana.inspect
+        csv << [vachana.vachana, vachana.id, vachanakaara.id]
+      end
+      csv << ["#{vachanakaara.name} vachanas ended", '', vachanakaara.id]
+      csv << ["<<<<<<<<<<<<<<<#{vachanakaara.name}<<<<<<<<<<<<<<<<<<", '', '']
+    end
   end
 end
-end
+
 
 searchable do
   text :vachana
