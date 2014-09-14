@@ -90,7 +90,7 @@ end
 
 # TO get vachanas as csv for temporary
 def self.to_csv
-  @vachanakaaras = Vachanakaara.includes(:vachanas).first(2)
+  @vachanakaaras = Vachanakaara.includes(:vachanas).first(5)
   CSV.generate do |csv|
     csv << ["Vachana", "vachana_id", "vachanakaara_id"]
     @vachanakaaras.each do |vachanakaara|
