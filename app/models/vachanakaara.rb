@@ -32,4 +32,16 @@ class Vachanakaara < ActiveRecord::Base
   end
 end
 
+
+def to_csv
+  CSV.generate do |csv|
+    vachanakaara = self
+    csv << ["Vachana", "vachana_id", "vachanakaara_id"]
+    @vachanas = vachanakaara.vachanas
+    @vachanas.each do |vachana|
+      csv << [vachana.vachana, vachana.id, vachanakaara.id]
+    end
+  end
+end
+
 end

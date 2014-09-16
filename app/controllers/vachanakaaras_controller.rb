@@ -64,15 +64,13 @@ def download_vachanakaara_csv
     )
 end
 
-def download_akkamahadevi_vachana_csv
+def download_all_vachana_csv
   require 'csv'
- 
-  send_data(
-    Vachana.to_csv,
-    :type => 'text/csv',
-    :filename => 'KeyWord.csv',
-    :disposition => 'attachment'
-    )
+  zip = Vachana.download_all
+  send_data zip, filename: "vachanakaaras.zip", type: 'application/zip'
 end
+
+
+
 
 end
