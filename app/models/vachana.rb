@@ -93,7 +93,7 @@ end
 def self.download_all
   require 'zip'
   temp_file = Tempfile.new("filename")
-  @vachanakaaras = Vachanakaara.includes(:vachanas).first(10)
+  @vachanakaaras = Vachanakaara.includes(:vachanas)
   begin
   #This is the tricky part
   #Initialize the temp file as a zip file
