@@ -152,6 +152,7 @@ GEM
     rsolr (1.0.10)
       builder (>= 2.1.2)
     ruby-graphviz (1.0.9)
+    rubyzip (1.1.6)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -194,6 +195,8 @@ GEM
     yaml_db (0.2.3)
     zeroclipboard-rails (0.0.11)
       railties (>= 3.1)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   ruby
@@ -220,6 +223,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 3.2.19)
   rails-erd
+  rubyzip (>= 1.0.0)
   sass-rails (~> 3.2.3)
   sqlite3
   sunspot_rails
@@ -230,3 +234,4 @@ DEPENDENCIES
   will_paginate
   yaml_db
   zeroclipboard-rails
+  zip-zip

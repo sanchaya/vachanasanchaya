@@ -88,23 +88,40 @@ def self.vachanakaaras_vachana_concord(vachanakaara, start_letter)
 end
 
 
-# TO get vachanas as csv for temporary
-def self.to_csv
-  @vachanakaaras = Vachanakaara.includes(:vachanas).first(5)
-  CSV.generate do |csv|
-    csv << ["Vachana", "vachana_id", "vachanakaara_id"]
-    @vachanakaaras.each do |vachanakaara|
-      @vachanas = vachanakaara.vachanas
-      csv << [">>>>>>>>>>>>>>>>#{vachanakaara.name}>>>>>>>>>>>>>>>>>>", '', '']
-      csv << ["#{vachanakaara.name} vachanas started", '', vachanakaara.id]
-      @vachanas.each do |vachana|
-        puts vachana.inspect
-        csv << [vachana.vachana, vachana.id, vachanakaara.id]
-      end
-      csv << ["#{vachanakaara.name} vachanas ended", '', vachanakaara.id]
-      csv << ["<<<<<<<<<<<<<<<#{vachanakaara.name}<<<<<<<<<<<<<<<<<<", '', '']
-    end
+
+# method to create zip
+def self.download_all
+  require 'zip'
+  temp_file = Tempfile.new("filename")
+  @vachanakaaras = Vachanakaara.includes(:vachanas).first(10)
+  begin
+  #This is the tricky part
+  #Initialize the temp file as a zip file
+  Zip::OutputStream.open(temp_file) { |zos| }
+  #Add files to the zip file as usual
+  Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+   @vachanakaaras.each do |vachanakaara|
+    zip.get_output_stream("#{vachanakaara.name}.csv") { |f| f.puts(vachanakaara.to_csv) }
   end
+end
+  #Read the binary data from the file
+  @zip_data = File.read(temp_file.path)
+  #Send the data to the browser as an attachment
+  #We do not send the file directly because it will
+  #get deleted before rails actually starts sending it
+  # send_data(zip_data, :type => 'application/zip', :filename => filename)
+end
+return @zip_data
+ensure
+  #Close and delete the temp file
+  temp_file.close
+  temp_file.unlink
+  # @vachanakaaras = Vachanakaara.includes(:vachanas).first(10)
+  # Zip::File.open('def.zip', Zip::File::CREATE) do |zipfile|
+  #   @vachanakaaras.each do |user|
+  #     # zipfile.get_output_stream("#{user.name}.csv") { |f| f.puts(user.to_csv) }
+  #   end
+  # end
 end
 
 
