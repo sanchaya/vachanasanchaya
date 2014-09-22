@@ -18,6 +18,9 @@ class HomeController < ApplicationController
 end
 
 def admin_panel
+  @exact_count = WordList.sum('exact_search_count')
+  @like_count = WordList.sum('like_search_count')
+  @total = @exact_count + @like_count
 end
 
 private

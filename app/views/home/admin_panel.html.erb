@@ -1,16 +1,25 @@
-<ol> 
-  <li>  <%= link_to "ವಚನಕಾರರು", edit_vachanakaara_path(Vachanakaara.first) %> </li>
-  <!-- <li>  <%#= link_to "ವಚನ", edit_vachana_path(Vachana.first) %> </li> -->
-  <li>  <%= link_to "ಆಕರಗಳು", reference_books_path %> </li> 
-  <li> <%= link_to "ಬಳಕೆದಾರರು", users_path %> </li>
-  <li> <%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ ", activities_path %> </li>
-  <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
-  <li> <%= link_to "Full vachan search ", search_vachana_vachanas_path %> </li> 
-</ol>
+<div class="row"> 
+  <div class="span4">
+    <ol> 
+      <li>  <%= link_to "ವಚನಕಾರರು", edit_vachanakaara_path(Vachanakaara.first) %> </li>
+      <!-- <li>  <%#= link_to "ವಚನ", edit_vachana_path(Vachana.first) %> </li> -->
+      <li>  <%= link_to "ಆಕರಗಳು", reference_books_path %> </li> 
+      <li> <%= link_to "ಬಳಕೆದಾರರು", users_path %> </li>
+      <li> <%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ ", activities_path %> </li>
+      <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
+      <li> <%= link_to "Full vachan search ", search_vachana_vachanas_path %> </li> 
+    </ol>
 
-<%= link_to "Download KeyWords as CSV", download_keyword_csv_word_lists_path %> 
-<br />
-<%= link_to "Download vachanakaaras info as CSV", download_vachanakaara_csv_vachanakaaras_path %> 
+    <%= link_to "Download KeyWords as CSV", download_keyword_csv_word_lists_path %> 
+    <br />
+    <%= link_to "Download vachanakaaras info as CSV", download_vachanakaara_csv_vachanakaaras_path %> 
 
-<br/>
-<%= link_to "Download all vachanas as CSV", download_all_vachana_csv_vachanakaaras_path %> 
+    <br/>
+    <%= link_to "Download all vachanas as CSV", download_all_vachana_csv_vachanakaaras_path %> 
+  </div>
+  <div class="span5">
+    <h4> Total Exact Search : <span class='btn btn-info'> <%= @exact_count %></span></h4>
+    <h4> Total Like Search  : <span class='btn btn-info'> <%= @like_count %></span></h4>
+    <h4> Total Search  : <span class='btn btn-info'> <%= @total %></span></h4>
+  </div>
+</div>
