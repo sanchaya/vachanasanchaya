@@ -103,6 +103,8 @@ def self.download_all
    @vachanakaaras.each do |vachanakaara|
     zip.get_output_stream("#{vachanakaara.reference_book ? vachanakaara.reference_book.id : ''}-#{vachanakaara.id}.txt") { |f| f.puts(vachanakaara.to_csv) }
   end
+  zip.get_output_stream("reference-book.txt") { |f| f.puts(ReferenceBook.to_csv) }
+  zip.get_output_stream("reference-vachanakaara.txt") { |f| f.puts(ReferenceBook.vachanakaara_to_csv) }
 end
   #Read the binary data from the file
   @zip_data = File.read(temp_file.path)
