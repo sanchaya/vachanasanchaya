@@ -101,7 +101,7 @@ def self.download_all
   #Add files to the zip file as usual
   Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
    @vachanakaaras.each do |vachanakaara|
-    zip.get_output_stream("#{vachanakaara.name}.csv") { |f| f.puts(vachanakaara.to_csv) }
+    zip.get_output_stream("#{vachanakaara.reference_book ? vachanakaara.reference_book.id : ''}-#{vachanakaara.id}.txt") { |f| f.puts(vachanakaara.to_csv) }
   end
 end
   #Read the binary data from the file
