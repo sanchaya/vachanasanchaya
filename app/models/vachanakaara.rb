@@ -25,9 +25,9 @@ class Vachanakaara < ActiveRecord::Base
 
   def self.to_csv
    CSV.generate do |csv|
-    csv << ['Vachanakaara_Name', 'Vachanas Found', 'Vachanas in sanchaya']
+    csv << ['Vachanakaara_Name', 'Vachanas Found', 'Vachanas in sanchaya', 'vachanakaara_id', 'Samputa_id']
     all.each do |vachanakaara|
-      csv << [vachanakaara.name, vachanakaara.vachana_found, vachanakaara.vachanas.count]
+      csv << [vachanakaara.name, vachanakaara.vachana_found, vachanakaara.vachanas.count, vachanakaara.id, vachanakaara.reference_book_id]
     end
   end
 end
