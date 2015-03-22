@@ -2,7 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskannada.css);
 
+body, p, ol, ul, td {
+	font-family: 'Noto Sans Kannada', serif !important;
+}
 
 span.hilite1 {
 background:#3A87AD;
