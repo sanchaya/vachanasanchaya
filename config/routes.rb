@@ -34,6 +34,7 @@ KannadaVachana::Application.routes.draw do
     resources :publishers do
       collection do
         get :published_vachanas
+        get :publish_all_vachanas
       end
     end
     

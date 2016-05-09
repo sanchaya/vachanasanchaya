@@ -16,6 +16,8 @@
 
     <br/>
     <%= link_to "Download all vachanas as CSV", download_all_vachana_csv_vachanakaaras_path %> 
+    <br />
+    <%= link_to "Publish all vachanas", publish_all_vachanas_user_publishers_path(current_user) %>
   </div>
   <div class="span5">
     <h4> Total Exact Search : <span class='btn btn-info'> <%= @exact_count %></span></h4>
