@@ -34,4 +34,10 @@ def published_vachanas
   @published = ReviewVachana.where("published = ? and publisher_id = ?",true, current_user.id)
 end
 
+def publish_all_vachanas
+  ReviewVachana.publish_all_vachana(current_user)
+  flash[:notice] = "Published all vachanas Successfully"
+  redirect_to admin_panel_path(current_user)
+end
+
 end

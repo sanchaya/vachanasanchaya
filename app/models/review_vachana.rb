@@ -27,4 +27,12 @@ class ReviewVachana < ActiveRecord::Base
     self.published == true
   end
 
+  def self.publish_all_vachana user
+    @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
+    @reviewed_vachanas.each do |reviewed_vachana|
+      reviewed_vachana.review_comments.new(comment: 'ಸರಿ ಇದೆಯೇ (Auto publish all)', user_id: user.id).save
+      reviewed_vachana.publish_vachana(user)
+    end
+  end
+
 end
