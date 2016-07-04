@@ -14,6 +14,14 @@ task :import_glossary_from_csv => :environment do
 end
 
 
+desc "Update reviewed column in vachanas"
+
+task :update_review_column_in_vachanas => :environment do
+  reviewed_vachanas = ReviewVachana.where(published: true)
+  reviewed_vachanas.each do |rv|
+    rv.vachana.update_attribute('reviewed',true)
+  end
+end
 
 
 # desc "Import vachana from csv"
