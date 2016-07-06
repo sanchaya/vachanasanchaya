@@ -43,6 +43,8 @@
       <i class="fa fa-pencil-square-o fa-1x" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
       <% end %>
       ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
+      <br>
+      ವಚನದ ಸಂಖ್ಯೆ:  <%= vachana.vachanaid %>
     </div>
     <%= link_to(vachana.vachanakaara, class: "vachanakaara-icon-link") do %>
     <i class="fa fa-user fa-1x"></i> 
