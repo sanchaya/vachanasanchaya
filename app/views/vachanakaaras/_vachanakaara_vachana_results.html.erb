@@ -36,7 +36,7 @@
    <div class='demo-area'>
      <div class='modal-footer-left'> 
       <% if vachana.reviewed? %>
-        <%= image_tag('registered.png', alt: 'Reviewed', title: 'Reviewed') %>
+        <i class="fa fa-pencil-square-o fa-1x" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
       <% end %>
       ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
     </div>
