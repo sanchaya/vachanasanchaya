@@ -21,8 +21,8 @@
     </tr>
   </tbody>
 </table>
-<% if @vachana.old_vachana %>
-<i class="fa fa-check fa-2x"></i>
+<% if vachana.reviewed? %>
+<%= image_tag('registered.png', alt: 'Reviewed', title: 'Reviewed') %>
 <% end %>
 <!-- <%#= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> | -->
 <%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %> 

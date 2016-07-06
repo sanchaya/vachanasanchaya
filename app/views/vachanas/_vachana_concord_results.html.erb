@@ -34,22 +34,22 @@
   <div class="modal-footer">
     <div class='demo-area'>
       <div class='modal-footer-left'> 
-        <% if vachana.old_vachana %>
-        <i class="fa fa-check fa-2x"></i>
-        <% end %>
-        ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
-      </div>
-        <%= link_to(vachana.vachanakaara, class: "vachanakaara-icon-link") do %>
-        <i class="fa fa-user fa-1x"></i> 
-        <% end %>
-      <button class='btn d_clip_button' data-clipboard-target='fe_text_<%= vachana.id %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
-        <i class="fa fa-files-o fa-1x"></i>
-      </button>
-    </div>
-    <!-- ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %> -->
-    <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
-    <!-- <button class="btn btn-primary">Save changes</button> -->
+       <% if vachana.reviewed? %>
+       <%= image_tag('registered.png', alt: 'Reviewed', title: 'Reviewed') %>
+       <% end %>
+       ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachanakaara.reference_book_id ? vachana.vachanakaara.reference_book_id : "-" %>
+     </div>
+     <%= link_to(vachana.vachanakaara, class: "vachanakaara-icon-link") do %>
+     <i class="fa fa-user fa-1x"></i> 
+     <% end %>
+     <button class='btn d_clip_button' data-clipboard-target='fe_text_<%= vachana.id %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
+      <i class="fa fa-files-o fa-1x"></i>
+    </button>
   </div>
+  <!-- ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %> -->
+  <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
+  <!-- <button class="btn btn-primary">Save changes</button> -->
+</div>
 </div>
 
 
