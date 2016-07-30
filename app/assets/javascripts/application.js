@@ -146,6 +146,10 @@ $('.datatable').dataTable({
 
 
 
+$("#search-word").on("keydown", function (e) {
+    return e.which !== 32;
+});
+
 } );
 
 
