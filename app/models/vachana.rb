@@ -131,4 +131,19 @@ end
 #   text :vachana
 # end
 
+
+  def self.all_vachanas
+   CSV.generate do |csv|
+    csv << ["poem_text", "author_id", "name",  "original_id"]
+    all.each do |vachana|
+      csv << [vachana.vachana, vachana.vachanakaara_id, vachana.name,  vachana.vachanaid]
+    end
+  end
+end
+
+
+
+
+
+
 end
