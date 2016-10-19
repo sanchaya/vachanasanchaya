@@ -23,14 +23,24 @@ class Vachanakaara < ActiveRecord::Base
 
 
 
-  def self.to_csv
+#   def self.to_csv
+#    CSV.generate do |csv|
+#     csv << ['Vachanakaara_Name', 'Vachanas Found', 'Vachanas in sanchaya', 'vachanakaara_id', 'Samputa_id']
+#     all.each do |vachanakaara|
+#       csv << [vachanakaara.name, vachanakaara.vachana_found, vachanakaara.vachanas.count, vachanakaara.id, vachanakaara.reference_book_id]
+#     end
+#   end
+# end
+
+def self.to_csv
    CSV.generate do |csv|
-    csv << ['Vachanakaara_Name', 'Vachanas Found', 'Vachanas in sanchaya', 'vachanakaara_id', 'Samputa_id']
+    csv << ["pen_name", "birth_place", "name", "sex", "spouse", "time_period", "poems_found", "information", "original_id"]
     all.each do |vachanakaara|
-      csv << [vachanakaara.name, vachanakaara.vachana_found, vachanakaara.vachanas.count, vachanakaara.id, vachanakaara.reference_book_id]
+      csv << [vachanakaara.ankitha_naama, vachanakaara.birth_place, vachanakaara.name, vachanakaara.sex, vachanakaara.spouse, vachanakaara.time_period, vachanakaara.vachana_found, vachanakaara.information, vachanakaara.reference_book_id]
     end
   end
 end
+
 
 
 def to_csv

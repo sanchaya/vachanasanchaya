@@ -126,5 +126,15 @@ end
 @vachanas = @search.results
 end
 
+def download_vachana_csv
+  require 'csv'
+  @vachanas = Vachana.all
+  send_data(
+    Vachana.all_vachanas,
+    :type => 'text/csv',
+    :filename => 'vachanas.csv',
+    :disposition => 'attachment'
+    )
+end
 
 end
