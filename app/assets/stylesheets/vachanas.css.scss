@@ -5,7 +5,7 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskannada.css);
 
 body, p, ol, ul, td {
-	font-family: 'Noto Sans Kannada', serif !important;
+font-family: 'Noto Sans Kannada', serif !important;
 }
 
 span.hilite1 {
@@ -485,4 +485,10 @@ color: #0045CC;
 .vachana-full-search {
 text-align: center;
 width: 100%;
+}
+
+.vachanakaara-info-box {
+border: 2px solid #f2f1f0;
+padding: 10px;
+margin: 0 0 10px;
 }

@@ -56,6 +56,9 @@ KannadaVachana::Application.routes.draw do
       get :download_vachanakaara_csv
       get :download_all_vachana_csv
     end
+    member do 
+      get :vachanas
+    end
   end
 
   resources :word_lists do
