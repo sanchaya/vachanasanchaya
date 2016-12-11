@@ -65,6 +65,8 @@ GEM
       multi_json (~> 1.0)
     font-awesome-rails (4.0.3.2)
       railties (>= 3.2, < 5.0)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
     google-analytics-rails (0.0.4)
     highline (1.6.19)
     hike (1.2.3)
@@ -209,6 +211,7 @@ DEPENDENCIES
   debugger
   devise
   font-awesome-rails
+  friendly_id (~> 4.0.10)
   google-analytics-rails
   jquery-datatables-rails
   jquery-rails

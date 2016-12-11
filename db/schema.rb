@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160704172854) do
+ActiveRecord::Schema.define(:version => 20161211174045) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -183,11 +183,14 @@ ActiveRecord::Schema.define(:version => 20160704172854) do
     t.string   "spouse"
     t.string   "birth_place"
     t.integer  "reference_book_id"
+    t.string   "slug_name"
+    t.string   "slug"
   end
 
   add_index "vachanakaaras", ["ankitha_naama"], :name => "index_vachanakaaras_on_ankitha_naama"
   add_index "vachanakaaras", ["name"], :name => "index_vachanakaaras_on_name"
   add_index "vachanakaaras", ["reference_book_id"], :name => "index_vachanakaaras_on_reference_book_id"
+  add_index "vachanakaaras", ["slug"], :name => "index_vachanakaaras_on_slug", :unique => true
 
   create_table "vachanas", :force => true do |t|
     t.integer  "vachanaid"
