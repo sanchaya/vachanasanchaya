@@ -1,4 +1,7 @@
 class Vachanakaara < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_name, use: :slugged
+
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user },
   :params => {
@@ -7,7 +10,7 @@ class Vachanakaara < ActiveRecord::Base
 
   default_scope order('name')
 
-  attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse,:birth_place, :reference_book_id
+  attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse,:birth_place, :reference_book_id, :slug_name
   has_many :vachanas
   belongs_to :reference_book
   has_many :users, through: :user_vachanakaaras
