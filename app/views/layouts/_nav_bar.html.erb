@@ -43,6 +43,11 @@
 
          </li>
          <% end %>
+         <% if params[:action] == 'about_us' %>
+         <li>
+         <%= link_to select_unselected_language, "?locale=#{unselected_language}", class: 'locale-button' %> 
+         </li>
+         <% end %>
        </ul>
        
        <ul class="nav pull-right">

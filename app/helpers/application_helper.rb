@@ -36,4 +36,17 @@ module ApplicationHelper
 		end
 	end
 
+
+	def unselected_language
+		I18n.locale.to_s == 'kn' ? 'en' : 'kn'
+	end
+
+	def select_unselected_language
+		if I18n.locale.to_s == 'kn'
+			'show in English'
+		else
+			'show in Kannada'
+		end 
+	end
+
 end
