@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 end
 
 def set_local_language
-  I18n.locale = 'kn'
+  I18n.locale =  params[:locale]  || 'kn'
 end
 
 def authenticate_user_role!
