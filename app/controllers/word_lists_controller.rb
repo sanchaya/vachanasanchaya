@@ -37,4 +37,18 @@ class WordListsController < ApplicationController
       :disposition => 'attachment'
       )
   end
+
+
+  def download_vachanakaara_keyword_csv
+    require 'csv'
+    @keywords = KeyWord.order("word")
+    send_data(
+      @keywords.vachanakaara_keyword,
+      :type => 'text/csv',
+      :filename => 'KeyWord.csv',
+      :disposition => 'attachment'
+      )
+  end
+
+
 end

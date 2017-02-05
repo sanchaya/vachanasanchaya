@@ -21,7 +21,7 @@ class KeyWord < ActiveRecord::Base
 
      else
     	 # if author.blank?
-       @results = where(word: pada )
+      @results = where(word: pada )
        # else
            # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
        # end
@@ -104,6 +104,19 @@ def self.to_csv
   end
 end
 
+def self.vachanakaara_keyword
+ CSV.generate do |csv|
+  csv << ["id", "word", "Vachanakaara"]
+  all.each do |key|
+    key.vachanakaara_ids.each do |vachanakaara|
+      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+      puts vachanakaara
+      vachanakaara = Vachanakaara.find_by_id(vachanakaara)
+      csv << [key.id, key.word, vachanakaara.name] if (vachanakaara && key.word !=  "\t" && key.word != "\n" && key.word != "" && key.word != "`" && key.word !=  "``")
+    end
+  end
+end
+end
 
 
 end
