@@ -84,3 +84,9 @@ end
 #   puts "success"
 
 # end
+
+
+desc "Download keywords with vachanakaaras"
+task :download_keywords_with_vachanakaara => :environment do
+  KeyWord.vachanakaara_keyword
+end

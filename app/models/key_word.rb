@@ -105,11 +105,13 @@ def self.to_csv
 end
 
 def self.vachanakaara_keyword
- CSV.generate do |csv|
+path = File.new("#{Rails.root}/tmp/keywords.csv", "w")
+ # CSV.generate do |csv|
+ csv_string = CSV.open(path, "w") do |csv|
   csv << ["id", "word", "Vachanakaara"]
-  all.each do |key|
-    key.vachanakaara_ids.each do |vachanakaara|
-      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  KeyWord.find_each do |key|
+    puts ">>>>>>>>>>>#{key.id}<<<<<<<<<<<<<<<<<<,"
+    key.vachanakaara_ids.uniq.each do |vachanakaara|
       puts vachanakaara
       vachanakaara = Vachanakaara.find_by_id(vachanakaara)
       csv << [key.id, key.word, vachanakaara.name] if (vachanakaara && key.word !=  "\t" && key.word != "\n" && key.word != "" && key.word != "`" && key.word !=  "``")
@@ -117,6 +119,24 @@ def self.vachanakaara_keyword
   end
 end
 end
+
+
+  # def compile_csv(items)
+  #   clean_items = items.compact
+  #   path = File.new("#{Rails.root}/tmp/uploads/downloads_by_title_#{Process.pid}.csv", "w")
+  #   csv_string = CSV.open(path, "w") do |csv|
+  #     csv << ["Item Name", "Parent", "Download Count"]
+  #     clean_items.each do |row|
+  #       if !row.item.nil? && !row.item.parent.nil?
+  #       csv << [
+  #         row.item.name,
+  #         row.item.parent.name,
+  #         row.download_count
+  #         ]
+  #       end
+  #     end
+  #   end
+
 
 
 end
