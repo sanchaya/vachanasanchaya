@@ -28,8 +28,6 @@ gem 'capistrano'
 
 group :development do
 # To use debugger
-gem 'rack-mini-profiler'
-gem "rails-erd"
 
 end
 
