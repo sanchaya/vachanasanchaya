@@ -20,6 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Technologies Used
 
-Ruby 1.9.3
+Ruby 2.1
 Rails 3.2.13
 Sqlite
