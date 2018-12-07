@@ -1,7 +1,7 @@
 
 Vachana Sanchaya is a tool built to allow linguistic research on Vachana 
 Sahitya, 11th & 12th Century literature of Kannada. Developed by Sanchaya.
-Copyright (C) 2013  Sanchaya (http://kannada.sanchaya.net)
+Copyright (C) 2013  Sanchaya (https://sanchaya.org)
 
 Vachana Sanchaya is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
