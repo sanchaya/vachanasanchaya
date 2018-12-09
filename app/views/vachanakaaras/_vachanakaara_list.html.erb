@@ -10,7 +10,7 @@
   <div class="results_list_div">
     <% @vachanakaaras.each do |vachanakaara| %>
 
-    <a href="#myModal_<%= vachanakaara.id %>" role="button"  data-toggle="modal" >
+    <a href="<%= vachanakaara_path(vachanakaara) %>" role="button"  data-toggle="modal" >
       <div class="box effect5 vachanakaara-box">
         <h5> 
          <%=  vachanakaara.name %> </h5>
