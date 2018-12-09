@@ -1,93 +1,24 @@
-
 <% if @vachanakaaras and params[:start_letter] %>
-<div class="praramba_para"> 
+  <div class="praramba_para"> 
   <p> <span class="start_letter_header"> 
-    <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
+  <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
   </div>
-  
-
-
   <div class="results_list_div">
-    <% @vachanakaaras.each do |vachanakaara| %>
+  <% @vachanakaaras.each do |vachanakaara| %>
 
     <a href="<%= vachanakaara_path(vachanakaara) %>" role="button"  data-toggle="modal" >
-      <div class="box effect5 vachanakaara-box">
-        <h5> 
-         <%=  vachanakaara.name %> </h5>
-         <div class="vachanakaara-parichaya"> 
-          <% if vachanakaara.information and !vachanakaara.information.blank?  %>
-          <span> <%= vachanakaara.information %> </span> <br /> 
-          <% else %>
-          <span> ----- </span> <br /> 
-          <% end %>
-          <%
-=begin %> 
-          <% if vachanakaara.ankitha_naama   %>
-          <span> ಅಂಕಿತ ನಾಮ: </span> <br /> 
-          <span> <%= vachanakaara.ankitha_naama %> </span>
-          <br /> <br />
-          <% end %>
-          <% if vachanakaara.time_period   %>
-          <span> ಕಾಲ: </span> <br />
-          <span> <%= vachanakaara.time_period %> </span>
-          <br /> <br />
-          <% end %>
-          <% if vachanakaara.vachana_found   %>
-          <span> ದೊರಕಿರುವ ವಚನ: </span> <br /> 
-          <span> <%= vachanakaara.vachana_found %> </span>
-          <% end %>
-<% 
-=end %>
-</div>
-</div>
-
-
-
-</a>
-
-
-<!-- <div id="myModal_<%= vachanakaara.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: left;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">
-     <span class="vachanakaara-name">
-       <%#= "#{vachanakaara.name}" %>
-     </span>
-   </h3>
- </div>
- <div class="modal-body vachana-pop">
-  <span> <strong> ಅಂಕಿತ ನಾಮ: </strong>  </span> 
-  <span> <%= vachanakaara.ankitha_naama %> </span>
-  <br /> <br />
-  <span> <strong>  ಕಾಲ: </strong> </span>
-  <span> <%= vachanakaara.time_period %> </span>
-  <br /> <br />
-  <span> <strong>  ದೊರಕಿರುವ ವಚನಗಳು: </strong> </span> 
-  <span> <%= vachanakaara.vachana_found %> </span> (ಆಧಾರ: ಸಮಗ್ರ ವಚನ ಸಂಪುಟ)
-  <br /> <br />
-  <span> <strong>   ತಂದೆ/ತಾಯಿ: </strong> </span> 
-  <span> <%= vachanakaara.parents %> </span>
-  <br /> <br />
-  <span> <strong>  ಹುಟ್ಟಿದ ಸ್ಥಳ: </strong> </span> 
-  <span> <%= vachanakaara.birth_place %> </span>
-  <br /> <br />
-  <span> <strong>   ಪರಿಚಯ: </strong> </span> 
-  <span> <%= vachanakaara.information %> </span>
-</div>
-<div class="modal-footer">
-  <%#= link_to "ವಚನಗಳು", vachanakaara , class: "btn-link"%>  
-</div>
-</div> -->
-
-
-<% end %>
-</div>
-
-<% unless @vachanakaaras.blank? %>
-<div class="click_for_more"> 
- <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
-</div>
-<% end %>
-
-
+    <div class="box effect5 vachanakaara-box">
+    <h5> 
+    <%=  vachanakaara.name %> </h5>
+    <div class="vachanakaara-parichaya"> 
+    <% if vachanakaara.information and !vachanakaara.information.blank?  %>
+    <span> <%= vachanakaara.information %> </span> <br /> 
+    <% else %>
+    <span> ----- </span> <br /> 
+    <% end %>
+    </div>
+    </div>
+    </a>
+  <% end %>
+  </div>
 <% end %>
