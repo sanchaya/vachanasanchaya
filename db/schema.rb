@@ -51,17 +51,6 @@ ActiveRecord::Schema.define(:version => 20161211174045) do
 
   add_index "daily_vachanas", ["vachana_id"], :name => "index_daily_vachanas_on_vachana_id"
 
-  create_table "database_connections", :force => true do |t|
-    t.string  "adapter",  :null => false
-    t.string  "database", :null => false
-    t.string  "password"
-    t.string  "username"
-    t.string  "host"
-    t.string  "encoding"
-    t.integer "port"
-    t.string  "title"
-  end
-
   create_table "glossaries", :force => true do |t|
     t.string   "word"
     t.text     "meanings"
