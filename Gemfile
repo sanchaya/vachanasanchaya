@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.19'
 
 
-# gem 'sqlite3'
 gem 'mysql2', '0.3.21'
 gem 'yaml_db'
 
@@ -28,15 +27,12 @@ gem 'capistrano'
 
 group :development do
 # To use debugger
-# gem 'debugger'
-gem 'rack-mini-profiler'
-gem "rails-erd"
-
+gem 'rb-readline'
 end
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails" ,'~> 2.2.8'
 
 
 gem 'devise'
