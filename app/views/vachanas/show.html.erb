@@ -1,28 +1,22 @@
+<div class="vachana-show"> 
+  <div class="modal-header">
+    <h3 id="myModalLabel"> 
+     <span class="vachanakaara-name">
+      <%= "#{@vachana.vachanakaara.name}" %>
+    </span>
+  </h3>
+  </div>
+  <div class="modal-body">
+  <p id='fe_text_<%= @vachana.id %>'> <%= raw @vachana.vachana.gsub(/\n/, '<br />') %> 
 
-
-
-
-
-<h1><%= @vachana.vachanakaara.name %></h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-
-      <th></th>
-      
-    </tr>
-  </thead>
-  <tbody>
-
-    <tr>
-      <td><%= raw @vachana.vachana.gsub(/\n/, '<br />') %></td> <!-- or we can use simple_format() rails helper -->
-
-
-    </tr>
-  </tbody>
-</table>
-<% if vachana.reviewed? %>
-<i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
-<% end %>
-<!-- <%#= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> | -->
-<%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %> 
+  </p>
+  </div>
+  <div class="modal-footer">
+      <% if @vachana.reviewed? %>
+      <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
+      <% end %>
+      ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= @vachana.vachanakaara.reference_book_id ? @vachana.vachanakaara.reference_book_id : "-" %>
+      &nbsp;
+      ವಚನದ ಸಂಖ್ಯೆ:  <%= @vachana.vachanaid %>
+  </div>
+</div>
