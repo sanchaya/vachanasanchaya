@@ -4,6 +4,8 @@ gem 'rails', '3.2.19'
 
 
 gem 'mysql2', '0.3.21'
+# gem 'sqlite3'
+# gem 'mysql2', '~> 0.3.10'
 gem 'yaml_db'
 
 # Gems used only for assets and not required
@@ -28,6 +30,7 @@ gem 'capistrano'
 group :development do
 # To use debugger
 gem 'rb-readline'
+
 end
 
 gem "therubyracer"
