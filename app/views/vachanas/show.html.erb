@@ -1,22 +1,31 @@
+<%= render "layouts/search_box" %>
 <div class="vachana-show"> 
-  <div class="modal-header">
-    <h3 id="myModalLabel"> 
-     <span class="vachanakaara-name">
-      <%= "#{@vachana.vachanakaara.name}" %>
-    </span>
-  </h3>
+<div class="row">
+  <div class="span2">
   </div>
-  <div class="modal-body">
-  <p id='fe_text_<%= @vachana.id %>'> <%= raw @vachana.vachana.gsub(/\n/, '<br />') %> 
 
-  </p>
+  <div class="span6">
+    <div class="modal-header">
+      <h3 id="myModalLabel"> 
+       <span class="vachanakaara-name">
+        <%= "#{@vachana.vachanakaara.name}" %>
+      </span>
+    </h3>
+    </div>
+    <div class="modal-body">
+    <p id='fe_text_<%= @vachana.id %>'> <%= raw @vachana.vachana.gsub(/\n/, '<br />') %> 
+
+    </p>
+    </div>
+    <div class="modal-footer">
+        <% if @vachana.reviewed? %>
+        <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
+        <% end %>
+        ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= @vachana.vachanakaara.reference_book_id ? @vachana.vachanakaara.reference_book_id : "-" %>
+        &nbsp;
+        ವಚನದ ಸಂಖ್ಯೆ:  <%= @vachana.vachanaid %>
+    </div>
   </div>
-  <div class="modal-footer">
-      <% if @vachana.reviewed? %>
-      <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
-      <% end %>
-      ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= @vachana.vachanakaara.reference_book_id ? @vachana.vachanakaara.reference_book_id : "-" %>
-      &nbsp;
-      ವಚನದ ಸಂಖ್ಯೆ:  <%= @vachana.vachanaid %>
-  </div>
+</div>
+
 </div>
