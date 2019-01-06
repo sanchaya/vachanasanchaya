@@ -56,6 +56,7 @@ gem 'jquery-datatables-rails'#, git: 'git://github.com/rweng/jquery-datatables-r
 
 gem 'public_activity' #activity log tracker
 gem "font-awesome-rails"
+gem 'test-unit'
 group :production do
   gem 'dalli'
 end
