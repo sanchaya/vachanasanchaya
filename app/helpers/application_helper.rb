@@ -49,4 +49,14 @@ module ApplicationHelper
 		end 
 	end
 
+
+	def is_vachana_show
+		!(controller.controller_name == "vachanas" && controller.action_name == "show")
+	end
+
+
+	def previous_controller
+		Rails.application.routes.recognize_path(request.referrer)[:controller]
+	end
+
 end

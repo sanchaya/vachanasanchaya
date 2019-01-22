@@ -1,0 +1,55 @@
+<div class="vachana-concord">
+      <p style="text-align:center;">   ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು </p>
+      <div class="aksharamaale">
+        <% is_ajax =  is_vachana_show %>
+        <% vowels.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+        <% velars.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax  %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+        <% palatals.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax  %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+
+        <% retroflex.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter), remote: is_ajax  %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+        <% dentals.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+        <% labials.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+
+        <% unstructured_consonants.each do |letter| %>
+        <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: is_ajax %>
+        <span class="vowels_count">
+          (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+        </span>
+        <% end %>
+      </div>
+    </div>

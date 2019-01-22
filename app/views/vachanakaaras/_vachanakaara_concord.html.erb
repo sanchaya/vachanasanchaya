@@ -1,0 +1,57 @@
+<div class="vachanakaara-concord"> 
+    <p style="text-align:center;">   ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು </p>
+    <% is_ajax =  is_vachana_show %>
+    
+
+    <div class="aksharamaale"> 
+      <% vowels.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+      <% velars.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+      <% palatals.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+
+      <% retroflex.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter), remote: is_ajax  %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+      <% dentals.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+      <% labials.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+
+      <% unstructured_consonants.each do |letter| %>
+      <%= link_to letter, vachanakaaras_path(start_letter: letter) , remote: is_ajax %>
+      <span class="vowels_count">
+        (<%= Concord.find_by_concord_code("vachanakaara_#{letter}").count %>)
+      </span>
+      <% end %>
+    </div>
+    </div>
