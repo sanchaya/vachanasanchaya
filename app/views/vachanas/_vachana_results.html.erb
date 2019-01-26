@@ -112,7 +112,7 @@ $(document).ready(function(){
    var  linkk = $(this).siblings('tspan').text();
    var id = parseInt(linkk);
    var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
-   window.location.href = "/vachanas/?" + params ;
+   window.location.href = "/vachanas?" + params ;
 
   //$('body').on('click','.highcharts-axis-labels',function(){
 
