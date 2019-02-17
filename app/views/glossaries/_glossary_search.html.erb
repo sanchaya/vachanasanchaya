@@ -1,8 +1,8 @@
 <div class="search_glossary">
   <%= form_tag search_glossaries_path,name: "search_glossary",class: "search" do %>
-  <%= text_field_tag :word, params[:word],class: "search-query kannada-ime" %>
+  <%= text_field_tag :word, params[:word],class: "search-query kannada-ime", placeholder: "#{t :search}" %>
 
-  <%= submit_tag "#{t :search}",:class => 'btn btn-primary' %>
+  <%#= submit_tag "#{t :search}",:class => 'btn btn-primary' %>
 
   <% end %>
 

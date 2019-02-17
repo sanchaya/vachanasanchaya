@@ -1,7 +1,7 @@
 class GlossariesController < ApplicationController
 
   def index
-    @words = Glossary.order("word").limit(100)
+    # @words = Glossary.order("word").limit(100)
   end
   # def destroy
   #   @glossary = Glossary.find(params[:id])

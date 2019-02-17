@@ -1,11 +1,29 @@
-<%= render "glossary_search" %>
-
-
-
-
-
-<% @words.each do |word| %>
-<%= word.word %> :
-<%= word.meanings %> 
-<br/>
-<% end %>
+<div class="glossary-search">
+	<%= render "glossary_search" %>
+	<div class="glossary-meanings">
+		<table  class="table">
+			<thead>
+				<tr>
+					<th>
+						ಪದ
+					</th>
+					<th>
+						ಅರ್ಥ
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @words.each do |word| %>
+					<tr>
+						<td>
+							<%= word.word %> 
+						</td>
+						<td>
+							<%= word.meanings %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
