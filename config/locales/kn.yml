@@ -24,7 +24,6 @@ kn:
   next: "ಮುಂದೆ"
   read_more: "ಇನ್ನಷ್ಟು "
   reference_book: "‍ಪುಸ್ತಕಗಳು/ಉಲ್ಲೇಖಗಳು/ಲೇಖನಗಳು"
-  will_paginate:
   previous_label: "ಹಿಂದೆ"‍
   next_label: "ಮುಂದೆ"
   page_gap: "&hellip;"
@@ -37,3 +36,4 @@ kn:
   isbn: "ಐಎಸ್‌ಬಿಎನ್"
   language: "ಭಾಷೆ" 
   reference_type: "ವಿಧ"
+  will_paginate: ""
