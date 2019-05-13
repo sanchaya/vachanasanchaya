@@ -22,17 +22,17 @@ kn:
   previous: "ಹಿಂದೆ"
   next: "ಮುಂದೆ"
   read_more: "ಇನ್ನಷ್ಟು "
-  reference_book: "‍ಪುಸ್ತಕಗಳು/ಉಲ್ಲೇಖಗಳು/ಲೇಖನಗಳು"
-  previous_label: "ಹಿಂದೆ"‍
+  reference_book: "ಪುಸ್ತಕಗಳು/ಉಲ್ಲೇಖಗಳು/ಲೇಖನಗಳು"
+  previous_label: "ಹಿಂದೆ"
   next_label: "ಮುಂದೆ"
   page_gap: "&hellip;"
   id: "ಕ್ರಮ. ಸಂ"
-  book_name: “ಪುಸ್ತಕದ ಹೆಸರು"
+  book_name: "ಪುಸ್ತಕದ ಹೆಸರು"
   book_volume: "ಸಂಪುಟ" 
-  publisher: "ಪ್ರಕಾಶಕರು"
+  publisher: "ಪ್ರಕಾಶಕರು"
   author: "ಲೇಖಕ/ಕಿ" 
   published_year: "ಪ್ರಕಟಿತ ವರ್ಷ" 
   isbn: "ಐಎಸ್‌ಬಿಎನ್"
-  language: "ಭಾಷೆ" 
+  language: "ಭಾಷೆ"
   reference_type: "ವಿಧ"
   will_paginate: " "
