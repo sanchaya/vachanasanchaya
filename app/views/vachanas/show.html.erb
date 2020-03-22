@@ -16,13 +16,16 @@
 
     <tr>
       <td><%= raw @vachana.vachana.gsub(/\n/, '<br />') %></td> <!-- or we can use simple_format() rails helper -->
-
+    </tr>
+    <tr>
+  <td><%=  @vachana.meaning %></td>
 
     </tr>
   </tbody>
 </table>
-<% if vachana.reviewed? %>
+<% if @vachana.reviewed? %>
 <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
 <% end %>
 <!-- <%#= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> | -->
 <%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %> 
+<%= link_to 'Delete', @vachana, method: :delete, :class => 'btn btn-primary' %>

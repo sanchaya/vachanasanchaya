@@ -5,7 +5,7 @@ class Vachana < ActiveRecord::Base
     used_ip: Proc.new{ |controller, model| controller.current_user.current_sign_in_ip }
   }
   
-  attr_accessible :author, :vachana, :name, :vachanakaara_id, :vachanaid, :reviewed
+  attr_accessible :author, :vachana, :name, :vachanakaara_id, :vachanaid, :reviewed, :meaning
   has_many :daily_vachanas
   belongs_to :vachanakaara
   has_one :old_vachana

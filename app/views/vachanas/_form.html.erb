@@ -12,10 +12,6 @@
 <% end %>
 
 <div class="field">
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</div>
-<div class="field">
   <%= f.label :vachanakaara %><br />
   <% if @vachana.persisted? %>
   <%= @vachana.vachanakaara.name %>
@@ -26,6 +22,10 @@
 <div class="field">
   <%= f.label :vachana %><br />
   <%= f.text_area :vachana %>
+</div>
+<div class="field">
+  <%= f.label :meaning %><br />
+  <%= f.text_area :meaning %>
 </div>
 
 <div class="actions">
