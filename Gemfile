@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.19'
+gem 'rails', '3.2.22'
 
 
 gem 'mysql2', '0.3.21'
@@ -63,3 +63,4 @@ gem 'progress_bar'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem "friendly_id", "~> 4.0.10" 
+gem 'test-unit', '~> 3.0'
