@@ -48,6 +48,8 @@ KannadaVachana::Application.routes.draw do
       get :search_vachana_number
       get :search_vachana
       get :download_vachana_csv
+      get :ai_search
+      post :ai_search
     end
   end
 

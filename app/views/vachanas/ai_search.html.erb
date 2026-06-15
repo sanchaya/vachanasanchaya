@@ -1,0 +1,68 @@
+<%= render "layouts/search_box" %>
+
+<div class="row">
+  <div class="span12">
+    <div class="ai-search-page" style="padding:20px;">
+      <h2 style="border-bottom:2px solid #eee;padding-bottom:10px;">AI ವಚನ ಸಂಶೋಧನೆ</h2>
+      <p style="color:#666;font-size:14px;">ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ. AI ನಿಮಗೆ ಸಂಶೋಧನಾ ಸಹಾಯವನ್ನು ಒದಗಿಸುತ್ತದೆ.</p>
+
+      <%= form_tag ai_search_vachanas_path, method: :get, style: "margin:20px 0;" do %>
+        <div class="input-append" style="display:flex;gap:8px;width:100%;">
+          <%= text_field_tag :q, @query, placeholder: "ನಿಮ್ಮ ಸಂಶೋಧನಾ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ...", style: "flex:1;height:40px;font-size:16px;padding:0 12px;border-radius:4px;border:1px solid #ccc;", id: "ai-search-input" %>
+          <%= submit_tag "ಸಂಶೋಧಿಸಿ", class: "btn btn-primary", style: "height:42px;font-size:16px;", data: { disable_with: "ಸಂಶೋಧಿಸುತ್ತಿದೆ..." } %>
+        </div>
+      <% end %>
+
+      <% if @result.present? %>
+        <div id="ai-result" style="margin-top:20px;">
+          <% if @result[:error] %>
+            <div class="alert alert-error"><%= @result[:error] %></div>
+          <% else %>
+            <div class="box effect5" style="padding:20px;background:#f9f9f9;border-radius:8px;border-left:4px solid #5bc0de;">
+              <h4 style="margin-top:0;color:#333;">AI ವಿಶ್ಲೇಷಣೆ</h4>
+              <div style="line-height:1.8;font-size:15px;white-space:pre-wrap;"><%= @result[:answer] %></div>
+            </div>
+
+            <% if @result[:sources].present? %>
+              <h4 style="margin-top:30px;">ಆಧಾರ ವಚನಗಳು (<%= @result[:sources].size %>)</h4>
+              <div class="results_list_div">
+                <% @result[:sources].each do |vachana| %>
+                  <a href="#myModal_<%= vachana.id %>" role="button" data-toggle="modal">
+                    <div class="box effect5 vachana-concord-box">
+                      <div class="vachana-show-box">
+                        <span><%= vachana.vachana.truncate(200, separator: ' ') %></span>
+                      </div>
+                      <div class="vachanakaara-name">
+                        <span><%= vachana.vachanakaara.try(:name) %></span>
+                      </div>
+                    </div>
+                  </a>
+
+                  <div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: left;">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="myModalLabel"><%= vachana.vachanakaara.try(:name) %></h3>
+                    </div>
+                    <div class="modal-body vachana-pop">
+                      <p><%= vachana.vachana %></p>
+                      <p><strong>ವಚನ ಸಂಖ್ಯೆ:</strong> <%= vachana.vachanaid %></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">ಮುಚ್ಚಿ</button>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  var clip = new ZeroClipboard($(".d_clip_button"));
+});
+</script>

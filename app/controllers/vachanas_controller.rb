@@ -213,4 +213,20 @@ def download_vachana_csv
     )
 end
 
+def ai_search
+  if params[:q].present?
+    service = AiSearchService.new(params[:q])
+    @result = service.call
+    @query = params[:q]
+  end
+  set_meta_tags(
+    title:       "AI ವಚನ ಸಂಶೋಧನೆ - ವಚನ ಸಂಚಯ",
+    description: "AI-ಚಾಲಿತ ವಚನ ಸಂಶೋಧನಾ ಸಾಧನ. ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ.",
+    keywords:    "AI, ವಚನ ಸಂಶೋಧನೆ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ"
+  )
+  respond_to do |format|
+    format.html
+  end
+end
+
 end

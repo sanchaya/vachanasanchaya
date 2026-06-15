@@ -81,3 +81,12 @@ rake sunspot:solr:reindex
   +.load-more-vachanas+ link at the bottom.
 - +index.js.erb+: Appends results when +params[:page]+ is present, replaces on
   letter click.
+
+=== AI-powered research search ===
+- New +/vachanas/ai_search+ page with AI-powered research assistant.
+- +AiSearchService+ (app/services/ai_search_service.rb): Takes a user's research
+  query, finds relevant vachanas via +KeyWord.search_vachana_pada+, sends them as
+  context to OpenAI (gpt-4o-mini) for analysis, returns AI-generated insights.
+- Requires +OPENAI_API_KEY+ environment variable to be set.
+- View displays AI analysis in Kannada + source vachanas with modal popups.
+- Nav bar link: "AI ಸಂಶೋಧನೆ" added next to existing research link.
