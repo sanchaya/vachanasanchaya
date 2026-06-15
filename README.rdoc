@@ -89,4 +89,4 @@ rake sunspot:solr:reindex
   context to OpenAI (gpt-4o-mini) for analysis, returns AI-generated insights.
 - Requires +OPENAI_API_KEY+ environment variable to be set.
 - View displays AI analysis in Kannada + source vachanas with modal popups.
-- Nav bar link: "AI ಸಂಶೋಧನೆ" added next to existing research link.
+- Accessible at +/vachanas/ai_search+ (no nav bar link — for selected users only).
