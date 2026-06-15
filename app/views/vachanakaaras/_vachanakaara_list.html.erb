@@ -1,95 +1,17 @@
-
 <% if @vachanakaaras and params[:start_letter] %>
-<div class="praramba_para"> 
-  <p> <span class="start_letter_header"> 
-    <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
-</div>
- 
- 
-  <div class="results_list_div">
-    <% @vachanakaaras.each do |vachanakaara| %>
-
-    <%= link_to vachanakaara_path(vachanakaara) do %>
-      <% cache ["vachanakaara_list_box", vachanakaara, vachanakaara.updated_at] do %>
-        <div class="box effect5 vachanakaara-box" style="background:#FFFFFF;float:left;height:200px;margin:0 10px 10px 0;width:150px;border:1px solid #ccc;border-bottom:2px solid #bbb;border-top:1px solid #ddd;border-radius:10px;overflow:hidden;box-shadow:0 35px 20px #777;position:relative;">
-          <h5 style="text-align:center;overflow:hidden;margin:5px;"> 
-            <%=  vachanakaara.name %> </h5>
-            <div class="vachanakaara-parichaya" style="height:140px;margin:5px;overflow:hidden;"> 
-             <% if vachanakaara.information and !vachanakaara.information.blank?  %>
-             <span> <%= vachanakaara.information %> </span> <br /> 
-             <% else %>
-             <span> ----- </span> <br /> 
-             <% end %>
-            </div>
-        </div>
-      <% end %>
-    <% end %>
-
-<% end %>
-</div>
-  
-
-
-  <div class="results_list_div">
-    <% @vachanakaaras.each do |vachanakaara| %>
-
-    <a href="#myModal_<%= vachanakaara.id %>" role="button"  data-toggle="modal" >
-      <div class="box effect5 vachanakaara-box" style="height:200px;overflow:hidden;">
-        <h5 style="text-align:center;overflow:hidden;margin:5px;"> 
-          <%=  vachanakaara.name %> </h5>
-          <div class="vachanakaara-parichaya" style="height:140px;margin:5px;overflow:hidden;"> 
-           <% if vachanakaara.information and !vachanakaara.information.blank?  %>
-           <span> <%= vachanakaara.information %> </span> <br /> 
-           <% else %>
-           <span> ----- </span> <br /> 
-           <% end %>
-          </div>
-      </div>
-    </a>
-
-
-<div id="myModal_<%= vachanakaara.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: left;">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">
-     <span class="vachanakaara-name">
-       <%= "#{vachanakaara.name}" %>
-     </span>
-   </h3>
- </div>
- <div class="modal-body vachana-pop">
-  <span> <strong> ಅಂಕಿತ ನಾಮ: </strong>  </span> 
-  <span> <%= vachanakaara.ankitha_naama %> </span>
-  <br /> <br />
-  <span> <strong>  ಕಾಲ: </strong> </span>
-  <span> <%= vachanakaara.time_period %> </span>
-  <br /> <br />
-  <span> <strong>  ದೊರಕಿರುವ ವಚನಗಳು: </strong> </span> 
-  <span> <%= vachanakaara.vachana_found %> </span> (ಆಧಾರ: ಸಮಗ್ರ ವಚನ ಸಂಪುಟ)
-  <br /> <br />
-  <span> <strong>   ತಂದೆ/ತಾಯಿ: </strong> </span> 
-  <span> <%= vachanakaara.parents %> </span>
-  <br /> <br />
-  <span> <strong>  ಹುಟ್ಟಿದ ಸ್ಥಳ: </strong> </span> 
-  <span> <%= vachanakaara.birth_place %> </span>
-  <br /> <br />
-  <span> <strong>   ಪರಿಚಯ: </strong> </span> 
-  <span> <%= vachanakaara.information %> </span>
-</div>
-<div class="modal-footer">
-  <%= link_to "ವಚನಗಳು", vachanakaara , class: "btn-link"%>  
-</div>
+<div class="praramba_para">
+  <p><span class="start_letter_header"><%= params[:start_letter] %></span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು</p>
 </div>
 
-
-<% end %>
+<div class="vachanakaaras_load">
+  <%= render "vachanakaara_list_results" %>
 </div>
 
-<% unless @vachanakaaras.blank? %>
-<div class="click_for_more"> 
- <%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನಕಾರರು" , "" %>
+<% unless @vachanakaaras.blank? or !@vachanakaaras.next_page %>
+<div class="click_for_more">
+  <span>ಇನ್ನಷ್ಟು ವಚನಕಾರರಿದ್ದಾರೆ</span>
 </div>
 <% end %>
 
-
+<%= link_to "#{t :read_more}...", vachanakaaras_path(start_letter: params[:start_letter], page: @vachanakaaras.next_page), :class => 'load-more-vachanas', :style => 'color:white;' if @vachanakaaras.next_page %>
 <% end %>

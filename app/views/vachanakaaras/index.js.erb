@@ -1,1 +1,13 @@
-$('.start_letter_vachanakaara_list').html("<%= escape_javascript(render(:partial => 'vachanakaara_list')) %>");
+<% if params[:page] %>
+  $('.vachanakaaras_load').append("<%= escape_javascript(render(partial: 'vachanakaara_list_results', formats: [:html])) %>");
+  var nextPage = <%= @vachanakaaras.next_page || 'null' %>;
+  if (nextPage !== null) {
+    var newHref = $('.load-more-vachanas').attr('href').replace(/page=\d+/, 'page=' + nextPage);
+    $('.load-more-vachanas').attr('href', newHref).show();
+  } else {
+    $('.load-more-vachanas').remove();
+    $('.click_for_more').remove();
+  }
+<% else %>
+  $('.start_letter_vachanakaara_list').html("<%= escape_javascript(render(partial: 'vachanakaara_list', formats: [:html])) %>");
+<% end %>

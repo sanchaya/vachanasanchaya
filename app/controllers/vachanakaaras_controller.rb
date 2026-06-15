@@ -3,7 +3,7 @@ class VachanakaarasController < ApplicationController
   def index
   	# @vachanakaaras = Vachanakaara.all
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
-    @vachanakaaras= Vachanakaara.start_letter(params[:start_letter])
+    @vachanakaaras= Vachanakaara.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 20)
     set_meta_tags(
       title:       "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರು - ವಚನ ಸಂಚಯ",
       description: "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರ ಪಟ್ಟಿ. ವಚನ ಸಂಚಯದಲ್ಲಿ 250ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಅನ್ವೇಷಿಸಿ.",
@@ -22,13 +22,9 @@ def show
 
   # Calculate letter counts for this vachanakaara
   @vachanakaara_letter_counts = Hash.new(0)
-  vachana_texts = all_vachanas.pluck(:vachana)
-  search_letters = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ", "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ",
-    "ಕ", "ಖ", "ಗ", "ಘ", "ಙ", "ಚ", "ಛ", "ಜ", "ಝ", "ಞ",
-    "ಟ", "ಠ", "ಡ", "ಢ", "ಣ", "ತ", "ಥ", "ದ", "ಧ", "ನ",
-    "ಪ", "ಫ", "ಬ", "ಭ", "ಮ", "ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
-  search_letters.each do |letter|
-    @vachanakaara_letter_counts[letter] = vachana_texts.count { |v| v && v.starts_with?(letter) }
+  all_vachanas.pluck(:vachana).compact.each do |v|
+    first = v[0]
+    @vachanakaara_letter_counts[first] += 1 if first
   end
 
   @start_letter = params[:start_letter] || "ಅ"
