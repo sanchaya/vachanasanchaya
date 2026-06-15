@@ -34,8 +34,9 @@ end
 if author.blank?
   @total_counts = @results.sum(:count)
   @vachanakaaras = @vachanas.vachanakaaras
+  counts = @vachanas.group(:vachanakaara_id).count
   @vachanakaaras.each do |vachanakaara|
-    @vachanakaaras_word_count << @vachanas.where(vachanakaara_id: vachanakaara.id).count
+    @vachanakaaras_word_count << counts[vachanakaara.id] || 0
     @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachanakaara.id}" + '</span>' + "#{vachanakaara.name}" + '</span>'
   end
 else
