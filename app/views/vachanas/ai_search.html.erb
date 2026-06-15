@@ -11,28 +11,38 @@
         <p style="margin:8px 0;">ನಿಮ್ಮ OpenAI API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ. ಇದು ನಿಮ್ಮ ಸೆಶನ್ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತದೆ ಮತ್ತು ಸರ್ವರ್ನಲ್ಲಿ ಶೇಖರವಾಗುವುದಿಲ್ಲ. <a href="https://platform.openai.com/api-keys" target="_blank">ಇಲ್ಲಿ ಕೀಲಿ ಪಡೆಯಿರಿ</a>.</p>
       </details>
 
-      <%= form_tag ai_search_vachanas_path, method: :get, style: "margin:20px 0;" do %>
+      <%= form_tag ai_search_vachanas_path, method: :get, id: "ai-search-form", style: "margin:20px 0;" do %>
         <div style="margin-bottom:10px;">
           <%= password_field_tag :api_key, nil, placeholder: @stored_key ? "•••••••••••• (ಕೀಲಿ ಈಗಾಗಲೇ ನಮೂದಿಸಲಾಗಿದೆ)" : "sk-... ನಿಮ್ಮ OpenAI API ಕೀಲಿ", style: "width:100%;height:36px;font-size:14px;padding:0 10px;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;", id: "api-key-input" %>
         </div>
         <div class="input-append" style="display:flex;gap:8px;width:100%;">
-          <%= text_field_tag :q, @query, placeholder: "ನಿಮ್ಮ ಸಂಶೋಧನಾ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ...", style: "flex:1;height:40px;font-size:16px;padding:0 12px;border-radius:4px;border:1px solid #ccc;", id: "ai-search-input" %>
-          <%= submit_tag "ಸಂಶೋಧಿಸಿ", class: "btn btn-primary", style: "height:42px;font-size:16px;", data: { disable_with: "ಸಂಶೋಧಿಸುತ್ತಿದೆ..." } %>
+          <%= text_field_tag :q, @query, placeholder: "ಉದಾ: ದಾಸೋಹದ ಬಗ್ಗೆ ವಚನಗಳೇನು ಹೇಳುತ್ತವೆ?", style: "flex:1;height:40px;font-size:16px;padding:0 12px;border-radius:4px;border:1px solid #ccc;", id: "ai-search-input", autofocus: true %>
+          <%= submit_tag "ಸಂಶೋಧಿಸಿ", class: "btn btn-primary", style: "height:42px;font-size:16px;", id: "ai-search-submit", data: { disable_with: "ಸಂಶೋಧಿಸುತ್ತಿದೆ..." } %>
         </div>
       <% end %>
+
+      <div id="ai-loading" style="display:none;text-align:center;padding:40px;">
+        <div class="loading-indicator" style="font-size:18px;">ಸಂಶೋಧಿಸುತ್ತಿದೆ... ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ (ಇದು 30-60 ಸೆಕೆಂಡುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು)</div>
+      </div>
 
       <% if @result.present? %>
         <div id="ai-result" style="margin-top:20px;">
           <% if @result[:error] %>
-            <div class="alert alert-error"><%= @result[:error] %></div>
+            <div class="alert alert-error" style="padding:15px;background:#f2dede;border:1px solid #ebccd1;border-radius:4px;color:#a94442;">
+              <strong>ದೋಷ:</strong> <%= @result[:error] %>
+            </div>
           <% else %>
-            <div class="box effect5" style="padding:20px;background:#f9f9f9;border-radius:8px;border-left:4px solid #5bc0de;">
-              <h4 style="margin-top:0;color:#333;">AI ವಿಶ್ಲೇಷಣೆ</h4>
-              <div style="line-height:1.8;font-size:15px;white-space:pre-wrap;"><%= @result[:answer] %></div>
+            <% if @result[:search_summary] %>
+              <p style="color:#666;font-size:13px;margin-bottom:15px;"><%= @result[:search_summary] %></p>
+            <% end %>
+
+            <div class="box effect5" style="padding:25px;background:#f9f9f9;border-radius:8px;border-left:4px solid #5bc0de;">
+              <h4 style="margin-top:0;color:#333;margin-bottom:15px;">AI ವಿಶ್ಲೇಷಣೆ</h4>
+              <div style="line-height:1.8;font-size:15px;white-space:pre-wrap;font-family:serif;"><%= @result[:answer] %></div>
             </div>
 
             <% if @result[:sources].present? %>
-              <h4 style="margin-top:30px;">ಆಧಾರ ವಚನಗಳು (<%= @result[:sources].size %>)</h4>
+              <h4 style="margin-top:30px;margin-bottom:15px;">ಆಧಾರ ವಚನಗಳು (<%= @result[:sources].size %>)</h4>
               <div class="results_list_div">
                 <% @result[:sources].each do |vachana| %>
                   <a href="#myModal_<%= vachana.id %>" role="button" data-toggle="modal">
@@ -71,6 +81,11 @@
 
 <script>
 $(function() {
+  $('#ai-search-form').on('submit', function() {
+    $('#ai-result').hide();
+    $('#ai-loading').show();
+    $('#ai-search-submit').prop('disabled', true);
+  });
   var clip = new ZeroClipboard($(".d_clip_button"));
 });
 </script>
