@@ -54,3 +54,30 @@ rake sunspot:solr:reindex
   displaying only the clean name.
 - Tooltip: Safeguard with +this.category ? this.category.replace(...) : ''+ to
   prevent +undefined+ errors.
+
+=== Performance optimizations ===
+- key_word.rb: Replaced N+1 COUNT per vachanakaara with a single +GROUP BY+ query.
+- vachanas_controller.rb: Single-pass letter counting (was iterating vachana texts
+  51 times, once per Kannada letter).
+- vachanakaaras_controller.rb: Same single-pass fix for the show page letter counting.
+- Added database index on +vachanas.vachana+ column (prefix 255) to speed up
+  +start_letter+ (LIKE prefix) queries.
+- Enabled action caching for +vachanas#index+ with 30-minute expiry, keyed by
+  params (memcached via dalli_store).
+
+=== Vachanakaara pagination (show page) ===
+- +show.js.erb+: Now appends to +.vachanas_load+ when +params[:page]+ is present
+  (load more), instead of doing a full +.html()+ replace. Replaces +.start_letter_vachana_list+
+  only when clicking a letter filter.
+- Removed +:remote => true+ and +:disable_with+ from the load-more link to prevent
+  duplicate AJAX (the shared +vachanas.js+ click handler manages the request).
+
+=== Vachanakaaras pagination (index page) ===
+- Controller now uses +.paginate(:per_page => 20)+ — was loading all vachanakaaras
+  for a letter at once.
+- New +_vachanakaara_list_results.html.erb+ partial (just the card loops) for
+  appending via AJAX.
+- +_vachanakaara_list.html.erb+: Wraps results in +.vachanakaaras_load+ div, adds
+  +.load-more-vachanas+ link at the bottom.
+- +index.js.erb+: Appends results when +params[:page]+ is present, replaces on
+  letter click.
