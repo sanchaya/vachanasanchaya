@@ -1,47 +1,27 @@
-<div class="vachanakaara-info-box">
-  <div class="modal-body vachana-pop">
-    <span> <strong> ವಚನಕಾರ: </strong>  </span> 
-    <span> <%= @vachanakaara.name %> </span>
-    <br /> <br />
-    <span> <strong> ಅಂಕಿತ ನಾಮ: </strong>  </span> 
-    <span> <%= @vachanakaara.ankitha_naama %> </span>
-    <br /> <br />
-    <span> <strong>  ಕಾಲ: </strong> </span>
-    <span> <%= @vachanakaara.time_period %> </span>
-    <br /> <br />
-    <span> <strong>  ದೊರಕಿರುವ ವಚನಗಳು: </strong> </span> 
-    <span> <%= @vachanakaara.vachana_found %> </span> (ಆಧಾರ: ಸಮಗ್ರ ವಚನ ಸಂಪುಟ)
-    <br /> <br />
-    <span> <strong>   ತಂದೆ/ತಾಯಿ: </strong> </span> 
-    <span> <%= @vachanakaara.parents %> </span>
-    <br /> <br />
-    <span> <strong>  ಹುಟ್ಟಿದ ಸ್ಥಳ: </strong> </span> 
-    <span> <%= @vachanakaara.birth_place %> </span>
-    <br /> <br />
-    <span> <strong>   ಪರಿಚಯ: </strong> </span> 
-    <span> <%= @vachanakaara.information %> </span>
-  </div>
-</div>
-
-<% if @vachanas and params[:start_letter] %>
-<p> <span class="start_letter_header"> 
-  <%= params[:start_letter] %> </span> 
-  ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು: </span>
-</p>
+<% if @vachanas and (@start_letter or @fallback_to_all) %>
+<% if @fallback_to_all %>
+  <% if params[:start_letter] %>
+<p><span class="start_letter_header"><%= params[:start_letter] %></span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು ಕಂಡುಬಂದಿಲ್ಲ. ಲಭ್ಯವಿರುವ ವಚನಗಳು:</p>
+  <% else %>
+<p>ಲಭ್ಯವಿರುವ ವಚನಗಳು:</p>
+  <% end %>
+<% elsif @start_letter %>
+<p><span class="start_letter_header"><%= @start_letter %></span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು:</p>
+<% end %>
 
 
-
-<div class="results_list_div keywords_load">
+<div class="vachanas_load">
  <%= render "vachanakaara_vachana_results" %>
 </div>
 <br />
-<%= link_to "#{t :read_more}...", vachanakaara_path(params: params, :page => @vachanas.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
 
-<% unless @vachanas.blank? %>
+<% unless @vachanas.blank? or !@vachanas.next_page %>
 <div class="click_for_more"> 
-	<%#= link_to "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಬವಾಗುವ ಎಲ್ಲಾ ವಚನ" , "" %>
+  <span>ಇನ್ನಷ್ಟು ವಚನಗಳಿವೆ</span>
 </div>
 <% end %>
+
+<%= link_to "#{t :read_more}...", vachanakaara_path(@vachanakaara, start_letter: @start_letter, page: @vachanas.next_page), :class => 'load-more-vachanas', :style => 'color:white;', :disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
 
 <% end %>
 

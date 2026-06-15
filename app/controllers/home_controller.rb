@@ -1,28 +1,71 @@
 class HomeController < ApplicationController
   before_filter :authenticate_user_role! , only: [:admin_panel]
+  
   def index
+    set_meta_tags(
+      title:       "ವಚನ ಸಂಚಯ - ವಚನ ಸಾಹಿತ್ಯ ಸಂಶೋಧನೆ ಮತ್ತು ಅಧ್ಯಯನ ತಾಣ",
+      description: "ವಚನ ಸಂಚಯವು ೨೫,೦೦೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಗಳನ್ನು ಮತ್ತು ೨೫೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ಉಚಿತ, ತೆರೆದ ಮೂಲ ಸಂಶೋಧನಾ ವೇದಿಕೆಯಾಗಿದೆ. ಇಂದಿನ ವಚನ, ಪದಪುಂಜ ಹುಡುಕಾಟ ಮತ್ತು ಸಂಶೋಧನಾ ಸಾಧನಗಳನ್ನು ಅನ್ವೇಷಿಸಿ.",
+      keywords:    "ವಚನ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ, ವಚನಕಾರರು, ಬಸವಣ್ಣ, ಅಲ್ಲಮ ಪ್ರಭು, ಅಕ್ಕಮಹಾದೇವಿ, ಸಂಶೋಧನೆ, ಪದಪುಂಜ, ಕನ್ನಡ"
+    )
     @rand_vachana = DailyVachana.last 
     begin
-      unless @rand_vachana and @rand_vachana.created_at.to_date == Date.today
-       rand = Vachana.pluck(:id).sample
-       while Vachana.find(rand).vachana.blank?
+      unless @rand_vachana && @rand_vachana.created_at.to_date == Date.today
         rand = Vachana.pluck(:id).sample
+        while Vachana.find(rand).vachana.blank?
+          rand = Vachana.pluck(:id).sample
+        end
+        @rand_vachana = DailyVachana.create(vachana_id: rand)
       end
-      @rand_vachana = DailyVachana.create vachana_id: rand
+    rescue => e
+      p "ERRRORRRRRR"
+      puts e
     end
-  rescue => e
-    p "ERRRORRRRRR"
-    puts e
+    @vachana = @rand_vachana.vachana
   end
-  @vachana = @rand_vachana.vachana
-end
 
-def admin_panel
-  @exact_count = WordList.sum('exact_search_count')
-  @like_count = WordList.sum('like_search_count')
-  @total = @exact_count + @like_count
-end
+  def admin_panel
+    set_meta_tags(title: "ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು - ವಚನ ಸಂಚಯ")
+    @exact_count = WordList.sum('exact_search_count')
+    @like_count = WordList.sum('like_search_count')
+    @total = @exact_count + @like_count
+    @static_pages = static_pages_available? ? StaticPage.order(:slug, :locale) : []
+  end
 
-private
+  def about_us
+    set_meta_tags(
+      title:       "ನಮ್ಮ ಬಗ್ಗೆ - ವಚನ ಸಂಚಯ",
+      description: "ವಚನ ಸಂಚಯದ ಹಿನ್ನೆಲೆ, ತಂತ್ರಜ್ಞರ ತಂಡ, ಮಾರ್ಗದರ್ಶಕರು ಮತ್ತು ಪ್ರಸ್ತುತಿ ಹಂತಗಳ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ."
+    )
+  end
+
+  def help
+    set_meta_tags(
+      title:       "ಸಹಾಯ - ವಚನ ಸಂಚಯ",
+      description: "ವಚನ ಸಂಚಯದ ವೈಶಿಷ್ಟ್ಯಗಳು, ಹುಡುಕಾಟ ಮತ್ತು ಸಂಶೋಧನಾ ಸಾಧನಗಳ ಕುರಿತು ಸಹಾಯವನ್ನು ಪಡೆಯಿರಿ."
+    )
+  end
+
+  def edit_static_page
+    @page = StaticPage.find(params[:id])
+    set_meta_tags(title: "ಪುಟ ಸಂಪಾದಿಸಿ - #{@page.title} - ವಚನ ಸಂಚಯ")
+    render layout: false
+  end
+
+  def update_static_page
+    @page = StaticPage.find(params[:id])
+    if @page.update_attributes(params[:static_page])
+      flash[:notice] = "ಪುಟವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ."
+      redirect_to admin_panel_path
+    else
+      flash[:error] = "ಪುಟವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
+      render :edit_static_page, layout: false
+    end
+  end
+
+  private
+
+  def static_pages_available?
+    ActiveRecord::Base.connection.table_exists?('static_pages') rescue false
+  end
 
 end

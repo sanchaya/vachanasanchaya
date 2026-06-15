@@ -3,6 +3,7 @@ class PublishersController < ApplicationController
   def index
     @users =  User.includes(:role).where("roles.name = 'Publisher'")
     @reviewed_vachanas = ReviewVachana.where("published = ? or published IS NULL", false).order("review_vachanaid")
+    set_meta_tags(title: "ಪ್ರಕಾಶಕರ ಪುಟ - ವಚನ ಸಂಚಯ")
   end
 
   def show

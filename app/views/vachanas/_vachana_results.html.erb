@@ -10,8 +10,58 @@
   </div> -->
   <div class="row">
 
-
    <div class= "span3" >
+    <div class="aksharamaale">
+      <p style="text-align:center;">ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು</p>
+      <% vowels.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% velars.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% palatals.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% retroflex.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% dentals.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% labials.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+
+      <% unstructured_consonants.each do |letter| %>
+      <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @search_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+    </div>
     <% unless @results.blank? %>
     <div class="graph-space" >
       <div id="container" style="width: 250px; height: <%=get_height_for_graph %>px;   margin: 10px auto;"></div>
@@ -21,6 +71,9 @@
 
 
     <div class="span9">
+     <% if params[:start_letter].present? %>
+     <p><span class="start_letter_header"><%= params[:start_letter] %></span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು</p>
+     <% end %>
      <% if @results %>
      <% if @results.blank?  %>
      <%= t :no_vachana_found %>
@@ -29,7 +82,7 @@
      <div class= " vachanas_load" %>
        <%= render "results" %>
      </div>
-     <%= link_to "#{t :read_more}...", vachanas_path(params: params, :page => @results.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @results.next_page %>
+      <%= link_to "#{t :read_more}...", vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: params[:start_letter], page: @results.next_page), :class => 'load-more-vachanas', :style => 'color:white;' if @results.next_page %>
      <% end %>
 
      <% end %>
@@ -55,7 +108,30 @@
 $(function () {
   $('#container').highcharts({
     chart: {
-      type: 'bar'
+      type: 'bar',
+      events: {
+        load: function() {
+          var ids = <%= raw @vachanakaaras.map(&:id).to_json %>;
+          var baseUrl = '<%= j vachanas_path(vachana: params[:vachana], search_type: params[:search_type]) %>';
+          var axis = this.xAxis[0];
+          for (var key in axis.ticks) {
+            if (axis.ticks.hasOwnProperty(key)) {
+              var tick = axis.ticks[key];
+              if (tick.label && tick.label.element) {
+                var idx = parseInt(key, 10);
+                tick.label.element.style.cursor = 'pointer';
+                tick.label.element.onclick = (function(i) {
+                  return function() {
+                    if (i >= 0 && i < ids.length) {
+                      window.location.href = baseUrl + '&vachanakaara=' + ids[i];
+                    }
+                  };
+                })(idx);
+              }
+            }
+          }
+        }
+      }
     },
     title: {
       text: '<%= t :vachanakaararu %>'
@@ -67,6 +143,11 @@ $(function () {
       categories: <%= raw @vachanakaaras_name %>,
       title: {
         text: null
+      },
+      labels: {
+        formatter: function() {
+          return this.value.replace(/<span[^>]*style="display:none"[^>]*>.*?<\/span>/g, '').replace(/<[^>]+>/g, '');
+        }
       }
     },
     yAxis: {
@@ -80,12 +161,26 @@ $(function () {
       }
     },
     tooltip: {
-      valueSuffix: ' <%="#{t :vachana}" %>'
+      formatter: function() {
+        var kwCount = <%= raw @vachanakaaras_keyword_count.to_json %>[this.index] || 0;
+        var name = this.category ? this.category.replace(/<[^>]+>/g, '') : '';
+        return '<b>' + name + '</b><br/>' +
+               '<%= t :vachana %>: ' + this.y + '<br/>' +
+               'ಪದ ಬಳಕೆ: ' + kwCount;
+      }
     },
     plotOptions: {
       bar: {
         dataLabels: {
           enabled: true
+        },
+        point: {
+          events: {
+            click: function() {
+              var ids = <%= raw @vachanakaaras.map(&:id).to_json %>;
+              window.location.href = '<%= j vachanas_path(vachana: params[:vachana], search_type: params[:search_type]) %>' + '&vachanakaara=' + ids[this.index];
+            }
+          }
         }
       }
     },
@@ -104,19 +199,16 @@ $(function () {
 <% end %>
 
 
-$(document).ready(function(){
-
-  $('.highcharts-axis-labels text tspan').click(function(){
 
 
-   var  linkk = $(this).siblings('tspan').text();
-   var id = parseInt(linkk);
-   var params = '<%= raw "vachana=#{params[:vachana]}&search_type=#{params[:search_type]}&vachanakaara=" %>' + id ;
-   window.location.href = "/vachanas/?" + params ;
-
-  //$('body').on('click','.highcharts-axis-labels',function(){
-
-  })
-})
-
+</script>
+<script>
+$(function() {
+  if (typeof ZeroClipboard !== 'undefined') {
+    new ZeroClipboard($('.d_clip_button'));
+  }
+  if (typeof jQuery.fn.SearchHighlight !== 'undefined') {
+    $('.vachanas_load').SearchHighlight({exact:"partial", keys: "<%= j params[:vachana] %> ", highlight: '.vachanas_load'});
+  }
+});
 </script>

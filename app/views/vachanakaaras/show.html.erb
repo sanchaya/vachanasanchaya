@@ -1,70 +1,112 @@
+<%= render "layouts/search_box" %>
+
 <%= render "layouts/back_button" %>
- 
-		<%= render "layouts/search_box" %>
+
+<div class="vachanakaara-header">
+  <h1><%= @vachanakaara.name %> (<%= @vachanakaara.ankitha_naama %>)</h1>
+  <p class="vachanakaara-meta">
+    <% if @vachanakaara.time_period.present? %>
+      <span><strong>ಕಾಲ:</strong> <%= @vachanakaara.time_period %></span>
+    <% end %>
+    <% if @vachanakaara.birth_place.present? %>
+      <span><strong>ಹುಟ್ಟಿದ ಸ್ಥಳ:</strong> <%= @vachanakaara.birth_place %></span>
+    <% end %>
+    <% if @vachanakaara.parents.present? %>
+      <span><strong>ತಂದೆ/ತಾಯಿ:</strong> <%= @vachanakaara.parents %></span>
+    <% end %>
+    <span><strong>ವಚನಗಳು:</strong> <%= @vachanakaara.vachanas.count %></span>
+    <% if @vachanakaara.vachana_found.present? %>
+      <span><strong>ದೊರಕಿರುವ ವಚನಗಳು:</strong> <%= @vachanakaara.vachana_found %></span>
+    <% end %>
+  </p>
+  <% if @vachanakaara.information.present? %>
+    <br>
+    <p style="line-height:1.8;font-size:15px;margin:0;"><%= @vachanakaara.information %></p>
+  <% end %>
+</div>
 <!-- <div class="main_heading">
 </div>
 -->
+<!-- Person Schema for Vachanakaara -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": <%= @vachanakaara.name.to_json %>,
+  "alternateName": <%= @vachanakaara.ankitha_naama.to_json %>,
+  "description": <%= @vachanakaara.information.to_s.truncate(300, separator: ' ').to_json %>,
+  "birthPlace": <%= @vachanakaara.birth_place.to_json %>,
+  "knowsAbout": "ವಚನ ಸಾಹಿತ್ಯ",
+  "url": "<%= vachanakaara_url(@vachanakaara) %>",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<%= vachanakaara_url(@vachanakaara) %>"
+  },
+  "sameAs": [
+    "https://vachana.sanchaya.net/vachanakaaras/<%= @vachanakaara.id %>"
+  ]
+}
+</script>
+
 <div class="row">
-	<div class="span2">
-		<div class="aksharamaale">
-			<% vowels.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+  <div class="span2">
+    <p style="text-align:center;">ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು</p>
+    <div class="aksharamaale">
+      <% vowels.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
-			<% velars.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+      <% velars.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
-			<% palatals.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+      <% palatals.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
+      <% retroflex.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
-			<% retroflex.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+      <% dentals.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
-			<% dentals.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+      <% labials.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
 
-			<% labials.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
+      <% unstructured_consonants.each do |letter| %>
+      <a href="<%= vachanakaara_path(@vachanakaara, start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
+      <span class="vowels_count">
+        (<%= @vachanakaara_letter_counts[letter] || 0 %>)
+      </span>
+      <% end %>
+    </div>
+  </div>
 
-			<% unstructured_consonants.each do |letter| %>
-			<%= link_to letter, vachanakaara_path(@vachanakaara,start_letter: letter) , remote: true %>
-			<span class="vowels_count">
-				(<%= Vachana.vachanakaaras_vachana_concord(@vachanakaara.id, letter) %>)
-			</span>
-			<% end %>
-		</div>
-	</div>
-
-	<div class="span10">
-		<div class="start_letter_vachana_list">
-			<%= render "vachanakaara_vachana_list" %>
-		</div>
-
-
-
-	</div>
+  <div class="span10">
+    <div class="start_letter_vachana_list">
+      <%= render "vachanakaara_vachana_list" %>
+    </div>
+    <%= render "layouts/google_add" %>
+  </div>
 </div>

@@ -1,5 +1,12 @@
 <div class="row"> 
   <div class="span4">
+    <h4>ಸ್ಥಿರ ಪುಟಗಳು</h4>
+    <ul>
+      <% @static_pages.each do |page| %>
+        <li><%= link_to "#{page.title} (#{page.locale})", edit_static_page_path(page) %></li>
+      <% end %>
+    </ul>
+    <hr/>
     <ol> 
       <li>  <%= link_to "ವಚನಕಾರರು", edit_vachanakaara_path(Vachanakaara.first) %> </li>
       <!-- <li>  <%#= link_to "ವಚನ", edit_vachana_path(Vachana.first) %> </li> -->

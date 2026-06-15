@@ -2,15 +2,16 @@ require 'api_constraints'
 
 KannadaVachana::Application.routes.draw do
 
-  
+  match '/sitemap.xml' => 'sitemap#index', :as => 'sitemap', :via => :get
 
   root :to => "home#index"
 
   get "home/index"
-  match "/contact_us" => "home#contact_us"
   match "/about_us" => "home#about_us"
   match "/help" => "home#help"
   match "/admin_panel" => "home#admin_panel"
+  match "/admin_panel/static_pages/:id/edit" => "home#edit_static_page", :as => 'edit_static_page', :via => :get
+  match "/admin_panel/static_pages/:id" => "home#update_static_page", :as => 'update_static_page', :via => :put
 
 
   devise_for :users, :skip => [:registrations]                                          
@@ -73,6 +74,8 @@ KannadaVachana::Application.routes.draw do
       post :search
     end
   end
+
+  resources :books, only: [:index]
 
   resources :reference_books
   resources :activities

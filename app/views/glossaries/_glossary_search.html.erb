@@ -1,9 +1,13 @@
-<div class="search_glossary">
-  <%= form_tag search_glossaries_path,name: "search_glossary",class: "search" do %>
-  <%= text_field_tag :word, params[:word],class: "search-query kannada-ime" %>
-
-  <%= submit_tag "#{t :search}",:class => 'btn btn-primary' %>
-
+<div style="text-align:center;padding:40px 0 20px;">
+  <h1 style="font-size:28px;color:#333;margin-bottom:5px;">ಪದಕೋಶ</h1>
+  <p style="font-size:14px;color:#888;margin-bottom:25px;">ವಚನ ಸಾಹಿತ್ಯದಲ್ಲಿ ಬಳಕೆಯಾಗುವ ಪದಗಳ ಅರ್ಥ ಮತ್ತು ಅವುಗಳಿರುವ ವಚನಗಳನ್ನು ಹುಡುಕಿ</p>
+  <%= form_tag search_glossaries_path, method: :post, style: "display:inline-block;" do %>
+    <%= text_field_tag :word, params[:word], placeholder: "ಪದವನ್ನು ನಮೂದಿಸಿ...", style: "padding:10px 15px;font-size:16px;width:300px;border:2px solid #ddd;border-radius:4px;outline:none;" %>
+    <%= submit_tag "ಹುಡುಕು", style: "padding:10px 25px;font-size:16px;background:#0066cc;color:white;border:none;border-radius:4px;cursor:pointer;" %>
   <% end %>
-
+  <p style="font-size:13px;color:#888;margin-top:15px;">
+    ಹೆಚ್ಚಿನ ವಿಸ್ತೃತ ನಿಘಂಟು ಹುಡುಕಾಟಕ್ಕಾಗಿ
+    <a href="https://pada.sanchaya.net" target="_blank" style="color:#0066cc;text-decoration:underline;">ಪದ ಸಂಚಯ</a>
+    ಗೆ ಭೇಟಿ ನೀಡಿ.
+  </p>
 </div>

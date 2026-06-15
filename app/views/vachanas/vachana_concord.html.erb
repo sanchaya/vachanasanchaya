@@ -1,83 +1,70 @@
+<h1 style="display:none;">ಅಕ್ಷರಾನುಕ್ರಮ ವಚನಗಳು</h1>
 <%= render "layouts/search_box" %>
-  <!-- <div class="vachana-number-search"> 
-    
-      <%= form_tag search_vachana_number_vachanas_path,method: :get do %>
-      <%= text_field_tag :vachana_number,"",placeholder: "ಕ್ರ.ಸಂ" %>
-      <%= submit_tag "#{t :search}", :disable_with => "#{t :please_wait}...",:class => 'btn btn-primary' %>
 
-      <% end %>
-    </div> -->
-<!-- <div class="main_heading">
-</div>
--->
 <div class="row">
   <div class="span2">
-  <p style="text-align:center;">   ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು </p>
+    <p style="text-align:center;">ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು</p>
     <div class="aksharamaale">
       <% vowels.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
       <% velars.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true  %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
       <% palatals.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true  %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
-
       <% retroflex.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter), remote: true  %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
       <% dentals.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
       <% labials.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
 
       <% unstructured_consonants.each do |letter| %>
-      <%= link_to letter, vachana_concord_vachanas_path(start_letter: letter) , remote: true %>
+      <a href="<%= vachana_concord_vachanas_path(start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
-        (<%= Concord.find_by_concord_code("vachana_#{letter}").count %>)
+         (<%= vachana_letter_counts[letter] || 0 %>)
       </span>
       <% end %>
     </div>
-
-
-
-
+    <%= render "layouts/google_add" %>
   </div>
-
-  
   <div class="span10">
-  	<div class="start_letter_vachana_list">
+    <div class="start_letter_vachana_list">
       <%= render "vachana_concord_list.html" %>
     </div>
-
-    <%= render "layouts/google_add" %>
-
-
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($(".d_clip_button"))
+  });
+</script>

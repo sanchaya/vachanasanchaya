@@ -1,11 +1,29 @@
- <% @keywords.each do |keyword| %>
-
-    <a href="<%= vachanas_path(vachana: keyword.word, search_type: "exact_search") %>" title="<%=keyword.word  %>" >
-      <div class="box effect5" style="height:auto; width:auto;">
-        <h5> 
-         <%=  keyword.word %> (<span style="color:#999999"> <%= keyword.vachana_ids.count %> </span> ,<span style="color:#4787AD"> <%= keyword.vachanakaara_ids.uniq.count %> </span>)</h5>
-
-       </div>
-     </a>
-     
-     <% end %>
+<style>
+.keyword-pill {
+  margin: 3px;
+  padding: 4px 8px;
+  background: #f5f5f0;
+  border: 1px solid #e0ddd5;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.keyword-pill:hover {
+  background: #eae8e0 !important;
+  border-color: #c5c0b0 !important;
+}
+.keyword-pill a, .keyword-pill a:hover, .keyword-pill a:focus, .keyword-pill a:active {
+  background: transparent !important;
+  text-decoration: none !important;
+  outline: none !important;
+}
+</style>
+<div style="line-height:3;">
+  <% @keywords.each do |keyword| %>
+    <span class="keyword-pill">
+      <a href="<%= vachanas_path(vachana: keyword.word, search_type: "exact_search") %>" title="<%= keyword.word %> ಪದದ ಹುಡುಕಾಟ" style="font-size:14px;color:#333;"><%= keyword.word %>
+        <span style="color:#cd5c5c;"><%= keyword.vachana_ids.count %></span>,
+        <span style="color:#4682b4;"><%= keyword.vachanakaara_ids.uniq.count %></span>
+      </a>
+    </span>
+  <% end %>
+</div>

@@ -1,11 +1,97 @@
+<h1 style="display:none;">ಪದಕೋಶ</h1>
 <%= render "glossary_search" %>
 
+<div class="row">
+  <div class="span2">
+    <p style="text-align:center;">ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು</p>
+    <div class="aksharamaale">
+      <% vowels.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% velars.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% palatals.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% retroflex.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% dentals.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% labials.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+      <% unstructured_consonants.each do |letter| %>
+        <a href="<%= glossaries_path(start_letter: letter) %>"><%= letter %></a>
+        <span class="vowels_count">(<%= @glossary_letter_counts[letter] || 0 %>)</span>
+      <% end %>
+    </div>
+  </div>
 
+  <div class="span10">
+    <p><span class="start_letter_header"><%= params[:start_letter] %></span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು</p>
+    <div style="line-height:2.2;">
+      <% @words.each do |word| %>
+        <span style="margin:2px;padding:3px 7px;background:#f5f5f0;border:1px solid #e0ddd5;border-radius:3px;white-space:nowrap;display:inline-block;">
+          <span style="font-size:14px;color:#333;"><%= word.word %></span>
+          <span style="font-size:12px;color:#888;">— <%= word.meanings.truncate(50, separator: ' ') %></span>
+        </span>
+      <% end %>
+    </div>
+    <%= link_to "#{t :read_more}...", glossaries_path(start_letter: params[:start_letter], page: @words.next_page), :class => 'load-more-vachanas', :style => 'color:white;' if @words.next_page %>
 
+    <% if @vachanas.present? %>
+      <h2 style="font-size:18px;color:#333;border-bottom:2px solid #eee;padding:20px 0 8px;margin-top:20px;">"<%= @words.first.word %>" ಪದವಿರುವ ವಚನಗಳು</h2>
+      <div class="results_list_div keywords_load">
+      <% @vachanas.each do |vachana| %>
+        <a href="#myModal_<%= vachana.id %>" role="button" data-toggle="modal">
+          <div class="box effect5 vachana-concord-box">
+            <div class="vachana-show-box">
+              <span><%= vachana.vachana.truncate(200, separator: ' ') %></span>
+            </div>
+            --------------
+            <div class="vachanakaara-name">
+              <span><%= vachana.vachanakaara.name %></span>
+            </div>
+          </div>
+        </a>
 
-
-<% @words.each do |word| %>
-<%= word.word %> : 
-<%= word.meanings %> 
-<br/>
-<% end %>
+        <div id="myModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align:left;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">
+              <span class="vachanakaara-name"><%= vachana.vachanakaara.name %></span>
+            </h3>
+          </div>
+          <div class="modal-body vachana-pop">
+            <p id="fe_text_<%= vachana.id %>"><%= raw vachana.vachana.gsub(/\n/, '<br />') %></p>
+          </div>
+          <div class="modal-footer">
+            <div class="demo-area">
+              <div class="modal-footer-left">
+                ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachana_book_count %>
+                &nbsp;
+                ವಚನದ ಸಂಖ್ಯೆ: <%= vachana.vachanaid %>
+              </div>
+              <a href="/vachanakaaras/<%= vachana.vachanakaara_id %>" class="vachanakaara-icon-link">
+                <i class="fa fa-user"></i>
+              </a>
+              <button class="btn d_clip_button" data-clipboard-target="fe_text_<%= vachana.id %>" data-clipboard-text="Default clipboard text from attribute" id="d_clip_button" title="Click me to copy to clipboard.">
+                <i class="fa fa-files-o fa-1x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

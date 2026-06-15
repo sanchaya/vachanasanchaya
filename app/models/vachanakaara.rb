@@ -1,7 +1,4 @@
 class Vachanakaara < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :slug_name, use: :slugged
-
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user },
   :params => {
@@ -55,6 +52,11 @@ def to_csv
       csv << [vachana.vachana, vachana.id, vachanakaara.id]
     end
   end
+end
+
+def to_param
+  hash = Digest::MD5.hexdigest("#{id}-#{name}")[0..8]
+  "#{id}-#{hash}"
 end
 
 end

@@ -1,10 +1,40 @@
 <% if params[:page] %>
-$('.keywords_load').append("<%= escape_javascript(render(partial: 'vachana_concord_results')) %>");
-<% params.delete(:page) if params[:page] %>
-$('a.load-more-vachanas').attr('href',"<%= vachana_concord_vachanas_path(params: params, :page => @vachanas.next_page) %>" );
-<% unless @vachanas.next_page %>
-$('a.load-more-vachanas').remove();
-<% end %>
+  // Append new results
+  $('.vachanas_load').append("<%= escape_javascript(render(partial: 'vachana_concord_results', formats: [:html])) %>");
+  var nextPage = <%= @vachanas.next_page || 'null' %>;
+  if (nextPage !== null) {
+    var newHref = "/vachanas/vachana_concord?start_letter=<%= params[:start_letter] %>&page=" + nextPage;
+    $('.load-more-vachanas').attr('href', newHref).show();
+  } else {
+    $('.load-more-vachanas').remove();
+    $('.click_for_more').remove();
+  }
 <% else %>
-$('.start_letter_vachana_list').html("<%= escape_javascript(render(:partial => 'vachana_concord_list')) %>");
+  // Initial load
+  $('.start_letter_vachana_list').html("<%= escape_javascript(render(partial: 'vachana_concord_list', formats: [:html])) %>");
 <% end %>
+
+$(document).off('click', '.load-more-vachanas').on('click', '.load-more-vachanas', function(e){
+  e.preventDefault();
+  var $button = $(this);
+  $button.hide();
+  $('<div class="loading-indicator">Loading...</div>').insertAfter($button);
+  
+  var url = $button.attr('href');
+  $.ajax({
+    url: url,
+    dataType: 'script',
+    complete: function() {
+      $('.loading-indicator').remove();
+    },
+    error: function(xhr, status, error){
+      console.error('AJAX error:', status, error);
+      $('.loading-indicator').remove();
+      $button.show();
+    }
+  });
+});
+
+$(function(){
+  var clip = new ZeroClipboard($(".d_clip_button"));
+});

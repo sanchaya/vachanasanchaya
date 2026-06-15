@@ -73,3 +73,241 @@
  .alert{
  	text-align: center;
  }
+
+ .copy-right {
+ 	text-align: center;
+ }
+
+ /* Breadcrumb styles */
+ .breadcrumb-container {
+   background: #f5f5f5;
+   padding: 8px 15px;
+   margin-bottom: 15px;
+   border-radius: 4px;
+ }
+ .breadcrumb {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   font-size: 13px;
+ }
+ .breadcrumb li {
+   display: inline-block;
+ }
+ .breadcrumb .divider {
+   padding: 0 5px;
+   color: #999;
+ }
+ .breadcrumb .active {
+   color: #555;
+ }
+
+ /* Vachanakaara show page styles */
+ .vachanakaara-header {
+   text-align: center;
+   margin-bottom: 20px;
+   padding: 20px;
+   background: #f9f9f9;
+   border-radius: 4px;
+ }
+ .vachanakaara-header h1 {
+   margin: 0 0 10px 0;
+   font-size: 28px;
+   color: #333;
+ }
+ .vachanakaara-meta {
+   color: #666;
+   font-size: 14px;
+ }
+ .vachanakaara-meta span {
+   margin: 0 10px;
+ }
+
+  /* Vachana list for SEO */
+.vachana-list-container {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+/* Fix for Bootstrap span10 container */
+.span10 .vachana-list-container,
+.start_letter_vachana_list .vachana-list-container {
+  max-width: none;
+  padding: 0;
+}
+
+/* Fix span3 width for chart (250px needed) */
+.span3.graph-space {
+  width: 250px;
+}
+
+/* Ensure span9 has proper width */
+.span9 .vachanas_load {
+  width: 100%;
+}
+
+.vachana-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  margin-bottom: 20px;
+}
+
+.vachana-item {
+  flex: 0 0 calc(33.333% - 20px);
+  max-width: calc(33.333% - 20px);
+  margin: 0 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.vachana-item .vachana-title {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.vachana-item .vachana-content {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.vachana-item .vachana-meta {
+  font-size: 11px;
+}
+
+/* Limit to 3 rows (12 tiles total) */
+.vachana-list-container .vachana-row:nth-child(n+6) {
+  display: none;
+}
+
+.vachana-list-container .vachana-row {
+  margin-bottom: 10px;
+}
+
+.vachana-item .vachana-title a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.vachana-item .vachana-title a:hover {
+  text-decoration: underline;
+}
+
+/* Loading more button styling */
+.load-more-vachanas {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.load-more-vachanas:hover {
+  background-color: #0055b0;
+  text-decoration: none;
+  color: white;
+}
+
+.click_for_more {
+  text-align: center;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+ .vachana-item:hover {
+   background: #f5f5f5;
+ }
+ .vachana-title {
+   margin: 0 0 10px 0;
+   font-size: 18px;
+ }
+ .vachana-title a {
+   color: #0044CC;
+   text-decoration: none;
+ }
+ .vachana-title a:hover {
+   text-decoration: underline;
+ }
+ .vachana-content {
+   color: #333;
+   line-height: 1.6;
+   margin-bottom: 10px;
+ }
+ .vachana-content p {
+   margin: 0;
+ }
+ .vachana-meta {
+   font-size: 13px;
+   color: #666;
+ }
+ .vachana-meta .vachana-number {
+   margin-right: 10px;
+ }
+ .vachana-meta .reviewed-badge {
+   color: #4E8109;
+   margin-right: 10px;
+ }
+ .vachana-meta .read-more-link {
+   float: right;
+   color: #0044CC;
+   text-decoration: none;
+ }
+ .vachana-meta .read-more-link:hover {
+   text-decoration: underline;
+ }
+
+ /* Keyword list styles */
+ .keyword-item {
+   margin-bottom: 15px;
+   padding: 15px;
+   border: 1px solid #eee;
+   border-radius: 4px;
+   background: #fafafa;
+ }
+ .keyword-item:hover {
+   background: #f5f5f5;
+ }
+ .keyword-title {
+   margin: 0 0 8px 0;
+   font-size: 18px;
+ }
+ .keyword-title a {
+   color: #0044CC;
+   text-decoration: none;
+ }
+ .keyword-title a:hover {
+   text-decoration: underline;
+ }
+ .keyword-stats {
+   font-size: 13px;
+   color: #666;
+ }
+ .keyword-stats .vachana-count {
+   margin-right: 15px;
+   color: #999;
+ }
+ .keyword-stats .vachanakaara-count {
+   color: #4787AD;
+ }
+
+ .keyword-stats-box {
+   background: #f5f5f5;
+   padding: 15px;
+   margin-bottom: 20px;
+   border-radius: 4px;
+   text-align: center;
+   font-size: 16px;
+ }
+ .keyword-stats-box strong {
+   color: #0044CC;
+ }

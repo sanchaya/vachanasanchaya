@@ -10,6 +10,10 @@ class Vachana < ActiveRecord::Base
   belongs_to :vachanakaara
   has_one :old_vachana
 
+  def vachana_book_count
+    vachanakaara&.reference_book_id
+  end
+
 
   def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )

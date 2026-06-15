@@ -1,9 +1,14 @@
 class VachanakaarasController < ApplicationController
  before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
- def index
+  def index
   	# @vachanakaaras = Vachanakaara.all
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
     @vachanakaaras= Vachanakaara.start_letter(params[:start_letter])
+    set_meta_tags(
+      title:       "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರು - ವಚನ ಸಂಚಯ",
+      description: "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರ ಪಟ್ಟಿ. ವಚನ ಸಂಚಯದಲ್ಲಿ 250ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಅನ್ವೇಷಿಸಿ.",
+      keywords:    "#{params[:start_letter]}, ವಚನಕಾರರು, ವಚನ ಸಂಚಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ"
+    )
 
     respond_to do |format|
       format.html
@@ -12,14 +17,39 @@ end
 end
 
 def show
- @vachanakaara = Vachanakaara.find(params[:id])
- @vachanas = @vachanakaara.vachanas
+  @vachanakaara = Vachanakaara.find(params[:id])
+  all_vachanas = @vachanakaara.vachanas
 
- params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
- @vachanas= @vachanas.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 25)
- respond_to do |format|
-  format.html
-  format.js # actually means: if the client ask for js -> return file.js
+  # Calculate letter counts for this vachanakaara
+  @vachanakaara_letter_counts = Hash.new(0)
+  vachana_texts = all_vachanas.pluck(:vachana)
+  search_letters = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ", "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ",
+    "ಕ", "ಖ", "ಗ", "ಘ", "ಙ", "ಚ", "ಛ", "ಜ", "ಝ", "ಞ",
+    "ಟ", "ಠ", "ಡ", "ಢ", "ಣ", "ತ", "ಥ", "ದ", "ಧ", "ನ",
+    "ಪ", "ಫ", "ಬ", "ಭ", "ಮ", "ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
+  search_letters.each do |letter|
+    @vachanakaara_letter_counts[letter] = vachana_texts.count { |v| v && v.starts_with?(letter) }
+  end
+
+  @start_letter = params[:start_letter] || "ಅ"
+
+  if @vachanakaara_letter_counts[@start_letter] == 0
+    @vachanas = all_vachanas.paginate(:page => params[:page], :per_page => 15)
+    @start_letter = nil
+    @fallback_to_all = true
+  else
+    @vachanas = all_vachanas.start_letter(@start_letter).paginate(:page => params[:page], :per_page => 15)
+  end
+
+  vachanakaara_desc = @vachanakaara.information.to_s.truncate(160, separator: ' ')
+  set_meta_tags(
+    title:       "#{@vachanakaara.name} - ವಚನಕಾರರ ಪುಟ - ವಚನ ಸಂಚಯ",
+    description: "#{@vachanakaara.name} ಅವರ ವಚನಗಳು ಮತ್ತು ಪರಿಚಯ. #{vachanakaara_desc}",
+    keywords:    "#{@vachanakaara.name}, #{@vachanakaara.ankitha_naama}, ವಚನಕಾರರು, ವಚನ ಸಂಚಯ"
+  )
+  respond_to do |format|
+   format.html
+   format.js
 end
 end
 

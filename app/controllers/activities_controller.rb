@@ -4,5 +4,6 @@ class ActivitiesController < ApplicationController
  
  def index
   @activities = PublicActivity::Activity.order("created_at desc").limit(20)
+  set_meta_tags(title: "ಚಟುವಟಿಕೆಗಳು - ವಚನ ಸಂಚಯ")
 end
 end
