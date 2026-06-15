@@ -21,7 +21,7 @@
 </div>
 <% end %>
 
-<%= link_to "#{t :read_more}...", vachanakaara_path(@vachanakaara, start_letter: @start_letter, page: @vachanas.next_page), :class => 'load-more-vachanas', :style => 'color:white;', :disable_with => "#{t :please_wait}...", :remote => true if @vachanas.next_page %>
+<%= link_to "#{t :read_more}...", vachanakaara_path(@vachanakaara, start_letter: @start_letter, page: @vachanas.next_page), :class => 'load-more-vachanas', :style => 'color:white;' if @vachanas.next_page %>
 
 <% end %>
 
