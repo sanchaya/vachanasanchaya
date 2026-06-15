@@ -2,10 +2,10 @@ Tool to search vachana
 
 technologies
 
-Ruby 1.9.3
-Rails 3.2.13
+Ruby 2.3.7
+Rails 3.2.22
 Sqlite
-
+Sunspot Solr
 
 To start solr
 bundle exec rake sunspot:solr:start
@@ -15,3 +15,42 @@ rake sunspot:solr:stop
 rm -rvf solr (Delete your /solr directory)
 rake sunspot:solr:start
 rake sunspot:solr:reindex
+
+== Changes (June 2026) ==
+
+=== Asset precompilation ===
+- Sass 3.7 removed support for +@import url(...)+. Changed +vachanas.css.scss+ to
+  use a +<link>+ tag in +application.html.erb+ for Google Fonts (Noto Sans Kannada)
+  instead of +@import url()+.
+
+=== Concord page "Load More" ===
+- Fixed syntax error in +vachana_concord.js.erb+ that prevented the click handler
+  from registering.
+- Click handler hides button, inserts a +.loading-indicator+, fetches next page via
+  AJAX, appends results, removes indicator on completion.
+- +.show()+ called after updating href so the button reappears.
+
+=== Search page "Load More" ===
+- +vachanas.js+: Added delegated click handler for +.load-more-vachanas+ (works on
+  initial page load, not only inview scroll). Hides button, inserts
+  +.loading-indicator+, calls +$.getScript+, removes indicator on completion.
+- +_vachana_concord_list.html.erb+: Removed +:remote => true+ and +:disable_with+
+  from the load-more link to prevent duplicate AJAX requests.
+- +index.js.erb+: Changed +.html()+ to +.append()+ to retain earlier results. Added
+  +.show()+ after updating href.
+
+=== Search highlighting ===
+- Removed SearchHighlight call from +index.js.erb+ (AJAX response) because the
+  plugin ignored the receiver element and processed +$("body")+, corrupting
+  Highcharts SVG.
+- Scoped initial SearchHighlight to +.vachanas_load+ in +_vachana_results.html.erb+
+  to avoid DOM-wide traversal.
+
+=== Graph click interactivity ===
+- Bar click: Navigates with +&vachanakaara=ID+ using +ids[this.index]+.
+- Y-axis labels: Clickable via chart +load+ event — iterates +xAxis[0].ticks+ and
+  attaches +onclick+ to each label SVG element, navigating with the vachanakaara ID.
+- Label formatter strips hidden +<span>+ (containing ID) and all HTML tags,
+  displaying only the clean name.
+- Tooltip: Safeguard with +this.category ? this.category.replace(...) : ''+ to
+  prevent +undefined+ errors.

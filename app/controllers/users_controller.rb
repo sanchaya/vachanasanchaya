@@ -4,11 +4,13 @@ class UsersController < ApplicationController
 
  def index
   @users = User.not_is_admin(current_user)
+  set_meta_tags(title: "ಬಳಕೆದಾರರು - ವಚನ ಸಂಚಯ")
 end
 
 def show
   @user = User.find(params[:id])
   @user_vachanakaaras = @user.user_vachanakaaras
+  set_meta_tags(title: "#{@user.name} - ಬಳಕೆದಾರರ ಪುಟ - ವಚನ ಸಂಚಯ")
 end
 
 

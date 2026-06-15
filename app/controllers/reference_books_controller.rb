@@ -2,6 +2,7 @@ class ReferenceBooksController < ApplicationController
   before_filter :authenticate_user_role! 
   def index 
     @reference_books = ReferenceBook.all
+    set_meta_tags(title: "ಆಧಾರ ಗ್ರಂಥಗಳು - ವಚನ ಸಂಚಯ")
   end
   def new
     @reference_book = ReferenceBook.new

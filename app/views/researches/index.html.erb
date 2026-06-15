@@ -1,3 +1,4 @@
+<h1 style="display:none;">ಪದಪುಂಜಗಳು</h1>
 <%= render "layouts/search_box" %>
 
 <div class="row">
@@ -53,12 +54,9 @@
     (<%= Concord.find_by_concord_code("key_word_#{letter}").count %>)
   </span>
   <% end %>
-  <div class="keyword_used_count"> 
-    <span class="badge badge-primary"> ವಚನದಲ್ಲಿ ಈ <br /> 
-    ಪದವು ಬಳಕೆಯಾಗಿದೆ  </span>
-<br /> <br /> 
-    <span class="badge badge-info">  ವಚನಕಾರರು ಈ <br /> ಪದವನ್ನು 
-    ಬಳಸಿರುತ್ತಾರೆ </span>
+  <div style="margin-top:10px;font-size:12px;text-align:center;line-height:1.8;">
+    <span style="color:#cd5c5c;">ವಚನಗಳು</span>,
+    <span style="color:#4682b4;">ವಚನಕಾರರು</span>
   </div>
   <hr />
 </div>

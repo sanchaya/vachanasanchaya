@@ -1,10 +1,22 @@
 class ApplicationController < ActionController::Base
  include PublicActivity::StoreController
+ include SeoHelper
  protect_from_forgery
  before_filter :set_local_language
+ before_filter :set_default_meta_tags
 
  rescue_from CanCan::AccessDenied do |exception|
   redirect_to root_url, :alert => exception.message
+end
+
+private
+
+def set_default_meta_tags
+  set_meta_tags(
+    title:       SeoHelper::DEFAULT_TITLE,
+    description: SeoHelper::DEFAULT_DESCRIPTION,
+    keywords:    SeoHelper::DEFAULT_KEYWORDS
+  )
 end
 
 def set_local_language

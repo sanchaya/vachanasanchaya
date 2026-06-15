@@ -1,13 +1,12 @@
-<% if @keywords and params[:start_letter] %>
-<!-- <h3> ಪದಪುಂಜಗಳು </h3> -->
+<% if @keywords %>
 <p> <span class="start_letter_header"> 
-  <%= params[:start_letter] %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು </p>
+  <%= params[:start_letter] || "ಅ" %> </span> ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು </p>
 
   <div class="results_list_div keywords_load">
    <%= render "results" %>
  </div>
  <br />
- <%= link_to "#{t :read_more}...", researches_path(params: params, :page => @keywords.next_page), :class => 'load-more-vachanas',:disable_with => "#{t :please_wait}...", :remote => true if @keywords.next_page %>
+  <%= link_to "#{t :read_more}...", researches_path(start_letter: params[:start_letter], page: @keywords.next_page), :class => 'load-more-vachanas', :style => 'color:white;', :disable_with => "#{t :please_wait}...", :remote => true if @keywords.next_page %>
  <% unless @keywords.blank? %>
 
  <div class="click_for_more"> 

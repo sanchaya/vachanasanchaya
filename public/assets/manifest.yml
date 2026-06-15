@@ -1,4 +1,6 @@
 ---
+app-icon-light.png: app-icon-light-7ce485d13fc2f7958712151d9c816386.png
+app-icon-light/index.png: app-icon-light-7ce485d13fc2f7958712151d9c816386.png
 bg-pattern.png: bg-pattern-734fc71e092b94f06a79be8a19f6cbbe.png
 bg-pattern/index.png: bg-pattern-734fc71e092b94f06a79be8a19f6cbbe.png
 clip.png: clip-28e285e8844321b2c6113f64dd58d2d7.png
@@ -35,11 +37,11 @@ twitter1.jpg: twitter1-cd960e893db1c4c334813393ede8d218.jpg
 twitter1/index.jpg: twitter1-cd960e893db1c4c334813393ede8d218.jpg
 vachana_saahitya_wikipedia.png: vachana_saahitya_wikipedia-c0e7a73ff6439dd7d7ac5f5c2467d697.png
 vachana_saahitya_wikipedia/index.png: vachana_saahitya_wikipedia-c0e7a73ff6439dd7d7ac5f5c2467d697.png
-application.js: application-cdddd9190ffe390dfabe7c759afe1c73.js
-application/index.js: application-cdddd9190ffe390dfabe7c759afe1c73.js
+application.js: application-b9ba99cae98065f1f12affbc39a29082.js
+application/index.js: application-b9ba99cae98065f1f12affbc39a29082.js
 rules/README: rules/README
-application.css: application-1b982a4a431e670e3d2323e0999ddc82.css
-application/index.css: application-1b982a4a431e670e3d2323e0999ddc82.css
+application.css: application-dfde3adf42b9c289d320639a79b65dc8.css
+application/index.css: application-dfde3adf42b9c289d320639a79b65dc8.css
 FontAwesome.otf: FontAwesome-385be7f698735c782519d9101553fff5.otf
 FontAwesome/index.otf: FontAwesome-385be7f698735c782519d9101553fff5.otf
 fontawesome-webfont.eot: fontawesome-webfont-35091d02c57f8cf952e196e3ebd37319.eot

@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskannada.css);
-
 body, p, ol, ul, td {
 font-family: 'Noto Sans Kannada', serif !important;
 }
@@ -40,11 +38,11 @@ margin-bottom: 10px;
 }
 
 .graph-space{
-height: 625px;
-overflow-y: auto;
-
-background: none repeat scroll 0 0 #E6E6E6;
-
+height: auto;
+min-height: 250px;
+overflow: visible;
+background: none;
+padding: 10px 0;
 }
 
 .back-button-show {
@@ -77,13 +75,36 @@ cursor:pointer;
 
 
 .load-more-vachanas{
-clear: both;
-float: right;
-color: #0044CC;
+  clear: both;
+  float: right;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-vachanas.loading {
+  opacity: 0.7;
+  color: #ccc;
+}
+
+.load-more-vachanas.loading::after {
+  content: " ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...";
+  font-style: italic;
+}
+
+.loading-indicator {
+  display: inline-block;
+  margin-left: 10px;
+  color: #666;
+  font-style: italic;
 }
 
 .footer{
 margin-top: 20px;
+padding: 15px 0;
+text-align: center;
+font-size: 13px;
+color: #666;
 }
 
 
@@ -145,8 +166,9 @@ overflow: hidden;
 }
 
 .vachanakaara-box{
-overflow: hidden;
-
+  height: 140px;
+  margin: 5px;
+  overflow: hidden;
 }
 
 /*==================================================
@@ -189,6 +211,8 @@ left: auto;
 
 .results_list_div{
 text-align: center;
+width: 100%;
+box-sizing: border-box;
 a:hover{
 text-decoration:none !important;
 color: black !important;
@@ -208,8 +232,17 @@ width: 100px;
 
 
 .vachana-pop{
+padding: 20px;
+font-size: 16px;
+line-height: 1.8;
+background: #fafaf8;
+border: 1px solid #e8e6e3;
+border-radius: 4px;
 p{
 background: url("/assets/bg-pattern.png") repeat scroll 0 0 transparent;
+padding: 15px;
+margin: 0;
+line-height: 1.8;
 }
 }
 
@@ -226,16 +259,29 @@ padding: 10px;
 
 
 .aksharamaale{
-border: 2px solid #F2F1F0;
-padding: 10px;
+border: 2px solid #ddd;
+padding: 8px 10px 4px;
+margin-bottom: 10px;
+border-radius: 4px;
+}
+.aksharamaale p{
+margin: 0 0 6px;
+font-weight: bold;
 }
 
 .navbar-inner{
-a{
-sub{
-font-size: 50%;
-}
-}
+  a{
+    sub{
+      font-size: 50%;
+    }
+  }
+
+  .brand-logo {
+    height: 24px;
+    width: auto;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
 }
 
 .vachana-wiki-info{
@@ -499,7 +545,18 @@ margin: 0 0 10px;
 
 .locale-button {
 	
-}   
+}
+
+.keyword-results-container {
+  line-height: 2.2;
+}
+.keyword-item {
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.keyword-item a {
+  font-size: 14px;
+}
 
 .google-add-box {
 	padding: 3px;

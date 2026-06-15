@@ -12,6 +12,7 @@ class ReviewVachanasController < ApplicationController
    else
     list_vachanakaara_vachanas
   end
+  set_meta_tags(title: "ವಚನ ಪರಿಶೀಲನಾ ಪುಟ - ವಚನ ಸಂಚಯ")
 end
 
 def new
@@ -25,6 +26,7 @@ def new
     @review_vachana = ReviewVachana.new()
   end
   list_vachanakaara_vachanas
+  set_meta_tags(title: "ಹೊಸ ವಚನ ಪರಿಶೀಲನೆ - ವಚನ ಸಂಚಯ")
 
 end
 
@@ -60,6 +62,7 @@ def edit
   end
   list_vachanakaara_vachanas
   @comments = @review_vachana.review_comments
+  set_meta_tags(title: "ವಚನ ಪರಿಶೀಲನೆ ಸಂಪಾದನೆ - ವಚನ ಸಂಚಯ")
 end
 
 def update
@@ -80,6 +83,7 @@ end
 
 def reviewed_vachanas
   @reviewed_vachanas = ReviewVachana.where(reviewer_id: current_user.id)
+  set_meta_tags(title: "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು - ವಚನ ಸಂಚಯ")
 end
 
 

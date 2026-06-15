@@ -1,0 +1,54 @@
+<h1><%= @keyword.word %> - ಪದಪುಂಜ</h1>
+
+<div class="keyword-stats">
+  <p>
+    <strong><%= @keyword.word %></strong> ಪದವು <strong><%= @keyword.vachana_ids.count %></strong> ವಚನಗಳಲ್ಲಿ 
+    <strong><%= @vachanakaaras.count %></strong> ವಚನಕಾರರಿಂದ ಬಳಕೆಯಾಗಿದೆ.
+  </p>
+</div>
+
+<!-- JSON-LD structured data for this keyword -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": <%= @keyword.word.to_json %>,
+  "description": <%= "#{@keyword.word} ಪದವು ವಚನ ಸಾಹಿತ್ಯದಲ್ಲಿ ಬಳಕೆಯಾಗುವ ಪದ".to_json %>,
+  "inDefinedTermSet": {
+    "@type": "DefinedTermSet",
+    "name": "ವಚನ ಸಂಚಯ ಪದಪುಂಜ",
+    "url": "<%= researches_url %>"
+  }
+}
+</script>
+
+<h2>ಈ ಪದವನ್ನು ಬಳಸಿದ ವಚನಕಾರರು</h2>
+<div class="vachanakaara-list">
+  <% @vachanakaaras.each do |vachanakaara| %>
+    <div class="vachanakaara-item">
+      <%= link_to vachanakaara.name, vachanakaara_path(vachanakaara) %>
+    </div>
+  <% end %>
+</div>
+
+<h2>ಈ ಪದವಿರುವ ವಚನಗಳು</h2>
+<div class="vachana-list-container">
+  <% @vachanas.each do |vachana| %>
+    <div class="vachana-item">
+      <h3 class="vachana-title">
+        <%= link_to "#{vachana.vachanakaara.name} - ವಚನ #{vachana.vachanaid}", vachana_path(vachana) %>
+      </h3>
+      <div class="vachana-content">
+        <p><%= vachana.vachana.truncate(200, separator: ' ') %></p>
+      </div>
+      <div class="vachana-meta">
+        <span>ಕ್ರ.ಸಂ: <%= vachana.vachanaid %></span>
+        <%= link_to "ವಚನ ವೀಕ್ಷಿಸಿ →", vachana_path(vachana), class: "read-more-link" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="back-link">
+  <%= link_to "← ಎಲ್ಲಾ ಪದಪುಂಜಗಳಿಗೆ ಹಿಂದಿರುಗಿ", researches_path %>
+</div>

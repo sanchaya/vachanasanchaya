@@ -1,16 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= I18n.locale == :en ? 'en' : 'kn' %>">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ವಚನ ಸಂಚಯ - ವಚನ ಸಾಹಿತ್ಯ ಸಂಶೋಧನೆ ಮತ್ತು ಅಧ್ಯಯನ ತಾಣ   (beta v0.3.1)  </title>
-<!--  <link rel="shortcut icon" href="http://faviconist.com/icons/2ad5b81347f42aea629115aefbf8e4f2/favicon.ico" /> -->
+  <title><%= page_title %></title>
+  <meta name="description" content="<%= page_description %>" />
+  <meta name="keywords" content="<%= page_keywords %>" />
+  <link rel="canonical" href="<%= page_canonical %>" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <!-- Google Search Console Verification (replace content with your code) -->
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" /> -->
+
+  <!-- Hreflang for bilingual support -->
+  <link rel="alternate" hreflang="kn" href="<%= hreflang_url('kn') %>" />
+  <link rel="alternate" hreflang="en" href="<%= hreflang_url('en') %>" />
+  <link rel="alternate" hreflang="x-default" href="<%= hreflang_url('kn') %>" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskannada.css">
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= page_og[:title] %>" />
+  <meta property="og:description" content="<%= page_og[:description] %>" />
+  <meta property="og:url" content="<%= page_og[:url] %>" />
+  <meta property="og:site_name" content="<%= page_og[:site_name] %>" />
+  <meta property="og:locale" content="<%= page_og[:locale] %>" />
+  <meta property="og:type" content="<%= page_og[:type] %>" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="<%= page_twitter[:card] %>" />
+  <meta name="twitter:title" content="<%= page_twitter[:title] %>" />
+  <meta name="twitter:description" content="<%= page_twitter[:description] %>" />
+  <meta name="twitter:site" content="<%= page_twitter[:site] %>" />
+
+  <!-- JSON-LD Website Structured Data with SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "<%= SeoHelper::SITE_NAME %>",
+    "url": "<%= SeoHelper::SITE_URL %>",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "<%= SeoHelper::SITE_URL %>/vachanas?vachana={search_term_string}&search_type=exact_search"
+      },
+      "query-input": "required name=search_term_string"
+    },
+    "inLanguage": ["kn", "en"]
+  }
+  </script>
+
+  <!-- JSON-LD BreadcrumbList Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": <%= page_title.split(' - ').first.to_json %>,
+        "item": "<%= page_canonical %>"
+      }
+      <% if params[:controller] != 'home' %>
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "<%= page_title.split(' - ').first %>",
+        "item": "<%= page_canonical %>"
+      }
+      <% end %>
+    ]
+  }
+  </script>
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= analytics_init if Rails.env.production? %>
-  <!-- <script src="https://hypothes.is/embed.js" async></script>  -->
+  <script src="https://hypothes.is/embed.js" async></script>
+<!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VME3PFV3ZW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VME3PFV3ZW');
+</script>
 </head>
 <body>
 	<% flash.each do |name, msg| %>
@@ -23,10 +103,14 @@
   <% end %>
 
   <%= render 'layouts/nav_bar' %>
+  <%= render 'layouts/breadcrumb' %>
   <div class="container">
     <%= yield %>
+	<center><form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-payment_button_id="pl_FTB1pZqrFP6jrt"> </script> </form>
+	</center>
   </div>
  <%#= render "layouts/google_add" %>
+
 
   <%= render 'layouts/footer' %>
 </body>

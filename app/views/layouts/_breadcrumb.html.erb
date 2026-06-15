@@ -1,0 +1,42 @@
+<div class="breadcrumb-container" style="padding:6px 15px;margin-bottom:10px;">
+  <ul class="breadcrumb">
+    <li>
+      <a href="<%= root_path %>">ಮುಖಪುಟ</a>
+      <% if params[:controller] != 'home' || params[:action] != 'index' %>
+        <span class="divider">/</span>
+      <% end %>
+    </li>
+    <% if params[:controller] == 'vachanas' && params[:action] == 'index' %>
+      <li class="active">ವಚನ ಹುಡುಕಾಟ</li>
+    <% elsif params[:controller] == 'vachanas' && params[:action] == 'show' %>
+      <li><a href="<%= vachana_concord_vachanas_path %>">ವಚನಗಳು</a> <span class="divider">/</span></li>
+      <li class="active">ವಚನ ವೀಕ್ಷಣೆ</li>
+    <% elsif params[:controller] == 'vachanas' && params[:action] == 'vachana_concord' %>
+      <li class="active">ಅಕ್ಷರಾನುಕ್ರಮ ವಚನಗಳು</li>
+    <% elsif params[:controller] == 'vachanas' && params[:action] == 'search_vachana' %>
+      <li class="active">ಪೂರ್ಣಪಠ್ಯ ಹುಡುಕಾಟ</li>
+    <% elsif params[:controller] == 'vachanas' && params[:action] == 'search_vachana_number' %>
+      <li class="active">ವಚನ ಸಂಖ್ಯೆ ಹುಡುಕಾಟ</li>
+    <% elsif params[:controller] == 'vachanakaaras' && params[:action] == 'index' %>
+      <li class="active">ವಚನಕಾರರು</li>
+    <% elsif params[:controller] == 'vachanakaaras' && params[:action] == 'show' %>
+      <li><a href="<%= vachanakaaras_path %>">ವಚನಕಾರರು</a> <span class="divider">/</span></li>
+      <li class="active"><%= @vachanakaara.name if defined?(@vachanakaara) %></li>
+    <% elsif params[:controller] == 'vachanakaaras' && params[:action] == 'search_vachanakaara_name' %>
+      <li><a href="<%= vachanakaaras_path %>">ವಚನಕಾರರು</a> <span class="divider">/</span></li>
+      <li class="active">ಹುಡುಕಾಟ</li>
+    <% elsif params[:controller] == 'researches' %>
+      <li class="active">ಸಂಶೋಧನೆ</li>
+    <% elsif params[:controller] == 'glossaries' %>
+      <li class="active">ಪದಕೋಶ</li>
+    <% elsif params[:controller] == 'home' && params[:action] == 'about_us' %>
+      <li class="active">ನಮ್ಮ ಬಗ್ಗೆ</li>
+    <% elsif params[:controller] == 'home' && params[:action] == 'contact_us' %>
+      <li class="active">ಸಂಪರ್ಕಿಸಿ</li>
+    <% elsif params[:controller] == 'home' && params[:action] == 'help' %>
+      <li class="active">ಸಹಾಯ</li>
+    <% elsif params[:controller] == 'home' && params[:action] == 'admin_panel' %>
+      <li class="active">ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು</li>
+    <% end %>
+  </ul>
+</div>

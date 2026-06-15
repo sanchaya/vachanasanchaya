@@ -66,5 +66,6 @@ config.cache_store = :dalli_store
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   config.action_mailer.default_url_options = { :host => 'vachana.sanchaya.net' }
-  GA.tracker = "UA-3727897-19"
+  #GA.tracker = "UA-3727897-19"
+  GA.tracker = "G-VME3PFV3ZW"
 end

@@ -1,0 +1,39 @@
+<div style="max-width:800px;margin:0 auto;padding:20px;">
+  <h2 style="font-size:22px;color:#333;margin-bottom:20px;">ಪುಟವನ್ನು ಸಂಪಾದಿಸಿ: <%= @page.title %> (<%= @page.locale %>)</h2>
+  
+  <%= form_for @page, url: update_static_page_path(@page), method: :put, html: { class: "form-horizontal" } do |f| %>
+    <div class="control-group">
+      <%= f.label :title, "ಶೀರ್ಷಿಕೆ", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :title, class: "span6" %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :slug, "ಸ್ಲಗ್ (URL-иನಂತಹ ಸತ್ಯವಾದ ಪಟ слав, ಬದಲಾಯಿಸಬೇಡಿ)", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :slug, class: "span6", readonly: true %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :locale, "ಭಾಷೆ", class: "control-label" %>
+      <div class="controls">
+        <%= f.select :locale, [['ಕನ್ನಡ', 'kn'], ['English', 'en']], {}, class: "span2" %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :body, "ವಿಷಯ (HTML ಅನುಮತಿಸಲಾಗಿದೆ)", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_area :body, class: "span8", rows: 30, style: "font-family:monospace;font-size:13px;" %>
+        <p class="help-block">HTML ಟ್ಯಾಗ್ಗಳು ಬಳಸಬಹುದು. ಉದಾಹರಣೆ: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;a&gt;, &lt;strong&gt;, &lt;em&gt;</p>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <%= f.submit "ಉಳಿಸು", class: "btn btn-primary" %>
+      <%= link_to "ರದ್ದುಮಾಡಿ", admin_panel_path, class: "btn" %>
+    </div>
+  <% end %>
+</div>

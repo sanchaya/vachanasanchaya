@@ -1,4 +1,11 @@
 module ApplicationHelper
+	def vachana_letter_counts
+		@vachana_letter_counts ||= Concord.where("concord_code LIKE ?", "vachana_%").each_with_object({}) do |c, h|
+			letter = c.concord_code.sub("vachana_", "")
+			h[letter] = c.count
+		end
+	end
+
 	def vowels
 		["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]
 	end

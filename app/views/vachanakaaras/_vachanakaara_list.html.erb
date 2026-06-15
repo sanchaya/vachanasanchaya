@@ -3,7 +3,30 @@
 <div class="praramba_para"> 
   <p> <span class="start_letter_header"> 
     <%= params[:start_letter] %> </span> ಪ್ರಾರಂಭ ಪದದ ಹೆಸರಿರುವ ವಚನಕಾರರು </p>
-  </div>
+</div>
+ 
+ 
+  <div class="results_list_div">
+    <% @vachanakaaras.each do |vachanakaara| %>
+
+    <%= link_to vachanakaara_path(vachanakaara) do %>
+      <% cache ["vachanakaara_list_box", vachanakaara, vachanakaara.updated_at] do %>
+        <div class="box effect5 vachanakaara-box" style="background:#FFFFFF;float:left;height:200px;margin:0 10px 10px 0;width:150px;border:1px solid #ccc;border-bottom:2px solid #bbb;border-top:1px solid #ddd;border-radius:10px;overflow:hidden;box-shadow:0 35px 20px #777;position:relative;">
+          <h5 style="text-align:center;overflow:hidden;margin:5px;"> 
+            <%=  vachanakaara.name %> </h5>
+            <div class="vachanakaara-parichaya" style="height:140px;margin:5px;overflow:hidden;"> 
+             <% if vachanakaara.information and !vachanakaara.information.blank?  %>
+             <span> <%= vachanakaara.information %> </span> <br /> 
+             <% else %>
+             <span> ----- </span> <br /> 
+             <% end %>
+            </div>
+        </div>
+      <% end %>
+    <% end %>
+
+<% end %>
+</div>
   
 
 
@@ -11,39 +34,18 @@
     <% @vachanakaaras.each do |vachanakaara| %>
 
     <a href="#myModal_<%= vachanakaara.id %>" role="button"  data-toggle="modal" >
-      <div class="box effect5 vachanakaara-box">
-        <h5> 
-         <%=  vachanakaara.name %> </h5>
-         <div class="vachanakaara-parichaya"> 
-          <% if vachanakaara.information and !vachanakaara.information.blank?  %>
-          <span> <%= vachanakaara.information %> </span> <br /> 
-          <% else %>
-          <span> ----- </span> <br /> 
-          <% end %>
-          <%
-=begin %> 
-          <% if vachanakaara.ankitha_naama   %>
-          <span> ಅಂಕಿತ ನಾಮ: </span> <br /> 
-          <span> <%= vachanakaara.ankitha_naama %> </span>
-          <br /> <br />
-          <% end %>
-          <% if vachanakaara.time_period   %>
-          <span> ಕಾಲ: </span> <br />
-          <span> <%= vachanakaara.time_period %> </span>
-          <br /> <br />
-          <% end %>
-          <% if vachanakaara.vachana_found   %>
-          <span> ದೊರಕಿರುವ ವಚನ: </span> <br /> 
-          <span> <%= vachanakaara.vachana_found %> </span>
-          <% end %>
-<% 
-=end %>
-</div>
-</div>
-
-
-
-</a>
+      <div class="box effect5 vachanakaara-box" style="height:200px;overflow:hidden;">
+        <h5 style="text-align:center;overflow:hidden;margin:5px;"> 
+          <%=  vachanakaara.name %> </h5>
+          <div class="vachanakaara-parichaya" style="height:140px;margin:5px;overflow:hidden;"> 
+           <% if vachanakaara.information and !vachanakaara.information.blank?  %>
+           <span> <%= vachanakaara.information %> </span> <br /> 
+           <% else %>
+           <span> ----- </span> <br /> 
+           <% end %>
+          </div>
+      </div>
+    </a>
 
 
 <div id="myModal_<%= vachanakaara.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: left;">

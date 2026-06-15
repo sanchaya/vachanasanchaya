@@ -3,7 +3,23 @@
 
 
 
-<h1><%= @vachana.vachanakaara.name %></h1>
+<h1><%= @vachana.vachanakaara.name %> - ವಚನ <%= @vachana.vachanaid %></h1>
+
+<!-- JSON-LD structured data for this vachana -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": <%= "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid}".to_json %>,
+  "author": {
+    "@type": "Person",
+    "name": <%= @vachana.vachanakaara.name.to_json %>
+  },
+  "description": <%= @vachana.vachana.to_s.truncate(200, separator: ' ').to_json %>,
+  "inLanguage": "kn",
+  "url": "<%= vachana_url(@vachana) %>"
+}
+</script>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -27,5 +43,4 @@
 <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
 <% end %>
 <!-- <%#= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> | -->
-<%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %> 
-<%= link_to 'Delete', @vachana, method: :delete, :class => 'btn btn-primary' %>
+<%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %>
