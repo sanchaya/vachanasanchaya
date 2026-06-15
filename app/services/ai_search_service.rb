@@ -6,14 +6,14 @@ class AiSearchService
   API_URL = "https://api.openai.com/v1/chat/completions"
   MODEL = "gpt-4o-mini"
 
-  def initialize(query)
+  def initialize(query, api_key = nil)
     @query = query.to_s.strip
-    @api_key = ENV['OPENAI_API_KEY']
+    @api_key = api_key.presence || ENV['OPENAI_API_KEY']
   end
 
   def call
     return { error: "Search query cannot be blank." } if @query.blank?
-    return { error: "OPENAI_API_KEY not set. Please configure it in the server environment." } if @api_key.blank?
+    return { error: "Enter your OpenAI API key in the field above to use AI search." } if @api_key.blank?
 
     context = fetch_relevant_vachanas
     return { error: "No vachanas found for your query." } if context[:vachanas].blank?
