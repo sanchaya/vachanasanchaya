@@ -3,7 +3,7 @@ class VachanasController < ApplicationController
   # GET /vachanas.json
   #check if logged_in user is Admin
   before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
-  # caches_action :index, :cache_path => Proc.new { |c| c.params }
+  caches_action :index, :cache_path => Proc.new { |c| c.params }, :expires_in => 30.minutes
 
   def index
     @word_lists = WordList.all
@@ -20,9 +20,9 @@ class VachanasController < ApplicationController
         "ಟ", "ಠ", "ಡ", "ಢ", "ಣ", "ತ", "ಥ", "ದ", "ಧ", "ನ",
         "ಪ", "ಫ", "ಬ", "ಭ", "ಮ", "ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
       @search_letter_counts = Hash.new(0)
-      vachana_texts = @vachanas.pluck(:vachana)
-      search_letters.each do |letter|
-        @search_letter_counts[letter] = vachana_texts.count { |v| v && v.starts_with?(letter) }
+      @vachanas.pluck(:vachana).compact.each do |v|
+        first = v[0]
+        @search_letter_counts[first] += 1 if first
       end
 
       # Calculate keyword occurrence count per vachana from KeyWord records

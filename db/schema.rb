@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20200322101431) do
+ActiveRecord::Schema.define(:version => 20260615000000) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -128,6 +128,17 @@ ActiveRecord::Schema.define(:version => 20200322101431) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "static_pages", :force => true do |t|
+    t.string   "slug"
+    t.string   "title"
+    t.text     "body"
+    t.string   "locale"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "static_pages", ["slug", "locale"], :name => "index_static_pages_on_slug_and_locale", :unique => true
+
   create_table "user_vachanakaaras", :force => true do |t|
     t.integer  "vachanakaara_id"
     t.integer  "user_id"
@@ -192,6 +203,7 @@ ActiveRecord::Schema.define(:version => 20200322101431) do
     t.text     "meaning"
   end
 
+  add_index "vachanas", ["vachana"], :name => "index_vachanas_on_vachana", :length => {"vachana"=>255}
   add_index "vachanas", ["vachanaid"], :name => "index_vachanas_on_vachanaid"
   add_index "vachanas", ["vachanakaara_id"], :name => "index_vachanas_on_vachanakaara_id"
 
