@@ -214,11 +214,16 @@ def download_vachana_csv
 end
 
 def ai_search
+  if params[:api_key].present?
+    session[:openai_api_key] = params[:api_key]
+  end
   if params[:q].present?
-    service = AiSearchService.new(params[:q])
+    api_key = params[:api_key].presence || session[:openai_api_key]
+    service = AiSearchService.new(params[:q], api_key)
     @result = service.call
     @query = params[:q]
   end
+  @stored_key = session[:openai_api_key]
   set_meta_tags(
     title:       "AI ವಚನ ಸಂಶೋಧನೆ - ವಚನ ಸಂಚಯ",
     description: "AI-ಚಾಲಿತ ವಚನ ಸಂಶೋಧನಾ ಸಾಧನ. ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ.",

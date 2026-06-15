@@ -6,7 +6,15 @@
       <h2 style="border-bottom:2px solid #eee;padding-bottom:10px;">AI ವಚನ ಸಂಶೋಧನೆ</h2>
       <p style="color:#666;font-size:14px;">ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ. AI ನಿಮಗೆ ಸಂಶೋಧನಾ ಸಹಾಯವನ್ನು ಒದಗಿಸುತ್ತದೆ.</p>
 
+      <details style="margin-bottom:10px;font-size:13px;color:#666;">
+        <summary style="cursor:pointer;">OpenAI API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ (ಅಗತ್ಯವಿದೆ)</summary>
+        <p style="margin:8px 0;">ನಿಮ್ಮ OpenAI API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ. ಇದು ನಿಮ್ಮ ಸೆಶನ್ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತದೆ ಮತ್ತು ಸರ್ವರ್ನಲ್ಲಿ ಶೇಖರವಾಗುವುದಿಲ್ಲ. <a href="https://platform.openai.com/api-keys" target="_blank">ಇಲ್ಲಿ ಕೀಲಿ ಪಡೆಯಿರಿ</a>.</p>
+      </details>
+
       <%= form_tag ai_search_vachanas_path, method: :get, style: "margin:20px 0;" do %>
+        <div style="margin-bottom:10px;">
+          <%= password_field_tag :api_key, nil, placeholder: @stored_key ? "•••••••••••• (ಕೀಲಿ ಈಗಾಗಲೇ ನಮೂದಿಸಲಾಗಿದೆ)" : "sk-... ನಿಮ್ಮ OpenAI API ಕೀಲಿ", style: "width:100%;height:36px;font-size:14px;padding:0 10px;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;", id: "api-key-input" %>
+        </div>
         <div class="input-append" style="display:flex;gap:8px;width:100%;">
           <%= text_field_tag :q, @query, placeholder: "ನಿಮ್ಮ ಸಂಶೋಧನಾ ಪ್ರಶ್ನೆಯನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ...", style: "flex:1;height:40px;font-size:16px;padding:0 12px;border-radius:4px;border:1px solid #ccc;", id: "ai-search-input" %>
           <%= submit_tag "ಸಂಶೋಧಿಸಿ", class: "btn btn-primary", style: "height:42px;font-size:16px;", data: { disable_with: "ಸಂಶೋಧಿಸುತ್ತಿದೆ..." } %>
