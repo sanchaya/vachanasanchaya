@@ -88,6 +88,8 @@ add_url.call("#{SITE_URL}/vachanakaaras", TODAY, 'weekly', '0.9')
 add_url.call("#{SITE_URL}/vachanas/vachana_concord", TODAY, 'weekly', '0.9')
 add_url.call("#{SITE_URL}/researches", TODAY, 'weekly', '0.8')
 add_url.call("#{SITE_URL}/glossaries", TODAY, 'weekly', '0.8')
+add_url.call("#{SITE_URL}/books", TODAY, 'weekly', '0.7')
+add_url.call("#{SITE_URL}/vachanas/ai_search", TODAY, 'weekly', '0.6')
 
 # Alphabet navigation pages
 ALL_LETTERS.each do |letter|
@@ -138,4 +140,4 @@ puts "Generated sitemap-index.xml with #{batches.count} sitemap files"
 
 client.close
 
-puts "Sitemap generation complete: #{batches.sum(:urls).count} total URLs across #{batches.count} sitemap files"
+puts "Sitemap generation complete: #{urls.count} total URLs across #{batches.count} sitemap files"

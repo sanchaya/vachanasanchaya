@@ -10,6 +10,8 @@ class SitemapController < ApplicationController
     @urls << { loc: contact_us_url, lastmod: Date.today, changefreq: 'monthly', priority: '0.7' }
     @urls << { loc: help_url, lastmod: Date.today, changefreq: 'monthly', priority: '0.7' }
     @urls << { loc: about_us_url(locale: 'en'), lastmod: Date.today, changefreq: 'monthly', priority: '0.6' }
+    @urls << { loc: books_url, lastmod: Date.today, changefreq: 'weekly', priority: '0.7' }
+    @urls << { loc: "#{root_url}vachanas/ai_search", lastmod: Date.today, changefreq: 'weekly', priority: '0.6' }
 
     # Vachanakaara index pages (alphabet navigation)
     all_letters = vowels + velars + palatals + retroflex + dentals + labials + unstructured_consonants
