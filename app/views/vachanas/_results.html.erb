@@ -41,6 +41,7 @@
               <i class="fa fa-volume-up"></i>
             </button>
           <%= render "vachanas/bookmark_btn", vachana: vachana %>
+          <%= render "vachanas/cite_btn", vachana: vachana %>
             <button class="btn d_clip_button" data-clipboard-target="fe_text_<%= vachana.id %>" data-clipboard-text="Default clipboard text from attribute" id="d_clip_button" title="Click me to copy to clipboard.">
           <i class="fa fa-files-o fa-1x"></i>
         </button>

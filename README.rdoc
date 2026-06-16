@@ -395,7 +395,29 @@ Implementation:
 - +app/views/vachanas/_saved_list.html.erb+ — vachana boxes with modals
 - Added to all 8 modal views, show page, saved page, and nav bar
 
-== Related Vachanas Feature (June 2026)
+== Research Citations (June 2026)
+
+Added citation tools for academic researchers: MLA, APA, Chicago, and BibTeX export.
+
+Features:
+- **Cite button** (+<i class="fa fa-quote-right">+) in every vachana modal and show page
+- Dedicated citation page at +/vachanas/:id/cite+ showing all four formats
+- **MLA** — Author. "Title." *Site Name*, date, URL
+- **APA** — Author (year). Title. *Site Name*. URL
+- **Chicago** — Author. "Title." *Site Name*. Accessed date. URL.
+- **BibTeX** — Standard +@misc+ format, downloadable as +.bib+ file or plain text
+- **BibTeX export** on search results page — downloads current page results as a +.bib+ file
+- Permanent citation URL uses hashed IDs (e.g., +/vachanas/123-abc1def2/cite+)
+
+Implementation:
+- +app/helpers/citations_helper.rb+ — +citation_mla()+, +citation_apa()+, +citation_chicago()+,
+  +citation_bibtex()+ methods
+- +app/controllers/vachanas_controller.rb#cite+ — renders citation page (+text+ format for BibTeX download)
+- +app/controllers/vachanas_controller.rb#export_bibtex+ — accepts +ids[]+ param, sends +.bib+ file
+- +app/views/vachanas/cite.html.erb+ — displays all four citation formats with download + print
+- +app/views/vachanas/_cite_btn.html.erb+ — reusable quote-icon button partial
+- Routes: +GET /vachanas/:id/cite+, +GET /vachanas/export_bibtex+
+- Added to all 8 modal views, show page, and nav bar
 
 Added "ಸಂಬಂಧಿತ ವಚನಗಳು" (Related Vachanas) to help researchers discover thematic
 connections algorithmically.

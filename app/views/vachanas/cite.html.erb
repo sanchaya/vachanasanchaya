@@ -1,0 +1,42 @@
+<h1><%= @vachana.vachanakaara.name %> - ವಚನ <%= @vachana.vachanaid %> — ಉಲ್ಲೇಖ</h1>
+
+<div style="max-width:700px;margin:20px auto;">
+  <div style="margin-bottom:10px;">
+    <strong>ವಚನ:</strong>
+    <p style="font-size:15px;line-height:1.7;color:#444;padding:10px;background:#fafaf8;border:1px solid #e8e6e3;border-radius:4px;">
+      <%= raw @vachana.vachana.gsub(/\n/, '<br />') %>
+    </p>
+  </div>
+
+  <hr>
+
+  <h3 style="font-size:18px;color:#333;">Citation / ಉಲ್ಲೇಖ ಶೈಲಿಗಳು</h3>
+
+  <div style="margin-top:15px;">
+    <div class="citation-format" style="margin-bottom:15px;padding:12px;background:#f9f9f9;border-left:3px solid #0066cc;border-radius:3px;">
+      <strong style="color:#0066cc;">MLA</strong>
+      <p style="margin:5px 0 0;font-size:13px;line-height:1.5;color:#444;word-break:break-all;"><%= citation_mla(@vachana) %></p>
+    </div>
+
+    <div class="citation-format" style="margin-bottom:15px;padding:12px;background:#f9f9f9;border-left:3px solid #27ae60;border-radius:3px;">
+      <strong style="color:#27ae60;">APA</strong>
+      <p style="margin:5px 0 0;font-size:13px;line-height:1.5;color:#444;word-break:break-all;"><%= citation_apa(@vachana) %></p>
+    </div>
+
+    <div class="citation-format" style="margin-bottom:15px;padding:12px;background:#f9f9f9;border-left:3px solid #e67e22;border-radius:3px;">
+      <strong style="color:#e67e22;">Chicago</strong>
+      <p style="margin:5px 0 0;font-size:13px;line-height:1.5;color:#444;word-break:break-all;"><%= citation_chicago(@vachana) %></p>
+    </div>
+
+    <div class="citation-format" style="margin-bottom:15px;padding:12px;background:#f9f9f9;border-left:3px solid #8e44ad;border-radius:3px;">
+      <strong style="color:#8e44ad;">BibTeX</strong>
+      <pre style="margin:5px 0 0;font-size:12px;line-height:1.4;color:#444;white-space:pre-wrap;word-break:break-all;background:#fff;padding:8px;border:1px solid #ddd;border-radius:3px;"><%= citation_bibtex(@vachana) %></pre>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;text-align:center;">
+    <%= link_to "BibTeX ಡೌನ್ಲೋಡ್ ಮಾಡಿ", cite_vachana_path(@vachana, format: :text), class: "btn btn-primary", style: "margin-right:8px;" %>
+    <button class="btn" onclick="window.print()">ಮುದ್ರಿಸಿ</button>
+    <%= link_to "← ವಚನ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ", vachana_path(@vachana), style: "margin-left:15px;" %>
+  </div>
+</div>

@@ -57,6 +57,7 @@
   <i class="fa fa-volume-up"></i> ಆಲಿಸಿ
 </button>
 <%= render 'vachanas/bookmark_btn', vachana: @vachana %>
+<%= render 'vachanas/cite_btn', vachana: @vachana %>
 <%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %>
 
 <%= render 'user_feedbacks/form', feedbackable_id: @vachana.id, feedbackable_type: 'Vachana' %>
