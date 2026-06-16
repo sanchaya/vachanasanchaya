@@ -15,6 +15,22 @@ class Vachana < ActiveRecord::Base
     vachanakaara&.reference_book_id
   end
 
+  def related_vachanas(limit = 10)
+    keyword_ids = KeywordVachana.where(vachana_id: id).pluck(:key_word_id)
+    return Vachana.none if keyword_ids.empty?
+
+    related_ids = KeywordVachana
+      .where(key_word_id: keyword_ids)
+      .where("vachana_id != ?", id)
+      .group(:vachana_id)
+      .order("count_all DESC")
+      .limit(limit)
+      .count
+      .keys
+
+    Vachana.where(id: related_ids).includes(:vachanakaara)
+  end
+
 
   def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )

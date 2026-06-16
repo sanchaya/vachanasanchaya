@@ -88,6 +88,12 @@ end
       keywords:    "#{@vachana.vachanakaara.name}, ವಚನ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ"
     )
 
+    begin
+      @related_vachanas = @vachana.related_vachanas(10)
+    rescue
+      @related_vachanas = Vachana.none
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @vachana }
