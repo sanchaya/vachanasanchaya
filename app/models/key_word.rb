@@ -71,7 +71,7 @@ def vachanakaara_id_list
 end
 
 def vachana_id_count_hash
-  Hash[keyword_vachanas.pluck(:vachana_id, :count)]
+  {}.tap { |h| keyword_vachanas.select("vachana_id, count").each { |kv| h[kv.vachana_id] = kv.count } }
 end
 
 
