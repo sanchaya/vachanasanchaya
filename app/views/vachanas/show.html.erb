@@ -53,4 +53,7 @@
 <i class="fa fa-pencil-square-o" aria-hidden="true" title="ಪರಿಶೀಲಿಸಲಾಗಿದೆ"></i>
 <% end %>
 <!-- <%#= link_to 'Edit', edit_vachana_path(@vachana), :class => 'btn btn-primary'  %> | -->
+<button class="btn btn-primary" onclick="speakVachanaText('<%= j @vachana.vachana.gsub(/<[^>]*>/, '') %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
+  <i class="fa fa-volume-up"></i> ಆಲಿಸಿ
+</button>
 <%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %>
