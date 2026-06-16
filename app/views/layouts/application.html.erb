@@ -74,7 +74,7 @@
       ,{
         "@type": "ListItem",
         "position": 2,
-        "name": <%= page_title.split(' - ').first.to_json %>,
+        "name": <%= raw page_title.split(' - ').first.to_json %>,
         "item": "<%= page_canonical %>"
       }
       <% end %>
