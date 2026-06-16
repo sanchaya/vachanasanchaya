@@ -147,12 +147,56 @@ rake sunspot:solr:reindex
     vachanakaara_ids (N+1).
     After: In-memory hash cache avoids repeated lookups.
 
+=== Serialized columns migrated to join tables (June 2026) ===
+
+Replaced three serialized TEXT columns with normalized join tables:
+
+  +key_words.vachana_ids+ (Hash) → +keyword_vachanas+ table with (key_word_id, vachana_id, count)
+  +key_words.vachanakaara_ids+ (Array) → +keyword_vachanakaaras+ table with (key_word_id, vachanakaara_id)
+  +concords.ids+ (Array) → +concord_items+ table with (concord_id, item_id)
+
+Migration results: 614,293 keyword_vachanas rows, 373,544 keyword_vachanakaaras rows,
+146,253 concord_items rows migrated from existing serialized YAML data.
+
+Changes made:
+- +db/migrate/20260616000001_create_join_tables.rb+ — created three join tables with
+  unique composite indexes and foreign key indexes.
+- +app/models/keyword_vachana.rb+, +keyword_vachanakaara.rb+, +concord_item.rb+ —
+  new ActiveRecord models.
+- +app/models/key_word.rb+ — added +has_many+ associations (+keyword_vachanas+,
+  +keyword_vachanakaaras+, +linked_vachanas+, +linked_vachanakaaras+). Added helper
+  methods (+all_vachana_ids+, +vachanakaara_id_list+, +vachana_id_count_hash+,
+  +vachana_count_for+). Refactored +self.vachanas+ class method and
+  +self.vachanakaara_keyword+ to use join tables.
+- +app/models/concord.rb+ — added +has_many :concord_items+ and +item_id_list+ helper.
+- +app/controllers/researches_controller.rb+ — uses +all_vachana_ids+ and
+  +keyword_vachanas.count+ instead of +vachana_ids.keys+ and +vachana_ids.count+.
+- +app/controllers/vachanas_controller.rb+ — uses +vachana_id_count_hash+ instead of
+  +vachana_ids.each+.
+- +app/services/ai_search_service.rb+ — uses +all_vachana_ids+ instead of +vachana_ids.keys+.
+- +app/views/researches/show.html.erb+ and +_results.html.erb+ — use association counts
+  instead of serialized column methods.
+- +lib/tasks/keywords.rake+ — all three concordance tasks and the keyword count task now
+  write to join tables directly. The +update_keyword_count_in_vachana_priority_1+ task
+  uses +keyword_vachanas.create!+ and +keyword_vachanakaaras.create!+ instead of
+  manipulating serialized hashes/arrays.
+- +lib/tasks/import.rake+ — added +migrate_keyword_join_tables+, +migrate_concord_join_table+,
+  and +migrate_all_serialized_data+ rake tasks for future data migrations.
+
+Benefits:
+- No YAML deserialization overhead on every read (was parsing TEXT → Hash/Array in Ruby)
+- Proper indexing on foreign keys — fast JOINs instead of full-table scans
+- Type safety — integers stored as integers, not YAML strings
+- Queryable via SQL — can find all keywords for a vachana without scanning every row
+- Eliminates duplicate entries (vachanakaara_ids had duplicates from naive << append)
+- The +concord.ids+ column was never read by application code — now properly normalized
+
 ==== Remaining architectural recommendations ====
 
 - Install Sidekiq/Delayed Job for CSV/ZIP downloads that currently load all
   records synchronously (+Vachana.download_all+, +Vachana.all_vachanas+).
-- Migrate serialized columns (+key_words.vachana_ids+, +concord.ids+) to join
-  tables for proper indexing and queryability.
 - Add APM monitoring (New Relic, Scout, or AppSignal) to detect regressions.
 - Upgrade from Rails 3.2.22 (EOL June 2016) for Active Job, better caching,
   and security patches.
+- Drop old serialized columns (+vachana_ids+, +vachanakaara_ids+, +ids+) after
+  verifying the new join tables work correctly in production.

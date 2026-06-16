@@ -21,8 +21,8 @@
   <% @keywords.each do |keyword| %>
     <span class="keyword-pill">
       <a href="<%= vachanas_path(vachana: keyword.word, search_type: "exact_search") %>" title="<%= keyword.word %> ಪದದ ಹುಡುಕಾಟ" style="font-size:14px;color:#333;"><%= keyword.word %>
-        <span style="color:#cd5c5c;"><%= keyword.vachana_ids.count %></span>,
-        <span style="color:#4682b4;"><%= keyword.vachanakaara_ids.uniq.count %></span>
+        <span style="color:#cd5c5c;"><%= keyword.keyword_vachanas.count %></span>,
+        <span style="color:#4682b4;"><%= keyword.keyword_vachanakaaras.count %></span>
       </a>
     </span>
   <% end %>

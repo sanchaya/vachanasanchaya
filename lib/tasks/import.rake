@@ -90,3 +90,54 @@ desc "Download keywords with vachanakaaras"
 task :download_keywords_with_vachanakaara => :environment do
   KeyWord.vachanakaara_keyword
 end
+
+
+desc "Migrate serialized key_words.vachana_ids and vachanakaara_ids to join tables"
+task :migrate_keyword_join_tables => :environment do
+  puts "Migrating key_words.vachana_ids (Hash) -> keyword_vachanas table..."
+  total = KeyWord.count
+  KeyWord.find_each.with_index do |kw, idx|
+    puts "  #{idx+1}/#{total} (id=#{kw.id})" if (idx % 1000) == 0
+    next if kw.keyword_vachanas.exists? || kw.vachana_ids.blank?
+    inserts = []
+    kw.vachana_ids.each { |v_id, c| inserts << "(#{kw.id}, #{v_id.to_i}, #{c.to_i})" }
+    ActiveRecord::Base.connection.execute(
+      "INSERT INTO keyword_vachanas (key_word_id, vachana_id, count) VALUES #{inserts.join(', ')}"
+    ) unless inserts.empty?
+  end
+
+  puts "Migrating key_words.vachanakaara_ids (Array) -> keyword_vachanakaaras table..."
+  KeyWord.find_each.with_index do |kw, idx|
+    puts "  #{idx+1}/#{total} (id=#{kw.id})" if (idx % 1000) == 0
+    next if kw.keyword_vachanakaaras.exists? || kw.vachanakaara_ids.blank?
+    inserts = kw.vachanakaara_ids.uniq.map { |va_id| "(#{kw.id}, #{va_id})" }
+    ActiveRecord::Base.connection.execute(
+      "INSERT INTO keyword_vachanakaaras (key_word_id, vachanakaara_id) VALUES #{inserts.join(', ')}"
+    ) unless inserts.empty?
+  end
+
+  puts "Done! #{KeywordVachana.count} keyword_vachana rows, #{KeywordVachanakaara.count} keyword_vachanakaara rows created."
+end
+
+
+desc "Migrate serialized concords.ids to concord_items table"
+task :migrate_concord_join_table => :environment do
+  puts "Migrating concords.ids (Array) -> concord_items table..."
+  total = Concord.count
+  Concord.find_each.with_index do |c, idx|
+    puts "  #{idx+1}/#{total} (id=#{c.id})" if (idx % 100) == 0
+    next if c.concord_items.exists? || c.ids.blank?
+    ids = c.ids.is_a?(Array) ? c.ids : [c.ids]
+    inserts = ids.map { |item_id| "(#{c.id}, #{item_id.to_i})" }
+    ActiveRecord::Base.connection.execute(
+      "INSERT INTO concord_items (concord_id, item_id) VALUES #{inserts.join(', ')}"
+    ) unless inserts.empty?
+  end
+  puts "Done! #{ConcordItem.count} concord_items rows created."
+end
+
+
+desc "Run all serialized column data migrations"
+task :migrate_all_serialized_data => [:migrate_keyword_join_tables, :migrate_concord_join_table] do
+  puts "All serialized data migrated. Old columns (vachana_ids, vachanakaara_ids, ids) can now be dropped."
+end

@@ -177,7 +177,7 @@ class AiSearchService
   def search_keywords_exact(words)
     return Vachana.none if words.blank?
     keywords = KeyWord.where(word: words)
-    vachana_ids = keywords.flat_map { |kw| kw.vachana_ids.keys }
+    vachana_ids = keywords.flat_map(&:all_vachana_ids)
     vachana_ids.empty? ? Vachana.none : Vachana.where(id: vachana_ids.uniq)
   end
 
@@ -185,7 +185,7 @@ class AiSearchService
     return Vachana.none if words.blank?
     like_conditions = words.map { |w| "word LIKE #{ActiveRecord::Base.connection.quote("%#{w}%")}" }.join(" OR ")
     keywords = KeyWord.where(like_conditions)
-    vachana_ids = keywords.flat_map { |kw| kw.vachana_ids.keys }
+    vachana_ids = keywords.flat_map(&:all_vachana_ids)
     vachana_ids.empty? ? Vachana.none : Vachana.where(id: vachana_ids.uniq)
   end
 
