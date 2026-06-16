@@ -7,22 +7,104 @@
   </p>
 </div>
 
-<div id="saved-results" class="results_list_div" style="display:none;"></div>
+<div id="saved-controls" style="display:none;margin-bottom:15px;">
+  <div style="border:1px solid #e0ddd5;border-radius:4px;padding:10px;background:#fafaf5;">
+    <strong style="font-size:14px;color:#333;">ವರ್ಗಗಳು:</strong>
+    <div id="category-tabs" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+    <div style="margin-top:8px;display:flex;gap:6px;">
+      <input type="text" id="new-category-input" placeholder="ಹೊಸ ವರ್ಗದ ಹೆಸರು..." style="flex:1;font-size:13px;padding:4px 8px;border:1px solid #ccc;border-radius:3px;" />
+      <button class="btn btn-mini btn-primary" id="create-category-btn">ಸೃಷ್ಟಿಸಿ</button>
+    </div>
+  </div>
+</div>
+
+<div id="saved-category-section" style="display:none;"></div>
 
 <script>
+var CURRENT_CAT = null;
+
 $(function() {
-  var ids = getBookmarks();
+  var data = getBookmarkData();
+  var ids = getBookmarkIds();
   if (ids.length === 0) {
     $('#saved-loading').hide();
     $('#saved-empty').show();
     return;
   }
-  $.get('/vachanas/saved', { 'ids[]': ids }, function(html) {
-    $('#saved-loading').hide();
-    $('#saved-results').html(html).show();
-    loadBookmarks();
-  }).fail(function() {
-    $('#saved-loading').html('<span style="color:#c0392b;">ದೋಷ: ಉಳಿಸಿದ ವಚನಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ</span>');
+
+  $('#saved-controls').show();
+  renderCategoryTabs(data);
+
+  $('.cat-tab').first().click();
+
+  $('#create-category-btn').on('click', function() {
+    var name = $('#new-category-input').val().trim();
+    if (!name) return;
+    createCategory(name);
+    renderCategoryTabs(getBookmarkData());
+    $('#new-category-input').val('');
+  });
+
+  $(document).on('click', '.cat-tab', function() {
+    CURRENT_CAT = $(this).data('cat');
+    $('.cat-tab').removeClass('active');
+    $(this).addClass('active');
+    loadCategoryVachanas(CURRENT_CAT);
+  });
+
+  $(document).on('click', '.rename-cat-btn', function() {
+    var oldName = $(this).data('cat');
+    var newName = prompt('ಹೊಸ ಹೆಸರು:', oldName);
+    if (newName && newName.trim() && newName.trim() !== oldName) {
+      renameCategory(oldName, newName.trim());
+      renderCategoryTabs(getBookmarkData());
+      CURRENT_CAT = newName.trim();
+      loadCategoryVachanas(CURRENT_CAT);
+    }
+  });
+
+  $(document).on('click', '.delete-cat-btn', function() {
+    var name = $(this).data('cat');
+    if (name === 'default') return;
+    if (confirm('"' + name + '" ವರ್ಗವನ್ನು ಅಳಿಸಬೇಕೆ? ವಚನಗಳು "default" ವರ್ಗಕ್ಕೆ ಸೇರುತ್ತವೆ.')) {
+      deleteCategory(name);
+      renderCategoryTabs(getBookmarkData());
+      var cats = getCategories();
+      CURRENT_CAT = cats[0] || 'default';
+      loadCategoryVachanas(CURRENT_CAT);
+    }
   });
 });
+
+function renderCategoryTabs(data) {
+  var cats = Object.keys(data.categories);
+  var html = '';
+  cats.forEach(function(cat) {
+    var count = data.categories[cat].length;
+    var active = cat === CURRENT_CAT ? ' active' : '';
+    html += '<div class="cat-tab' + active + '" data-cat="' + cat + '" style="padding:4px 12px;border:1px solid #ccc;border-radius:3px;cursor:pointer;font-size:13px;background:' + (cat === CURRENT_CAT ? '#0066cc' : '#f5f5f0') + ';color:' + (cat === CURRENT_CAT ? '#fff' : '#333') + ';">' +
+      cat + ' (' + count + ')' +
+      (cat !== 'default' ? '<span class="rename-cat-btn" data-cat="' + cat + '" style="margin-left:6px;cursor:pointer;font-size:11px;color:#888;" title="ಮರುಹೆಸರಿಸಿ">✎</span>' : '') +
+      (cat !== 'default' ? '<span class="delete-cat-btn" data-cat="' + cat + '" style="margin-left:2px;cursor:pointer;font-size:11px;color:#c0392b;" title="ಅಳಿಸಿ">✕</span>' : '') +
+      '</div>';
+  });
+  $('#category-tabs').html(html);
+}
+
+function loadCategoryVachanas(cat) {
+  $('#saved-loading').hide();
+  var data = getBookmarkData();
+  var ids = data.categories[cat] || [];
+  if (ids.length === 0) {
+    $('#saved-category-section').html('<p style="text-align:center;color:#888;padding:20px;">ಈ ವರ್ಗದಲ್ಲಿ ಯಾವುದೇ ವಚನಗಳಿಲ್ಲ</p>').show();
+    return;
+  }
+  $('#saved-category-section').html('<p style="color:#888;font-size:13px;">ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</p>').show();
+  $.get('/vachanas/saved', { 'ids[]': ids }, function(html) {
+    $('#saved-category-section').html(html);
+    loadBookmarks();
+  }).fail(function() {
+    $('#saved-category-section').html('<p style="color:#c0392b;">ದೋಷ: ವಚನಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ</p>');
+  });
+}
 </script>

@@ -29,7 +29,7 @@
           </div>
           <a href="/vachanakaaras/<%= vachana.vachanakaara_id %>" class="vachanakaara-icon-link"><i class="fa fa-user"></i></a>
           <button class="btn btn-listen" onclick="speakVachana('savedText_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ"><i class="fa fa-volume-up"></i></button>
-          <button class="btn bookmark-btn" data-vachana-id="<%= vachana.id %>" title="ಉಳಿಸು"><i class="fa fa-star"></i></button>
+          <%= render 'vachanas/bookmark_btn', vachana: vachana %>
         </div>
       </div>
     </div>

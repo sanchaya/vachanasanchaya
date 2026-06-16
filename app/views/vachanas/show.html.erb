@@ -56,9 +56,7 @@
 <button class="btn btn-primary" onclick="speakVachanaText('<%= j @vachana.vachana.gsub(/<[^>]*>/, '') %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
   <i class="fa fa-volume-up"></i> ಆಲಿಸಿ
 </button>
-<button class="btn bookmark-btn" data-vachana-id="<%= @vachana.id %>" title="ಉಳಿಸು" style="font-size:20px;vertical-align:middle;">
-  <i class="fa fa-star"></i>
-</button>
+<%= render 'vachanas/bookmark_btn', vachana: @vachana %>
 <%= link_to_function 'Back', "history.back()", :class => 'btn btn-primary' %>
 
 <%= render 'user_feedbacks/form', feedbackable_id: @vachana.id, feedbackable_type: 'Vachana' %>
