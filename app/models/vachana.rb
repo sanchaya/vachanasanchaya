@@ -41,13 +41,17 @@ class Vachana < ActiveRecord::Base
       @results[vachana] = count
     end
     unless vachanas.blank?
-      @vachanakaaras = vachanas.select("distinct(vachanakaara_id)")
-      @vachanakaaras.each do |vachana|
-        @vachanakaaras_word_count << vachanas.where("vachanakaara_id = #{vachana.vachanakaara_id}").count
-        @vachanakaaras_total_count << vachana.vachanakaara.vachanas.count
-        @vachanakaaras_name << '<span ><span  style="display:none">' + "#{vachana.vachanakaara.id}" + '</span>' + "#{vachana.vachanakaara.name}" + '</span>'
-
+      vachana_ids = vachanas.select("distinct(vachanakaara_id)").map(&:vachanakaara_id)
+      counts = vachanas.group(:vachanakaara_id).count
+      total_counts = Vachana.where(vachanakaara_id: vachana_ids).group(:vachanakaara_id).count
+      @vachanakaaras = Vachanakaara.where(id: vachana_ids).index_by(&:id)
+      vachana_ids.each do |va_id|
+        v = @vachanakaaras[va_id]
+        @vachanakaaras_word_count << counts[va_id] || 0
+        @vachanakaaras_total_count << total_counts[va_id] || 0
+        @vachanakaaras_name << '<span><span style="display:none">' + "#{va_id}" + '</span>' + "#{v.name}" + '</span>' if v
       end
+      @vachanakaaras = @vachanakaaras.values
     end
     return @results, @vachanakaaras_word_count, @vachanakaaras_name, @vachanakaaras_total_count, @vachanakaaras
   end
@@ -75,7 +79,7 @@ end
 
 
 def self.vachanakaara_ids
-  includes(:vachanakaara).map(&:vachanakaara_id)
+  pluck(:vachanakaara_id).uniq
 end
 
 def self.vachanakaaras

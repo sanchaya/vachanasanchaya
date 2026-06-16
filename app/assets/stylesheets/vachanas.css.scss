@@ -99,6 +99,48 @@ cursor:pointer;
   font-style: italic;
 }
 
+.ai-result-box {
+  width: 100%;
+  padding: 25px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #5bc0de;
+  box-sizing: border-box;
+  clear: both;
+}
+.ai-result-box h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+}
+.ai-answer {
+  line-height: 1.8;
+  font-size: 15px;
+  font-family: serif;
+  width: 100%;
+}
+.ai-answer p {
+  margin: 0 0 10px;
+  color: #333;
+}
+.ai-section {
+  margin: 14px 0 10px;
+}
+.ai-section-heading {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+.ai-section-body {
+  padding-left: 20px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .footer{
 margin-top: 20px;
 padding: 15px 0;

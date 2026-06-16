@@ -22,10 +22,7 @@ def show
 
   # Calculate letter counts for this vachanakaara
   @vachanakaara_letter_counts = Hash.new(0)
-  all_vachanas.pluck(:vachana).compact.each do |v|
-    first = v[0]
-    @vachanakaara_letter_counts[first] += 1 if first
-  end
+  all_vachanas.group("LEFT(vachana, 1)").count.each { |k, v| @vachanakaara_letter_counts[k] = v }
 
   @start_letter = params[:start_letter] || "ಅ"
 
