@@ -9,15 +9,25 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": <%= "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid}".to_json %>,
+  "@type": "Article",
+  "headline": <%= "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid}".to_json %>,
   "author": {
     "@type": "Person",
     "name": <%= @vachana.vachanakaara.name.to_json %>
   },
   "description": <%= @vachana.vachana.to_s.truncate(200, separator: ' ').to_json %>,
+  "articleBody": <%= @vachana.vachana.to_json %>,
   "inLanguage": "kn",
-  "url": "<%= vachana_url(@vachana) %>"
+  "url": "<%= vachana_url(@vachana) %>",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<%= vachana_url(@vachana) %>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "<%= SeoHelper::SITE_NAME %>",
+    "url": "<%= SeoHelper::SITE_URL %>"
+  }
 }
 </script>
 <table class="table table-striped">

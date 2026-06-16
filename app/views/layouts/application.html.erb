@@ -10,6 +10,8 @@
   <link rel="canonical" href="<%= page_canonical %>" />
   <link rel="shortcut icon" href="/favicon.ico" />
 
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
   <!-- Google Search Console Verification (replace content with your code) -->
   <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" /> -->
 
@@ -24,8 +26,12 @@
   <meta property="og:description" content="<%= page_og[:description] %>" />
   <meta property="og:url" content="<%= page_og[:url] %>" />
   <meta property="og:site_name" content="<%= page_og[:site_name] %>" />
-  <meta property="og:locale" content="<%= page_og[:locale] %>" />
+  <meta property="og:locale" content="<%= I18n.locale == :en ? 'en_US' : 'kn_IN' %>" />
   <meta property="og:type" content="<%= page_og[:type] %>" />
+  <meta property="og:image" content="<%= SeoHelper::SITE_URL %>/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="<%= SeoHelper::SITE_NAME %>" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="<%= page_twitter[:card] %>" />
@@ -60,15 +66,15 @@
     "itemListElement": [
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": <%= page_title.split(' - ').first.to_json %>,
-        "item": "<%= page_canonical %>"
+        "position": 1,
+        "name": "ಮುಖಪುಟ",
+        "item": "<%= SeoHelper::SITE_URL %>"
       }
       <% if params[:controller] != 'home' %>
       ,{
         "@type": "ListItem",
         "position": 2,
-        "name": "<%= page_title.split(' - ').first %>",
+        "name": <%= page_title.split(' - ').first.to_json %>,
         "item": "<%= page_canonical %>"
       }
       <% end %>

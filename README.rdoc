@@ -205,3 +205,28 @@ Benefits:
   and security patches.
 - Drop old serialized columns (+vachana_ids+, +vachanakaara_ids+, +ids+) after
   verifying the new join tables work correctly in production.
+
+=== SEO improvements (June 2026) ===
+
+Fixes and enhancements to search-engine visibility:
+
+- **BreadcrumbList JSON-LD**: Fixed malformed structured data that had duplicate
+  +position: 2+ entries and was missing the Home (position 1) link. Now outputs
+  valid +BreadcrumbList+ with correct sequential positions.
+- **Article JSON-LD**: Vachana show pages now use +schema.org/Article+ type with
+  +headline+, +articleBody+, +author (Person)+, +publisher (Organization)+, and
+  +mainEntityOfPage+ — making vachanas eligible for Google rich results.
+- **Open Graph image**: Added +og:image+, +og:image:width+, +og:image:height+,
+  and +og:image:alt+ tags pointing to +/og-image.png+ for better social sharing.
+- **Open Graph locale**: Now dynamically switches between +kn_IN+ and +en_US+
+  based on +I18n.locale+ (was hardcoded to kn_IN).
+- **Robots meta tag**: Added +<meta name="robots">+ with +index, follow+ and
+  +max-image-preview:large+ for optimal crawl control.
+- **Hreflang URLs**: Now preserves all query params (+vachana+, +search_type+,
+  +vachanakaara+, +id+, +q+) when generating alternate language URLs, ensuring
+  correct hreflang annotations on search pages and vachana detail pages.
+
+SEO impact of the serialized columns join table migration: Faster page loads
+(no YAML deserialization on every read) improve Core Web Vitals (LCP, FID, CLS),
+which are Google ranking signals. The join table indexes replace full-table scans
+with indexed JOINs, reducing database CPU and response times.
