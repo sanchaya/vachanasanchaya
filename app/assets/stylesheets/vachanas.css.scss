@@ -662,6 +662,32 @@ margin: 0 0 10px;
   color: #f5a623;
 }
 
+.category-picker {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  min-width: 200px;
+}
+.cat-option {
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 3px;
+  margin: 2px 0;
+}
+.cat-option:hover {
+  background: #f0f0f0;
+}
+.cat-option.selected {
+  background: #0066cc;
+  color: #fff;
+}
+
 .google-add-box {
 	padding: 3px;
 }

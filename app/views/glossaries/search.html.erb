@@ -55,9 +55,7 @@
             <button class="btn btn-listen" onclick="speakVachana('fe_text_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
               <i class="fa fa-volume-up"></i>
             </button>
-            <button class="btn bookmark-btn" data-vachana-id="<%= vachana.id %>" title="ಉಳಿಸು">
-              <i class="fa fa-star"></i>
-            </button>
+          <%= render "vachanas/bookmark_btn", vachana: vachana %>
             <button class="btn d_clip_button" data-clipboard-target="fe_text_<%= vachana.id %>" data-clipboard-text="Default clipboard text from attribute" id="d_clip_button" title="Click me to copy to clipboard.">
               <i class="fa fa-files-o fa-1x"></i>
             </button>
