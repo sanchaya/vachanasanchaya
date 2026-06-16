@@ -30,6 +30,7 @@
           <a href="/vachanakaaras/<%= vachana.vachanakaara_id %>" class="vachanakaara-icon-link"><i class="fa fa-user"></i></a>
           <button class="btn btn-listen" onclick="speakVachana('savedText_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ"><i class="fa fa-volume-up"></i></button>
           <%= render 'vachanas/bookmark_btn', vachana: vachana %>
+          <%= render "vachanas/cite_btn", vachana: vachana %>
         </div>
       </div>
     </div>

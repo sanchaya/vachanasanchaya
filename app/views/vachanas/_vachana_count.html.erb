@@ -1,35 +1,23 @@
 <div id="vachana_count" %>
-	<% if @original_total_counts || @total_counts %>
-	<% display_total = params[:start_letter].present? ? @original_total_counts : @total_counts %>
-	<% display_vachanakaaras = params[:start_letter].present? ? @original_vachanakaaras_count : @vachanakaaras.count %>
-	<% display_vachanas = params[:start_letter].present? ? @original_vachanas_count : @vachanas.count %>
-	<% if params[:vachanakaara] and !params[:vachanakaara].blank? %>
-
-	<div class=" total_count"> <p class="btn"> 
-		<%= t :total %> <span class="badge badge-info"> <%= display_total %> </span> 
-		<%= "#{t :in_place} , " %>
-		<%= "#{t :vachanakaara} " %>  
-		<%= Vachanakaara.find(params[:vachanakaara].to_i).name %>  ,
-
-		<span class="badge badge-info"> <%= display_vachanas %> </span> 
-		<%= "#{t :this_word_used_in_vachanas}" %>
-
-	</p>  </div>
-
-
-	<% else %>
-	<div class=" total_count"> <p class="btn"> 
-		<%= t :total %> <span class="badge badge-info"> <%= display_total %> </span> 
-		<%= "#{t :in_place} , " %>
-		<span class="badge badge-info"> <%= display_vachanakaaras %> </span> 
-		<%= "#{t :vachanakaararu} ," %> 
-		<span class="badge badge-info"> <%= display_vachanas %> </span> 
-		<%= "#{t :this_word_used_in_vachanas}" %>
-
-	</p>  </div>
-
-
-	<% end %>
-	<% end %>
-
+  <% if @original_total_counts || @total_counts %>
+  <% display_total = params[:start_letter].present? ? @original_total_counts : @total_counts %>
+  <% display_vachanakaaras = params[:start_letter].present? ? @original_vachanakaaras_count : @vachanakaaras.count %>
+  <% display_vachanas = params[:start_letter].present? ? @original_vachanas_count : @vachanas.count %>
+  <% vachana_ids = @results.map(&:id) %>
+  <div class=" total_count"> <p class="btn"> 
+    <%= t :total %> <span class="badge badge-info"> <%= display_total %> </span> 
+    <%= "#{t :in_place} , " %>
+    <span class="badge badge-info"> <%= display_vachanakaaras %> </span> 
+    <%= "#{t :vachanakaararu} ," %> 
+    <span class="badge badge-info"> <%= display_vachanas %> </span> 
+    <%= "#{t :this_word_used_in_vachanas}" %>
+    <% if vachana_ids.any? %>
+      <span style="margin-left:10px;">
+        <a href="<%= export_bibtex_vachanas_path(ids: vachana_ids) %>" class="btn btn-mini" target="_blank" style="font-size:11px;" title="BibTeX ನಲ್ಲಿ ಡೌನ್ಲೋಡ್ ಮಾಡಿ">
+          <i class="fa fa-download"></i> BibTeX
+        </a>
+      </span>
+    <% end %>
+  </p>  </div>
+  <% end %>
 </div>

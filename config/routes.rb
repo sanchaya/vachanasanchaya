@@ -56,6 +56,10 @@ KannadaVachana::Application.routes.draw do
       post :ai_search
       get :autocomplete
       get :saved
+      get :export_bibtex
+    end
+    member do
+      get :cite
     end
   end
 
