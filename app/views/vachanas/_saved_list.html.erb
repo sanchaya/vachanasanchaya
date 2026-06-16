@@ -1,0 +1,39 @@
+<% if vachanas.present? %>
+  <% vachanas.each do |vachana| %>
+    <a href="#savedModal_<%= vachana.id %>" role="button" data-toggle="modal">
+      <div class="box effect5 vachana-concord-box">
+        <div class="vachana-show-box">
+          <span><%= vachana.vachana.truncate(200, separator: ' ') %></span>
+        </div>
+        --------------
+        <div class="vachanakaara-name">
+          <span><%= vachana.vachanakaara.name %></span>
+        </div>
+      </div>
+    </a>
+
+    <div id="savedModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="text-align:left;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><span class="vachanakaara-name"><%= vachana.vachanakaara.name %></span></h3>
+      </div>
+      <div class="modal-body vachana-pop">
+        <p id="savedText_<%= vachana.id %>"><%= raw vachana.vachana.gsub(/\n/, '<br />') %></p>
+      </div>
+      <div class="modal-footer">
+        <div class="demo-area">
+          <div class="modal-footer-left">
+            ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachana_book_count %>
+            &nbsp;
+            ವಚನದ ಸಂಖ್ಯೆ: <%= vachana.vachanaid %>
+          </div>
+          <a href="/vachanakaaras/<%= vachana.vachanakaara_id %>" class="vachanakaara-icon-link"><i class="fa fa-user"></i></a>
+          <button class="btn btn-listen" onclick="speakVachana('savedText_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ"><i class="fa fa-volume-up"></i></button>
+          <button class="btn bookmark-btn" data-vachana-id="<%= vachana.id %>" title="ಉಳಿಸು"><i class="fa fa-star"></i></button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p style="text-align:center;color:#888;padding:20px;">ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ</p>
+<% end %>

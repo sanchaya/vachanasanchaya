@@ -17,7 +17,12 @@ $(function() {
     $('#saved-empty').show();
     return;
   }
-  var params = $.param(ids.map(function(id) { return { 'ids[]': id }; }));
-  $.getScript('/vachanas/saved?' + params);
+  $.get('/vachanas/saved', { 'ids[]': ids }, function(html) {
+    $('#saved-loading').hide();
+    $('#saved-results').html(html).show();
+    loadBookmarks();
+  }).fail(function() {
+    $('#saved-loading').html('<span style="color:#c0392b;">ದೋಷ: ಉಳಿಸಿದ ವಚನಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ</span>');
+  });
 });
 </script>
