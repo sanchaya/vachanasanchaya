@@ -56,14 +56,25 @@
         </h3>
       </div>
       <div class="modal-body vachana-pop">
-        <p><%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
+        <p id="fe_text_<%= vachana.id %>"><%= raw vachana.vachana.gsub(/\n/, '<br />') %>
 
         </p>
       </div>
       <div class="modal-footer">
-        ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %>
-        <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
-        <!-- <button class="btn btn-primary">Save changes</button> -->
+        <div class="demo-area">
+          <div class="modal-footer-left">
+            ವಚನ ಕ್ರ.ಸಂ : <%= vachana.vachanaid %>
+          </div>
+          <button class="btn btn-listen" onclick="speakVachana('fe_text_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
+            <i class="fa fa-volume-up"></i>
+          </button>
+          <button class="btn btn-small" onclick="$(this).closest('.modal-footer').find('.feedback-inline').toggle()" title="ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ">
+            <i class="fa fa-exclamation-triangle"></i>
+          </button>
+        </div>
+        <div class="feedback-inline" style="display:none;margin-top:8px;">
+          <%= render 'user_feedbacks/form', feedbackable_id: vachana.id, feedbackable_type: 'Vachana' %>
+        </div>
       </div>
     </div>
 
