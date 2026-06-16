@@ -322,3 +322,79 @@ reason.
 Also fixed: +KeywordVachana.pluck(:vachana_id, :count)+ — Rails 3.2's +pluck+
 only accepts a single column. Replaced with
 +KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt")+.
+
+== Planned / Recommended Next Features
+
+=== 1. Related Vachanas (using keyword concordance)
+Show vachanas that share the most keywords with the currently viewed vachana.
+No new data needed -- uses the existing +keyword_vachanas+ join table (614K+ rows).
+Helps researchers discover thematic connections algorithmically.
+
+How it works:
+- Find all keywords for the current vachana via +keyword_vachanas+
+- For each keyword, find sibling vachanas (other vachanas sharing that keyword)
+- Rank by number of shared keywords, show top 5-10
+- Exclude the current vachana from results
+
+=== 2. Search Autocomplete / Typeahead
+Re-enable typeahead suggestions (commented out in +vachanas.js+) for keyword search.
+Use the +key_words+ table for lookups. Reduces typing effort and guides users to
+valid search terms. Estimated effort: ~1 day.
+
+=== 3. Bookmark / Favorites (localStorage)
+Let users save vachanas to a personal list without requiring a login account.
+Store vachana IDs in browser +localStorage+ (no database or server-side storage).
+Add a "My Saved Vachanas" page at +/vachanas/saved+ that reads from localStorage
+and displays the saved list.
+
+=== 4. Recently Viewed Vachanas
+Track the last N vachanas a user has viewed (in session or localStorage). Show a
+"ಇತ್ತೀಚೆಗೆ ವೀಕ್ಷಿಸಿದ ವಚನಗಳು" section on the homepage or sidebar for easy
+back-navigation during research sessions.
+
+=== 5. Per-Vachana Social Share Buttons
+Add share buttons (WhatsApp, Twitter, Facebook) to each vachana modal and show page.
+Drive organic traffic through social sharing. Low effort -- just icon links with
+proper +og:+ meta tags (already in place).
+
+=== 6. Keyboard Shortcuts for Power Users
++'+s'+ for search focus, +'n'+ / +'p'+ for next/previous result, +'Esc'+ to close
+modals. Low effort, appreciated by researchers doing repeated searches.
+
+== Related Vachanas Feature (June 2026)
+
+Added "ಸಂಬಂಧಿತ ವಚನಗಳು" (Related Vachanas) to help researchers discover thematic
+connections algorithmically.
+
+How it works:
+- Finds all keywords linked to the current vachana via +keyword_vachanas+
+- Finds other vachanas that share those keywords
+- Ranks by number of shared keywords (most shared first)
+- Displays top 5-10 related vachanas as clickable links
+
+Where it appears:
+- Vachana show page (+app/views/vachanas/show.html.erb+) — top 10 expandable items
+- Every vachana modal across the app — top 5 expandable items:
+  - Keyword search results (+_results.html.erb+)
+  - Alphabetical concord (+_vachana_concord_results.html.erb+)
+  - Vachanakaara page (+_vachanakaara_vachana_results.html.erb+)
+  - Full-text search (+search_vachana.html.erb+)
+  - Number search (+search_vachana_number.html.erb+)
+  - AI search source modals (+ai_search.html.erb+)
+  - Glossary search/index modals (+glossaries/search.html.erb+, +glossaries/index.html.erb+)
+
+Interaction:
+- Clicking a related vachana name expands the full vachana text inline below it
+- Expanded text includes a TTS listen button and a "ಮುಂದೆ ಓದಿ →" link (opens detail page in new tab)
+- Click again to collapse
+- No page navigation — user stays in the current modal or page
+
+Implementation:
+- +app/models/vachana.rb+ — +related_vachanas(limit)+ method using SQL +GROUP BY+
+  on +keyword_vachanas+ table, ordered by shared keyword count
+- Reusable partial (+app/views/vachanas/_related_vachanas_inline.html.erb+) renders
+  expandable items; called from all 10 views
+- Uses existing +keyword_vachanas+ join table (614K+ rows) — no new data needed
+- On click: expands full vachana text inline via jQuery +toggle()+ (no page navigation)
+- Graceful fallback: +rescue+ clause in controller ensures show page never errors
+  if the join table is unavailable

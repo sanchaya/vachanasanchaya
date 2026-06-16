@@ -1,0 +1,24 @@
+<% related = vachana.related_vachanas(5) %>
+<% if related.present? %>
+  <div class="related-vachanas-section">
+    <strong class="related-vachanas-label">ಸಂಬಂಧಿತ ವಚನಗಳು:</strong>
+    <div class="related-vachanas-list">
+      <% related.each do |rv| %>
+        <div class="related-vachana-item">
+          <a href="javascript:void(0)" class="related-vachana-link" onclick="$(this).next().toggle();return false;">
+            <%= rv.vachanakaara.name %> - <%= rv.vachanaid %>
+          </a>
+          <div class="related-vachana-text" style="display:none;">
+            <%= raw rv.vachana.gsub(/\n/, '<br />') %>
+            <div class="related-vachana-actions">
+              <button class="btn btn-mini" onclick="speakVachanaText('<%= j rv.vachana %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
+                <i class="fa fa-volume-up"></i>
+              </button>
+              <a href="<%= vachana_path(rv) %>" target="_blank" class="btn btn-mini">ಮುಂದೆ ಓದಿ →</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

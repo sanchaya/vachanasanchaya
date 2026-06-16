@@ -112,6 +112,7 @@
                     <div class="modal-body vachana-pop">
                       <p id="fe_text_<%= vachana.id %>"><%= vachana.vachana %></p>
                       <p><strong>ವಚನ ಸಂಖ್ಯೆ:</strong> <%= vachana.vachanaid %></p>
+                      <%= render 'vachanas/related_vachanas_inline', vachana: vachana %>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-listen" onclick="speakVachana('fe_text_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ">

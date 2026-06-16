@@ -36,6 +36,7 @@
   <p id='fe_text_<%= vachana.id %>'> <%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
 
   </p>
+  <%= render 'vachanas/related_vachanas_inline', vachana: vachana %>
 </div>
 <div class="modal-footer">
   <div class='demo-area'>
