@@ -56,7 +56,7 @@ end
 def vachana_count_for(vachana_id)
   if keyword_vachanas.loaded? || keyword_vachanas.any?
     kwv = keyword_vachanas.detect { |kwv| kwv.vachana_id == vachana_id }
-    kwv ? kwv.count : 0
+    kwv ? kwv.read_attribute(:count).to_i : 0
   else
     keyword_vachanas.where(vachana_id: vachana_id).pluck(:count).first.to_i
   end
@@ -71,7 +71,7 @@ def vachanakaara_id_list
 end
 
 def vachana_id_count_hash
-  {}.tap { |h| keyword_vachanas.select("vachana_id, count").each { |kv| h[kv.vachana_id] = kv.count } }
+  {}.tap { |h| keyword_vachanas.select("vachana_id, `count`").each { |kv| h[kv.vachana_id] = kv.read_attribute(:count) } }
 end
 
 
