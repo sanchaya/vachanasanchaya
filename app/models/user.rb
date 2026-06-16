@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :user_vachanakaaras, dependent: :destroy
   has_many :review_vachanas, foreign_key: :reviewer_id
   has_many :review_comments
+  has_many :user_feedbacks
 
   validates :name,:role_id, presence: true
 

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user_role! , only: [:admin_panel]
+  before_filter :authenticate_user_role! , only: [:admin_panel, :feedbacks, :update_feedback]
   
   def index
     set_meta_tags(
@@ -25,6 +25,36 @@ class HomeController < ApplicationController
     @like_count = WordList.sum('like_search_count')
     @total = @exact_count + @like_count
     @static_pages = static_pages_available? ? StaticPage.order(:slug, :locale) : []
+    @pending_feedbacks_count = UserFeedback.pending.count
+  end
+
+  def feedbacks
+    set_meta_tags(title: "ಬಳಕೆದಾರರ ಪ್ರತಿಕ್ರಿಯೆಗಳು - ವಚನ ಸಂಚಯ")
+    @feedbacks = UserFeedback.recent_first.includes(:user, :feedbackable)
+    case params[:status]
+    when 'pending'  then @feedbacks = @feedbacks.pending
+    when 'reviewed' then @feedbacks = @feedbacks.reviewed
+    when 'dismissed' then @feedbacks = @feedbacks.dismissed
+    end
+    @feedbacks = @feedbacks.paginate(page: params[:page], per_page: 50)
+  end
+
+  def update_feedback
+    @feedback = UserFeedback.find(params[:id])
+    if params[:status].in?(%w[reviewed dismissed pending])
+      @feedback.update_attributes(status: params[:status])
+      flash[:notice] = "ಪ್ರತಿಕ್ರಿಯೆ ಸ್ಥಿತಿಯನ್ನು '#{params[:status]}' ಗೆ ನವೀಕರಿಸಲಾಗಿದೆ."
+    else
+      flash[:error] = "ಅಮಾನ್ಯ ಸ್ಥಿತಿ."
+    end
+    redirect_to feedbacks_path(status: params[:return_to] || 'pending')
+  end
+
+  def destroy_feedback
+    @feedback = UserFeedback.find(params[:id])
+    @feedback.destroy
+    flash[:notice] = "ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಅಳಿಸಲಾಗಿದೆ."
+    redirect_to feedbacks_path(status: params[:return_to] || 'pending')
   end
 
   def about_us
