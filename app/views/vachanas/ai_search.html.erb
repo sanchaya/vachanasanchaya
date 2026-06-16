@@ -6,15 +6,53 @@
       <h2 style="border-bottom:2px solid #eee;padding-bottom:10px;">AI ವಚನ ಸಂಶೋಧನೆ</h2>
       <p style="color:#666;font-size:14px;">ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ. AI ನಿಮಗೆ ಸಂಶೋಧನಾ ಸಹಾಯವನ್ನು ಒದಗಿಸುತ್ತದೆ.</p>
 
-      <details style="margin-bottom:10px;font-size:13px;color:#666;">
-        <summary style="cursor:pointer;">OpenAI API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ (ಅಗತ್ಯವಿದೆ)</summary>
-        <p style="margin:8px 0;">ನಿಮ್ಮ OpenAI API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ. ಇದು ನಿಮ್ಮ ಸೆಶನ್ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತದೆ ಮತ್ತು ಸರ್ವರ್ನಲ್ಲಿ ಶೇಖರವಾಗುವುದಿಲ್ಲ. <a href="https://platform.openai.com/api-keys" target="_blank">ಇಲ್ಲಿ ಕೀಲಿ ಪಡೆಯಿರಿ</a>.</p>
-      </details>
+      <p style="font-size:13px;color:#999;">💡 <strong>FREE ಮಾಡೆಲ್ಗಳು</strong> ಲಭ್ಯವಿವೆ — Groq ಮತ್ತು OpenRouter ನಲ್ಲಿ ಉಚಿತ ಮಾಡೆಲ್ಗಳನ್ನು ಬಳಸಬಹುದು. ಕೆಳಗೆ provider ಆಯ್ಕೆಮಾಡಿ.</p>
 
       <%= form_tag ai_search_vachanas_path, method: :get, id: "ai-search-form", style: "margin:20px 0;" do %>
-        <div style="margin-bottom:10px;">
-          <%= password_field_tag :api_key, nil, placeholder: @stored_key ? "•••••••••••• (ಕೀಲಿ ಈಗಾಗಲೇ ನಮೂದಿಸಲಾಗಿದೆ)" : "sk-... ನಿಮ್ಮ OpenAI API ಕೀಲಿ", style: "width:100%;height:36px;font-size:14px;padding:0 10px;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;", id: "api-key-input" %>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          <div>
+            <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;">Provider</label>
+            <%= select_tag :provider,
+              options_for_select(
+                AiSearchService::PROVIDERS.map { |k, v| ["#{v[:name]} #{' (FREE!)' if %i[groq together google].include?(k)}", k] },
+                @selected_provider
+              ),
+              style: "width:100%;height:36px;font-size:14px;padding:0 8px;border-radius:4px;border:1px solid #ccc;",
+              id: "provider-select" %>
+          </div>
+          <div>
+            <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;">Model</label>
+            <%= select_tag :model,
+              options_for_select(
+                AiSearchService.models_for(@selected_provider).map { |m| ["#{m.label} — #{m.pricing}", m.id] },
+                @selected_model
+              ),
+              style: "width:100%;height:36px;font-size:14px;padding:0 8px;border-radius:4px;border:1px solid #ccc;",
+              id: "model-select" %>
+          </div>
         </div>
+
+        <div style="margin-bottom:10px;">
+          <label style="font-size:13px;color:#555;display:block;margin-bottom:4px;">API Key</label>
+          <%= password_field_tag :api_key, nil, placeholder: @stored_key ? "•••••••••••• (ಕೀಲಿ ಈಗಾಗಲೇ ನಮೂದಿಸಲಾಗಿದೆ)" : "ನಿಮ್ಮ API ಕೀಲಿ", style: "width:100%;height:36px;font-size:14px;padding:0 10px;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;", id: "api-key-input" %>
+          <div id="key-hint" style="font-size:12px;color:#999;margin-top:4px;">
+            <% case @selected_provider.to_s
+               when "groq" %>
+              <a href="https://console.groq.com/keys" target="_blank">Groq ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE, ಯಾವುದೇ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ
+            <% when "openrouter" %>
+              <a href="https://openrouter.ai/keys" target="_blank">OpenRouter ನಲ್ಲಿ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — ಅನೇಕ ಉಚಿತ ಮಾಡೆಲ್ಗಳು ಲಭ್ಯ
+            <% when "together" %>
+              <a href="https://api.together.ai/settings/api-keys" target="_blank">Together AI ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE, ಯಾವುದೇ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ
+            <% when "google" %>
+              <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE (60 req/min)
+            <% when "openai" %>
+              <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI API ಕೀಲಿ ಪಡೆಯಿರಿ</a>
+            <% when "anthropic" %>
+              <a href="https://console.anthropic.com/" target="_blank">Anthropic API ಕೀಲಿ ಪಡೆಯಿರಿ</a>
+            <% end %>
+          </div>
+        </div>
+
         <div class="input-append" style="display:flex;gap:8px;width:100%;">
           <%= text_field_tag :q, @query, placeholder: "ಉದಾ: ದಾಸೋಹದ ಬಗ್ಗೆ ವಚನಗಳೇನು ಹೇಳುತ್ತವೆ?", style: "flex:1;height:40px;font-size:16px;padding:0 12px;border-radius:4px;border:1px solid #ccc;", id: "ai-search-input", autofocus: true %>
           <%= submit_tag "ಸಂಶೋಧಿಸಿ", class: "btn btn-primary", style: "height:42px;font-size:16px;", id: "ai-search-submit", data: { disable_with: "ಸಂಶೋಧಿಸುತ್ತಿದೆ..." } %>
@@ -28,17 +66,27 @@
       <% if @result.present? %>
         <div id="ai-result" style="margin-top:20px;">
           <% if @result[:error] %>
-            <div class="alert alert-error" style="padding:15px;background:#f2dede;border:1px solid #ebccd1;border-radius:4px;color:#a94442;">
-              <strong>ದೋಷ:</strong> <%= @result[:error] %>
+            <div class="ai-result-box" style="border-left-color:#e8a020;background:#fffbf0;">
+              <h4 style="color:#8a6d00;">ಗಮನಿಸಿ</h4>
+              <p style="margin:0;color:#664;font-size:14px;line-height:1.6;"><%= @result[:error] %></p>
             </div>
           <% else %>
             <% if @result[:search_summary] %>
               <p style="color:#666;font-size:13px;margin-bottom:15px;"><%= @result[:search_summary] %></p>
             <% end %>
+            <% if @result[:provider] %>
+              <p style="color:#999;font-size:12px;margin-bottom:10px;">Powered by <%= @result[:provider] %> / <%= @result[:model] %></p>
+            <% end %>
 
-            <div class="box effect5" style="padding:25px;background:#f9f9f9;border-radius:8px;border-left:4px solid #5bc0de;">
-              <h4 style="margin-top:0;color:#333;margin-bottom:15px;">AI ವಿಶ್ಲೇಷಣೆ</h4>
-              <div style="line-height:1.8;font-size:15px;white-space:pre-wrap;font-family:serif;"><%= @result[:answer] %></div>
+            <% formatted = @result[:answer].to_s.dup
+               formatted.gsub!(/\*\*(.+?)\*\*/, '<strong>\1</strong>')
+               formatted.gsub!(/\n{2,}/, '</p><p>')
+               formatted.prepend('<p>').concat('</p>') unless formatted.blank? %>
+            <div class="ai-result-box">
+              <h4>AI ವಿಶ್ಲೇಷಣೆ</h4>
+              <div class="ai-answer">
+                <%= formatted.html_safe %>
+              </div>
             </div>
 
             <% if @result[:sources].present? %>
@@ -80,12 +128,49 @@
 </div>
 
 <script>
+var MODELS = <%= raw Hash[AiSearchService::PROVIDERS.map { |k, v| [k, v[:models].map { |m| [m.id, m.label, m.pricing] }] }].to_json %>;
+var HINTS = {
+  groq: '<a href="https://console.groq.com/keys" target="_blank">Groq ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE, ಯಾವುದೇ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ',
+  openrouter: '<a href="https://openrouter.ai/keys" target="_blank">OpenRouter ನಲ್ಲಿ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — ಅನೇಕ ಉಚಿತ ಮಾಡೆಲ್ಗಳು ಲಭ್ಯ',
+  openai: '<a href="https://platform.openai.com/api-keys" target="_blank">OpenAI API ಕೀಲಿ ಪಡೆಯಿರಿ</a>',
+  together: '<a href="https://api.together.ai/settings/api-keys" target="_blank">Together AI ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE, ಯಾವುದೇ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ',
+  google: '<a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio ನಲ್ಲಿ ಉಚಿತ API ಕೀಲಿ ಪಡೆಯಿರಿ</a> — FREE (60 req/min), ಯಾವುದೇ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ',
+  anthropic: '<a href="https://console.anthropic.com/" target="_blank">Anthropic API ಕೀಲಿ ಪಡೆಯಿರಿ</a>'
+};
+
 $(function() {
+  function updateModels(provider) {
+    var models = MODELS[provider] || [];
+    var $select = $('#model-select');
+    $select.empty();
+    $.each(models, function(i, m) {
+      $select.append($('<option>').val(m[0]).text(m[1] + ' \u2014 ' + m[2]));
+    });
+    var hintEl = document.getElementById('key-hint');
+    if (hintEl) {
+      hintEl.innerHTML = HINTS[provider] || '';
+    }
+    var input = document.getElementById('api-key-input');
+    if (input) {
+      input.placeholder = provider === 'groq' ? 'gsk_... ನಿಮ್ಮ Groq API ಕೀಲಿ' :
+                          provider === 'openrouter' ? 'sk-or-... ನಿಮ್ಮ OpenRouter API ಕೀಲಿ' :
+                          provider === 'together' ? 'ನಿಮ್ಮ Together AI API ಕೀಲಿ' :
+                          provider === 'google' ? 'ನಿಮ್ಮ Google AI API ಕೀಲಿ' :
+                          provider === 'anthropic' ? 'sk-ant-... ನಿಮ್ಮ Anthropic API ಕೀಲಿ' :
+                          'sk-... ನಿಮ್ಮ OpenAI API ಕೀಲಿ';
+    }
+  }
+
+  $('#provider-select').on('change', function() {
+    updateModels($(this).val());
+  });
+
   $('#ai-search-form').on('submit', function() {
     $('#ai-result').hide();
     $('#ai-loading').show();
     $('#ai-search-submit').prop('disabled', true);
   });
+
   var clip = new ZeroClipboard($(".d_clip_button"));
 });
 </script>

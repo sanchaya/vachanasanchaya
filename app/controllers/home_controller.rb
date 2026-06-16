@@ -7,20 +7,16 @@ class HomeController < ApplicationController
       description: "ವಚನ ಸಂಚಯವು ೨೫,೦೦೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಗಳನ್ನು ಮತ್ತು ೨೫೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ಉಚಿತ, ತೆರೆದ ಮೂಲ ಸಂಶೋಧನಾ ವೇದಿಕೆಯಾಗಿದೆ. ಇಂದಿನ ವಚನ, ಪದಪುಂಜ ಹುಡುಕಾಟ ಮತ್ತು ಸಂಶೋಧನಾ ಸಾಧನಗಳನ್ನು ಅನ್ವೇಷಿಸಿ.",
       keywords:    "ವಚನ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ, ವಚನಕಾರರು, ಬಸವಣ್ಣ, ಅಲ್ಲಮ ಪ್ರಭು, ಅಕ್ಕಮಹಾದೇವಿ, ಸಂಶೋಧನೆ, ಪದಪುಂಜ, ಕನ್ನಡ"
     )
-    @rand_vachana = DailyVachana.last 
+    @rand_vachana = DailyVachana.last
     begin
       unless @rand_vachana && @rand_vachana.created_at.to_date == Date.today
-        rand = Vachana.pluck(:id).sample
-        while Vachana.find(rand).vachana.blank?
-          rand = Vachana.pluck(:id).sample
-        end
-        @rand_vachana = DailyVachana.create(vachana_id: rand)
+        vachana = Vachana.where("vachana IS NOT NULL AND vachana != ''").order("RAND()").first
+        @rand_vachana = DailyVachana.create(vachana_id: vachana.id) if vachana
       end
     rescue => e
-      p "ERRRORRRRRR"
-      puts e
+      Rails.logger.error "HomeController#index error: #{e.message}"
     end
-    @vachana = @rand_vachana.vachana
+    @vachana = @rand_vachana&.vachana
   end
 
   def admin_panel

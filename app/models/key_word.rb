@@ -106,19 +106,18 @@ def self.to_csv
 end
 
 def self.vachanakaara_keyword
-path = File.new("#{Rails.root}/tmp/keywords.csv", "w")
- # CSV.generate do |csv|
- csv_string = CSV.open(path, "w") do |csv|
-  csv << ["id", "word", "Vachanakaara"]
-  KeyWord.find_each do |key|
-    puts ">>>>>>>>>>>#{key.id}<<<<<<<<<<<<<<<<<<,"
-    key.vachanakaara_ids.uniq.each do |vachanakaara|
-      puts vachanakaara
-      vachanakaara = Vachanakaara.find_by_id(vachanakaara)
-      csv << [key.id, key.word, vachanakaara.name] if (vachanakaara && key.word !=  "\t" && key.word != "\n" && key.word != "" && key.word != "`" && key.word !=  "``")
+  path = File.new("#{Rails.root}/tmp/keywords.csv", "w")
+  csv_string = CSV.open(path, "w") do |csv|
+    csv << ["id", "word", "Vachanakaara"]
+    vachanakaara_cache = {}
+    KeyWord.find_each do |key|
+      next if key.word.blank? || key.word == "\t" || key.word == "\n" || key.word == "`" || key.word == "``"
+      key.vachanakaara_ids.uniq.each do |va_id|
+        vachanakaara = vachanakaara_cache[va_id] ||= Vachanakaara.find_by_id(va_id)
+        csv << [key.id, key.word, vachanakaara.name] if vachanakaara
+      end
     end
   end
-end
 end
 
 

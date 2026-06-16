@@ -6,24 +6,17 @@ class VachanasController < ApplicationController
   caches_action :index, :cache_path => Proc.new { |c| c.params }, :expires_in => 30.minutes
 
   def index
-    @word_lists = WordList.all
-    @vachanakaaras_list =  Vachanakaara.all
     if params[:vachana] and !params[:vachana].blank? 
+      @word_lists = WordList.all
+      @vachanakaaras_list =  Vachanakaara.all
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
       @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts  = KeyWord.search_vachana_pada(@pada,@search_type,@vachanakaara_id)
 
-      # Calculate letter counts from search results only
-      search_letters = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ", "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ",
-        "ಕ", "ಖ", "ಗ", "ಘ", "ಙ", "ಚ", "ಛ", "ಜ", "ಝ", "ಞ",
-        "ಟ", "ಠ", "ಡ", "ಢ", "ಣ", "ತ", "ಥ", "ದ", "ಧ", "ನ",
-        "ಪ", "ಫ", "ಬ", "ಭ", "ಮ", "ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
+      # Calculate letter counts from search results using SQL GROUP BY
       @search_letter_counts = Hash.new(0)
-      @vachanas.pluck(:vachana).compact.each do |v|
-        first = v[0]
-        @search_letter_counts[first] += 1 if first
-      end
+      @vachanas.group("LEFT(vachana, 1)").count.each { |k, v| @search_letter_counts[k] = v }
 
       # Calculate keyword occurrence count per vachana from KeyWord records
       keyword_results = if @search_type == "like_search"
@@ -166,8 +159,7 @@ end
 
   def vachana_concord
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
-    @vachanas = Vachana.start_letter(params[:start_letter])
-    @vachanas = @vachanas.paginate(:page => params[:page], :per_page => 15)
+    @vachanas = Vachana.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 15)
     
     set_meta_tags(
       title:       "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು - ವಚನ ಸಂಚಯ",
@@ -193,6 +185,7 @@ end
 def search_vachana
  @search = Vachana.search do
   fulltext params[:search]
+  paginate :page => params[:page] || 1, :per_page => 50
 end
 @vachanas = @search.results
   set_meta_tags(
@@ -217,13 +210,23 @@ def ai_search
   if params[:api_key].present?
     session[:openai_api_key] = params[:api_key]
   end
+  if params[:provider].present?
+    session[:ai_provider] = params[:provider]
+  end
+  if params[:model].present?
+    session[:ai_model] = params[:model]
+  end
   if params[:q].present?
     api_key = params[:api_key].presence || session[:openai_api_key]
-    service = AiSearchService.new(params[:q], api_key)
+    provider = (params[:provider].presence || session[:ai_provider] || :openai).to_sym
+    model = params[:model].presence || session[:ai_model]
+    service = AiSearchService.new(params[:q], api_key: api_key, provider: provider, model: model)
     @result = service.call
     @query = params[:q]
   end
   @stored_key = session[:openai_api_key]
+  @selected_provider = session[:ai_provider] || :openai
+  @selected_model = session[:ai_model]
   set_meta_tags(
     title:       "AI ವಚನ ಸಂಶೋಧನೆ - ವಚನ ಸಂಚಯ",
     description: "AI-ಚಾಲಿತ ವಚನ ಸಂಶೋಧನಾ ಸಾಧನ. ವಚನ ಸಾಹಿತ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ.",
