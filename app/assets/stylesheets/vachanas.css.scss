@@ -640,6 +640,8 @@ margin: 0 0 10px;
   margin: 4px 0 8px;
   font-size: 14px;
   line-height: 1.6;
+  max-height: 200px;
+  overflow-y: auto;
 }
 .related-vachana-actions {
   margin-top: 8px;

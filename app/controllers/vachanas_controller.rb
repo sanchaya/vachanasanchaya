@@ -243,4 +243,9 @@ def ai_search
   end
 end
 
+def autocomplete
+  @words = KeyWord.where("word LIKE ?", "#{params[:q]}%").limit(10).pluck(:word)
+  render json: @words
+end
+
 end
