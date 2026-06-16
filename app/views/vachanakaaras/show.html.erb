@@ -32,10 +32,10 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": <%= @vachanakaara.name.to_json %>,
-  "alternateName": <%= @vachanakaara.ankitha_naama.to_json %>,
-  "description": <%= @vachanakaara.information.to_s.truncate(300, separator: ' ').to_json %>,
-  "birthPlace": <%= @vachanakaara.birth_place.to_json %>,
+  "name": <%= raw @vachanakaara.name.to_json %>,
+  "alternateName": <%= raw @vachanakaara.ankitha_naama.to_json %>,
+  "description": <%= raw @vachanakaara.information.to_s.truncate(300, separator: ' ').to_json %>,
+  "birthPlace": <%= raw @vachanakaara.birth_place.to_json %>,
   "knowsAbout": "ವಚನ ಸಾಹಿತ್ಯ",
   "url": "<%= vachanakaara_url(@vachanakaara) %>",
   "mainEntityOfPage": {
@@ -108,5 +108,6 @@
       <%= render "vachanakaara_vachana_list" %>
     </div>
     <%= render "layouts/google_add" %>
+    <%= render 'user_feedbacks/form', feedbackable_id: @vachanakaara.id, feedbackable_type: 'Vachanakaara' %>
   </div>
 </div>

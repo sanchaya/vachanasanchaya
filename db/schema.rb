@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20260615000000) do
+ActiveRecord::Schema.define(:version => 20260616000002) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -138,6 +138,22 @@ ActiveRecord::Schema.define(:version => 20260615000000) do
   end
 
   add_index "static_pages", ["slug", "locale"], :name => "index_static_pages_on_slug_and_locale", :unique => true
+
+  create_table "user_feedbacks", :force => true do |t|
+    t.integer  "feedbackable_id"
+    t.string   "feedbackable_type"
+    t.integer  "user_id"
+    t.text     "comment",            :null => false
+    t.string   "status",             :default => "pending"
+    t.string   "ip_address"
+    t.string   "user_agent"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "user_feedbacks", ["feedbackable_id", "feedbackable_type"], :name => "idx_user_feedbacks_on_feedbackable"
+  add_index "user_feedbacks", ["status"], :name => "index_user_feedbacks_on_status"
+  add_index "user_feedbacks", ["user_id"], :name => "index_user_feedbacks_on_user_id"
 
   create_table "user_vachanakaaras", :force => true do |t|
     t.integer  "vachanakaara_id"

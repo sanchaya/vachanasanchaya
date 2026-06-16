@@ -9,6 +9,7 @@ class Vachana < ActiveRecord::Base
   has_many :daily_vachanas
   belongs_to :vachanakaara
   has_one :old_vachana
+  has_many :user_feedbacks, as: :feedbackable
 
   def vachana_book_count
     vachanakaara&.reference_book_id

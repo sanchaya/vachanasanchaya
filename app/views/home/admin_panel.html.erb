@@ -15,6 +15,7 @@
       <li> <%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ ", activities_path %> </li>
       <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
       <li> <%= link_to "Full vachan search ", search_vachana_vachanas_path %> </li> 
+      <li><%= link_to "ಬಳಕೆದಾರರ ಪ್ರತಿಕ್ರಿಯೆಗಳು #{'(' + @pending_feedbacks_count.to_s + ')' if @pending_feedbacks_count > 0}", feedbacks_path, style: 'font-weight:bold;' %></li>
     </ol>
 
     <%= link_to "Download KeyWords as CSV", download_keyword_csv_word_lists_path %> 

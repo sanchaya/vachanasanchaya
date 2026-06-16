@@ -12,6 +12,10 @@ KannadaVachana::Application.routes.draw do
   match "/admin_panel" => "home#admin_panel"
   match "/admin_panel/static_pages/:id/edit" => "home#edit_static_page", :as => 'edit_static_page', :via => :get
   match "/admin_panel/static_pages/:id" => "home#update_static_page", :as => 'update_static_page', :via => :put
+  match "/feedbacks" => "home#feedbacks", :as => 'feedbacks', :via => :get
+  match "/feedbacks/:id/update" => "home#update_feedback", :as => 'update_feedback', :via => :post
+  match "/feedbacks/:id/destroy" => "home#destroy_feedback", :as => 'destroy_feedback', :via => :post
+  resources :user_feedbacks, only: [:create]
 
 
   devise_for :users, :skip => [:registrations]                                          

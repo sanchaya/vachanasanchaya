@@ -12,6 +12,7 @@ class Vachanakaara < ActiveRecord::Base
   belongs_to :reference_book
   has_many :users, through: :user_vachanakaaras
   has_many :user_vachanakaaras, dependent: :destroy
+  has_many :user_feedbacks, as: :feedbackable
 
 
   scope :start_letter, lambda {|letter| where("name like ? ", "#{letter}%" )}
