@@ -17,18 +17,21 @@ class Vachana < ActiveRecord::Base
 
   def related_vachanas(limit = 10)
     keyword_ids = KeywordVachana.where(vachana_id: id).pluck(:key_word_id)
-    return Vachana.none if keyword_ids.empty?
+    return [] if keyword_ids.empty?
 
-    related_ids = KeywordVachana
-      .where(key_word_id: keyword_ids)
-      .where("vachana_id != ?", id)
-      .group(:vachana_id)
-      .order("count_all DESC")
-      .limit(limit)
-      .count
-      .keys
+    ids = KeywordVachana.connection.select_values(
+      sanitize_sql_array(["
+        SELECT vachana_id
+        FROM keyword_vachanas
+        WHERE key_word_id IN (?)
+          AND vachana_id != ?
+        GROUP BY vachana_id
+        ORDER BY COUNT(*) DESC
+        LIMIT ?
+      ", keyword_ids, id, limit])
+    ).map(&:to_i)
 
-    Vachana.where(id: related_ids).includes(:vachanakaara)
+    Vachana.where(id: ids).includes(:vachanakaara)
   end
 
 

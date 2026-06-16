@@ -36,7 +36,6 @@
   <p id='fe_text_<%= vachana.id %>'> <%= raw vachana.vachana.gsub(/\n/, '<br />') %> 
 
   </p>
-  <%= render 'vachanas/related_vachanas_inline', vachana: vachana %>
 </div>
 <div class="modal-footer">
   <div class='demo-area'>
@@ -65,6 +64,7 @@
     <%= render 'user_feedbacks/form', feedbackable_id: vachana.id, feedbackable_type: 'Vachana' %>
   </div>
 </div>
+<%= render 'vachanas/related_vachanas_inline', vachana: vachana %>
 </div>
 
 
