@@ -230,3 +230,28 @@ SEO impact of the serialized columns join table migration: Faster page loads
 (no YAML deserialization on every read) improve Core Web Vitals (LCP, FID, CLS),
 which are Google ranking signals. The join table indexes replace full-table scans
 with indexed JOINs, reducing database CPU and response times.
+
+=== Text-to-Speech (TTS) — listen to vachanas (June 2026) ===
+
+Summary: Added Kannada text-to-speech playback using the Web Speech API
+(+SpeechSynthesisUtterance+) — zero dependencies, zero cost.
+
+Added to:
+- Vachana show page (+app/views/vachanas/show.html.erb+)
+- Search result modals (+app/views/vachanas/_vachana_concord_results.html.erb+)
+- Concord result modals (+app/views/vachanas/_results.html.erb+)
+
+JavaScript in +app/assets/javascripts/vachanas.js+:
+- +speakVachana(elementId)+ — reads text from a DOM element and speaks it.
+- +speakVachanaText(text)+ — speaks arbitrary text.
+- Voice selection: searches for a Kannada voice (+kn+) first, falls back to
+  any Indian English voice (+IN+), then any available voice.
+- Handles the +voiceschanged+ race condition (voices not loaded at page load
+  in Chrome — waits for the event before first utterance).
+- Rate: 0.85 (slightly slower than default for better clarity).
+
+Browser support: Chrome, Edge, Safari. Firefox lacks Kannada TTS voices.
+
+Note: Users must have a Kannada TTS voice installed on their system.
+- Windows: Settings → Speech → Add voices → Kannada
+- macOS: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices
