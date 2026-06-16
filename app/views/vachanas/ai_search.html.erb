@@ -110,11 +110,20 @@
                       <h3 id="myModalLabel"><%= vachana.vachanakaara.try(:name) %></h3>
                     </div>
                     <div class="modal-body vachana-pop">
-                      <p><%= vachana.vachana %></p>
+                      <p id="fe_text_<%= vachana.id %>"><%= vachana.vachana %></p>
                       <p><strong>ವಚನ ಸಂಖ್ಯೆ:</strong> <%= vachana.vachanaid %></p>
                     </div>
                     <div class="modal-footer">
+                      <button class="btn btn-listen" onclick="speakVachana('fe_text_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
+                        <i class="fa fa-volume-up"></i>
+                      </button>
+                      <button class="btn btn-small" onclick="$(this).closest('.modal-footer').find('.feedback-inline').toggle()" title="ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ">
+                        <i class="fa fa-exclamation-triangle"></i>
+                      </button>
                       <button class="btn" data-dismiss="modal" aria-hidden="true">ಮುಚ್ಚಿ</button>
+                      <div class="feedback-inline" style="display:none;margin-top:8px;">
+                        <%= render 'user_feedbacks/form', feedbackable_id: vachana.id, feedbackable_type: 'Vachana' %>
+                      </div>
                     </div>
                   </div>
                 <% end %>
