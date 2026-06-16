@@ -277,6 +277,10 @@ JavaScript in +app/assets/javascripts/vachanas.js+:
 
 Browser support: Chrome, Edge, Safari. Firefox lacks Kannada TTS voices.
 
+Note: Users must have a Kannada TTS voice installed on their system.
+- Windows: Settings → Speech → Add voices → Kannada
+- macOS: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices
+
 === User feedback / report incorrect info (June 2026) ===
 
 Summary: Users can report incorrect vachana or vachanakaara information via an
@@ -318,7 +322,3 @@ reason.
 Also fixed: +KeywordVachana.pluck(:vachana_id, :count)+ — Rails 3.2's +pluck+
 only accepts a single column. Replaced with
 +KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt")+.
-
-Note: Users must have a Kannada TTS voice installed on their system.
-- Windows: Settings → Speech → Add voices → Kannada
-- macOS: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices
