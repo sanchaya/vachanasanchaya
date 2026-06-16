@@ -251,16 +251,9 @@ end
 def saved
   if params[:ids].present?
     @saved_vachanas = Vachana.where(id: params[:ids].map(&:to_i)).includes(:vachanakaara)
-    respond_to do |format|
-      format.html { render :saved }
-      format.js { render partial: 'vachanas/saved_list', locals: { vachanas: @saved_vachanas }, layout: false }
-    end
+    render partial: 'vachanas/saved_list', locals: { vachanas: @saved_vachanas }, layout: false
   else
-    @saved_vachanas = Vachana.none
-    respond_to do |format|
-      format.html { render :saved }
-      format.js { render nothing: true }
-    end
+    render :saved
   end
 end
 
