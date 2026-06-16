@@ -206,6 +206,25 @@ Benefits:
 - Drop old serialized columns (+vachana_ids+, +vachanakaara_ids+, +ids+) after
   verifying the new join tables work correctly in production.
 
+=== Sitemap update (June 2026) ===
+
+Added missing public pages to the sitemap:
+- +/books+ — Internet Archive book search page
+- +/vachanas/ai_search+ — AI-powered research page
+
+Regenerated via +scripts/generate_sitemap.rb+ (standalone Ruby script using
+Mysql2, bypasses broken Rails console). Output: 5 sitemap files (50K URLs each)
+in +public/+, indexed by +public/sitemap-index.xml+. Total: 237,410 URLs.
++robots.txt+ points to +sitemap-index.xml+.
+
+Note: +reference_books+ is admin-only (before_filter), excluded. +activities+
+is admin-only, excluded. +books+ table does not exist (it's an Internet Archive
+search proxy), but the index page URL is included.
+
+To regenerate periodically:
+  $ ruby scripts/generate_sitemap.rb
+Then submit +sitemap-index.xml+ to Google Search Console.
+
 === SEO improvements (June 2026) ===
 
 Fixes and enhancements to search-engine visibility:

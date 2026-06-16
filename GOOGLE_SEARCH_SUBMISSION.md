@@ -25,7 +25,7 @@
 
 ### 5. Crawler Accessibility
 - ✅ robots.txt (Allow all, Sitemap reference)
-- ✅ sitemap.xml (27,532 URLs with changefreq/priority)
+- ✅ sitemap-index.xml (237,410 URLs across 5 sitemap files with changefreq/priority)
 - ✅ No noindex or nofollow tags anywhere
 - ✅ No robots meta blocking crawlers
 
@@ -69,9 +69,14 @@
 
 1. After verification, go to Google Search Console
 2. Navigate to: **Sitemaps** (left sidebar)
-3. Enter: `sitemap.xml`
+3. Enter: **`sitemap-index.xml`** (the multi-file sitemap index)
 4. Click **Submit**
 5. Wait for Google to process (usually within hours)
+
+Note: To regenerate sitemaps, run `ruby scripts/generate_sitemap.rb` from the
+application root. This creates 5 sitemap files (50K URLs each) + an index file
+in `public/`. Re-submit `sitemap-index.xml` to Google Search Console after
+regeneration.
 
 ### Step 3: Request Indexing for Key Pages
 
