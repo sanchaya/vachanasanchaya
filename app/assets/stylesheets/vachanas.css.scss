@@ -604,36 +604,40 @@ margin: 0 0 10px;
   display: inline-block;
   font-size: 12px;
   color: #555;
-  margin-right: 4px;
+  margin: 2px 4px;
+  padding: 2px 8px;
+  background: #f5f5f0;
+  border: 1px solid #e0ddd5;
+  border-radius: 3px;
   text-decoration: none;
+  white-space: nowrap;
 }
 .related-vachana-link:hover {
   color: #0066cc !important;
-  text-decoration: underline !important;
-  background: transparent !important;
+  text-decoration: none !important;
+  background: #eae8e0 !important;
 }
 
 .related-vachanas-section {
   border-top: 1px solid #eee;
-  margin-top: 10px;
-  padding-top: 8px;
+  padding: 8px 12px;
 }
 .related-vachanas-label {
   font-size: 12px;
   color: #555;
-}
-.related-vachanas-list {
-  margin-top: 5px;
-}
-.related-vachana-item {
+  display: block;
   margin-bottom: 4px;
 }
+.related-vachanas-list {
+  line-height: 2.2;
+}
 .related-vachana-text {
+  clear: both;
   padding: 8px;
   background: #fafaf8;
   border: 1px solid #e8e6e3;
   border-radius: 4px;
-  margin-top: 4px;
+  margin: 4px 0 8px;
   font-size: 14px;
   line-height: 1.6;
 }
