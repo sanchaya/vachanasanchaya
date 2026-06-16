@@ -10,13 +10,13 @@
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": <%= "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid}".to_json %>,
+  "headline": <%= raw "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid}".to_json %>,
   "author": {
     "@type": "Person",
-    "name": <%= @vachana.vachanakaara.name.to_json %>
+    "name": <%= raw @vachana.vachanakaara.name.to_json %>
   },
-  "description": <%= @vachana.vachana.to_s.truncate(200, separator: ' ').to_json %>,
-  "articleBody": <%= @vachana.vachana.to_json %>,
+  "description": <%= raw @vachana.vachana.to_s.truncate(200, separator: ' ').to_json %>,
+  "articleBody": <%= raw @vachana.vachana.to_json %>,
   "inLanguage": "kn",
   "url": "<%= vachana_url(@vachana) %>",
   "mainEntityOfPage": {
