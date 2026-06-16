@@ -33,6 +33,10 @@ class Vachana < ActiveRecord::Base
     []
   end
 
+  def to_param
+    hash = Digest::MD5.hexdigest("#{id}-#{vachana.to_s[0..50]}")[0..8]
+    "#{id}-#{hash}"
+  end
 
   def self.search_vachana_pada(pada,type,author)
     # vachanas=	where("vachana like ?", "%#{pada}%" )

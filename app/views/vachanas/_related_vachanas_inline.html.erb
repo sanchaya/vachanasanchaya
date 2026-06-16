@@ -4,7 +4,7 @@
     <strong class="related-vachanas-label">ಸಂಬಂಧಿತ ವಚನಗಳು:</strong>
     <div class="related-vachanas-list">
       <% related.each do |rv| %>
-        <a href="javascript:void(0)" class="related-vachana-link" onclick="$(this).next().toggle();return false;">
+        <a href="javascript:void(0)" class="related-vachana-link" onclick="var t=$(this).next();if(t.is(':visible')){t.slideUp()}else{$('.related-vachana-text').slideUp();t.slideDown()}return false;">
           <%= rv.vachanakaara.name %> - <%= rv.vachanaid %>
         </a>
         <div class="related-vachana-text" style="display:none;">
