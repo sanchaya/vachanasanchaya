@@ -360,28 +360,40 @@ Implementation:
 - +app/views/layouts/_search_box.html.erb+ — JavaScript binds AJAX typeahead
   to +#search-word+ input field, replacing the previously commented-out code
 
-== Bookmark / Favorites (June 2026)
+== Bookmark / Favorites with Categories (June 2026)
 
-Added a client-side bookmark/favorites feature using browser localStorage.
+Added a client-side bookmark/favorites feature using browser localStorage,
+with category organization.
 
 How it works:
 - Star icon (+<i class="fa fa-star">+) in every vachana modal and show page
-- Click to toggle save/unsave — gold star = saved, gray star = not saved
+- Click star to toggle save/unsave — gold star = saved, gray star = not saved
+- Star saves to "default" category (instant, no interruption)
+- Tag icon (+<i class="fa fa-tag">+) next to star opens a category picker popup
+  to save into specific categories
+- Create new categories on the fly from the picker
 - All data stored in browser +localStorage+ — no login required, persists across sessions
-- +/vachanas/saved+ page reads bookmarked IDs from localStorage and loads vachanas via AJAX
+- +/vachanas/saved+ page shows category tabs with vachana counts
+  - Click a tab to view that category's vachanas
+  - Rename (✎) and delete (✕) custom categories
+  - "default" category cannot be deleted
 - Nav bar link "ಉಳಿಸಿದವು" for easy access
+- Old flat-array format auto-migrates to category format on first load
 
 Implementation:
-- +app/assets/javascripts/vachanas.js+ — +getBookmarks()+, +saveBookmarks()+,
-  +toggleBookmark()+, +loadBookmarks()+ functions using +localStorage+ API
-- +app/assets/stylesheets/vachanas.css.scss+ — +.bookmark-btn+ styles with gold
-  (+#f5a623+) active color
-- +app/views/vachanas/_bookmark_btn.html.erb+ — reusable button partial
+- +app/assets/javascripts/vachanas.js+ — +getBookmarkData()+, +getBookmarkIds()+,
+  +toggleBookmark()+, +showCategoryPicker()+, +createCategory()+, +renameCategory()+,
+  +deleteCategory()+ functions using +localStorage+ API
+  - Data format: +{ version: 2, categories: { "default": [...], "my research": [...] } }+
+  - +migrateBookmarks()+ converts old flat array to new format
+- +app/assets/stylesheets/vachanas.css.scss+ — +.bookmark-btn+, +.category-picker+,
+  +.cat-option+ styles
+- +app/views/vachanas/_bookmark_btn.html.erb+ — reusable partial with star + tag buttons
 - +app/controllers/vachanas_controller.rb#saved+ — accepts +ids[]+ param array,
-  queries vachanas, renders via +saved.js.erb+ template
-- +app/views/vachanas/saved.html.erb+ — initial page with JS to read localStorage
-- +app/views/vachanas/saved.js.erb+ — renders vachana boxes with modals
-- Added to all 8 modal views, show page, and nav bar
+  renders partial +_saved_list.html.erb+
+- +app/views/vachanas/saved.html.erb+ — category tabs UI with AJAX loading
+- +app/views/vachanas/_saved_list.html.erb+ — vachana boxes with modals
+- Added to all 8 modal views, show page, saved page, and nav bar
 
 == Related Vachanas Feature (June 2026)
 
