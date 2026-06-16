@@ -47,8 +47,9 @@ module SeoHelper
       description: page_description,
       url:         page_canonical,
       site_name:   SITE_NAME,
-      locale:      "kn_IN",
-      type:        "website"
+      locale:      I18n.locale == :en ? "en_US" : "kn_IN",
+      type:        "website",
+      image:       "#{SITE_URL}/og-image.png"
     }
   end
 
@@ -61,20 +62,24 @@ module SeoHelper
     }
   end
 
-  # Build hreflang URL preserving pagination and letter params
+  # Build hreflang URL preserving all relevant params
   def hreflang_url(locale)
     base = request.original_url.split('?').first
     preserved = {}
     preserved[:start_letter] = params[:start_letter] if params[:start_letter].present?
-    preserved[:page] = params[:page] if params[:page].present?
-    
-    if locale != I18n.locale.to_s
+    preserved[:page]          = params[:page]          if params[:page].present?
+    preserved[:vachana]       = params[:vachana]       if params[:vachana].present?
+    preserved[:search_type]   = params[:search_type]   if params[:search_type].present?
+    preserved[:vachanakaara]  = params[:vachanakaara]  if params[:vachanakaara].present?
+    preserved[:id]            = params[:id]            if params[:id].present?
+    preserved[:q]             = params[:q]             if params[:q].present?
+
+    if I18n.locale.to_s != locale.to_s
       preserved[:locale] = locale
     end
-    
+
     if preserved.any?
-      query = preserved.to_query
-      "#{base}?#{query}"
+      "#{base}?#{preserved.to_query}"
     else
       base
     end
