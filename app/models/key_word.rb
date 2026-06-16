@@ -1,9 +1,12 @@
 class KeyWord < ActiveRecord::Base
-  attr_accessible :word, :count, :vachana_ids,:vachanakaara_ids
+  attr_accessible :word, :count, :vachana_ids, :vachanakaara_ids
   serialize :vachana_ids
   serialize :vachanakaara_ids
-    # self.per_page = 50
-  # WillPaginate.per_page = 20 #global set limit if in all model its same numbers
+
+  has_many :keyword_vachanas, dependent: :destroy
+  has_many :keyword_vachanakaaras, dependent: :destroy
+  has_many :linked_vachanas, through: :keyword_vachanas, source: :vachana
+  has_many :linked_vachanakaaras, through: :keyword_vachanakaaras, source: :vachanakaara
 
 
   def self.search_vachana_pada(pada,type,author)
@@ -12,21 +15,10 @@ class KeyWord < ActiveRecord::Base
     @vachanakaaras_name =  []
     add_search_count(pada, type)
     if type && type == "like_search"
-
-    	# if author.blank?
       @results = where("word like ?", "%#{pada}%" )
-       # else
-  	      # @results = where("word like ?  ", "%#{pada}%").select{|a| a.vachanakaara_ids.include?(author.to_i)}
-       # end
-
      else
-    	 # if author.blank?
       @results = where(word: pada )
-       # else
-           # @results = includes(:vachana).where("word = ? and vachanas.vachanakaara_id = ? ", pada, author)
-       # end
      end
-# @vachanakaaras = @results.vachanas.vachanakaaras
 @vachanas = @results.vachanas
 unless author.blank?
   @vachanas = @vachanas.where(vachanakaara_id: author)
@@ -52,7 +44,7 @@ else
   @total_counts = 0
   @results.each do |result|
    vachana_ids.each do |v_id|
-     @total_counts += result.vachana_ids[v_id].to_i
+     @total_counts += result.vachana_count_for(v_id)
    end
  end
 end
@@ -61,14 +53,31 @@ return @vachanas, @vachanakaaras_word_count, @vachanakaaras_name,@total_counts
 end
 
 
-# def self.vachana_ids
+def vachana_count_for(vachana_id)
+  if keyword_vachanas.loaded? || keyword_vachanas.any?
+    kwv = keyword_vachanas.detect { |kwv| kwv.vachana_id == vachana_id }
+    kwv ? kwv.count : 0
+  else
+    keyword_vachanas.where(vachana_id: vachana_id).pluck(:count).first.to_i
+  end
+end
 
-#   includes(:vachana).map(&:vachana_id)
-# end
+def all_vachana_ids
+  keyword_vachanas.pluck(:vachana_id)
+end
+
+def vachanakaara_id_list
+  keyword_vachanakaaras.pluck(:vachanakaara_id)
+end
+
+def vachana_id_count_hash
+  Hash[keyword_vachanas.pluck(:vachana_id, :count)]
+end
+
 
 def self.vachanas
-  vachana_ids = @results.map {|res| res.vachana_ids.keys}
-  Vachana.where(id: vachana_ids)
+  vachana_ids = @results.flat_map(&:all_vachana_ids)
+  Vachana.where(id: vachana_ids.uniq)
 end
 
 
@@ -112,31 +121,13 @@ def self.vachanakaara_keyword
     vachanakaara_cache = {}
     KeyWord.find_each do |key|
       next if key.word.blank? || key.word == "\t" || key.word == "\n" || key.word == "`" || key.word == "``"
-      key.vachanakaara_ids.uniq.each do |va_id|
+      key.vachanakaara_id_list.uniq.each do |va_id|
         vachanakaara = vachanakaara_cache[va_id] ||= Vachanakaara.find_by_id(va_id)
         csv << [key.id, key.word, vachanakaara.name] if vachanakaara
       end
     end
   end
 end
-
-
-  # def compile_csv(items)
-  #   clean_items = items.compact
-  #   path = File.new("#{Rails.root}/tmp/uploads/downloads_by_title_#{Process.pid}.csv", "w")
-  #   csv_string = CSV.open(path, "w") do |csv|
-  #     csv << ["Item Name", "Parent", "Download Count"]
-  #     clean_items.each do |row|
-  #       if !row.item.nil? && !row.item.parent.nil?
-  #       csv << [
-  #         row.item.name,
-  #         row.item.parent.name,
-  #         row.download_count
-  #         ]
-  #       end
-  #     end
-  #   end
-
 
 
 end

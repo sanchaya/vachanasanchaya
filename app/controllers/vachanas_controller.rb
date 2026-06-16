@@ -26,7 +26,7 @@ class VachanasController < ApplicationController
       end
       @vachana_occurrences = Hash.new(0)
       keyword_results.each do |kr|
-        kr.vachana_ids.each { |v_id, c| @vachana_occurrences[v_id.to_i] += c }
+        kr.vachana_id_count_hash.each { |v_id, c| @vachana_occurrences[v_id.to_i] += c }
       end
 
       if params[:vachanakaara] and !params[:vachanakaara].blank?

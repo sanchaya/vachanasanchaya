@@ -19,12 +19,12 @@ end
       @keyword = KeyWord.find(params[:id])
     end
     
-    @vachanas = Vachana.where(id: @keyword.vachana_ids.keys)
-    @vachanakaaras = Vachanakaara.where(id: @keyword.vachanakaara_ids.uniq)
+    @vachanas = Vachana.where(id: @keyword.all_vachana_ids)
+    @vachanakaaras = Vachanakaara.where(id: @keyword.vachanakaara_id_list)
     
     set_meta_tags(
       title:       "#{@keyword.word} - ಪದಪುಂಜ - ವಚನ ಸಂಚಯ",
-      description: "#{@keyword.word} ಪದವು #{@keyword.vachana_ids.count} ವಚನಗಳಲ್ಲಿ #{@vachanakaaras.count} ವಚನಕಾರರಿಂದ ಬಳಕೆಯಾಗಿದೆ. ವಚನ ಸಂಚಯದಲ್ಲಿ ಈ ಪದದ ಬಳಕೆಯನ್ನು ಅಧ್ಯಯನ ಮಾಡಿ.",
+      description: "#{@keyword.word} ಪದವು #{@keyword.keyword_vachanas.count} ವಚನಗಳಲ್ಲಿ #{@vachanakaaras.count} ವಚನಕಾರರಿಂದ ಬಳಕೆಯಾಗಿದೆ. ವಚನ ಸಂಚಯದಲ್ಲಿ ಈ ಪದದ ಬಳಕೆಯನ್ನು ಅಧ್ಯಯನ ಮಾಡಿ.",
       keywords:    "#{@keyword.word}, ಪದಪುಂಜ, ಸಂಶೋಧನೆ, ವಚನ ಸಂಚಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ"
     )
   end

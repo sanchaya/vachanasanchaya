@@ -14,19 +14,20 @@ task :update_concordance_for_glossary_priority_5 => :environment do
   end
 end
 
-
 desc "concordance for keywords"
 task :update_concordance_for_keywords_priority_4 => :environment do
   puts ">>>>>>>>>>>>>>Start >>>>>>>>>"
   alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
   parent = Concord.create(name: "key_word",concord_code: "key_word" )
 
-
   alphabets.each do |alphabet|
-    key_words= KeyWord.start_letter(alphabet)
+    key_words = KeyWord.start_letter(alphabet)
     count = key_words.count
-    vachanakaara_ids = key_words.pluck(:id) 
-    Concord.create(name: alphabet,parent_id: parent.id, concord_code: "key_word_#{alphabet}", count: count, ids:  vachanakaara_ids)
+    concord = Concord.create(name: alphabet, parent_id: parent.id, concord_code: "key_word_#{alphabet}", count: count)
+    key_words.pluck(:id).each_slice(1000) do |ids|
+      inserts = ids.map { |id| "(#{concord.id}, #{id})" }.join(", ")
+      ActiveRecord::Base.connection.execute("INSERT INTO concord_items (concord_id, item_id) VALUES #{inserts}")
+    end
   end
 end
 
@@ -37,20 +38,17 @@ task :update_concordance_for_vachanas_priority_3 => :environment do
   alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
   parent = Concord.create(name: "vachana",concord_code: "vachana" )
 
-
   alphabets.each do |alphabet|
     vachanas = Vachana.start_letter(alphabet)
     count = vachanas.count
-    vachanakaara_ids = vachanas.pluck(:vachanakaara_id) 
-    Concord.create(name: alphabet,parent_id: parent.id, concord_code: "vachana_#{alphabet}", count: count, ids:  vachanakaara_ids)
+    v_ids = vachanas.pluck(:vachanakaara_id)
+    concord = Concord.create(name: alphabet, parent_id: parent.id, concord_code: "vachana_#{alphabet}", count: count)
+    v_ids.each_slice(1000) do |ids|
+      inserts = ids.map { |id| "(#{concord.id}, #{id})" }.join(", ")
+      ActiveRecord::Base.connection.execute("INSERT INTO concord_items (concord_id, item_id) VALUES #{inserts}")
+    end
   end
 end
-
-
-
-
-
-
 
 
 desc "concordance for vachanakaara"
@@ -59,12 +57,15 @@ task :update_concordance_for_vachanakaara_priority_2 => :environment do
   alphabets = ["ಅ", "ಆ", "ಇ", "ಈ", "ಉ" , "ಊ", "ಋ", "ೠ", "ಎ", "ಏ", "ಐ", "ಒ", "ಓ", "ಔ", "ಅಂ", "ಅಃ"]  + ["ಕ", "ಖ", "ಗ", "ಘ", "ಙ"] + ["ಚ", "ಛ", "ಜ", "ಝ", "ಞ"] + ["ಟ", "ಠ", "ಡ", "ಢ", "ಣ"] + ["ತ", "ಥ", "ದ", "ಧ", "ನ"] + ["ಪ", "ಫ", "ಬ", "ಭ", "ಮ"] + ["ಯ", "ರ", "ಱ", "ಲ", "ವ", "ಶ", "ಷ", "ಸ", "ಹ", "ಳ"]
   parent = Concord.create(name: "vachanakaara",concord_code: "vachanakaara" )
 
-
   alphabets.each do |alphabet|
-    vachanakaaras= Vachanakaara.start_letter(alphabet)
+    vachanakaaras = Vachanakaara.start_letter(alphabet)
     count = vachanakaaras.count
-    vachanakaara_ids = vachanakaaras.pluck(:id) 
-    Concord.create(name: alphabet,parent_id: parent.id, concord_code: "vachanakaara_#{alphabet}", count: count, ids:  vachanakaara_ids)
+    va_ids = vachanakaaras.pluck(:id)
+    concord = Concord.create(name: alphabet, parent_id: parent.id, concord_code: "vachanakaara_#{alphabet}", count: count)
+    va_ids.each_slice(1000) do |ids|
+      inserts = ids.map { |id| "(#{concord.id}, #{id})" }.join(", ")
+      ActiveRecord::Base.connection.execute("INSERT INTO concord_items (concord_id, item_id) VALUES #{inserts}")
+    end
   end
 end
 
@@ -85,27 +86,24 @@ task :update_keyword_count_in_vachana_priority_1 => :environment do
      keyword = KeyWord.find_by_word(word)
      if keyword
       puts "already keyword exists "
-      unless keyword.vachana_ids.keys.include?(vachana.id)
+      unless keyword.keyword_vachanas.where(vachana_id: vachana.id).exists?
        puts "keyword in this vachana first time"
        count = words.count(word)
        total_count = keyword.count + count
-       hash = keyword.vachana_ids
-       hash[vachana.id] = count
-       arraya = keyword.vachanakaara_ids
-       arraya << vachana.vachanakaara_id
-       keyword.update_attributes(count: total_count, vachana_ids: hash, vachanakaara_ids: arraya)
+       keyword.keyword_vachanas.create!(vachana_id: vachana.id, count: count)
+       keyword.keyword_vachanakaaras.create!(vachanakaara_id: vachana.vachanakaara_id)
+       keyword.update_attribute(:count, total_count)
      end
    else
     puts "new keyword"
     count = words.count(word)
-				# count = vachana.vachana.scan(word).count
-				hash = {vachana.id => count}
-				arraya = [vachana.vachanakaara_id]
-				KeyWord.create(word: word , vachana_ids: hash, count: count, vachanakaara_ids: arraya)
-			end
-		end
-		i += 1
-	end
+    kw = KeyWord.create(word: word, count: count)
+    kw.keyword_vachanas.create!(vachana_id: vachana.id, count: count)
+    kw.keyword_vachanakaaras.create!(vachanakaara_id: vachana.vachanakaara_id)
+   end
+  end
+  i += 1
+ end
   puts ">>>>>>>>>>>finish >>>>>>>>>"
 end
 
