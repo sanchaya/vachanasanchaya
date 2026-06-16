@@ -135,7 +135,7 @@ development:
   username: vachana_concord
   password: YOUR_DB_PASSWORD
 
-test:
+  test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
@@ -144,7 +144,7 @@ test:
   username: vachana_concord
   password: YOUR_DB_PASSWORD
 
-production:
+  production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
