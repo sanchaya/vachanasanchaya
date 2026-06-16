@@ -1,5 +1,5 @@
 class UserFeedback < ActiveRecord::Base
-  attr_accessible :feedbackable_id, :feedbackable_type, :comment, :ip_address, :user_agent
+  attr_accessible :feedbackable_id, :feedbackable_type, :comment, :ip_address, :user_agent, :name, :email
 
   belongs_to :feedbackable, polymorphic: true
   belongs_to :user
@@ -24,11 +24,5 @@ class UserFeedback < ActiveRecord::Base
     else
       feedbackable_type
     end
-  end
-
-  def self.rate_limited?(user)
-    where(user_id: user.id)
-      .where("created_at > ?", 1.hour.ago)
-      .count >= 10
   end
 end

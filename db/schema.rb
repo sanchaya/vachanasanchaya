@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20260616000002) do
+ActiveRecord::Schema.define(:version => 20260616000003) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -147,6 +147,8 @@ ActiveRecord::Schema.define(:version => 20260616000002) do
     t.string   "status",             :default => "pending"
     t.string   "ip_address"
     t.string   "user_agent"
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
