@@ -255,10 +255,16 @@ with indexed JOINs, reducing database CPU and response times.
 Summary: Added Kannada text-to-speech playback using the Web Speech API
 (+SpeechSynthesisUtterance+) — zero dependencies, zero cost.
 
-Added to:
+Added to all vachana modals across the app:
 - Vachana show page (+app/views/vachanas/show.html.erb+)
-- Search result modals (+app/views/vachanas/_vachana_concord_results.html.erb+)
-- Concord result modals (+app/views/vachanas/_results.html.erb+)
+- Keyword search modals (+app/views/vachanas/_results.html.erb+)
+- Concord search modals (+app/views/vachanas/_vachana_concord_results.html.erb+)
+- Vachanakaara page vachana modals (+app/views/vachanakaaras/_vachanakaara_vachana_results.html.erb+)
+- Full-text search modals (+app/views/vachanas/search_vachana.html.erb+)
+- Number search modals (+app/views/vachanas/search_vachana_number.html.erb+)
+- AI search source modals (+app/views/vachanas/ai_search.html.erb+)
+- Glossary search modals (+app/views/glossaries/search.html.erb+)
+- Glossary index modals (+app/views/glossaries/index.html.erb+)
 
 JavaScript in +app/assets/javascripts/vachanas.js+:
 - +speakVachana(elementId)+ — reads text from a DOM element and speaks it.
@@ -270,6 +276,48 @@ JavaScript in +app/assets/javascripts/vachanas.js+:
 - Rate: 0.85 (slightly slower than default for better clarity).
 
 Browser support: Chrome, Edge, Safari. Firefox lacks Kannada TTS voices.
+
+=== User feedback / report incorrect info (June 2026) ===
+
+Summary: Users can report incorrect vachana or vachanakaara information via an
+inline form or modal popup. No login required — optional name/email fields capture
+user identity.
+
+Feature:
+- +app/models/user_feedback.rb+ — polymorphic model (+Vachana+, +Vachanakaara+)
+  with +status+ (pending / reviewed / dismissed), +name+, +email+, +ip_address+,
+  +user_agent+ columns.
+- +app/controllers/user_feedbacks_controller.rb+ — AJAX +create+ action.
+- +app/views/user_feedbacks/_form.html.erb+ — reusable form partial with honeypot
+  spam protection (+gotcha+ hidden field). Submits via AJAX; on success hides the
+  form and shows a Kannada thank-you message.
+- +app/views/vachanas/show.html.erb+ — form rendered at bottom of vachana detail.
+- +app/views/vachanakaaras/show.html.erb+ — button in header opens a modal popup
+  with the form.
+- All vachana modals: feedback toggle button (exclamation-triangle icon) in the
+  footer reveals the form inline.
+
+Admin management:
+- +GET /feedbacks+ — paginated list with filter tabs (pending/reviewed/dismissed).
+- +POST /feedbacks/:id/update+ — mark reviewed or dismiss.
+- +POST /feedbacks/:id/destroy+ — delete.
+- Admin panel nav bar shows pending count badge.
+
+Spam prevention: honeypot hidden field (silently discards submissions from bots).
+If user is logged in, +user_id+ is recorded for audit.
+
+=== vachana_id_count_hash — count column name conflict fix (June 2026) ===
+
+The +keyword_vachanas+ join table has a +count+ column. Calling +.count+ on
++KeywordVachana+ instances invoked +ActiveRecord::Calculations#count+ (a SQL
++COUNT(*) query) instead of reading the column value. Fixed by aliasing the column
+in SQL (+count as cnt+) and accessing via +kv.cnt.to_i+ in +vachana_id_count_hash+.
+The +vachana_count_for+ method uses +read_attribute(:count).to_i+ for the same
+reason.
+
+Also fixed: +KeywordVachana.pluck(:vachana_id, :count)+ — Rails 3.2's +pluck+
+only accepts a single column. Replaced with
++KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt")+.
 
 Note: Users must have a Kannada TTS voice installed on their system.
 - Windows: Settings → Speech → Add voices → Kannada
