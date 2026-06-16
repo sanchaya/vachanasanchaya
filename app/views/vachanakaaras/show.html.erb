@@ -23,6 +23,10 @@
     <br>
     <p style="line-height:1.8;font-size:15px;margin:0;"><%= @vachanakaara.information %></p>
   <% end %>
+  <button class="btn btn-mini btn-danger" style="margin-top:8px;" onclick="$('#vachanakaara-feedback').toggle()">✏️ ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ</button>
+  <div id="vachanakaara-feedback" style="display:none;margin-top:8px;">
+    <%= render 'user_feedbacks/form', feedbackable_id: @vachanakaara.id, feedbackable_type: 'Vachanakaara' %>
+  </div>
 </div>
 <!-- <div class="main_heading">
 </div>
@@ -108,6 +112,5 @@
       <%= render "vachanakaara_vachana_list" %>
     </div>
     <%= render "layouts/google_add" %>
-    <%= render 'user_feedbacks/form', feedbackable_id: @vachanakaara.id, feedbackable_type: 'Vachanakaara' %>
   </div>
 </div>
