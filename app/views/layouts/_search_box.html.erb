@@ -1,6 +1,6 @@
 <div class="search_box">
   <%= form_tag vachanas_path,name: "search_vachana",id: "main_search",method: :get do %>
-  <%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off", :'data-provide'=> "typeahead" %>
+  <%= text_field_tag :vachana, params[:vachana],class: "search-query", id: "search-word", placeholder: "#{t :search}",  autocomplete: "off" %>
   <%=t :like %> :<%= radio_button_tag :search_type, "like_search", params[:search_type] == "exact_search" ? false : true %>
   <%= t :exact %> :<%= radio_button_tag :search_type, "exact_search", params[:search_type] == "exact_search" ? true : false %>
   <%= select_tag "vachanakaara", options_from_collection_for_select(Vachanakaara.all, "id", "name",params[:vachanakaara]), prompt: "#{t :all}" %>
@@ -26,7 +26,20 @@
 
 
 <script type='text/javascript'>
-  // var words = <%=  WordList.pluck("name") %>;   
-  // $('#search-word').typeahead({source: words}) 
-
+  $(function() {
+    var cache = {};
+    $('#search-word').typeahead({
+      source: function(query, process) {
+        if (query.length < 2) return;
+        if (cache[query]) {
+          process(cache[query]);
+          return;
+        }
+        $.getJSON('/vachanas/autocomplete', { q: query }, function(data) {
+          cache[query] = data;
+          process(data);
+        });
+      }
+    });
+  });
 </script>

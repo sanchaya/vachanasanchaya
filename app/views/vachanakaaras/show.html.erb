@@ -23,13 +23,13 @@
     <br>
     <p style="line-height:1.8;font-size:15px;margin:0;"><%= @vachanakaara.information %></p>
   <% end %>
-  <button class="btn btn-mini btn-danger" style="margin-top:8px;" data-toggle="modal" data-target="#vachanakaara-feedback-modal">✏️ ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ</button>
+  <button class="btn btn-mini btn-danger" style="margin-top:8px;" data-toggle="modal" data-target="#vachanakaara-feedback-modal">✏️ ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ</button>
 </div>
 
 <div id="vachanakaara-feedback-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ</h3>
+    <h3>ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ</h3>
   </div>
   <div class="modal-body">
     <%= render 'user_feedbacks/form', feedbackable_id: @vachanakaara.id, feedbackable_type: 'Vachanakaara' %>

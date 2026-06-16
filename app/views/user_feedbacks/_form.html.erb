@@ -1,5 +1,5 @@
 <div class="feedback-section" style="margin-top:15px;padding:12px;background:#fafafa;border:1px solid #e0e0e0;border-radius:4px;">
-  <h4 style="font-size:14px;color:#c0392b;margin:0 0 8px 0;">✏️ ತಪ್ಪು ಮಾಹಿತಿ ವರದಿ ಮಾಡಿ</h4>
+  <h4 style="font-size:14px;color:#c0392b;margin:0 0 8px 0;">✏️ ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ</h4>
   <p style="font-size:12px;color:#888;margin:0 0 8px 0;">ಈ ವಚನ/ವಚನಕಾರರ ಬಗ್ಗೆ ತಪ್ಪು ಮಾಹಿತಿ ಇದ್ದಲ್ಲಿ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.</p>
   <%= form_for UserFeedback.new, remote: true, html: { class: 'feedback-form', 'data-type' => :json } do |f| %>
     <%= hidden_field_tag :gotcha, '' %>
