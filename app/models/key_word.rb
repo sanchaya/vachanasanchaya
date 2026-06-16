@@ -71,7 +71,9 @@ def vachanakaara_id_list
 end
 
 def vachana_id_count_hash
-  {}.tap { |h| keyword_vachanas.select("vachana_id, `count`").each { |kv| h[kv.vachana_id] = kv.read_attribute(:count) } }
+  h = {}
+  KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt").each { |kv| h[kv.vachana_id] = kv.cnt.to_i }
+  h
 end
 
 
