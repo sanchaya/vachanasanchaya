@@ -149,14 +149,19 @@ rake sunspot:solr:reindex
 
 === Serialized columns migrated to join tables (June 2026) ===
 
-Replaced three serialized TEXT columns with normalized join tables:
+Summary: Replaced 3 YAML-serialized TEXT columns with proper normalized join tables,
+eliminating deserialization overhead on every read and enabling indexed SQL queries.
 
-  +key_words.vachana_ids+ (Hash) → +keyword_vachanas+ table with (key_word_id, vachana_id, count)
-  +key_words.vachanakaara_ids+ (Array) → +keyword_vachanakaaras+ table with (key_word_id, vachanakaara_id)
-  +concords.ids+ (Array) → +concord_items+ table with (concord_id, item_id)
++--------------+---------------------+---------------------+------------+
+| Old column   | Format              | New table           | Rows moved |
++--------------+---------------------+---------------------+------------+
+| vachana_ids  | Hash {id => count}  | keyword_vachanas    |    614,293 |
+| vachanakaara | Array [id, ...]     | keyword_vachanakaar |    373,544 |
+| ids (concord | Array [id, ...]     | concord_items       |    146,253 |
++--------------+---------------------+---------------------+------------+
 
-Migration results: 614,293 keyword_vachanas rows, 373,544 keyword_vachanakaaras rows,
-146,253 concord_items rows migrated from existing serialized YAML data.
+Files changed: 18 files, +219 / -84 lines. Backups: full MySQL dump (14MB gzip),
+raw CSV exports, separate git branch.
 
 Changes made:
 - +db/migrate/20260616000001_create_join_tables.rb+ — created three join tables with
