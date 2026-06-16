@@ -12,7 +12,7 @@
 
    <div class= "span3" >
     <div class="aksharamaale">
-      <p style="text-align:center;">ಪ್ರಾರಂಭ ಪದದ ಹುಡುಕು</p>
+      <p style="text-align:center;">ಪ್ರಾರಂಭದ ಅಕ್ಷರದ ಹುಡುಕು</p>
       <% vowels.each do |letter| %>
       <a href="<%= vachanas_path(vachana: params[:vachana], search_type: params[:search_type], vachanakaara: params[:vachanakaara], start_letter: letter) %>" data-letter="<%= letter %>"><%= letter %></a>
       <span class="vowels_count">
