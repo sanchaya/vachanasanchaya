@@ -19,19 +19,18 @@ class Vachana < ActiveRecord::Base
     keyword_ids = KeywordVachana.where(vachana_id: id).pluck(:key_word_id)
     return [] if keyword_ids.empty?
 
-    ids = KeywordVachana.connection.select_values(
-      sanitize_sql_array(["
-        SELECT vachana_id
-        FROM keyword_vachanas
-        WHERE key_word_id IN (?)
-          AND vachana_id != ?
-        GROUP BY vachana_id
-        ORDER BY COUNT(*) DESC
-        LIMIT ?
-      ", keyword_ids, id, limit])
-    ).map(&:to_i)
+    ids = KeywordVachana
+      .select(:vachana_id)
+      .where(key_word_id: keyword_ids)
+      .where("vachana_id != ?", id)
+      .group(:vachana_id)
+      .order("COUNT(*) DESC")
+      .limit(limit)
+      .map(&:vachana_id)
 
     Vachana.where(id: ids).includes(:vachanakaara)
+  rescue
+    []
   end
 
 
