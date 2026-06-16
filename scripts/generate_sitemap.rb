@@ -9,7 +9,7 @@ require 'stringio'
 DB_CONFIG = {
   host: 'localhost',
   username: 'vachana_concord',
-  password: 'YOUR_DB_PASSWORD',
+  password: ENV['DB_PASSWORD'] || raise("Set DB_PASSWORD environment variable"),
   database: 'vachana_concord',
   encoding: 'utf8'
 }
