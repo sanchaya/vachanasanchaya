@@ -1,0 +1,36 @@
+$('#saved-loading').hide();
+$('#saved-results').show();
+
+<% if @vachanas.present? %>
+  $('#saved-results').empty();
+  <% @vachanas.each do |vachana| %>
+    $('#saved-results').append('<a href="#savedModal_<%= vachana.id %>" role="button" data-toggle="modal">' +
+      '<div class="box effect5 vachana-concord-box">' +
+        '<div class="vachana-show-box"><span><%= j vachana.vachana.truncate(200, separator: " ") %></span></div>' +
+        '--------------' +
+        '<div class="vachanakaara-name"><span><%= j vachana.vachanakaara.name %></span></div>' +
+      '</div></a>');
+
+    var modalHtml = '<div id="savedModal_<%= vachana.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="text-align:left;">' +
+      '<div class="modal-header">' +
+        '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>' +
+        '<h3 id="myModalLabel"><span class="vachanakaara-name"><%= j vachana.vachanakaara.name %></span></h3>' +
+      '</div>' +
+      '<div class="modal-body vachana-pop">' +
+        '<p id="savedText_<%= vachana.id %>"><%= raw j vachana.vachana.gsub(/\n/, "<br />") %></p>' +
+      '</div>' +
+      '<div class="modal-footer">' +
+        '<div class="demo-area"><div class="modal-footer-left">ಸಮಗ್ರ ವಚನ ಸಂಪುಟ: <%= vachana.vachana_book_count %>&nbsp; ವಚನದ ಸಂಖ್ಯೆ: <%= vachana.vachanaid %></div>' +
+        '<a href="/vachanakaaras/<%= vachana.vachanakaara_id %>" class="vachanakaara-icon-link"><i class="fa fa-user"></i></a>' +
+        '<button class="btn btn-listen" onclick="speakVachana(\'savedText_<%= vachana.id %>\')" title="ವಚನವನ್ನು ಕೇಳಿ"><i class="fa fa-volume-up"></i></button>' +
+        '<button class="btn bookmark-btn" data-vachana-id="<%= vachana.id %>" title="ಉಳಿಸು"><i class="fa fa-star"></i></button>' +
+      '</div></div>' +
+    '</div>';
+
+    $('body').append(modalHtml);
+    $('#savedModal_' + <%= vachana.id %>).modal({ show: false });
+  <% end %>
+  loadBookmarks();
+<% else %>
+  $('#saved-results').html('<p style="text-align:center;color:#888;padding:20px;">ಯಾವುದೇ ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ</p>');
+<% end %>

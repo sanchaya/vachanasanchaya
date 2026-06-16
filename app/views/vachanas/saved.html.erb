@@ -1,0 +1,23 @@
+<h1>ಉಳಿಸಿದ ವಚನಗಳು</h1>
+
+<div id="saved-vachanas-container">
+  <p id="saved-loading" style="color:#888;">ಉಳಿಸಿದ ವಚನಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</p>
+  <p id="saved-empty" style="display:none;color:#888;text-align:center;padding:40px;font-size:16px;">
+    ನೀವು ಇನ್ನೂ ಯಾವುದೇ ವಚನವನ್ನು ಉಳಿಸಿಲ್ಲ. ವಚನಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ನಕ್ಷತ್ರ ಐಕಾನ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಉಳಿಸಿ.
+  </p>
+</div>
+
+<div id="saved-results" class="results_list_div" style="display:none;"></div>
+
+<script>
+$(function() {
+  var ids = getBookmarks();
+  if (ids.length === 0) {
+    $('#saved-loading').hide();
+    $('#saved-empty').show();
+    return;
+  }
+  var params = $.param(ids.map(function(id) { return { 'ids[]': id }; }));
+  $.getScript('/vachanas/saved?' + params);
+});
+</script>

@@ -55,6 +55,7 @@ KannadaVachana::Application.routes.draw do
       get :ai_search
       post :ai_search
       get :autocomplete
+      get :saved
     end
   end
 

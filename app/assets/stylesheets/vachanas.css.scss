@@ -647,6 +647,21 @@ margin: 0 0 10px;
   margin-top: 8px;
 }
 
+.bookmark-btn {
+  color: #ccc;
+  border: none;
+  background: transparent;
+  padding: 2px 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.bookmark-btn.bookmarked {
+  color: #f5a623;
+}
+.bookmark-btn:hover {
+  color: #f5a623;
+}
+
 .google-add-box {
 	padding: 3px;
 }

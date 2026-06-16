@@ -46,6 +46,7 @@
 
            <li class= <%= params[:controller] == "glossaries" ? "active" : "" %> ><%= link_to "ಪದಕೋಶ", glossaries_path %>  </li>
            <li class= <%= params[:controller] == "books" ? "active" : "" %> ><%= link_to "ಪುಸ್ತಕಗಳು", books_path %>  </li>
+            <li class= <%= params[:action] == "saved" ? "active" : "" %> ><%= link_to "ಉಳಿಸಿದವು", saved_vachanas_path %></li>
            <li class= <%= params[:action] == "help" ? "active" : "" %> ><%= link_to "ಸಹಾಯ" , help_path %></li>
            <li class= <%= params[:action] == "about_us" ? "active" : "" %> ><%= link_to "ನಮ್ಮ ಬಗ್ಗೆ" , about_us_path %></li>
 
