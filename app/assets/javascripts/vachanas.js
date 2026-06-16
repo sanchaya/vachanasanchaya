@@ -25,6 +25,9 @@ $(function() {
       $link.show();
     });
   });
+
+  loadBookmarks();
+  $(document).on('click', '.bookmark-btn', toggleBookmark);
 });
 
 function speakVachana(elementId) {
@@ -82,6 +85,40 @@ function doSpeak(text) {
     console.error('Speech error:', e);
   };
   speechSynthesis.speak(utterance);
+}
+
+var BOOKMARKS_KEY = 'vachana_bookmarks';
+
+function getBookmarks() {
+  var data = localStorage.getItem(BOOKMARKS_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+function saveBookmarks(ids) {
+  localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(ids));
+}
+
+function loadBookmarks() {
+  var ids = getBookmarks();
+  $('.bookmark-btn').each(function() {
+    var id = parseInt($(this).data('vachana-id'));
+    $(this).toggleClass('bookmarked', ids.indexOf(id) !== -1);
+  });
+}
+
+function toggleBookmark() {
+  var btn = $(this);
+  var id = parseInt(btn.data('vachana-id'));
+  var ids = getBookmarks();
+  var idx = ids.indexOf(id);
+  if (idx === -1) {
+    ids.push(id);
+    btn.addClass('bookmarked');
+  } else {
+    ids.splice(idx, 1);
+    btn.removeClass('bookmarked');
+  }
+  saveBookmarks(ids);
 }
 
 

@@ -117,6 +117,9 @@
                       <button class="btn btn-listen" onclick="speakVachana('fe_text_<%= vachana.id %>')" title="ವಚನವನ್ನು ಕೇಳಿ">
                         <i class="fa fa-volume-up"></i>
                       </button>
+                      <button class="btn bookmark-btn" data-vachana-id="<%= vachana.id %>" title="ಉಳಿಸು">
+                        <i class="fa fa-star"></i>
+                      </button>
                       <button class="btn btn-small" onclick="$(this).closest('.modal-footer').find('.feedback-inline').toggle()" title="ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ">
                         <i class="fa fa-exclamation-triangle"></i>
                       </button>

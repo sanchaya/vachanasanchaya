@@ -248,4 +248,19 @@ def autocomplete
   render json: @words
 end
 
+def saved
+  if params[:ids].present?
+    @vachanas = Vachana.where(id: params[:ids].map(&:to_i)).includes(:vachanakaara)
+    respond_to do |format|
+      format.js
+      format.html { render :saved }
+    end
+  else
+    respond_to do |format|
+      format.html
+      format.js { render nothing: true }
+    end
+  end
+end
+
 end
