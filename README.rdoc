@@ -44,7 +44,27 @@ To reindex Solr:
   rake sunspot:solr:start
   rake sunspot:solr:reindex
 
-== Changes (June 2026)
+== Features
+
+- **Search** — keyword search with exact/like modes, filtered by vachanakaara
+- **Search autocomplete** — typeahead suggestions from key_words table
+- **Full-text search** — Solr-powered full-text search across all vachanas
+- **Alphabetical concordance** — browse vachanas by starting Kannada letter
+- **Vachanakaara browser** — 250+ poets with bios, alphabetically sorted
+- **Keyword concordance** — every word linked to the vachanas and poets that use it
+- **Glossary** — Kannada word meanings used in vachana literature
+- **Related vachanas** — algorithmic discovery via shared keyword concordance
+- **Text-to-Speech** — Kannada TTS using Web Speech API (Chrome/Edge/Safari)
+- **Bookmarks** — save and organize vachanas into categories (localStorage, no login)
+- **Research citations** — MLA, APA, Chicago, and BibTeX export per vachana
+- **BibTeX export** — download search results as .bib files for Zotero/Mendeley
+- **AI research assistant** — query vachana literature with AI (multiple free providers)
+- **Feedback** — report incorrect information (no login required)
+- **Internet Archive integration** — search Vachana books from IA
+- **Bilingual** — Kannada primary, English alternate via locale toggle
+- **API** — JSON API v1 for external consumption
+
+== Changelog
 
 === Asset precompilation
 - Sass 3.7 removed support for +@import url(...)+. Changed +vachanas.css.scss+ to
@@ -350,135 +370,3 @@ reason.
 Also fixed: +KeywordVachana.pluck(:vachana_id, :count)+ — Rails 3.2's +pluck+
 only accepts a single column. Replaced with
 +KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt")+.
-
-== Planned / Recommended Next Features
-
-=== Remaining candidates:
-
-=== 1. Recently Viewed Vachanas
-Track the last N vachanas a user has viewed (in session or localStorage). Show a
-"ಇತ್ತೀಚೆಗೆ ವೀಕ್ಷಿಸಿದ ವಚನಗಳು" section on the homepage or sidebar for easy
-back-navigation during research sessions.
-
-=== 5. Per-Vachana Social Share Buttons
-Add share buttons (WhatsApp, Twitter, Facebook) to each vachana modal and show page.
-Drive organic traffic through social sharing. Low effort -- just icon links with
-proper +og:+ meta tags (already in place).
-
-=== 6. Keyboard Shortcuts for Power Users
-+'+s'+ for search focus, +'n'+ / +'p'+ for next/previous result, +'Esc'+ to close
-modals. Low effort, appreciated by researchers doing repeated searches.
-
-== Search Autocomplete (June 2026)
-
-Added AJAX-powered typeahead suggestions to the main search box.
-
-How it works:
-- As the user types in the search box, after 2+ characters, sends an AJAX request
-  to +GET /vachanas/autocomplete?q=...+
-- Returns up to 10 matching keywords from the +key_words+ table (prefix match)
-- Uses existing index on +key_words.word+ for fast +LIKE 'prefix%'+ queries
-- Results cached client-side to avoid redundant network requests
-- Uses Bootstrap 2.x built-in +$.fn.typeahead()+ with a remote +source+ function
-
-Implementation:
-- +config/routes.rb+ — +get :autocomplete+ under vachanas collection
-- +app/controllers/vachanas_controller.rb+ — +autocomplete+ action queries
-  +KeyWord.where("word LIKE ?", "#{params[:q]}%").limit(10).pluck(:word)+
-- +app/views/layouts/_search_box.html.erb+ — JavaScript binds AJAX typeahead
-  to +#search-word+ input field, replacing the previously commented-out code
-
-== Bookmark / Favorites with Categories (June 2026)
-
-Added a client-side bookmark/favorites feature using browser localStorage,
-with category organization.
-
-How it works:
-- Star icon (+<i class="fa fa-star">+) in every vachana modal and show page
-- Click star to toggle save/unsave — gold star = saved, gray star = not saved
-- Star saves to "default" category (instant, no interruption)
-- Tag icon (+<i class="fa fa-tag">+) next to star opens a category picker popup
-  to save into specific categories
-- Create new categories on the fly from the picker
-- All data stored in browser +localStorage+ — no login required, persists across sessions
-- +/vachanas/saved+ page shows category tabs with vachana counts
-  - Click a tab to view that category's vachanas
-  - Rename (✎) and delete (✕) custom categories
-  - "default" category cannot be deleted
-- Nav bar link "ಉಳಿಸಿದವು" for easy access
-- Old flat-array format auto-migrates to category format on first load
-
-Implementation:
-- +app/assets/javascripts/vachanas.js+ — +getBookmarkData()+, +getBookmarkIds()+,
-  +toggleBookmark()+, +showCategoryPicker()+, +createCategory()+, +renameCategory()+,
-  +deleteCategory()+ functions using +localStorage+ API
-  - Data format: +{ version: 2, categories: { "default": [...], "my research": [...] } }+
-  - +migrateBookmarks()+ converts old flat array to new format
-- +app/assets/stylesheets/vachanas.css.scss+ — +.bookmark-btn+, +.category-picker+,
-  +.cat-option+ styles
-- +app/views/vachanas/_bookmark_btn.html.erb+ — reusable partial with star + tag buttons
-- +app/controllers/vachanas_controller.rb#saved+ — accepts +ids[]+ param array,
-  renders partial +_saved_list.html.erb+
-- +app/views/vachanas/saved.html.erb+ — category tabs UI with AJAX loading
-- +app/views/vachanas/_saved_list.html.erb+ — vachana boxes with modals
-- Added to all 8 modal views, show page, saved page, and nav bar
-
-== Research Citations (June 2026)
-
-Added citation tools for academic researchers: MLA, APA, Chicago, and BibTeX export.
-
-Features:
-- **Cite button** (+<i class="fa fa-quote-right">+) in every vachana modal and show page
-- Dedicated citation page at +/vachanas/:id/cite+ showing all four formats
-- **MLA** — Author. "Title." *Site Name*, date, URL
-- **APA** — Author (year). Title. *Site Name*. URL
-- **Chicago** — Author. "Title." *Site Name*. Accessed date. URL.
-- **BibTeX** — Standard +@misc+ format, downloadable as +.bib+ file or plain text
-- **BibTeX export** on search results page — downloads current page results as a +.bib+ file
-- Permanent citation URL uses hashed IDs (e.g., +/vachanas/123-abc1def2/cite+)
-
-Implementation:
-- +app/helpers/citations_helper.rb+ — +citation_mla()+, +citation_apa()+, +citation_chicago()+,
-  +citation_bibtex()+ methods
-- +app/controllers/vachanas_controller.rb#cite+ — renders citation page (+text+ format for BibTeX download)
-- +app/controllers/vachanas_controller.rb#export_bibtex+ — accepts +ids[]+ param, sends +.bib+ file
-- +app/views/vachanas/cite.html.erb+ — displays all four citation formats with download + print
-- +app/views/vachanas/_cite_btn.html.erb+ — reusable quote-icon button partial
-- Routes: +GET /vachanas/:id/cite+, +GET /vachanas/export_bibtex+
-- Added to all 8 modal views, show page, and nav bar
-
-Added "ಸಂಬಂಧಿತ ವಚನಗಳು" (Related Vachanas) to help researchers discover thematic
-connections algorithmically.
-
-How it works:
-- Finds all keywords linked to the current vachana via +keyword_vachanas+
-- Finds other vachanas that share those keywords
-- Ranks by number of shared keywords (most shared first)
-- Displays top 5-10 related vachanas as clickable links
-
-Where it appears:
-- Vachana show page (+app/views/vachanas/show.html.erb+) — top 10 expandable items
-- Every vachana modal across the app — top 5 expandable items:
-  - Keyword search results (+_results.html.erb+)
-  - Alphabetical concord (+_vachana_concord_results.html.erb+)
-  - Vachanakaara page (+_vachanakaara_vachana_results.html.erb+)
-  - Full-text search (+search_vachana.html.erb+)
-  - Number search (+search_vachana_number.html.erb+)
-  - AI search source modals (+ai_search.html.erb+)
-  - Glossary search/index modals (+glossaries/search.html.erb+, +glossaries/index.html.erb+)
-
-Interaction:
-- Clicking a related vachana name expands the full vachana text inline below it
-- Expanded text includes a TTS listen button and a "ಮುಂದೆ ಓದಿ →" link (opens detail page in new tab)
-- Click again to collapse
-- No page navigation — user stays in the current modal or page
-
-Implementation:
-- +app/models/vachana.rb+ — +related_vachanas(limit)+ method using SQL +GROUP BY+
-  on +keyword_vachanas+ table, ordered by shared keyword count
-- Reusable partial (+app/views/vachanas/_related_vachanas_inline.html.erb+) renders
-  expandable items; called from all 10 views
-- Uses existing +keyword_vachanas+ join table (614K+ rows) — no new data needed
-- On click: expands full vachana text inline via jQuery +toggle()+ (no page navigation)
-- Graceful fallback: +rescue+ clause in controller ensures show page never errors
-  if the join table is unavailable
