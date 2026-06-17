@@ -327,9 +327,11 @@ font-weight: bold;
 }
 
 .vachana-wiki-info{
-width: 80%;
+max-width: 800px;
+width: 90%;
 margin: auto;
 text-align: left;
+box-sizing: border-box;
 hr{
 clear: both;
 margin: 0px;
@@ -354,7 +356,10 @@ border: 2px solid #F2F1F0;
 margin: auto;
 padding: 5px;
 text-align: center;
-width: 50%;
+max-width: 600px;
+width: 90%;
+box-sizing: border-box;
+overflow-wrap: break-word;
 }
 
 .wiki-info-kan{
