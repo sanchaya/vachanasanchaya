@@ -12,10 +12,27 @@
 
     <div class="rand-vachana"> 
       <h3> ಇಂದಿನ ವಚನ </h3>
-      <p> 
+      <p id="daily_vachana_text"> 
         <%= raw @vachana.vachana.gsub(/\n/, '<br />') %>
       </p>
       <span class="vachanakaara-name" style="margin-left:20%;"> --- <%= @vachana.vachanakaara.name %> </span>
+      <div style="margin-top:10px;text-align:center;">
+        <button class="btn btn-mini" onclick="speakVachana('daily_vachana_text')" title="ವಚನವನ್ನು ಕೇಳಿ">
+          <i class="fa fa-volume-up"></i> ಆಲಿಸಿ
+        </button>
+        <button class="btn btn-mini" onclick="$(this).next('.feedback-inline').toggle()" title="ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ" style="margin-left:5px;">
+          <i class="fa fa-exclamation-triangle"></i>
+        </button>
+        <a href="<%= cite_vachana_path(@vachana) %>" class="btn btn-mini" target="_blank" style="margin-left:5px;" title="ಉಲ್ಲೇಖ">
+          <i class="fa fa-quote-right"></i> Cite
+        </a>
+        <a href="<%= cite_vachana_path(@vachana, format: :text) %>" class="btn btn-mini" style="margin-left:5px;" title="BibTeX">
+          <i class="fa fa-download"></i> BibTeX
+        </a>
+      </div>
+      <div class="feedback-inline" style="display:none;margin-top:8px;text-align:left;">
+        <%= render 'user_feedbacks/form', feedbackable_id: @vachana.id, feedbackable_type: 'Vachana' %>
+      </div>
     </div>
 
 
