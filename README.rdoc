@@ -1,20 +1,48 @@
-Tool to search vachana
+= ವಚನ ಸಂಚಯ (Vachana Sanchaya)
 
-technologies
+A free, open-source digital concordance and research platform for Kannada Vachana 
+literature. The project indexes ~25,000+ vachanas (devotional poems) from ~250+ 
+vachanakaaras (poet-saints) of the 12th-century Lingayata tradition, providing 
+full-text search, keyword concordance, alphabetical browsing, glossary, AI-assisted 
+research, citation tools, and text-to-speech in Kannada.
+
+Built for scholars, students, and enthusiasts of Kannada literature.
+
+== License
+
+Copyright (C) 2026 Vachana Sanchaya
+
+This program is free software: you can redistribute it and/or modify it under the 
+terms of the GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY 
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this 
+program. If not, see https://www.gnu.org/licenses/.
+
+== Technical Stack
 
 Ruby 2.3.7
 Rails 3.2.22
-Sqlite
-Sunspot Solr
+MySQL
+Sunspot Solr (full-text search)
+Memcached (caching)
+Bootstrap 2.x (front-end)
 
-To start solr
-bundle exec rake sunspot:solr:start
+== Getting Started
 
-To reindex Solr
-rake sunspot:solr:stop
-rm -rvf solr (Delete your /solr directory)
-rake sunspot:solr:start
-rake sunspot:solr:reindex
+=== Solr Setup
+
+To start solr: bundle exec rake sunspot:solr:start
+
+To reindex Solr:
+  rake sunspot:solr:stop
+  rm -rvf solr
+  rake sunspot:solr:start
+  rake sunspot:solr:reindex
 
 == Changes (June 2026)
 
