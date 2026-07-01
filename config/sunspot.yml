@@ -4,8 +4,8 @@ production:
     port: 8983
     log_level: WARNING
     path: /solr/default
-    solr_home: solr
-    disabled: true
+    solr_home: /home/vachana/rails_apps/concord/current/solr
+    disabled: false
     # read_timeout: 2
     # open_timeout: 0.5
 

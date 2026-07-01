@@ -159,9 +159,9 @@ ensure
 end
 
 
-# searchable do
-#   text :vachana
-# end
+searchable do
+  text :vachana
+end
 
 
   def self.all_vachanas
