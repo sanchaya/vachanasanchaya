@@ -5,8 +5,6 @@ class Vachanakaara < ActiveRecord::Base
     used_ip: Proc.new{ |controller, model| controller.current_user.current_sign_in_ip }
   }
 
-  default_scope order('name')
-
   attr_accessible :name, :ankitha_naama,:time_period,:vachana_found,:sex,:information, :parents,:spouse,:birth_place, :reference_book_id, :slug_name
   has_many :vachanas
   belongs_to :reference_book

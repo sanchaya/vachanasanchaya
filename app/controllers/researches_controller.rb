@@ -20,7 +20,7 @@ end
     end
     
     @vachanas = Vachana.where(id: @keyword.all_vachana_ids)
-    @vachanakaaras = Vachanakaara.where(id: @keyword.vachanakaara_id_list)
+    @vachanakaaras = Vachanakaara.where(id: @keyword.vachanakaara_id_list).order(:name)
     
     set_meta_tags(
       title:       "#{@keyword.word} - ಪದಪುಂಜ - ವಚನ ಸಂಚಯ",

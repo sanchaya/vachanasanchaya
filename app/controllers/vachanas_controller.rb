@@ -7,9 +7,9 @@ class VachanasController < ApplicationController
   caches_action :index, :cache_path => Proc.new { |c| c.params }, :expires_in => 30.minutes
 
   def index
-    if params[:vachana] and !params[:vachana].blank? 
-      @word_lists = WordList.all
-      @vachanakaaras_list =  Vachanakaara.all
+      if params[:vachana] and !params[:vachana].blank? 
+      @word_lists = WordList.all if params[:vachana].present?
+      @vachanakaaras_list = Vachanakaara.unscoped.order("name") if params[:vachana].present?
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]
@@ -17,7 +17,7 @@ class VachanasController < ApplicationController
 
       # Calculate letter counts from search results using SQL GROUP BY
       @search_letter_counts = Hash.new(0)
-      @vachanas.group("LEFT(vachana, 1)").count.each { |k, v| @search_letter_counts[k] = v }
+      @vachanas.where("vachana_first_letter IS NOT NULL").group(:vachana_first_letter).count.each { |k, v| @search_letter_counts[k] = v }
 
       # Calculate keyword occurrence count per vachana from KeyWord records
       keyword_results = if @search_type == "like_search"
@@ -61,7 +61,7 @@ class VachanasController < ApplicationController
           @vachanakaaras_keyword_count << ids.sum { |v_id| @vachana_occurrences[v_id] }
         end
       end
-      @results = @vachanas.paginate(:page => params[:page], :per_page => 15)
+      @results = @vachanas.includes(:vachanakaara).paginate(:page => params[:page], :per_page => 15)
       set_meta_tags(
         title:       "#{@pada} - ವಚನ ಹುಡುಕಾಟ ಫಲಿತಾಂಶಗಳು - ವಚನ ಸಂಚಯ",
         description: "#{@pada} ಪದಕ್ಕಾಗಿ #{@total_counts || 0} ವಚನ ಫಲಿತಾಂಶಗಳು. ವಚನ ಸಂಚಯದಲ್ಲಿ ವಚನಗಳನ್ನು ಮತ್ತು ವಚನಕಾರರನ್ನು ಹುಡುಕಿ.",
@@ -81,7 +81,8 @@ end
   # GET /vachanas/1
   # GET /vachanas/1.json
   def show
-    @vachana = Vachana.find(params[:id])
+    @vachana = Vachana.includes(:vachanakaara).find(params[:id])
+    fresh_when(@vachana, public: true)
     vachana_text = @vachana.vachana.to_s.truncate(160, separator: ' ')
     set_meta_tags(
       title:       "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid} - ವಚನ ಸಂಚಯ",
@@ -166,7 +167,7 @@ end
 
   def vachana_concord
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
-    @vachanas = Vachana.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 15)
+    @vachanas = Vachana.includes(:vachanakaara).start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 15)
     
     set_meta_tags(
       title:       "#{params[:start_letter]} ಪದದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಗಳು - ವಚನ ಸಂಚಯ",

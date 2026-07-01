@@ -3,7 +3,7 @@ class VachanakaarasController < ApplicationController
   def index
   	# @vachanakaaras = Vachanakaara.all
     params[:start_letter] = params[:start_letter] ? params[:start_letter] : "ಅ"
-    @vachanakaaras= Vachanakaara.start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 20)
+    @vachanakaaras= Vachanakaara.unscoped.order("name").start_letter(params[:start_letter]).paginate(:page => params[:page], :per_page => 20)
     set_meta_tags(
       title:       "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರು - ವಚನ ಸಂಚಯ",
       description: "#{params[:start_letter]} ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ವಚನಕಾರರ ಪಟ್ಟಿ. ವಚನ ಸಂಚಯದಲ್ಲಿ 250ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಅನ್ವೇಷಿಸಿ.",
@@ -18,11 +18,10 @@ end
 
 def show
   @vachanakaara = Vachanakaara.find(params[:id])
+  fresh_when(@vachanakaara, public: true)
   all_vachanas = @vachanakaara.vachanas
 
-  # Calculate letter counts for this vachanakaara
-  @vachanakaara_letter_counts = Hash.new(0)
-  all_vachanas.group("LEFT(vachana, 1)").count.each { |k, v| @vachanakaara_letter_counts[k] = v }
+  @vachanakaara_letter_counts = all_vachanas.where("vachana_first_letter IS NOT NULL").group(:vachana_first_letter).count
 
   @start_letter = params[:start_letter] || "ಅ"
 
@@ -66,11 +65,11 @@ def search_vachanakaara_name
     redirect_to :back
   else
     if @vachanakaara.blank?
-      @vachanakaaras = Vachanakaara.ankitha_like  @ankitha_naama
+      @vachanakaaras = Vachanakaara.ankitha_like(@ankitha_naama).order(:name)
     elsif @ankitha_naama.blank?
-      @vachanakaaras = Vachanakaara.name_like  @vachanakaara
+      @vachanakaaras = Vachanakaara.name_like(@vachanakaara).order(:name)
     else
-      @vachanakaaras = Vachanakaara.name_or_ankitha_like  @vachanakaara,@ankitha_naama
+      @vachanakaaras = Vachanakaara.name_or_ankitha_like(@vachanakaara, @ankitha_naama).order(:name)
     end
   end
 
