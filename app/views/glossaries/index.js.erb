@@ -1,0 +1,8 @@
+$('.glossary_words').append("<%= escape_javascript(render 'glossary_words', glossary_words: @words) %>");
+var nextPage = <%= @words.next_page ? @words.next_page : 'null' %>;
+if (nextPage) {
+  var baseUrl = '<%= j glossaries_path(start_letter: params[:start_letter]) %>';
+  $('a.load-more-vachanas').attr('href', baseUrl + '&page=' + nextPage).show();
+} else {
+  $('a.load-more-vachanas').remove();
+}

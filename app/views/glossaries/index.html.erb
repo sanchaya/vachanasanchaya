@@ -38,13 +38,8 @@
 
   <div class="span10">
     <p><span class="start_letter_header"><%= params[:start_letter] %></span> ಅಕ್ಷರದಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಪದಗಳು</p>
-    <div style="line-height:2.2;">
-      <% @words.each do |word| %>
-        <span style="margin:2px;padding:3px 7px;background:#f5f5f0;border:1px solid #e0ddd5;border-radius:3px;white-space:nowrap;display:inline-block;">
-          <span style="font-size:14px;color:#333;"><%= word.word %></span>
-          <span style="font-size:12px;color:#888;">— <%= word.meanings.truncate(50, separator: ' ') %></span>
-        </span>
-      <% end %>
+    <div class="glossary_words" style="line-height:2.2;">
+      <%= render 'glossary_words', glossary_words: @words %>
     </div>
     <%= link_to "#{t :read_more}...", glossaries_path(start_letter: params[:start_letter], page: @words.next_page), :class => 'load-more-vachanas', :style => 'color:white;' if @words.next_page %>
 

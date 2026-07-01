@@ -36,13 +36,17 @@ Bootstrap 2.x (front-end)
 
 === Solr Setup
 
-To start solr: bundle exec rake sunspot:solr:start
+Solr runs as a systemd service (+sunspot-solr+) on port 8983.
 
-To reindex Solr:
-  rake sunspot:solr:stop
-  rm -rvf solr
-  rake sunspot:solr:start
-  rake sunspot:solr:reindex
+To restart and reindex:
+  sudo systemctl stop sunspot-solr
+  rm -rvf /home/vachana/rails_apps/concord/releases/vachana/solr
+  sudo systemctl start sunspot-solr
+  cd /home/vachana/rails_apps/concord/current
+  rvm use 2.3.7 do bundle exec rake sunspot:solr:reindex
+
+Java 11 compat: +/home/vachana/rails_apps/concord/shared/solr.in.sh+ overrides
+GC tuning and adds +--add-exports+ JVM flags for Lucene module access.
 
 == Features
 
@@ -103,6 +107,28 @@ The following performance improvements have been applied:
   Auto-populated via `before_save` callback on the Vachana model.
 - **FULLTEXT index** — MySQL FULLTEXT index added on `vachanas.vachana` to enable 
   `MATCH ... AGAINST` queries as a future replacement for `LIKE '%...%'` scans.
+
+=== Bot Protection (July 2026)
+
+Aggressive bot blocking at two layers:
+
+- **nginx**: 20+ known aggressive crawlers (SemrushBot, GPTBot, Amazonbot,
+  AhrefsBot, MJ12bot, etc.) blocked with HTTP 403 before reaching Rails.
+- **Rack::Attack**: Same blocklist at app layer + per-endpoint rate limits
+  (search: 20 req/min, autocomplete: 10 req/min per IP).
+- **robots.txt**: GPTBot/ChatGPT-User explicitly disallowed; all bots blocked
+  from search, autocomplete, and AI pages.
+
+=== Glossary Lazy Load (July 2026)
+
+Fixed infinite-scroll "Load More" on +/glossaries+ — missing +format.js+ support
+and JS.ERB template. Added controller +respond_to+, +index.js.erb+, and reusable
++_glossary_words+ partial.
+
+=== Solr Full-Text Search (July 2026)
+
+Re-enabled Sunspot Solr (disabled during prior maintenance). Added systemd unit
+for auto-start, Java 11 compatibility override, and reindexed 20,929 records.
 
 === HTTP Caching (2026-07-01)
 

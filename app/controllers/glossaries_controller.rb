@@ -13,6 +13,10 @@ class GlossariesController < ApplicationController
       description: "ವಚನ ಸಾಹಿತ್ಯದಲ್ಲಿ ಬಳಕೆಯಾಗುವ ಪದಗಳ ಪದಕೋಶ. ವಚನ ಸಂಚಯದ ಪದಕೋಶವನ್ನು ಅನ್ವೇಷಿಸಿ.",
       keywords:    "ಪದಕೋಶ, ವಚನ ಪದಗಳು, ವಚನ ಸಂಚಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ"
     )
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def search 

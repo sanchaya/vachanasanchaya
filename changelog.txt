@@ -304,3 +304,48 @@ reason.
 Also fixed: +KeywordVachana.pluck(:vachana_id, :count)+ — Rails 3.2's +pluck+
 only accepts a single column. Replaced with
 +KeywordVachana.where(key_word_id: id).select("vachana_id, count as cnt")+.
+
+=== Bot protection & CPU fix (July 2026)
+
+1. Aggressive bot blocking at nginx level +
+   Blocked user-agents: +LWP::Simple+, +BBBike+, +wget+, +msnbot+, +scrapbot+,
+   +Amazonbot+, +Amzn-SearchBot+, +SemrushBot+, +AhrefsBot+, +MJ12bot+, +DotBot+,
+   +BLEXBot+, +SeekportBot+, +PetalBot+, +CCBot+, +AspiegelBot+, +Cliqzbot+,
+   +Nimbostratus+, +YaK+, +Baiduspider+, +YandexBot+, +Sogou+, +GPTBot+,
+   +ChatGPT-User+, +OAI-SearchBot+.
+
+2. Application-level bot blocking (Rack::Attack) +
+   Same blocklist as nginx (defense-in-depth). Added per-endpoint rate limits:
+   +search/ip+ (20 req/min), +autocomplete/ip+ (10 req/min).
+
+3. robots.txt +
+   Explicit +Disallow+ for +GPTBot+ and +ChatGPT-User+. All bots disallowed from
+   search URLs (+/vachanas?search_type=+, +/vachanas/autocomplete+,
+   +/vachanas/ai_search+, +/reports+, +/user_feedbacks+).
+
+4. nginx SSL config fix +
+   Changed +listen 443; ssl on;+ to +listen 443 ssl;+ — the old form incorrectly
+   enabled SSL on port 80 as well.
+
+=== Glossary lazy load fix (July 2026)
+
++glossaries#index+ had no +respond_to+ +format.js+, so the AJAX $.getScript() call
+(for infinite-scroll "Load More") never received a response. Fixed:
+
+- +glossaries_controller.rb+: Added +respond_to { |format| format.html; format.js }+
+- +app/views/glossaries/index.js.erb+: Created JS.ERB template matching the app
+  pattern (appends words, updates load-more link)
+- +app/views/glossaries/_glossary_words.html.erb+: Extracted inline word rendering
+  into a reusable partial
+- +index.html.erb+: Wrapped word list in +.glossary_words+ div using the partial
+
+=== Solr reindex (July 2026)
+
+Re-enabled Sunspot Solr:
+
+- +config/sunspot.yml+: Set +disabled: false+, absolute paths for +solr_home+
+- +app/models/vachana.rb+: Uncommented +searchable do ... end+ block
+- +/etc/systemd/system/sunspot-solr.service+: Systemd unit for auto-start on boot
+- +/home/vachana/rails_apps/concord/shared/solr.in.sh+: Java 11 compat override
+  (G1GC, +--add-exports+ for Lucene module access)
+- Reindexed 20,929 Vachana records
