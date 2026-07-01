@@ -219,11 +219,13 @@ ActiveRecord::Schema.define(:version => 20260616000003) do
     t.datetime "updated_at",                         :null => false
     t.boolean  "reviewed",        :default => false
     t.text     "meaning"
+    t.string   "vachana_first_letter", :limit => 1
   end
 
   add_index "vachanas", ["vachana"], :name => "index_vachanas_on_vachana", :length => {"vachana"=>255}
   add_index "vachanas", ["vachanaid"], :name => "index_vachanas_on_vachanaid"
   add_index "vachanas", ["vachanakaara_id"], :name => "index_vachanas_on_vachanakaara_id"
+  add_index "vachanas", ["vachana_first_letter"], :name => "index_vachanas_on_vachana_first_letter"
 
   create_table "word_lists", :force => true do |t|
     t.string   "name"

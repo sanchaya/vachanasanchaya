@@ -6,6 +6,7 @@ class Vachana < ActiveRecord::Base
   }
   
   attr_accessible :author, :vachana, :name, :vachanakaara_id, :vachanaid, :reviewed, :meaning
+  before_save :set_vachana_first_letter
   has_many :daily_vachanas
   belongs_to :vachanakaara
   has_one :old_vachana
@@ -106,16 +107,16 @@ def self.vachanakaara_ids
 end
 
 def self.vachanakaaras
-  Vachanakaara.where(id: vachanakaara_ids)
+  Vachanakaara.where(id: vachanakaara_ids).order(:name)
 end
 
 
-scope :start_letter, lambda {|letter| where("vachana like ? ", "#{letter}%" )}
+scope :start_letter, lambda {|letter| where("vachana LIKE ?", "#{letter}%") }
 
 
 
 def self.vachanakaaras_vachana_concord(vachanakaara, start_letter)
-  where("vachanakaara_id = ? and vachana like ? ", vachanakaara, "#{start_letter}%").count
+  where("vachanakaara_id = ? AND vachana LIKE ?", vachanakaara, "#{start_letter}%").count
 end
 
 
@@ -172,9 +173,10 @@ end
   end
 end
 
+private
 
-
-
-
+def set_vachana_first_letter
+  self.vachana_first_letter = vachana.to_s.strip.first
+end
 
 end

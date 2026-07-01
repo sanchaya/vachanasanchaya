@@ -64,3 +64,48 @@ To reindex Solr:
 - **Bilingual** — Kannada primary, English alternate via locale toggle
 - **API** — JSON API v1 for external consumption
 
+== Performance Optimizations
+
+The following performance improvements have been applied:
+
+=== Home Page (2026-07-01)
+
+- **ORDER BY RAND() eliminated** — Home page no longer executes a slow `ORDER BY RAND()` 
+  query across 25K+ vachanas. Instead, Ruby's Random seeded with today's date picks a 
+  deterministic vachana via `pluck(:id)` + primary-key lookup (non-cached first request 
+  only; subsequent requests read the cached DailyVachana record).
+- **N+1 on vachana.vachanakaara eliminated** — DailyVachana is loaded with 
+  `includes(vachana: :vachanakaara)`, removing the lazy-load query.
+- **Stats queries eliminated** — 5 COUNT queries (male poets, female poets, total poets,
+  total vachanas, total keywords) are now read from `tmp/site_stats.json` instead of
+  hitting the database on every request.
+
+  To regenerate the stats file when data changes:
+    rake site:stats
+
+=== Search Results (2026-07-01)
+
+- **N+1 on vachanakaara.name** — Search results now eager-load vachanakaara via
+  `.includes(:vachanakaara)` on the paginated relation.
+- **Related vachanas removed from search results modals** — The `related_vachanas_inline`
+  partial was rendered inside every hidden modal (15 per page), each executing its own
+  query. Removed from list views; still rendered on the individual vachana show page.
+- **Default scope removed from Vachanakaara** — `default_scope order('name')` was
+  removed. All necessary `.order(:name)` calls are now explicit.
+- **Unnecessary eager loading eliminated** — `WordList.all` and `Vachanakaara.all` are
+  no longer loaded on every search if no search term is present.
+
+=== Database (2026-07-01)
+
+- **vachana_first_letter column** — New `vachanas.vachana_first_letter VARCHAR(1)` 
+  column with an index, populated via `LEFT(TRIM(vachana), 1)`. Replaces slow 
+  `GROUP BY LEFT(vachana, 1)` queries for letter-counting with indexed column lookups.
+  Auto-populated via `before_save` callback on the Vachana model.
+- **FULLTEXT index** — MySQL FULLTEXT index added on `vachanas.vachana` to enable 
+  `MATCH ... AGAINST` queries as a future replacement for `LIKE '%...%'` scans.
+
+=== HTTP Caching (2026-07-01)
+
+- `fresh_when` (304 Not Modified) added to VachanasController#show and 
+  VachanakaarasController#show.
+

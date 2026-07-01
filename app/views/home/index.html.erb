@@ -6,8 +6,8 @@
 
 <%= render "layouts/search_box" %>
 <div class="sangraha_desc">
-  <p> ಈ ವಚನ ಸಂಗ್ರಹದಲ್ಲಿ <%= Vachanakaara.where(sex: true).count %> ಪುರುಷ ವಚನಕಾರರು, <%= Vachanakaara.where(sex: false).count %> ಸ್ತ್ರೀ ವಚನಕಾರ್ತಿಯರೂ ಒಳಗೊಂಡಂತೆ ಒಟ್ಟು  <%= Vachanakaara.count %> ವಚನಕಾರರ, <%=Vachana.count %>ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಗಳಿವೆ.<br />
-    ವಚನಗಳಲ್ಲಿರುವ ಒಟ್ಟು ಪದಗಳ ಸಂಖ್ಯೆ <%= KeyWord.count %> ಕೂ ಹೆಚ್ಚು. <br />
+  <p> ಈ ವಚನ ಸಂಗ್ರಹದಲ್ಲಿ <%= @stats[:male_poets] %> ಪುರುಷ ವಚನಕಾರರು, <%= @stats[:female_poets] %> ಸ್ತ್ರೀ ವಚನಕಾರ್ತಿಯರೂ ಒಳಗೊಂಡಂತೆ ಒಟ್ಟು  <%= @stats[:total_poets] %> ವಚನಕಾರರ, <%=@stats[:total_vachanas] %>ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಗಳಿವೆ.<br />
+    ವಚನಗಳಲ್ಲಿರುವ ಒಟ್ಟು ಪದಗಳ ಸಂಖ್ಯೆ <%= @stats[:total_keywords] %> ಕೂ ಹೆಚ್ಚು. <br />
     ಈ ತಂತ್ರಾಂಶ ವಚನದಲ್ಲಿನ ಪದಗಳನ್ನು ಆಯಾ ವಚನ ಮತ್ತು ವಚನಕಾರರಿಗೆ ಸಂಪರ್ಕವೇರ್ಪಡಿಸಿ ನಿಮ್ಮ ಸಂಶೋಧನೆಗೆ ಸಹಕರಿಸುತ್ತದೆ. </P> 
 
     <div class="rand-vachana"> 

@@ -7,16 +7,22 @@ class HomeController < ApplicationController
       description: "ವಚನ ಸಂಚಯವು ೨೫,೦೦೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಗಳನ್ನು ಮತ್ತು ೨೫೦ಕ್ಕೂ ಹೆಚ್ಚು ವಚನಕಾರರನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ಉಚಿತ, ತೆರೆದ ಮೂಲ ಸಂಶೋಧನಾ ವೇದಿಕೆಯಾಗಿದೆ. ಇಂದಿನ ವಚನ, ಪದಪುಂಜ ಹುಡುಕಾಟ ಮತ್ತು ಸಂಶೋಧನಾ ಸಾಧನಗಳನ್ನು ಅನ್ವೇಷಿಸಿ.",
       keywords:    "ವಚನ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ ಸಾಹಿತ್ಯ, ವಚನಕಾರರು, ಬಸವಣ್ಣ, ಅಲ್ಲಮ ಪ್ರಭು, ಅಕ್ಕಮಹಾದೇವಿ, ಸಂಶೋಧನೆ, ಪದಪುಂಜ, ಕನ್ನಡ"
     )
-    @rand_vachana = DailyVachana.last
+    @rand_vachana = DailyVachana.includes(vachana: :vachanakaara).last
     begin
       unless @rand_vachana && @rand_vachana.created_at.to_date == Date.today
-        vachana = Vachana.where("vachana IS NOT NULL AND vachana != ''").order("RAND()").first
+        ids = Vachana.where("vachana IS NOT NULL AND vachana != ''").pluck(:id)
+        r = Random.new(Date.today.to_time.to_i)
+        vachana = Vachana.includes(:vachanakaara).find(ids[r.rand(ids.length)])
         @rand_vachana = DailyVachana.create(vachana_id: vachana.id) if vachana
+        @vachana = vachana
+      else
+        @vachana = @rand_vachana.vachana
       end
     rescue => e
       Rails.logger.error "HomeController#index error: #{e.message}"
+      @vachana = @rand_vachana&.vachana if @vachana.nil?
     end
-    @vachana = @rand_vachana&.vachana
+    @stats = site_stats
   end
 
   def admin_panel
@@ -92,6 +98,28 @@ class HomeController < ApplicationController
 
   def static_pages_available?
     ActiveRecord::Base.connection.table_exists?('static_pages') rescue false
+  end
+
+  STATS_FILE = Rails.root.join("tmp/site_stats.json")
+
+  def site_stats
+    if File.exist?(STATS_FILE)
+      JSON.parse(File.read(STATS_FILE)).symbolize_keys
+    else
+      regenerate_site_stats
+    end
+  end
+
+  def regenerate_site_stats
+    stats = {
+      male_poets:      Vachanakaara.where(sex: true).count,
+      female_poets:    Vachanakaara.where(sex: false).count,
+      total_poets:     Vachanakaara.count,
+      total_vachanas:  Vachana.count,
+      total_keywords:  KeyWord.count
+    }
+    File.write(STATS_FILE, stats.to_json)
+    stats
   end
 
 end
