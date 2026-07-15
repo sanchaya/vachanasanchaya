@@ -30,7 +30,7 @@
 
     <div class="citation-format" style="margin-bottom:15px;padding:12px;background:#f9f9f9;border-left:3px solid #8e44ad;border-radius:3px;">
       <strong style="color:#8e44ad;">BibTeX</strong>
-      <pre style="margin:5px 0 0;font-size:12px;line-height:1.4;color:#444;white-space:pre-wrap;word-break:break-all;background:#fff;padding:8px;border:1px solid #ddd;border-radius:3px;"><%= citation_bibtex(@vachana) %></pre>
+      <pre style="margin:5px 0 0;font-size:12px;line-height:1.4;color:#444;white-space:pre-wrap;word-break:break-all;background:#fff;padding:8px;border:1px solid #ddd;border-radius:3px;"><%= CitationFormatter.new(@vachana).bibtex %></pre>
     </div>
   </div>
 

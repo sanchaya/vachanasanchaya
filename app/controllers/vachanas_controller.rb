@@ -263,14 +263,14 @@ def cite
   @vachana = Vachana.find(params[:id])
   respond_to do |format|
     format.html
-    format.text { render text: citation_bibtex(@vachana) }
+    format.text { render text: CitationFormatter.new(@vachana).bibtex }
   end
 end
 
 def export_bibtex
   ids = params[:ids].present? ? params[:ids].map(&:to_i) : []
   @vachanas = ids.present? ? Vachana.where(id: ids).includes(:vachanakaara) : []
-  bib = @vachanas.map { |v| citation_bibtex(v) }.join("\n")
+  bib = @vachanas.map { |v| CitationFormatter.new(v).bibtex }.join("\n")
   send_data bib, filename: "vachanas.bib", type: "text/plain"
 end
 
