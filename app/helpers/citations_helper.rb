@@ -22,20 +22,7 @@ module CitationsHelper
   end
 
   def citation_bibtex(vachana)
-    key = "vachana#{vachana.vachanaid}"
-    author = vachana.vachanakaara.name
-    title = vachana_title(vachana)
-    year = vachana_year(vachana)
-    url = vachana_url(vachana)
-
-    %(@misc{#{key},
-  author = {#{author}},
-  title  = {#{title}},
-  year   = {#{year}},
-  note   = {#{SITE_NAME}},
-  url    = {#{url}},
-  urldate = {#{Date.today.iso8601}}
-})
+    CitationFormatter.new(vachana).bibtex
   end
 
   def vachana_title(vachana)
@@ -52,5 +39,9 @@ module CitationsHelper
 
   def access_date
     Date.today.strftime("%d %b %Y")
+  end
+
+  def vachana_url(vachana)
+    "https://vachana.sanchaya.net/vachanas/#{vachana.id}-#{vachana.to_param}"
   end
 end
