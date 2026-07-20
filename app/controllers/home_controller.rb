@@ -115,16 +115,20 @@ class HomeController < ApplicationController
     keywords = KeyWord.where(word: word)
     if keywords.any?
       vachana_ids = keywords.flat_map(&:all_vachana_ids).uniq
-      vachanas = Vachana.where(id: vachana_ids)
+      vachanas = Vachana.where(id: vachana_ids).includes(:vachanakaara)
       vachanas = vachanas.where(vachanakaara_id: vachanakaara_id) if vachanakaara_id
 
-      results = vachanas.includes(:vachanakaara).limit(50).map do |v|
+      kw_counts = keywords.each_with_object({}) { |kw, h| kw.vachana_id_count_hash.each { |vid, c| h[vid] = c } }
+      sorted = vachanas.sort_by { |v| -kw_counts.fetch(v.id, 0) }.first(50)
+
+      results = sorted.map do |v|
         {
           id: v.id,
           vachanaid: v.vachanaid,
           text: v.vachana,
           vachanakaara_name: v.vachanakaara.try(:name),
-          vachanakaara_id: v.vachanakaara_id
+          vachanakaara_id: v.vachanakaara_id,
+          kw_count: kw_counts.fetch(v.id, 0)
         }
       end
 
