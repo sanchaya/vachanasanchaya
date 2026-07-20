@@ -107,6 +107,33 @@ class HomeController < ApplicationController
     end
   end
 
+  def ngram_vachanas
+    word = params[:word].to_s.squish
+    vachanakaara_id = params[:vachanakaara_id].to_i
+    vachanakaara_id = nil if vachanakaara_id <= 0
+
+    keywords = KeyWord.where(word: word)
+    if keywords.any?
+      vachana_ids = keywords.flat_map(&:all_vachana_ids).uniq
+      vachanas = Vachana.where(id: vachana_ids)
+      vachanas = vachanas.where(vachanakaara_id: vachanakaara_id) if vachanakaara_id
+
+      results = vachanas.includes(:vachanakaara).limit(50).map do |v|
+        {
+          id: v.id,
+          vachanaid: v.vachanaid,
+          text: v.vachana,
+          vachanakaara_name: v.vachanakaara.try(:name),
+          vachanakaara_id: v.vachanakaara_id
+        }
+      end
+
+      render json: { vachanas: results, total: vachanas.count }
+    else
+      render json: { vachanas: [], total: 0 }
+    end
+  end
+
   def help
     set_meta_tags(
       title:       "ಸಹಾಯ - ವಚನ ಸಂಚಯ",

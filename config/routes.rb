@@ -11,6 +11,7 @@ KannadaVachana::Application.routes.draw do
   match "/help" => "home#help"
   match "/ngram" => "home#ngram", :as => 'ngram'
   match "/ngram/data" => "home#ngram_data", :as => 'ngram_data'
+  match "/ngram/vachanas" => "home#ngram_vachanas", :as => 'ngram_vachanas'
   match "/admin_panel" => "home#admin_panel"
   match "/admin_panel/static_pages/:id/edit" => "home#edit_static_page", :as => 'edit_static_page', :via => :get
   match "/admin_panel/static_pages/:id" => "home#update_static_page", :as => 'update_static_page', :via => :put
