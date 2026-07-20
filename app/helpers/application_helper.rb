@@ -57,7 +57,7 @@ module ApplicationHelper
     if year
       century = ((year.to_i - 1) / 100) + 1
       "#{century}ನೇ ಶತಮಾನ"
-    elsif normalized.match?(/\d+/)
+    elsif normalized.match(/\d+/)
       "#{normalized}"
     else
       period
