@@ -15,6 +15,9 @@
     <% if @keyword %>
       <div class="keyword-stats-box" style="margin-bottom:25px;">
         <strong><%= @word %></strong> ಪದವು ಒಟ್ಟು <strong><%= @keyword.count %></strong> ಬಾರಿ ಬಳಕೆಯಾಗಿದೆ
+        <a href="<%= vachanas_path(vachana: @word, search_type: 'exact_search') %>" class="btn btn-mini btn-info" style="margin-left:15px;" title="ಎಲ್ಲ ವಚನಗಳನ್ನು ನೋಡಿ">
+          <i class="fa fa-search"></i> ವಚನಗಳನ್ನು ನೋಡಿ
+        </a>
       </div>
 
       <div class="row-fluid" style="margin-bottom:30px;">
@@ -36,12 +39,45 @@
         <div class="span6">
           <div class="well" style="padding:15px;min-height:400px;">
             <h3 style="margin-top:0;text-align:center;">ಸಹಸಂಬಂಧಿತ ಪದಗಳು</h3>
-            <div id="ngram-related-chart" style="min-width:250px;height:400px;margin:0 auto;"></div>
+            <div id="ngram-related-cloud" style="min-width:250px;height:400px;margin:0 auto;padding:15px;overflow-y:auto;"></div>
           </div>
         </div>
       </div>
 
+      <div id="ngram-vachana-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="text-align:left;width:800px;margin-left:-400px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="ngram-modal-title">ವಚನಗಳು</h3>
+        </div>
+        <div class="modal-body vachana-pop" id="ngram-modal-body" style="max-height:500px;overflow-y:auto;">
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">ಮುಚ್ಚಿ</button>
+        </div>
+      </div>
+
       <script type="text/javascript">
+        function showVachanaModal(title, vachanas) {
+          if (!vachanas || vachanas.length === 0) {
+            $('#ngram-modal-title').text(title);
+            $('#ngram-modal-body').html('<p style="text-align:center;padding:40px;color:#999;">ವಚನಗಳು ಲಭ್ಯವಿಲ್ಲ</p>');
+            $('#ngram-vachana-modal').modal('show');
+            return;
+          }
+          var html = '<ul style="list-style:none;margin:0;">';
+          for (var i = 0; i < vachanas.length; i++) {
+            var v = vachanas[i];
+            html += '<li style="padding:10px;border-bottom:1px solid #eee;">';
+            html += '<p>' + v.text.replace(/\n/g, '<br/>') + '</p>';
+            html += '<div style="text-align:right;color:#666;font-size:13px;">--- ' + v.vachanakaara_name + ' (ವಚನ ಸಂಖ್ಯೆ: ' + v.vachanaid + ')</div>';
+            html += '</li>';
+          }
+          html += '</ul>';
+          $('#ngram-modal-title').text(title);
+          $('#ngram-modal-body').html(html);
+          $('#ngram-vachana-modal').modal('show');
+        }
+
         $(function () {
           var timeData = <%= raw @time_series.map { |r| { period: normalize_time_period(r[0]), count: r[1].to_i, raw: r[0] } }.to_json %>;
           var vachanakaaraData = <%= raw @vachanakaara_usage.map { |r| { name: r[1], count: r[2].to_i, id: r[0].to_i } }.to_json %>;
@@ -51,7 +87,7 @@
 
           if (timeData.length > 0) {
             $('#ngram-time-chart').highcharts({
-              chart: { type: 'line' },
+              chart: { type: 'area' },
               title: { text: '' },
               xAxis: {
                 categories: timeData.map(function(d) { return d.period; }),
@@ -68,7 +104,8 @@
                 }
               },
               plotOptions: {
-                line: {
+                area: {
+                  fillOpacity: 0.3,
                   dataLabels: { enabled: true },
                   marker: { enabled: true, radius: 5 }
                 }
@@ -107,7 +144,10 @@
                   point: {
                     events: {
                       click: function() {
-                        window.location.href = '<%= j vachanas_path %>' + '?vachana=' + encodeURIComponent('<%= @word %>') + '&search_type=exact_search&vachanakaara=' + vachanakaaraData[this.index].id;
+                        var self = this;
+                        $.getJSON('<%= j ngram_vachanas_path %>', { word: '<%= j @word %>', vachanakaara_id: vachanakaaraData[this.index].id }, function(data) {
+                          showVachanaModal(vachanakaaraData[self.index].name + ' - ' + '<%= j @word %>', data.vachanas);
+                        });
                       }
                     }
                   }
@@ -125,37 +165,26 @@
           }
 
           if (relatedData.length > 0) {
-            var topRelated = relatedData.slice(0, 15);
-            $('#ngram-related-chart').highcharts({
-              chart: { type: 'bar' },
-              title: { text: '' },
-              xAxis: {
-                categories: topRelated.map(function(d) { return d.word; }),
-                labels: { style: { fontSize: '11px' } }
-              },
-              yAxis: {
-                title: { text: 'ಸಹ ಬಳಕೆ ಸಂಖ್ಯೆ' },
-                min: 0
-              },
-              tooltip: {
-                formatter: function() {
-                  return '<b>' + this.category + '</b><br/>ಸಹ ಬಳಕೆ: <b>' + this.y + '</b>';
-                }
-              },
-              plotOptions: {
-                bar: {
-                  dataLabels: { enabled: true }
-                }
-              },
-              credits: { enabled: false },
-              colors: ['#90ed7d'],
-              series: [{
-                name: 'ಸಹ ಬಳಕೆ',
-                data: topRelated.map(function(d) { return d.count; })
-              }]
-            });
+            var topRelated = relatedData.slice(0, 30);
+            var maxCount = topRelated[0].count;
+            var minCount = topRelated[topRelated.length - 1].count;
+            var range = maxCount - minCount || 1;
+            var cloudHtml = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:10px;">';
+            for (var i = 0; i < topRelated.length; i++) {
+              var ratio = (topRelated[i].count - minCount) / range;
+              var fontSize = 12 + Math.round(ratio * 28);
+              var opacity = 0.5 + ratio * 0.5;
+              var color = 'hsl(' + Math.round(ratio * 200) + ', 60%, 40%)';
+              cloudHtml += '<span style="cursor:pointer;font-size:' + fontSize + 'px;color:' + color + ';opacity:' + opacity + ';padding:4px 6px;border-radius:3px;transition:background 0.2s;"';
+              cloudHtml += ' onmouseover="this.style.background=\'#f0f0f0\'" onmouseout="this.style.background=\'transparent\'"';
+              cloudHtml += ' onclick="$.getJSON(\'' + '<%= j ngram_vachanas_path %>' + '\', { word: \'' + topRelated[i].word.replace(/'/g, "\\'") + '\' }, function(data) { showVachanaModal(\'' + topRelated[i].word.replace(/'/g, "\\'") + ' - ಸಹಸಂಬಂಧಿತ ವಚನಗಳು\', data.vachanas); });"';
+              cloudHtml += ' title="' + topRelated[i].word + ': ' + topRelated[i].count + ' ಬಾರಿ">';
+              cloudHtml += topRelated[i].word + '</span>';
+            }
+            cloudHtml += '</div>';
+            $('#ngram-related-cloud').html(cloudHtml);
           } else {
-            $('#ngram-related-chart').html('<p style="text-align:center;padding:80px 20px;color:#999;">ಸಹಸಂಬಂಧಿತ ಪದಗಳು ಲಭ್ಯವಿಲ್ಲ</p>');
+            $('#ngram-related-cloud').html('<p style="text-align:center;padding:80px 20px;color:#999;">ಸಹಸಂಬಂಧಿತ ಪದಗಳು ಲಭ್ಯವಿಲ್ಲ</p>');
           }
         });
       </script>
