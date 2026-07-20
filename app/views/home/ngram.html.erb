@@ -64,15 +64,24 @@
             $('#ngram-vachana-modal').modal('show');
             return;
           }
-          var html = '<ul style="list-style:none;margin:0;">';
-          for (var i = 0; i < vachanas.length; i++) {
-            var v = vachanas[i];
-            html += '<li style="padding:10px;border-bottom:1px solid #eee;">';
-            html += '<p>' + v.text.replace(/\n/g, '<br/>') + '</p>';
-            html += '<div style="text-align:right;color:#666;font-size:13px;">--- ' + v.vachanakaara_name + ' (ವಚನ ಸಂಖ್ಯೆ: ' + v.vachanaid + ')</div>';
-            html += '</li>';
+          var v = vachanas[0];
+          var html = '<div style="padding:15px;margin-bottom:15px;background:#f9f9f9;border:1px solid #ddd;border-radius:4px;">';
+          html += '<p style="font-size:15px;line-height:1.8;">' + v.text.replace(/\n/g, '<br/>') + '</p>';
+          html += '<div style="text-align:right;color:#666;font-size:13px;margin-top:8px;">--- ' + v.vachanakaara_name + ' (ವಚನ ಸಂಖ್ಯೆ: ' + v.vachanaid + ')</div>';
+          html += '</div>';
+          if (vachanas.length > 1) {
+            html += '<div class="related-vachanas-section"><strong class="related-vachanas-label">ಉಳಿದ ವಚನಗಳು:</strong><div class="related-vachanas-list">';
+            for (var i = 1; i < vachanas.length; i++) {
+              var rv = vachanas[i];
+              html += '<a href="javascript:void(0)" class="related-vachana-link" onclick="var t=$(this).next();if(t.is(\':visible\')){t.slideUp()}else{$(\'.related-vachana-text\').slideUp();t.slideDown()}return false;">';
+              html += rv.vachanakaara_name + ' - ವಚನ ' + rv.vachanaid;
+              html += '</a>';
+              html += '<div class="related-vachana-text" style="display:none;padding:10px;margin:5px 0 10px;background:#fafafa;border-radius:4px;">';
+              html += '<p>' + rv.text.replace(/\n/g, '<br/>') + '</p>';
+              html += '</div>';
+            }
+            html += '</div></div>';
           }
-          html += '</ul>';
           $('#ngram-modal-title').text(title);
           $('#ngram-modal-body').html(html);
           $('#ngram-vachana-modal').modal('show');
