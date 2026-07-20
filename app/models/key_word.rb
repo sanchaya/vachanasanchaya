@@ -131,5 +131,48 @@ def self.vachanakaara_keyword
   end
 end
 
+def self.ngram_time_series(keyword_id)
+  sql = <<-SQL
+    SELECT va.time_period, SUM(kv.count) as total_count
+    FROM keyword_vachanas kv
+    JOIN vachanas v ON v.id = kv.vachana_id
+    JOIN vachanakaaras va ON va.id = v.vachanakaara_id
+    WHERE kv.key_word_id = #{keyword_id.to_i}
+      AND va.time_period IS NOT NULL
+      AND va.time_period != ''
+    GROUP BY va.time_period
+    ORDER BY va.time_period
+  SQL
+  connection.execute(sql).to_a
+end
+
+def self.ngram_vachanakaara_usage(keyword_id)
+  sql = <<-SQL
+    SELECT va.id, va.name, SUM(kv.count) as total_count
+    FROM keyword_vachanas kv
+    JOIN vachanas v ON v.id = kv.vachana_id
+    JOIN vachanakaaras va ON va.id = v.vachanakaara_id
+    WHERE kv.key_word_id = #{keyword_id.to_i}
+    GROUP BY va.id, va.name
+    ORDER BY total_count DESC
+    LIMIT 30
+  SQL
+  connection.execute(sql).to_a
+end
+
+def self.ngram_related_words(keyword_id, limit=20)
+  sql = <<-SQL
+    SELECT kw.id, kw.word, SUM(kv2.count) as total_count
+    FROM keyword_vachanas kv1
+    JOIN keyword_vachanas kv2 ON kv1.vachana_id = kv2.vachana_id AND kv2.key_word_id != kv1.key_word_id
+    JOIN key_words kw ON kw.id = kv2.key_word_id
+    WHERE kv1.key_word_id = #{keyword_id.to_i}
+      AND kw.word NOT IN ('\\n', '\\t', '?', '!', '``', '`')
+    GROUP BY kw.id, kw.word
+    ORDER BY total_count DESC
+    LIMIT #{limit.to_i}
+  SQL
+  connection.execute(sql).to_a
+end
 
 end

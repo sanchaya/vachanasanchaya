@@ -1,0 +1,187 @@
+<div class="ngram-page" style="max-width:1200px;margin:0 auto;padding:20px;">
+  <div class="page-header" style="text-align:center;margin-bottom:30px;">
+    <h1>N-gram ವಿಶ್ಲೇಷಣೆ</h1>
+    <p class="lead" style="color:#666;font-size:16px;">ವಚನಕಾರರ ಕಾಲಮಾನದ ಆಧಾರದಲ್ಲಿ ಪದಗಳ ಬಳಕೆಯ ವಿಶ್ಲೇಷಣೆ</p>
+  </div>
+
+  <div class="search_box" style="text-align:center;margin-bottom:30px;">
+    <%= form_tag ngram_path, method: :get, style: "display:inline-block;" do %>
+      <%= text_field_tag :word, @word, class: "search-query", id: "ngram-word", placeholder: "ಪದವನ್ನು ನಮೂದಿಸಿ...", autocomplete: "off", style: "width:400px;font-size:16px;padding:10px;" %>
+      <%= submit_tag "ವಿಶ್ಲೇಷಿಸಿ", class: 'btn btn-primary', style: "font-size:16px;padding:10px 20px;" %>
+    <% end %>
+  </div>
+
+  <% if @word.present? %>
+    <% if @keyword %>
+      <div class="keyword-stats-box" style="margin-bottom:25px;">
+        <strong><%= @word %></strong> ಪದವು ಒಟ್ಟು <strong><%= @keyword.count %></strong> ಬಾರಿ ಬಳಕೆಯಾಗಿದೆ
+      </div>
+
+      <div class="row-fluid" style="margin-bottom:30px;">
+        <div class="span12">
+          <div class="well" style="padding:15px;">
+            <h3 style="margin-top:0;text-align:center;">ಕಾಲಮಾನದ ಪ್ರಕಾರ ಪದ ಬಳಕೆ</h3>
+            <div id="ngram-time-chart" style="min-width:300px;height:400px;margin:0 auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-fluid" style="margin-bottom:30px;">
+        <div class="span6">
+          <div class="well" style="padding:15px;min-height:400px;">
+            <h3 style="margin-top:0;text-align:center;">ವಚನಕಾರರ ಪ್ರಕಾರ ಪದ ಬಳಕೆ</h3>
+            <div id="ngram-vachanakaara-chart" style="min-width:250px;height:400px;margin:0 auto;"></div>
+          </div>
+        </div>
+        <div class="span6">
+          <div class="well" style="padding:15px;min-height:400px;">
+            <h3 style="margin-top:0;text-align:center;">ಸಹಸಂಬಂಧಿತ ಪದಗಳು</h3>
+            <div id="ngram-related-chart" style="min-width:250px;height:400px;margin:0 auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        $(function () {
+          var timeData = <%= raw @time_series.map { |r| { period: normalize_time_period(r[0]), count: r[1].to_i, raw: r[0] } }.to_json %>;
+          var vachanakaaraData = <%= raw @vachanakaara_usage.map { |r| { name: r[1], count: r[2].to_i, id: r[0].to_i } }.to_json %>;
+          var relatedData = <%= raw @related_words.map { |r| { word: r[1], count: r[2].to_i, id: r[0].to_i } }.to_json %>;
+
+          var colors = ['#7cb5ec','#434348','#90ed7d','#f7a35c','#8085e9','#f15c80','#e4d354','#2b908f','#f45b5b','#91e8e1'];
+
+          if (timeData.length > 0) {
+            $('#ngram-time-chart').highcharts({
+              chart: { type: 'line' },
+              title: { text: '' },
+              xAxis: {
+                categories: timeData.map(function(d) { return d.period; }),
+                labels: { rotation: -45, style: { fontSize: '13px' } }
+              },
+              yAxis: {
+                title: { text: 'ಪದ ಬಳಕೆ ಸಂಖ್ಯೆ' },
+                min: 0
+              },
+              tooltip: {
+                formatter: function() {
+                  var d = timeData[this.index];
+                  return '<b>' + d.raw + '</b><br/>ಪದ ಬಳಕೆ: <b>' + this.y + '</b>';
+                }
+              },
+              plotOptions: {
+                line: {
+                  dataLabels: { enabled: true },
+                  marker: { enabled: true, radius: 5 }
+                }
+              },
+              credits: { enabled: false },
+              colors: colors,
+              series: [{
+                name: '<%= @word %>',
+                data: timeData.map(function(d) { return d.count; })
+              }]
+            });
+          } else {
+            $('#ngram-time-chart').html('<p style="text-align:center;padding:80px 20px;color:#999;">ಕಾಲಮಾನದ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ</p>');
+          }
+
+          if (vachanakaaraData.length > 0) {
+            $('#ngram-vachanakaara-chart').highcharts({
+              chart: { type: 'bar' },
+              title: { text: '' },
+              xAxis: {
+                categories: vachanakaaraData.map(function(d) { return d.name; }),
+                labels: { style: { fontSize: '12px' } }
+              },
+              yAxis: {
+                title: { text: 'ಪದ ಬಳಕೆ ಸಂಖ್ಯೆ' },
+                min: 0
+              },
+              tooltip: {
+                formatter: function() {
+                  return '<b>' + this.category + '</b><br/>ಪದ ಬಳಕೆ: <b>' + this.y + '</b>';
+                }
+              },
+              plotOptions: {
+                bar: {
+                  dataLabels: { enabled: true },
+                  point: {
+                    events: {
+                      click: function() {
+                        window.location.href = '<%= j vachanas_path %>' + '?vachana=' + encodeURIComponent('<%= @word %>') + '&search_type=exact_search&vachanakaara=' + vachanakaaraData[this.index].id;
+                      }
+                    }
+                  }
+                }
+              },
+              credits: { enabled: false },
+              colors: colors,
+              series: [{
+                name: 'ಬಳಕೆ ಸಂಖ್ಯೆ',
+                data: vachanakaaraData.map(function(d) { return d.count; })
+              }]
+            });
+          } else {
+            $('#ngram-vachanakaara-chart').html('<p style="text-align:center;padding:80px 20px;color:#999;">ವಚನಕಾರರ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ</p>');
+          }
+
+          if (relatedData.length > 0) {
+            var topRelated = relatedData.slice(0, 15);
+            $('#ngram-related-chart').highcharts({
+              chart: { type: 'bar' },
+              title: { text: '' },
+              xAxis: {
+                categories: topRelated.map(function(d) { return d.word; }),
+                labels: { style: { fontSize: '11px' } }
+              },
+              yAxis: {
+                title: { text: 'ಸಹ ಬಳಕೆ ಸಂಖ್ಯೆ' },
+                min: 0
+              },
+              tooltip: {
+                formatter: function() {
+                  return '<b>' + this.category + '</b><br/>ಸಹ ಬಳಕೆ: <b>' + this.y + '</b>';
+                }
+              },
+              plotOptions: {
+                bar: {
+                  dataLabels: { enabled: true }
+                }
+              },
+              credits: { enabled: false },
+              colors: ['#90ed7d'],
+              series: [{
+                name: 'ಸಹ ಬಳಕೆ',
+                data: topRelated.map(function(d) { return d.count; })
+              }]
+            });
+          } else {
+            $('#ngram-related-chart').html('<p style="text-align:center;padding:80px 20px;color:#999;">ಸಹಸಂಬಂಧಿತ ಪದಗಳು ಲಭ್ಯವಿಲ್ಲ</p>');
+          }
+        });
+      </script>
+    <% else %>
+      <div class="alert alert-error" style="text-align:center;">
+        <strong><%= @word %></strong> ಪದವು ದತ್ತಸಂಚಯದಲ್ಲಿ ಕಂಡುಬಂದಿಲ್ಲ
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<script type='text/javascript'>
+  $(function() {
+    var cache = {};
+    $('#ngram-word').typeahead({
+      source: function(query, process) {
+        if (query.length < 2) return;
+        if (cache[query]) {
+          process(cache[query]);
+          return;
+        }
+        $.getJSON('/vachanas/autocomplete', { q: query }, function(data) {
+          cache[query] = data;
+          process(data);
+        });
+      }
+    });
+  });
+</script>

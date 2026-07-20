@@ -70,6 +70,43 @@ class HomeController < ApplicationController
     )
   end
 
+  def ngram
+    set_meta_tags(
+      title:       "N-gram ವಿಶ್ಲೇಷಣೆ - ವಚನ ಸಂಚಯ",
+      description: "ವಚನಕಾರರ ಕಾಲಮಾನದ ಆಧಾರದಲ್ಲಿ ಪದಗಳ ಬಳಕೆಯ N-gram ವಿಶ್ಲೇಷಣೆ ಮತ್ತು ದೃಶ್ಯೀಕರಣ.",
+      keywords:    "n-gram, ಪದ ವಿಶ್ಲೇಷಣೆ, ವಚನ ಸಾಹಿತ್ಯ, ಕನ್ನಡ, ಕಾಲಮಾನ"
+    )
+    if params[:word].present?
+      @word = params[:word].squish
+      @keyword = KeyWord.find_by_word(@word)
+      if @keyword
+        @time_series = KeyWord.ngram_time_series(@keyword.id)
+        @vachanakaara_usage = KeyWord.ngram_vachanakaara_usage(@keyword.id)
+        @related_words = KeyWord.ngram_related_words(@keyword.id)
+      end
+    end
+  end
+
+  def ngram_data
+    word = params[:word].to_s.squish
+    keyword = KeyWord.find_by_word(word)
+    if keyword
+      time_series = KeyWord.ngram_time_series(keyword.id)
+      vachanakaara_usage = KeyWord.ngram_vachanakaara_usage(keyword.id)
+      related_words = KeyWord.ngram_related_words(keyword.id)
+
+      render json: {
+        word: keyword.word,
+        total_count: keyword.count,
+        time_series: time_series.map { |r| { period: r[0], count: r[1].to_i } },
+        vachanakaara_usage: vachanakaara_usage.map { |r| { id: r[0].to_i, name: r[1], count: r[2].to_i } },
+        related_words: related_words.map { |r| { id: r[0].to_i, word: r[1], count: r[2].to_i } }
+      }
+    else
+      render json: { error: "ಪದ ಕಂಡುಬಂದಿಲ್ಲ" }, status: :not_found
+    end
+  end
+
   def help
     set_meta_tags(
       title:       "ಸಹಾಯ - ವಚನ ಸಂಚಯ",

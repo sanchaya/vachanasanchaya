@@ -48,7 +48,23 @@ module ApplicationHelper
 		I18n.locale.to_s == 'kn' ? 'en' : 'kn'
 	end
 
-	def select_unselected_language
+  def normalize_time_period(period)
+    return period if period.blank?
+    kannada_digits = {'೦' => '0', '೧' => '1', '೨' => '2', '೩' => '3', '೪' => '4',
+                      '೫' => '5', '೬' => '6', '೭' => '7', '೮' => '8', '೯' => '9'}
+    normalized = period.gsub(/[೦೧೨೩೪೫೬೭೮೯]/, kannada_digits)
+    year = normalized.scan(/\d{4}/).first
+    if year
+      century = ((year.to_i - 1) / 100) + 1
+      "#{century}ನೇ ಶತಮಾನ"
+    elsif normalized.match?(/\d+/)
+      "#{normalized}"
+    else
+      period
+    end
+  end
+
+  def select_unselected_language
 		if I18n.locale.to_s == 'kn'
 			'show in English'
 		else
