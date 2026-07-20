@@ -349,3 +349,12 @@ Re-enabled Sunspot Solr:
 - +/home/vachana/rails_apps/concord/shared/solr.in.sh+: Java 11 compat override
   (G1GC, +--add-exports+ for Lucene module access)
 - Reindexed 20,929 Vachana records
+
+=== N-gram analysis page (July 2026)
+
+- +config/routes.rb+: Added +GET /ngram+ and +GET /ngram/data+
+- +app/controllers/home_controller.rb+: Added +ngram+ (page) and +ngram_data+ (JSON) actions
+- +app/models/key_word.rb+: Added +ngram_time_series+, +ngram_vachanakaara_usage+, +ngram_related_words+ queries using SQL joins across keyword_vachanas/vachanas/vachanakaaras
+- +app/helpers/application_helper.rb+: Added +normalize_time_period+ helper (e.g. "1160" → "12ನೇ ಶತಮಾನ")
+- +app/views/home/ngram.html.erb+: New page with autocomplete search, Highcharts line chart (word frequency over time periods), bar chart (usage by vachanakaara, clickable), and bar chart (top 15 co-occurring related words)
+- +app/views/layouts/_nav_bar.html.erb+: Added "N-gram" nav link
