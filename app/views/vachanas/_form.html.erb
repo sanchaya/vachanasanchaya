@@ -16,7 +16,7 @@
   <% if @vachana.persisted? %>
   <%= @vachana.vachanakaara.name %>
   <% else %>
-  <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.all, "id", "name")  %>
+  <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.unscoped.order(:name), "id", "name")  %>
   <% end %>
 </div>
 <div class="field">
