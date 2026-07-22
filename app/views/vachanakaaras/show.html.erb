@@ -23,6 +23,9 @@
     <br>
     <p style="line-height:1.8;font-size:15px;margin:0;"><%= @vachanakaara.information %></p>
   <% end %>
+  <% if user_signed_in? && current_user.is_admin? %>
+    <%= link_to "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ", edit_vachanakaara_path(@vachanakaara), class: "btn btn-mini btn-primary", style: "margin-top:8px;" %>
+  <% end %>
   <button class="btn btn-mini btn-danger" style="margin-top:8px;" data-toggle="modal" data-target="#vachanakaara-feedback-modal">✏️ ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ</button>
 </div>
 

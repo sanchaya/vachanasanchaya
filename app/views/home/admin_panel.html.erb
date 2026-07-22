@@ -7,42 +7,16 @@
   .admin-card .meta { font-size: 12px; color: #666; }
   .admin-card .actions { margin-top: 6px; }
   .admin-card .actions a { margin-right: 6px; }
-  .stat-box { text-align: center; padding: 15px 10px; background: #f5f5f5; border-radius: 4px; border: 1px solid #e0e0e0; }
-  .stat-box .num { font-size: 28px; font-weight: bold; color: #08c; display: block; }
-  .stat-box .label-text { font-size: 12px; color: #666; }
   .admin-form { margin: 0; }
   .admin-form input[type="text"] { margin-bottom: 0; }
-  .admin-form .input-append { margin-bottom: 0; }
   .result-count { font-size: 12px; color: #999; margin: 5px 0; }
-  .quick-links li { margin-bottom: 4px; }
 </style>
 
-<div class="row">
-  <div class="span12">
-    <div class="row">
-      <div class="span2 stat-box">
-        <span class="num"><%= @vachanakaaras_count %></span>
-        <span class="label-text">ವಚನಕಾರರು</span>
-      </div>
-      <div class="span2 stat-box">
-        <span class="num"><%= @vachanas_count %></span>
-        <span class="label-text">ವಚನಗಳು</span>
-      </div>
-      <div class="span2 stat-box">
-        <span class="num"><%= @exact_count %></span>
-        <span class="label-text">Exact ಹುಡುಕಾಟ</span>
-      </div>
-      <div class="span2 stat-box">
-        <span class="num"><%= @like_count %></span>
-        <span class="label-text">Like ಹುಡುಕಾಟ</span>
-      </div>
-      <div class="span2 stat-box">
-        <span class="num"><%= @total %></span>
-        <span class="label-text">ಒಟ್ಟು ಹುಡುಕಾಟ</span>
-      </div>
-    </div>
-  </div>
-</div>
+<h3 style="margin-bottom: 4px;">ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು</h3>
+<p style="color: #666; font-size: 13px;">
+  ಒಟ್ಟು <%= Vachanakaara.count %> ವಚನಕಾರರು, <%= Vachana.count %> ವಚನಗಳು
+  | Exact: <%= @exact_count %> | Like: <%= @like_count %> | ಒಟ್ಟು: <%= @total %>
+</p>
 
 <hr/>
 
@@ -50,25 +24,27 @@
   <div class="span6">
     <div class="admin-section">
       <h4>ವಚನಕಾರರ ನಿರ್ವಹಣೆ</h4>
-      <div class="admin-card">
-        <%= form_tag admin_panel_path, method: :get, class: "admin-form" do %>
-          <div class="input-append">
-            <%= text_field_tag :va_name, params[:va_name], placeholder: "ವಚನಕಾರರ ಹೆಸರು ಹುಡುಕಿ", style: "width: 250px;" %>
-            <%= submit_tag "ಹುಡುಕು", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      </div>
+      <%= form_tag admin_panel_path, method: :get, class: "admin-form" do %>
+        <div class="input-append">
+          <%= text_field_tag :va_name, params[:va_name], placeholder: "ವಚನಕಾರರ ಹೆಸರು ಹುಡುಕಿ", style: "width: 250px;" %>
+          <%= submit_tag "ಹುಡುಕು", class: "btn btn-primary" %>
+        </div>
+      <% end %>
 
       <% if @va_results %>
         <div class="result-count"><%= @va_results.count %> ಫಲಿತಾಂಶಗಳು</div>
         <% @va_results.each do |va| %>
           <div class="admin-card">
             <div class="name"><%= va.name %></div>
-            <div class="meta">ಅಂಕಿತ ನಾಮ: <%= va.ankitha_naama.presence || "—" %> | ವಚನಗಳು: <%= va.vachanas.count %> | ಕಾಲ: <%= va.time_period.presence || "—" %></div>
+            <div class="meta">
+              ಅಂಕಿತ ನಾಮ: <%= va.ankitha_naama.presence || "—" %>
+              <% if va.time_period.present? %> | ಕಾಲ: <%= va.time_period %><% end %>
+              <% if va.birth_place.present? %> | ಸ್ಥಳ: <%= va.birth_place %><% end %>
+              | ವಚನಗಳು: <%= va.vachanas.count %>
+            </div>
             <div class="actions">
-              <%= link_to "ಸಂಪಾದಿಸಿ", edit_vachanakaara_path(va), class: "btn btn-mini btn-primary" %>
-              <%= link_to "ವೀಕ್ಷಿಸಿ", vachanakaara_path(va), class: "btn btn-mini" %>
-              <%= link_to "ವಚನಕಾರರ ಪಟ್ಟಿ", edit_vachanakaara_path(Vachanakaara.first), class: "btn btn-mini" %>
+              <%= link_to "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ", edit_vachanakaara_path(va), class: "btn btn-mini btn-primary" %>
+              <%= link_to "ವಚನಗಳನ್ನು ಸಂಪಾದಿಸಿ", vachanakaara_path(va), class: "btn btn-mini" %>
             </div>
           </div>
         <% end %>
@@ -97,7 +73,7 @@
         <div class="result-count"><%= @vachana_number_results.count %> ಫಲಿತಾಂಶಗಳು</div>
         <% @vachana_number_results.each do |v| %>
           <div class="admin-card">
-            <div class="name">ಕ್ರ.ಸಂ <%= v.vachanaid %> — <%= v.vachanakaara&.name %></div>
+            <div class="name"><%= v.vachanakaara&.name %> — ಕ್ರ.ಸಂ <%= v.vachanaid %></div>
             <div class="meta"><%= truncate(v.vachana, length: 120) %></div>
             <div class="actions">
               <%= link_to "ಸಂಪಾದಿಸಿ", edit_vachana_path(v), class: "btn btn-mini btn-primary" %>
@@ -124,7 +100,7 @@
         <div class="result-count"><%= @vachana_text_results.count %> ಫಲಿತಾಂಶಗಳು</div>
         <% @vachana_text_results.each do |v| %>
           <div class="admin-card">
-            <div class="name">ಕ್ರ.ಸಂ <%= v.vachanaid %> — <%= v.vachanakaara&.name %></div>
+            <div class="name"><%= v.vachanakaara&.name %> — ಕ್ರ.ಸಂ <%= v.vachanaid %></div>
             <div class="meta"><%= truncate(v.vachana, length: 120) %></div>
             <div class="actions">
               <%= link_to "ಸಂಪಾದಿಸಿ", edit_vachana_path(v), class: "btn btn-mini btn-primary" %>
@@ -136,46 +112,6 @@
           <div class="admin-card"><em>ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ</em></div>
         <% end %>
       <% end %>
-    </div>
-  </div>
-</div>
-
-<hr/>
-
-<div class="row">
-  <div class="span4">
-    <div class="admin-section">
-      <h4>ಸ್ಥಿರ ಪುಟಗಳು</h4>
-      <ul>
-        <% @static_pages.each do |page| %>
-          <li><%= link_to "#{page.title} (#{page.locale})", edit_static_page_path(page) %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-  <div class="span4">
-    <div class="admin-section">
-      <h4>ತ್ವರಿತ ಸಂಪರ್ಕಗಳು</h4>
-      <ul class="quick-links">
-        <li><%= link_to "ಆಕರಗಳು", reference_books_path %></li>
-        <li><%= link_to "ಬಳಕೆದಾರರು", users_path %></li>
-        <li><%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ", activities_path %></li>
-        <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು", user_publishers_path(current_user) %></li>
-        <li><%= link_to "ಪೂರ್ಣಪಠ್ಯ ಹುಡುಕಾಟ", search_vachana_vachanas_path %></li>
-        <li><%= link_to "ಬಳಕೆದಾರರ ಪ್ರತಿಕ್ರಿಯೆಗಳು #{'(' + @pending_feedbacks_count.to_s + ')' if @pending_feedbacks_count > 0}", feedbacks_path, style: 'font-weight:bold;' %></li>
-      </ul>
-    </div>
-  </div>
-  <div class="span4">
-    <div class="admin-section">
-      <h4>ಡೌನ್ಲೋಡ್</h4>
-      <ul class="quick-links">
-        <li><%= link_to "KeyWords CSV", download_keyword_csv_word_lists_path %></li>
-        <li><%= link_to "ವಚನಕಾರರ ಮಾಹಿತಿ CSV", download_vachanakaara_csv_vachanakaaras_path %></li>
-        <li><%= link_to "ಎಲ್ಲ ವಚನಗಳು CSV", download_all_vachana_csv_vachanakaaras_path %></li>
-        <li><%= link_to "ವಚನಕಾರರ unique words", download_vachanakaara_keyword_csv_word_lists_path %></li>
-        <li><%= link_to "ಎಲ್ಲ ವಚನಗಳನ್ನು ಪ್ರಕಟಿಸಿ", publish_all_vachanas_user_publishers_path(current_user) %></li>
-      </ul>
     </div>
   </div>
 </div>
