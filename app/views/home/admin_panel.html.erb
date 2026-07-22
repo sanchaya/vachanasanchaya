@@ -10,13 +10,38 @@
   .admin-form { margin: 0; }
   .admin-form input[type="text"] { margin-bottom: 0; }
   .result-count { font-size: 12px; color: #999; margin: 5px 0; }
+  .stat-box { text-align: center; padding: 15px 10px; background: #f5f5f5; border-radius: 4px; border: 1px solid #e0e0e0; }
+  .stat-box .num { font-size: 28px; font-weight: bold; color: #08c; display: block; }
+  .stat-box .label-text { font-size: 12px; color: #666; }
 </style>
 
-<h3 style="margin-bottom: 4px;">ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು</h3>
-<p style="color: #666; font-size: 13px;">
-  ಒಟ್ಟು <%= Vachanakaara.count %> ವಚನಕಾರರು, <%= Vachana.count %> ವಚನಗಳು
-  | Exact: <%= @exact_count %> | Like: <%= @like_count %> | ಒಟ್ಟು: <%= @total %>
-</p>
+<div class="row">
+  <div class="span12">
+    <h3 style="margin-bottom: 12px;">ನಿರ್ವಹಣಾ ಸಲಕರಣೆಗಳು</h3>
+    <div class="row">
+      <div class="span2 stat-box">
+        <span class="num"><%= Vachanakaara.count %></span>
+        <span class="label-text">ವಚನಕಾರರು</span>
+      </div>
+      <div class="span2 stat-box">
+        <span class="num"><%= Vachana.count %></span>
+        <span class="label-text">ವಚನಗಳು</span>
+      </div>
+      <div class="span2 stat-box">
+        <span class="num"><%= @exact_count %></span>
+        <span class="label-text">Exact ಹುಡುಕಾಟ</span>
+      </div>
+      <div class="span2 stat-box">
+        <span class="num"><%= @like_count %></span>
+        <span class="label-text">Like ಹುಡುಕಾಟ</span>
+      </div>
+      <div class="span2 stat-box">
+        <span class="num"><%= @total %></span>
+        <span class="label-text">ಒಟ್ಟು ಹುಡುಕಾಟ</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <hr/>
 
@@ -112,6 +137,46 @@
           <div class="admin-card"><em>ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ</em></div>
         <% end %>
       <% end %>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="span4">
+    <div class="admin-section">
+      <h4>ಸ್ಥಿರ ಪುಟಗಳು</h4>
+      <ul>
+        <% @static_pages.each do |page| %>
+          <li><%= link_to "#{page.title} (#{page.locale})", edit_static_page_path(page) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="admin-section">
+      <h4>ಇತರೆ ಆಯ್ಕೆಗಳು</h4>
+      <ul>
+        <li><%= link_to "ಆಕರಗಳು", reference_books_path %></li>
+        <li><%= link_to "ಬಳಕೆದಾರರು", users_path %></li>
+        <li><%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ", activities_path %></li>
+        <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು", user_publishers_path(current_user) %></li>
+        <li><%= link_to "ಪೂರ್ಣಪಠ್ಯ ಹುಡುಕಾಟ", search_vachana_vachanas_path %></li>
+        <li><%= link_to "ಬಳಕೆದಾರರ ಪ್ರತಿಕ್ರಿಯೆಗಳು #{'(' + @pending_feedbacks_count.to_s + ')' if @pending_feedbacks_count > 0}", feedbacks_path, style: 'font-weight:bold;' %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="admin-section">
+      <h4>ಡೌನ್ಲೋಡ್</h4>
+      <ul>
+        <li><%= link_to "KeyWords CSV", download_keyword_csv_word_lists_path %></li>
+        <li><%= link_to "ವಚನಕಾರರ ಮಾಹಿತಿ CSV", download_vachanakaara_csv_vachanakaaras_path %></li>
+        <li><%= link_to "ಎಲ್ಲ ವಚನಗಳು CSV", download_all_vachana_csv_vachanakaaras_path %></li>
+        <li><%= link_to "ವಚನಕಾರರ unique words", download_vachanakaara_keyword_csv_word_lists_path %></li>
+        <li><%= link_to "ಎಲ್ಲ ವಚನಗಳನ್ನು ಪ್ರಕಟಿಸಿ", publish_all_vachanas_user_publishers_path(current_user) %></li>
+      </ul>
     </div>
   </div>
 </div>
