@@ -2,7 +2,7 @@
 
 <%= render "layouts/back_button" %>
 
-<div class="vachanakaara-header">
+<div id="profile-view" class="vachanakaara-header">
   <h1><%= @vachanakaara.name %> (<%= @vachanakaara.ankitha_naama %>)</h1>
   <p class="vachanakaara-meta">
     <% if @vachanakaara.time_period.present? %>
@@ -14,9 +14,17 @@
     <% if @vachanakaara.parents.present? %>
       <span><strong>ತಂದೆ/ತಾಯಿ:</strong> <%= @vachanakaara.parents %></span>
     <% end %>
+    <% if @vachanakaara.spouse.present? %>
+      <span><strong>ಗಂಡ/ಹೆಂಡತಿ:</strong> <%= @vachanakaara.spouse %></span>
+    <% end %>
     <span><strong>ವಚನಗಳು:</strong> <%= @vachanakaara.vachanas.count %></span>
     <% if @vachanakaara.vachana_found.present? %>
       <span><strong>ದೊರಕಿರುವ ವಚನಗಳು:</strong> <%= @vachanakaara.vachana_found %></span>
+    <% end %>
+    <% if @vachanakaara.sex == true %>
+      <span><strong>ಲಿಂಗ:</strong> ಗಂಡು</span>
+    <% elsif @vachanakaara.sex == false %>
+      <span><strong>ಲಿಂಗ:</strong> ಹೆಣ್ಣು</span>
     <% end %>
   </p>
   <% if @vachanakaara.information.present? %>
@@ -24,10 +32,35 @@
     <p style="line-height:1.8;font-size:15px;margin:0;"><%= @vachanakaara.information %></p>
   <% end %>
   <% if user_signed_in? && current_user.is_admin? %>
-    <%= link_to "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ", edit_vachanakaara_path(@vachanakaara), class: "btn btn-mini btn-primary", style: "margin-top:8px;" %>
+    <button class="btn btn-mini btn-primary" style="margin-top:8px;" onclick="$('#profile-view').hide();$('#profile-edit').show();">ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ</button>
   <% end %>
   <button class="btn btn-mini btn-danger" style="margin-top:8px;" data-toggle="modal" data-target="#vachanakaara-feedback-modal">✏️ ತಪ್ಪಿದ್ದರೆ ವರದಿ ಮಾಡಿ</button>
 </div>
+
+<% if user_signed_in? && current_user.is_admin? %>
+<div id="profile-edit" class="vachanakaara-header" style="display:none;">
+  <h2>ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ: <%= @vachanakaara.name %></h2>
+  <%= form_for @vachanakaara, html: { style: "margin-top:10px;" } do |f| %>
+    <table style="width:100%;">
+      <tr><td style="width:120px;">ಹೆಸರು:</td><td><%= f.text_field :name, style: "width:250px;" %></td></tr>
+      <tr><td>ಅಂಕಿತ ನಾಮ:</td><td><%= f.text_field :ankitha_naama, style: "width:250px;" %></td></tr>
+      <tr><td>slug name:</td><td><%= f.text_field :slug_name, style: "width:250px;" %></td></tr>
+      <tr><td>ಕಾಲ:</td><td><%= f.text_field :time_period, style: "width:250px;" %></td></tr>
+      <tr><td>ಹುಟ್ಟಿದ ಸ್ಥಳ:</td><td><%= f.text_field :birth_place, style: "width:250px;" %></td></tr>
+      <tr><td>ತಂದೆ/ತಾಯಿ:</td><td><%= f.text_field :parents, style: "width:250px;" %></td></tr>
+      <tr><td>ಗಂಡ/ಹೆಂಡತಿ:</td><td><%= f.text_field :spouse, style: "width:250px;" %></td></tr>
+      <tr><td>ದೊರಕಿರುವ ವಚನಗಳು:</td><td><%= f.number_field :vachana_found, style: "width:100px;" %></td></tr>
+      <tr><td>ಲಿಂಗ:</td><td><%= f.select :sex, [['ಗಂಡು',true],['ಹೆಣ್ಣು',false]], include_blank: true %></td></tr>
+      <tr><td>ಸಮಗ್ರ ವಚನ ಸಂಪುಟ:</td><td><%= f.select :reference_book_id, ReferenceBook.all.collect {|r| [r.book_volume, r.id]}, include_blank: true %></td></tr>
+      <tr><td>ಪರಿಚಯ:</td><td><%= f.text_area :information, style: "height:100px;width:350px;" %></td></tr>
+      <tr><td></td><td style="padding-top:10px;">
+        <%= f.submit "ಉಳಿಸಿ", class: "btn btn-primary" %>
+        <button type="button" class="btn" onclick="$('#profile-edit').hide();$('#profile-view').show();">ರದ್ದುಮಾಡಿ</button>
+      </td></tr>
+    </table>
+  <% end %>
+</div>
+<% end %>
 
 <div id="vachanakaara-feedback-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-header">
