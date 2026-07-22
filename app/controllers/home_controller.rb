@@ -32,6 +32,20 @@ class HomeController < ApplicationController
     @total = @exact_count + @like_count
     @static_pages = static_pages_available? ? StaticPage.order(:slug, :locale) : []
     @pending_feedbacks_count = UserFeedback.pending.count
+    @vachanakaaras_count = Vachanakaara.count
+    @vachanas_count = Vachana.count
+
+    if params[:va_name].present?
+      @va_results = Vachanakaara.name_like(params[:va_name]).order(:name).limit(30)
+    end
+
+    if params[:vachana_number].present?
+      @vachana_number_results = Vachana.includes(:vachanakaara).where(vachanaid: params[:vachana_number].to_i)
+    end
+
+    if params[:vachana_text].present?
+      @vachana_text_results = Vachana.includes(:vachanakaara).where("vachana LIKE ?", "%#{params[:vachana_text]}%").limit(30)
+    end
   end
 
   def feedbacks
