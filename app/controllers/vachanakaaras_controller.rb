@@ -52,9 +52,9 @@ def edit
 end
 
 def update
-  @vachanakaara =  Vachanakaara.find params[:id]
+  @vachanakaara = Vachanakaara.find params[:id]
   @vachanakaara.update_attributes params[:vachanakaara]
-  redirect_to edit_vachanakaara_path @vachanakaara
+  redirect_to vachanakaara_path(@vachanakaara), notice: "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲಾಗಿದೆ."
 end
 
 def search_vachanakaara_name
