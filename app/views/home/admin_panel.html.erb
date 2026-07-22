@@ -56,10 +56,10 @@
         </div>
       <% end %>
 
-      <% if @va_results %>
-        <div class="result-count"><%= @va_results.count %> ಫಲಿತಾಂಶಗಳು</div>
+      <div style="max-height: 500px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 4px; padding: 8px;">
+        <div class="result-count"><%= @va_results.count %> ವಚನಕಾರರು (<%= link_to "ಎಲ್ಲಾ ವಚನಕಾರರ ಪಟ್ಟಿ", vachanakaaras_path %>)</div>
         <% @va_results.each do |va| %>
-          <div class="admin-card">
+          <div class="admin-card" style="margin-bottom: 6px;">
             <div class="name"><%= va.name %></div>
             <div class="meta">
               ಅಂಕಿತ ನಾಮ: <%= va.ankitha_naama.presence || "—" %>
@@ -76,7 +76,7 @@
         <% if @va_results.empty? %>
           <div class="admin-card"><em>ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ</em></div>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 
