@@ -7,14 +7,37 @@
       <% end %>
     </ul>
     <hr/>
+
+    <h4>ವಚನಕಾರರು (<%= Vachanakaara.count %>)</h4>
+    <%= form_tag search_vachanakaara_name_vachanakaaras_path, method: :get, style: "margin-bottom: 5px;" do %>
+      <%= text_field_tag :vachanakaara_name, nil, placeholder: "ವಚನಕಾರರ ಹೆಸರು ಹುಡುಕಿ", style: "width: 180px;" %>
+      <%= submit_tag "ಹುಡುಕು", class: "btn btn-small" %>
+    <% end %>
+    <%= link_to "ವಚನಕಾರರ ಪಟ್ಟಿ ಮತ್ತು ಸಂಪಾದನೆ", edit_vachanakaara_path(Vachanakaara.first), class: "btn btn-small" %>
+
+    <hr/>
+
+    <h4>ವಚನಗಳು (<%= Vachana.count %>)</h4>
+    <%= form_tag search_vachana_number_vachanas_path, method: :get, style: "margin-bottom: 5px;" do %>
+      <%= text_field_tag :vachana_number, nil, placeholder: "ವಚನ ಸಂಖ್ಯೆ ಹುಡುಕಿ", style: "width: 120px;" %>
+      <%= submit_tag "ಹುಡುಕು", class: "btn btn-small" %>
+    <% end %>
+    <div style="margin-bottom: 5px;">
+      <%= form_tag vachanas_path, method: :get, style: "display:inline;" do %>
+        <%= text_field_tag :vachana, nil, placeholder: "ವಚನ ಪಠ್ಯ ಹುಡುಕಿ", style: "width: 120px;" %>
+        <%= hidden_field_tag :search_type, "like_search" %>
+        <%= submit_tag "ಹುಡುಕು", class: "btn btn-small" %>
+      <% end %>
+    </div>
+
+    <hr/>
+
     <ol> 
-      <li>  <%= link_to "ವಚನಕಾರರು", edit_vachanakaara_path(Vachanakaara.first) %> </li>
-      <!-- <li>  <%#= link_to "ವಚನ", edit_vachana_path(Vachana.first) %> </li> -->
       <li>  <%= link_to "ಆಕರಗಳು", reference_books_path %> </li> 
       <li> <%= link_to "ಬಳಕೆದಾರರು", users_path %> </li>
       <li> <%= link_to "ಬದಲಾವಣೆಯನ್ನು ಗಮನಿಸಿ ", activities_path %> </li>
       <li><%= link_to "ಪರಿಶೀಲಿಸಿದ ವಚನಗಳು ", user_publishers_path(current_user)  %> </li>
-      <li> <%= link_to "Full vachan search ", search_vachana_vachanas_path %> </li> 
+      <li> <%= link_to "Full vachana search ", search_vachana_vachanas_path %> </li> 
       <li><%= link_to "ಬಳಕೆದಾರರ ಪ್ರತಿಕ್ರಿಯೆಗಳು #{'(' + @pending_feedbacks_count.to_s + ')' if @pending_feedbacks_count > 0}", feedbacks_path, style: 'font-weight:bold;' %></li>
     </ol>
 
