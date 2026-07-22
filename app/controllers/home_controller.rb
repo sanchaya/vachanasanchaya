@@ -35,8 +35,10 @@ class HomeController < ApplicationController
     @vachanakaaras_count = Vachanakaara.count
     @vachanas_count = Vachana.count
 
-    if params[:va_name].present?
-      @va_results = Vachanakaara.name_like(params[:va_name]).order(:name).limit(30)
+    @va_results = if params[:va_name].present?
+      Vachanakaara.name_like(params[:va_name]).order(:name).limit(50)
+    else
+      Vachanakaara.order(:name).limit(50)
     end
 
     if params[:vachana_number].present?
