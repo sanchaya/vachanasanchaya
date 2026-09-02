@@ -95,6 +95,10 @@ KannadaVachana::Application.routes.draw do
   resources :reference_books
   resources :activities
 
+  # Donations
+  resources :donations, only: [:create]
+  match 'donations/webhook' => 'donations#webhook', :as => 'donations_webhook', :via => :post
+
 # for web ends here
 
   #for API starts
