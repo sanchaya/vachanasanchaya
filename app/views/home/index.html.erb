@@ -95,7 +95,18 @@
       <p class="donation-popup-text-kn">ಸಂಚಯ ಯೋಜನೆಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಸ್ವತಂತ್ರ ಹಾಗೂ ಮುಕ್ತ ಮೂಲವಾಗಿ (open-source) ಉಳಿಸಿಕೊಳ್ಳಲು ನಾವು ಬದ್ಧರಾಗಿದ್ದೇವೆ. ನಿಮ್ಮ ದೇಣಿಗೆಯು ಅಭಿವೃದ್ಧಿ ಕಾರ್ಯಗಳಿಗೆ ಬೇಕಾಗುವ ಮೂಲಭೂತ ಸಂಪನ್ಮೂಲಗಳನ್ನು ಭರಿಸಲು ಮತ್ತು ಸಮುದಾಯಕ್ಕೆ ಸ್ವತಂತ್ರ ಹಾಗೂ ಮುಕ್ತ ಭಾಷಾ ಸಂಪನ್ಮೂಲಗಳನ್ನು ನೀಡುವುದನ್ನು ಮುಂದುವರಿಸಲು ನಮಗೆ ನೆರವಾಗುತ್ತದೆ.</p>
     </div>
     <div class="donation-popup-footer">
-      <button class="donation-popup-btn donation-popup-btn-remind" onclick="remindMeLaterDonation()">Remind me later / ನಂತರ ನೆನಪಿಸಿ</button>
+      <button class="donation-popup-btn donation-popup-btn-remind" id="remindMeLaterBtn" onclick="showReminderForm()">Remind me later / ನಂತರ ನೆನಪಿಸಿ</button>
+      <div id="reminderForm" style="display:none;margin-top:12px;">
+        <p style="font-size:13px;color:#555;margin-bottom:8px;">ನಿಮ್ಮ ಸಂಪರ್ಕ ಮಾಹಿತಿ ನೀಡಿ, ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</p>
+        <input type="email" id="reminderEmail" placeholder="ಇಮೇಲ್ (ಅಗತ್ಯ)" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:4px;font-size:13px;box-sizing:border-box;margin-bottom:8px;">
+        <input type="tel" id="reminderPhone" placeholder="ಫೋನ್ (ಐಚ್ಛಿಕ)" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:4px;font-size:13px;box-sizing:border-box;margin-bottom:8px;">
+        <div style="display:flex;gap:8px;">
+          <button class="donation-popup-btn" onclick="submitReminder()" id="reminderSubmitBtn" style="flex:1;">ಸಲ್ಲಿಸಿ</button>
+          <button class="donation-popup-btn" onclick="closeDonationPopup()" style="flex:1;">ರದ್ದು</button>
+        </div>
+        <div id="reminderError" style="color:#e74c3c;font-size:12px;margin-top:6px;display:none;"></div>
+        <div id="reminderSuccess" style="color:#27ae60;font-size:12px;margin-top:6px;display:none;">ಧನ್ಯವಾದಗಳು!</div>
+      </div>
     </div>
   </div>
 </div>
@@ -126,8 +137,66 @@
     donationPopupShown = 'true';
   }
   
+  function showReminderForm() {
+    document.getElementById('remindMeLaterBtn').style.display = 'none';
+    document.getElementById('reminderForm').style.display = 'block';
+    document.getElementById('reminderEmail').focus();
+  }
+
+  function submitReminder() {
+    var email = document.getElementById('reminderEmail').value.trim();
+    var phone = document.getElementById('reminderPhone').value.trim();
+    var errorDiv = document.getElementById('reminderError');
+    var successDiv = document.getElementById('reminderSuccess');
+    var submitBtn = document.getElementById('reminderSubmitBtn');
+
+    errorDiv.style.display = 'none';
+    successDiv.style.display = 'none';
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorDiv.textContent = 'ದಯವಿಟ್ಟು ಮಾನ್ಯ ಇಮೇಲ್ ನಮೂದಿಸಿ.';
+      errorDiv.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'ಸಲ್ಲಿಸಲಾಗುತ್ತಿದೆ...';
+
+    var token = document.querySelector('meta[name="csrf-token"]');
+    fetch('/donations/reminder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token ? token.getAttribute('content') : ''
+      },
+      body: JSON.stringify({
+        donation_reminder: { email: email, phone: phone }
+      })
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      if (data.success) {
+        successDiv.style.display = 'block';
+        document.getElementById('reminderForm').querySelectorAll('input').forEach(function(el) { el.disabled = true; });
+        submitBtn.style.display = 'none';
+        setTimeout(function() { closeDonationPopup(); }, 1500);
+      } else {
+        errorDiv.textContent = data.errors ? data.errors.join(', ') : 'ದೋಷ ಸಂಭವಿಸಿದೆ.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'ಸಲ್ಲಿಸಿ';
+      }
+    })
+    .catch(function() {
+      errorDiv.textContent = 'ನೆಟ್‌ವರ್ಕ್ ದೋಷ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+      errorDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ಸಲ್ಲಿಸಿ';
+    });
+  }
+
   function remindMeLaterDonation() {
-    closeDonationPopup();
+    showReminderForm();
   }
 
   window.addEventListener('load', function() {

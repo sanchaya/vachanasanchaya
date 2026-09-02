@@ -178,6 +178,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def donation_reminders
+    set_meta_tags(title: "ದೇಣಿಗೆ ನೆನಪಿಸುವಿಕೆಗಳು - ನಿರ್ವಹಣಾ ಫಲಕ")
+    @reminders = DonationReminder.recent.paginate(page: params[:page], per_page: 50)
+    @total_count = DonationReminder.count
+  end
+
   private
 
   def static_pages_available?

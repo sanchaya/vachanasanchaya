@@ -13,6 +13,17 @@ class DonationsController < ApplicationController
     end
   end
 
+  def create_reminder
+    @reminder = DonationReminder.new(params[:donation_reminder])
+    @reminder.source = 'popup'
+
+    if @reminder.save
+      render json: { success: true }
+    else
+      render json: { success: false, errors: @reminder.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   def webhook
     payload = request.body.read
     sig_header = request.env['HTTP_X_RAZORPAY_SIGNATURE']

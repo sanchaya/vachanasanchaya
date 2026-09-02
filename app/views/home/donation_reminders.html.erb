@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h2>ದೇಣಿಗೆ ನೆನಪಿಸುವಿಕೆಗಳು <small>ಒಟ್ಟು: <%= @total_count %></small></h2>
+</div>
+
+<div style="background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.08);padding:16px;overflow-x:auto;">
+  <table class="table table-striped table-bordered" style="font-size:13px;">
+    <thead>
+      <tr>
+        <th style="width:50px;">#</th>
+        <th>ಇಮೇಲ್</th>
+        <th>ಫೋನ್</th>
+        <th>ಮೂಲ</th>
+        <th style="width:150px;">ದಿನಾಂಕ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reminders.each_with_index do |reminder, i| %>
+      <tr>
+        <td><%= i + 1 + ((params[:page] || 1).to_i - 1) * 50 %></td>
+        <td><%= reminder.email %></td>
+        <td><%= reminder.phone.present? ? reminder.phone : '-' %></td>
+        <td><%= reminder.source %></td>
+        <td><%= reminder.created_at.strftime("%d %b %Y, %I:%M %p") %></td>
+      </tr>
+      <% end %>
+      <% if @reminders.empty? %>
+      <tr>
+        <td colspan="5" style="text-align:center;color:#999;padding:20px;">ಯಾವುದೇ ನೆನಪಿಸುವಿಕೆಗಳು ಇಲ್ಲ</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if @reminders.respond_to?(:total_pages) && @reminders.total_pages > 1 %>
+<div style="text-align:center;margin-top:16px;">
+  <%= will_paginate @reminders %>
+</div>
+<% end %>
+
+<div style="margin-top:16px;">
+  <%= link_to "ನಿರ್ವಹಣಾ ಫಲಕ", admin_panel_path, class: "btn" %>
+</div>
