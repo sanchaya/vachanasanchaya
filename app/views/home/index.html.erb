@@ -97,15 +97,21 @@
     <div class="donation-popup-footer">
       <button class="donation-popup-btn donation-popup-btn-remind" id="remindMeLaterBtn" onclick="showReminderForm()">Remind me later / ನಂತರ ನೆನಪಿಸಿ</button>
       <div id="reminderForm" style="display:none;margin-top:12px;">
-        <p style="font-size:13px;color:#555;margin-bottom:8px;">ನಿಮ್ಮ ಸಂಪರ್ಕ ಮಾಹಿತಿ ನೀಡಿ, ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</p>
-        <input type="email" id="reminderEmail" placeholder="ಇಮೇಲ್ (ಅಗತ್ಯ)" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:4px;font-size:13px;box-sizing:border-box;margin-bottom:8px;">
-        <input type="tel" id="reminderPhone" placeholder="ಫೋನ್ (ಐಚ್ಛಿಕ)" style="width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:4px;font-size:13px;box-sizing:border-box;margin-bottom:8px;">
-        <div style="display:flex;gap:8px;">
-          <button class="donation-popup-btn" onclick="submitReminder()" id="reminderSubmitBtn" style="flex:1;">ಸಲ್ಲಿಸಿ</button>
-          <button class="donation-popup-btn" onclick="closeDonationPopup()" style="flex:1;">ರದ್ದು</button>
+        <p style="font-size:13px;color:#555;margin-bottom:12px;">ನಿಮ್ಮ ಸಂಪರ್ಕ ಮಾಹಿತಿ ನೀಡಿ, ನಾವು ನಿಮಗೆ ನೆನಪಿಸುತ್ತೇವೆ.</p>
+        <div class="reminder-field">
+          <label for="reminderEmail">ಇಮೇಲ್ *</label>
+          <input type="email" id="reminderEmail" placeholder="you@example.com">
         </div>
-        <div id="reminderError" style="color:#e74c3c;font-size:12px;margin-top:6px;display:none;"></div>
-        <div id="reminderSuccess" style="color:#27ae60;font-size:12px;margin-top:6px;display:none;">ಧನ್ಯವಾದಗಳು!</div>
+        <div class="reminder-field">
+          <label for="reminderPhone">ಫೋನ್ (ಐಚ್ಛಿಕ)</label>
+          <input type="tel" id="reminderPhone" placeholder="+91 98765 43210">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px;">
+          <button class="donation-popup-btn reminder-btn-primary" onclick="submitReminder()" id="reminderSubmitBtn">ಸಲ್ಲಿಸಿ</button>
+          <button class="donation-popup-btn" onclick="closeDonationPopup()">ರದ್ದು</button>
+        </div>
+        <div id="reminderError" style="color:#e74c3c;font-size:12px;margin-top:8px;display:none;"></div>
+        <div id="reminderSuccess" style="color:#27ae60;font-size:13px;margin-top:8px;display:none;font-weight:600;">ಧನ್ಯವಾದಗಳು!</div>
       </div>
     </div>
   </div>
