@@ -98,6 +98,8 @@ KannadaVachana::Application.routes.draw do
   # Donations
   resources :donations, only: [:create]
   match 'donations/webhook' => 'donations#webhook', :as => 'donations_webhook', :via => :post
+  match 'donations/reminder' => 'donations#create_reminder', :as => 'donation_reminder', :via => :post
+  match '/admin/donation_reminders' => 'home#donation_reminders', :as => 'admin_donation_reminders', :via => :get
 
 # for web ends here
 
