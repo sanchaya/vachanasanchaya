@@ -111,14 +111,19 @@
         <% end %>
       <% end %>
 
-      <div class="admin-card" style="margin-top: 15px;">
-        <strong>ವಚನ ಪಠ್ಯ ಹುಡುಕಿ</strong>
+<div class="admin-card" style="margin-top: 15px;">
+        <strong>ವಚನ ಪাঠ್ಯ ಹುಡುಕಿ</strong>
         <%= form_tag admin_panel_path, method: :get, class: "admin-form" do %>
           <div class="input-append" style="margin-top: 5px;">
             <%= text_field_tag :vachana_text, params[:vachana_text], placeholder: "ವಚನ ಪಠ್ಯ", style: "width: 200px;" %>
             <%= submit_tag "ಹುಡುಕು", class: "btn btn-primary" %>
           </div>
         <% end %>
+      </div>
+
+      <div class="admin-card" style="margin-top: 15px;">
+        <strong> ಹೊಸ ವಚನವನ್ನು ಸೇರಿಸಿ</strong>
+        <%= link_to "ವಚನವನ್ನು ಸೇರಿಸಿ", new_vachana_path, class: "btn btn-primary" %>
       </div>
 
       <% if @vachana_text_results %>
