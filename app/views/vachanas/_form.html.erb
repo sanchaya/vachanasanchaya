@@ -16,6 +16,14 @@
   <%= f.select :vachanakaara_id, options_from_collection_for_select(Vachanakaara.unscoped.order(:name), "id", "name")  %>
 </div>
 <div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :vachanaid %><br />
+  <%= f.text_field :vachanaid %>
+</div>
+<div class="field">
   <%= f.label :vachana %><br />
   <%= f.text_area :vachana %>
 </div>
