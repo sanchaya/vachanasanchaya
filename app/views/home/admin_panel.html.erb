@@ -121,9 +121,13 @@
         <% end %>
       </div>
 
+<div class="admin-card" style="margin-top: 15px;">
+        <strong>ಹೊಸ ವಚನವನ್ನು ಸೇರಿಸಿ</strong>
+        <%= link_to "ವಚನನ್ನು ಸೇರಿಸಿ", new_vachana_path, class: "btn btn-primary" %>
+      </div>
+
       <div class="admin-card" style="margin-top: 15px;">
-        <strong> ಹೊಸ ವಚನವನ್ನು ಸೇರಿಸಿ</strong>
-        <%= link_to "ವಚನವನ್ನು ಸೇರಿಸಿ", new_vachana_path, class: "btn btn-primary" %>
+        <%= link_to "ವಚನಗಳನ್ನು ಅಳಿಸಿ", vachanas_path, method: :delete, data: { confirm: "ನマイದಿ	vಚನಗಳನ್ನು ಅಳಿಸಲು?" }, class: "btn btn-danger" %>
       </div>
 
       <% if @vachana_text_results %>
