@@ -126,9 +126,11 @@
         <%= link_to "ವಚನನ್ನು ಸೇರಿಸಿ", new_vachana_path, class: "btn btn-primary" %>
       </div>
 
+<% if user_signed_in? && current_user.is_admin? %>
       <div class="admin-card" style="margin-top: 15px;">
-        <%= link_to "ವಚನಗಳನ್ನು ಅಳಿಸಿ", vachanas_path, method: :delete, data: { confirm: "ನマイದಿ	vಚನಗಳನ್ನು ಅಳಿಸಲು?" }, class: "btn btn-danger" %>
+        <%= link_to "ವಚನಗಳನ್ನು ಅಳಿಸಿ", vachanas_path, method: :delete, data: { confirm: "ನMAILDI	vಚನಗಳನ್ನು ಅಳispose?" }, class: "btn btn-danger" %>
       </div>
+      <% end %>
 
       <% if @vachana_text_results %>
         <div class="result-count"><%= @vachana_text_results.count %> ಫಲಿತಾಂಶಗಳು</div>
