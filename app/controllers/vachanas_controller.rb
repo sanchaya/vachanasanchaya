@@ -4,12 +4,10 @@ class VachanasController < ApplicationController
   # GET /vachanas.json
   #check if logged_in user is Admin
   before_filter :authenticate_user_role! , only: [:new, :edit,:create,:update,:destroy]
-  caches_action :index, :cache_path => Proc.new { |c| c.params }, :expires_in => 30.minutes
+  caches_action :index, :cache_path => Proc.new { |c| c.params }, :expires_in => 30.minutes, :unless => :user_signed_in?
 
   def index
       if params[:vachana] and !params[:vachana].blank? 
-      @word_lists = WordList.all if params[:vachana].present?
-      @vachanakaaras_list = Vachanakaara.unscoped.order("name") if params[:vachana].present?
       @pada = params[:vachana].squish
       @search_type = params[:search_type]
       @vachanakaara_id = params[:vachanakaara]

@@ -1,6 +1,6 @@
 <div class="results_list_div keywords_load">
   <% @results.each do |vachana| %>
-    <% cache ["vachana_box", vachana, vachana.updated_at] do %>
+    <% cache ["vachana_box", vachana, vachana.updated_at, (user_signed_in? && current_user.is_admin?) ? "admin" : "public"] do %>
       <a href="#myModal_<%= vachana.id %>" role="button" data-toggle="modal" >
         <div class="box effect5 vachana-concord-box">
           <div class="vachana-show-box"> 
