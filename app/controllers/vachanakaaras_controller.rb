@@ -18,7 +18,7 @@ end
 
 def show
   @vachanakaara = Vachanakaara.find(params[:id])
-  fresh_when(@vachanakaara, public: true)
+  return if fresh_when(@vachanakaara, public: true)
   all_vachanas = @vachanakaara.vachanas
 
   @vachanakaara_letter_counts = all_vachanas.where("vachana_first_letter IS NOT NULL").group(:vachana_first_letter).count
