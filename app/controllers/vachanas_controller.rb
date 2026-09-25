@@ -82,7 +82,7 @@ end
   # GET /vachanas/1.json
   def show
     @vachana = Vachana.includes(:vachanakaara).find(params[:id])
-    fresh_when(@vachana, public: true)
+    return if fresh_when(@vachana, public: true)
     vachana_text = @vachana.vachana.to_s.truncate(160, separator: ' ')
     set_meta_tags(
       title:       "#{@vachana.vachanakaara.name} - ವಚನ #{@vachana.vachanaid} - ವಚನ ಸಂಚಯ",
