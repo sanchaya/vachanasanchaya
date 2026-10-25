@@ -6,12 +6,21 @@ Disallow: /
 
 User-Agent: *
 Allow: /
-Disallow: /vachanas?search_type=
-Disallow: /vachanas?locale=
+
+# Block search/query endpoints to prevent duplicate content
+Disallow: /vachanas?search_type=*
+Disallow: /vachanas?locale=*
 Disallow: /vachanas/autocomplete
 Disallow: /vachanas/search_vachana
 Disallow: /vachanas/ai_search
 Disallow: /vachanas/saved
+
+# Block private/admin areas
+Disallow: /admin_panel
+Disallow: /users
+Disallow: /login
+Disallow: /feedbacks
 Disallow: /reports
 Disallow: /user_feedbacks
+
 Sitemap: https://vachana.sanchaya.net/sitemap-index.xml

@@ -1,0 +1,37 @@
+uid=0(root) gid=0(root) groups=0(root)
+node1.sanchaya.net
+Linux node1.sanchaya.net 4.15.0-196-generic #207-Ubuntu SMP Thu Oct 27 21:24:58 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+4
+CPU(s):              4
+Thread(s) per core:  1
+Core(s) per socket:  4
+Model name:          AMD EPYC 7713 64-Core Processor
+              total        used        free      shared  buff/cache   available
+Mem:           7976        2826         299         296        4849        4553
+Swap:         16383         130       16253
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda        157G   88G   62G  59% /
+/dev/sda        157G   88G   62G  59% /
+uid=0(root) gid=0(root) groups=0(root)
+total 144
+drwxr-xr-x 11 vachana vachana  4096 Sep 26 01:04 .
+drwxr-xr-x 53 root    root     4096 Mar 17  2024 ..
+drwx------  2 vachana vachana  4096 Jul 21  2018 .aptitude
+-rw-------  1 vachana vachana 34264 Sep 26 01:04 .bash_history
+-rw-r--r--  1 vachana vachana   220 Jul 19  2013 .bash_logout
+-rw-r--r--  1 vachana vachana  3566 Jul 20  2013 .bashrc
+drwxrwxr-x  4 vachana vachana  4096 Nov 29  2016 .bundle
+drwxrwxr-x  5 vachana vachana  4096 Feb 26  2015 .bundler
+drwx------  2 vachana vachana  4096 Jul 19  2013 .cache
+drwxrwxr-x  4 vachana vachana  4096 Jul 20  2013 .gem
+-rw-rw-r--  1 vachana vachana    60 Jul  4  2016 .gitconfig
+-rw-rw-r--  1 vachana vachana     0 Aug  5  2018 .irb-history
+-rw-rw-r--  1 vachana vachana    55 Jul 19  2018 .my.cnf
+-rw-------  1 vachana vachana    89 Jun 14 09:33 .mysql_history
+drwxr-xr-x  3 vachana vachana  4096 Jun 18  2017 .passenger
+-rw-r--r--  1 vachana vachana   675 Jul 19  2013 .profile
+drwxrwxr-x  3 vachana vachana  4096 Dec 27  2013 rails_apps
+-rw-rw-r--  1 vachana vachana    75 Feb  2  2014 .selected_editor
+-rw-------  1 vachana vachana   114 Nov 25  2013 .sqlite_history
